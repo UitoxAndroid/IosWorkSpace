@@ -17,6 +17,8 @@ class FirstViewController: UIViewController {
         
         // Test Hello
 
+		//hello
+		
 		let url = "http://api.openweathermap.org/data/2.5/weather?lat=37.785834&lon=-122.406417&units=imperial"
 
 		ApiManager<TestDataModel>.action(url, param: nil) { (response: TestDataModel?, error: NSError?, isSuccess:Bool) -> Void in
