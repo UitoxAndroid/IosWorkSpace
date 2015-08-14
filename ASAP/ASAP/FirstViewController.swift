@@ -14,6 +14,8 @@ class FirstViewController: UIViewController {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 //		let log = Logger()
+        
+        // Test Hello
 
 		let url = "http://api.openweathermap.org/data/2.5/weather?lat=37.785834&lon=-122.406417&units=imperial"
 
