@@ -59,6 +59,7 @@
 		AF251DC71B7C869F00F06143 /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		AF251DC81B7C869F00F06143 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		AF251DC91B7C869F00F06143 /* TestDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDataModel.swift; sourceTree = "<group>"; };
+		AF790AE31B7D922000070875 /* ASAP-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ASAP-Bridging-Header.h"; sourceTree = "<group>"; };
 		D2E7CB8BBC77CA6378C13B40 /* Pods-ASAP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAP.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAP/Pods-ASAP.debug.xcconfig"; sourceTree = "<group>"; };
 		F6A79CE75AD0B44A995941BE /* Pods_ASAP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASAP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -148,6 +149,7 @@
 				AF251DC71B7C869F00F06143 /* ApiManager.swift */,
 				AF251DC81B7C869F00F06143 /* Logger.swift */,
 				AF251DC91B7C869F00F06143 /* TestDataModel.swift */,
+				AF790AE31B7D922000070875 /* ASAP-Bridging-Header.h */,
 			);
 			path = UitoxCommon;
 			sourceTree = "<group>";
@@ -456,6 +458,7 @@
 			baseConfigurationReference = D2E7CB8BBC77CA6378C13B40 /* Pods-ASAP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -464,6 +467,8 @@
 				INFOPLIST_FILE = ASAP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "UitoxCommon/ASAP-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -472,6 +477,7 @@
 			baseConfigurationReference = 12F3382319F2166E2AC2AFB8 /* Pods-ASAP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -480,6 +486,7 @@
 				INFOPLIST_FILE = ASAP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "UitoxCommon/ASAP-Bridging-Header.h";
 			};
 			name = Release;
 		};
