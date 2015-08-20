@@ -17,8 +17,6 @@
 		AF251DCA1B7C869F00F06143 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF251DC71B7C869F00F06143 /* ApiManager.swift */; };
 		AF251DCB1B7C869F00F06143 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF251DC81B7C869F00F06143 /* Logger.swift */; };
 		AF251DCC1B7C869F00F06143 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF251DC91B7C869F00F06143 /* WeatherResponse.swift */; };
-		AF3195DE1B83144F001D6E75 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = AF3195BA1B83144F001D6E75 /* LICENSE */; };
-		AF3195DF1B83144F001D6E75 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = AF3195BB1B83144F001D6E75 /* README.md */; };
 		AF3195E01B83144F001D6E75 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3195BD1B83144F001D6E75 /* Alamofire.swift */; };
 		AF3195E11B83144F001D6E75 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3195BE1B83144F001D6E75 /* Download.swift */; };
 		AF3195E21B83144F001D6E75 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3195BF1B83144F001D6E75 /* Manager.swift */; };
@@ -30,9 +28,6 @@
 		AF3195E81B83144F001D6E75 /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3195C51B83144F001D6E75 /* Upload.swift */; };
 		AF3195E91B83144F001D6E75 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3195C61B83144F001D6E75 /* Validation.swift */; };
 		AF3195EA1B83144F001D6E75 /* AlamofireObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3195C91B83144F001D6E75 /* AlamofireObjectMapper.swift */; };
-		AF3195EB1B83144F001D6E75 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = AF3195CA1B83144F001D6E75 /* LICENSE */; };
-		AF3195EC1B83144F001D6E75 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = AF3195CB1B83144F001D6E75 /* README.md */; };
-		AF3195ED1B83144F001D6E75 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = AF3195CD1B83144F001D6E75 /* LICENSE */; };
 		AF3195EE1B83144F001D6E75 /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3195D01B83144F001D6E75 /* FromJSON.swift */; };
 		AF3195EF1B83144F001D6E75 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3195D11B83144F001D6E75 /* Mapper.swift */; };
 		AF3195F01B83144F001D6E75 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3195D21B83144F001D6E75 /* Operators.swift */; };
@@ -45,7 +40,6 @@
 		AF3195F71B83144F001D6E75 /* TransformOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3195DA1B83144F001D6E75 /* TransformOf.swift */; };
 		AF3195F81B83144F001D6E75 /* TransformType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3195DB1B83144F001D6E75 /* TransformType.swift */; };
 		AF3195F91B83144F001D6E75 /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3195DC1B83144F001D6E75 /* URLTransform.swift */; };
-		AF3195FA1B83144F001D6E75 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = AF3195DD1B83144F001D6E75 /* README.md */; };
 		AF3195FE1B832705001D6E75 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF3195FC1B832705001D6E75 /* Info.plist */; };
 		AF3195FF1B832705001D6E75 /* SCLAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3195FD1B832705001D6E75 /* SCLAlertView.swift */; };
 		AF790AE81B81C0D900070875 /* OpenWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF790AE71B81C0D900070875 /* OpenWeatherModel.swift */; };
@@ -89,8 +83,6 @@
 		AF251DC71B7C869F00F06143 /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		AF251DC81B7C869F00F06143 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		AF251DC91B7C869F00F06143 /* WeatherResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeatherResponse.swift; path = ../UitoxCommon/WeatherResponse.swift; sourceTree = "<group>"; };
-		AF3195BA1B83144F001D6E75 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		AF3195BB1B83144F001D6E75 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AF3195BD1B83144F001D6E75 /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
 		AF3195BE1B83144F001D6E75 /* Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
 		AF3195BF1B83144F001D6E75 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
@@ -102,9 +94,6 @@
 		AF3195C51B83144F001D6E75 /* Upload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upload.swift; sourceTree = "<group>"; };
 		AF3195C61B83144F001D6E75 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		AF3195C91B83144F001D6E75 /* AlamofireObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireObjectMapper.swift; sourceTree = "<group>"; };
-		AF3195CA1B83144F001D6E75 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		AF3195CB1B83144F001D6E75 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		AF3195CD1B83144F001D6E75 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		AF3195D01B83144F001D6E75 /* FromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromJSON.swift; sourceTree = "<group>"; };
 		AF3195D11B83144F001D6E75 /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
 		AF3195D21B83144F001D6E75 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
@@ -117,7 +106,6 @@
 		AF3195DA1B83144F001D6E75 /* TransformOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformOf.swift; sourceTree = "<group>"; };
 		AF3195DB1B83144F001D6E75 /* TransformType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformType.swift; sourceTree = "<group>"; };
 		AF3195DC1B83144F001D6E75 /* URLTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLTransform.swift; sourceTree = "<group>"; };
-		AF3195DD1B83144F001D6E75 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AF3195FC1B832705001D6E75 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF3195FD1B832705001D6E75 /* SCLAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCLAlertView.swift; sourceTree = "<group>"; };
 		AF790AE31B7D922000070875 /* ASAP-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ASAP-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -227,8 +215,6 @@
 		AF3195B91B83144F001D6E75 /* Alamofire */ = {
 			isa = PBXGroup;
 			children = (
-				AF3195BA1B83144F001D6E75 /* LICENSE */,
-				AF3195BB1B83144F001D6E75 /* README.md */,
 				AF3195BC1B83144F001D6E75 /* Source */,
 			);
 			path = Alamofire;
@@ -255,8 +241,6 @@
 			isa = PBXGroup;
 			children = (
 				AF3195C81B83144F001D6E75 /* AlamofireObjectMapper */,
-				AF3195CA1B83144F001D6E75 /* LICENSE */,
-				AF3195CB1B83144F001D6E75 /* README.md */,
 			);
 			path = AlamofireObjectMapper;
 			sourceTree = "<group>";
@@ -272,9 +256,7 @@
 		AF3195CC1B83144F001D6E75 /* ObjectMapper */ = {
 			isa = PBXGroup;
 			children = (
-				AF3195CD1B83144F001D6E75 /* LICENSE */,
 				AF3195CE1B83144F001D6E75 /* ObjectMapper */,
-				AF3195DD1B83144F001D6E75 /* README.md */,
 			);
 			path = ObjectMapper;
 			sourceTree = "<group>";
@@ -421,12 +403,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF3195ED1B83144F001D6E75 /* LICENSE in Resources */,
 				AF010ECA1B7C3FBA00EB4596 /* Main.storyboard in Resources */,
 				AF010ECF1B7C3FBA00EB4596 /* LaunchScreen.xib in Resources */,
-				AF3195DE1B83144F001D6E75 /* LICENSE in Resources */,
 				AF010ECC1B7C3FBA00EB4596 /* Images.xcassets in Resources */,
-				AF3195EB1B83144F001D6E75 /* LICENSE in Resources */,
 				AF3195FE1B832705001D6E75 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -449,12 +428,10 @@
 				AF251DCC1B7C869F00F06143 /* WeatherResponse.swift in Sources */,
 				AF3195F81B83144F001D6E75 /* TransformType.swift in Sources */,
 				AF3195F41B83144F001D6E75 /* DateTransform.swift in Sources */,
-				AF3195EC1B83144F001D6E75 /* README.md in Sources */,
 				AF251DCA1B7C869F00F06143 /* ApiManager.swift in Sources */,
 				AF3195EF1B83144F001D6E75 /* Mapper.swift in Sources */,
 				AF010EC71B7C3FBA00EB4596 /* SecondViewController.swift in Sources */,
 				AF3195E91B83144F001D6E75 /* Validation.swift in Sources */,
-				AF3195FA1B83144F001D6E75 /* README.md in Sources */,
 				AF3195F61B83144F001D6E75 /* ISO8601DateTransform.swift in Sources */,
 				AF010EC31B7C3FBA00EB4596 /* AppDelegate.swift in Sources */,
 				AF3195FF1B832705001D6E75 /* SCLAlertView.swift in Sources */,
@@ -465,7 +442,6 @@
 				AF3195E31B83144F001D6E75 /* MultipartFormData.swift in Sources */,
 				AF3195E41B83144F001D6E75 /* ParameterEncoding.swift in Sources */,
 				AF3195E01B83144F001D6E75 /* Alamofire.swift in Sources */,
-				AF3195DF1B83144F001D6E75 /* README.md in Sources */,
 				AF3195E21B83144F001D6E75 /* Manager.swift in Sources */,
 				AF3195E71B83144F001D6E75 /* ServerTrustPolicy.swift in Sources */,
 				AF3195F51B83144F001D6E75 /* EnumTransform.swift in Sources */,

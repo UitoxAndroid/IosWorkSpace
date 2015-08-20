@@ -13,20 +13,21 @@ class OpenWeatherModel
 	func getWeatherData( completionHandler: (weather: WeatherResponse?, errorMessage: String?) -> Void ) {
 		let url = "http://api.openweathermap.org/data/2.5/weather?lat=37.785834&lon=-122.406417&units=imperial"
 
-		ApiManager<WeatherResponse>.action(url, param: nil) { (responseObject: WeatherResponse?, error: String?, isSuccess:Bool) -> Void in
+		ApiManager<WeatherResponse>.postDictionary(url, params: nil) {
+			(responseObject: WeatherResponse?, error: String?) -> Void in
 
-			if !isSuccess {
-				completionHandler(weather: nil, errorMessage: error)
-				return
-			}
-
-			if let weather = responseObject?.weather {
-				for wea in weather {
-
+				if responseObject == nil {
+					completionHandler(weather: nil, errorMessage: error)
+					return
 				}
-			}
 
-			completionHandler(weather: responseObject, errorMessage: nil)
+				if let weather = responseObject?.weather {
+					for wea in weather {
+
+					}
+				}
+
+				completionHandler(weather: responseObject, errorMessage: nil)
 		}
 
 	}
