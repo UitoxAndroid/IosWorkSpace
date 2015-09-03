@@ -12,6 +12,8 @@
 		AF010ECC1B7C3FBA00EB4596 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF010ECB1B7C3FBA00EB4596 /* Images.xcassets */; };
 		AF010ECF1B7C3FBA00EB4596 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF010ECD1B7C3FBA00EB4596 /* LaunchScreen.xib */; };
 		AF010EDB1B7C3FBA00EB4596 /* ASAPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF010EDA1B7C3FBA00EB4596 /* ASAPTests.swift */; };
+		AF0F3BC31B97E2C000EE8CD2 /* SearchListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0F3BC11B97E2C000EE8CD2 /* SearchListResponse.swift */; };
+		AF0F3BC41B97E2C000EE8CD2 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0F3BC21B97E2C000EE8CD2 /* SearchModel.swift */; };
 		AF251DCA1B7C869F00F06143 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF251DC71B7C869F00F06143 /* ApiManager.swift */; };
 		AF251DCB1B7C869F00F06143 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF251DC81B7C869F00F06143 /* Logger.swift */; };
 		AF251DCC1B7C869F00F06143 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF251DC91B7C869F00F06143 /* WeatherResponse.swift */; };
@@ -93,6 +95,8 @@
 		AF010ED41B7C3FBA00EB4596 /* ASAPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ASAPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF010ED91B7C3FBA00EB4596 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF010EDA1B7C3FBA00EB4596 /* ASAPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPTests.swift; sourceTree = "<group>"; };
+		AF0F3BC11B97E2C000EE8CD2 /* SearchListResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchListResponse.swift; sourceTree = "<group>"; };
+		AF0F3BC21B97E2C000EE8CD2 /* SearchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		AF251DC71B7C869F00F06143 /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		AF251DC81B7C869F00F06143 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		AF251DC91B7C869F00F06143 /* WeatherResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
@@ -338,6 +342,8 @@
 		AF790AE61B81BFC500070875 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AF0F3BC11B97E2C000EE8CD2 /* SearchListResponse.swift */,
+				AF0F3BC21B97E2C000EE8CD2 /* SearchModel.swift */,
 				AF790AE71B81C0D900070875 /* OpenWeatherModel.swift */,
 				AF251DC91B7C869F00F06143 /* WeatherResponse.swift */,
 				AF7E8FEF1B95581200AFD3EF /* ItemInfo.swift */,
@@ -510,6 +516,7 @@
 				AF7E90031B95592500AFD3EF /* OrganizationsViewController.swift in Sources */,
 				AF7E90041B95592500AFD3EF /* RepositoriesViewController.swift in Sources */,
 				AF3195E91B83144F001D6E75 /* Validation.swift in Sources */,
+				AF0F3BC41B97E2C000EE8CD2 /* SearchModel.swift in Sources */,
 				AF3195F61B83144F001D6E75 /* ISO8601DateTransform.swift in Sources */,
 				AF7E8FFF1B95592500AFD3EF /* GoodsListViewController.swift in Sources */,
 				AF7E8FEE1B9557C400AFD3EF /* PagingMenuOptions.swift in Sources */,
@@ -528,6 +535,7 @@
 				AF3195E71B83144F001D6E75 /* ServerTrustPolicy.swift in Sources */,
 				AF3195F51B83144F001D6E75 /* EnumTransform.swift in Sources */,
 				AF3195E81B83144F001D6E75 /* Upload.swift in Sources */,
+				AF0F3BC31B97E2C000EE8CD2 /* SearchListResponse.swift in Sources */,
 				AF3195E51B83144F001D6E75 /* Request.swift in Sources */,
 				AF7E8FEB1B9557C400AFD3EF /* MenuItemView.swift in Sources */,
 				AF7E90051B95592500AFD3EF /* UsersViewController.swift in Sources */,
