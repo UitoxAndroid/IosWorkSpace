@@ -27,7 +27,8 @@ class ApiManager<T:Mappable>
 
 	static func postDictionary(urlPath:String, params:[String:AnyObject]?, completionHandler: (mapperObject: T?, errorMessage:String?) -> Void) {
 		resetTrustPolicy()
-		Manager.sharedInstance.request(.POST, urlPath, parameters: params).responseObject {
+
+		Manager.sharedInstance.request(.POST, urlPath, parameters: params, encoding: .JSON).responseObject {
 			(responseEntity: T?, error: NSError?) in
 			if responseEntity == nil || error != nil {
 				completionHandler(mapperObject:nil, errorMessage:error?.localizedDescription)
