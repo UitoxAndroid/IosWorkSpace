@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		603F4B341B99365800D8F7BB /* GoodsTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F4B331B99365800D8F7BB /* GoodsTableTableViewController.swift */; };
 		60A234011B97E1EB00BE7333 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A234001B97E1EB00BE7333 /* CategoryModel.swift */; };
 		60A234031B97E20000BE7333 /* CategoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A234021B97E20000BE7333 /* CategoryResponse.swift */; };
 		AF010EC31B7C3FBA00EB4596 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF010EC21B7C3FBA00EB4596 /* AppDelegate.swift */; };
@@ -89,7 +88,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		603F4B331B99365800D8F7BB /* GoodsTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsTableTableViewController.swift; sourceTree = "<group>"; };
 		60A234001B97E1EB00BE7333 /* CategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		60A234021B97E20000BE7333 /* CategoryResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryResponse.swift; sourceTree = "<group>"; };
 		AF010EBD1B7C3FBA00EB4596 /* ASAP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAP.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -384,7 +382,6 @@
 				AF7E8FFA1B95592500AFD3EF /* RepositoriesViewController.swift */,
 				AF7E8FFB1B95592500AFD3EF /* UsersViewController.swift */,
 				AF7E900D1B957DB600AFD3EF /* FirstViewController.swift */,
-				603F4B331B99365800D8F7BB /* GoodsTableTableViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -518,7 +515,6 @@
 				AF3195F81B83144F001D6E75 /* TransformType.swift in Sources */,
 				AF3195F41B83144F001D6E75 /* DateTransform.swift in Sources */,
 				AF7E8FFE1B95592500AFD3EF /* GistsViewController.swift in Sources */,
-				603F4B341B99365800D8F7BB /* GoodsTableTableViewController.swift in Sources */,
 				AF251DCA1B7C869F00F06143 /* ApiManager.swift in Sources */,
 				AF7E8FFD1B95592500AFD3EF /* DetailViewController.swift in Sources */,
 				AF7E90091B95791D00AFD3EF /* BasicCell.swift in Sources */,
