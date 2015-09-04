@@ -28,8 +28,8 @@
         bImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         [self addSubview:bImageView];
         
-        
-        UIImage *image = [UIImage imageNamed:@"re_prduct_pan_toggle"];
+		//re_prduct_pan_toggle <- 原本的圖
+        UIImage *image = [UIImage imageNamed:@"re_product_pan_b"];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
         CGFloat y = (self.bounds.size.height - image.size.height)/2.0;
         imageView.frame = CGRectMake(30 - image.size.width, y, image.size.width, image.size.height);

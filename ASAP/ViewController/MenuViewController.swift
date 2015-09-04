@@ -11,10 +11,13 @@ import UIKit
 class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,SKSTableViewDelegate
 {
 	@IBOutlet weak var leftTableView: UITableView!
-	let kLeftViewWidth = 96
+
 	var rightTableView: SKSTableView!
 	var contentView: UIView!
 	var categoryView: PGCategoryView!
+	let CellIdentifier = "Cell"
+	let SKSCellIdentifier = "SKSTableViewCell"
+	let SubCellIdentifier = "SubCell"
 	var _contentList:[[String]] = []
 	var contentList: [[String]] {
 		if _contentList.count == 0 {
@@ -34,14 +37,20 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		let statusBarHeight:CGFloat = 20
+		let loginBarHeight:CGFloat = 54
+		let tabBarHeight:CGFloat = 44
+		let kLeftViewWidth:CGFloat = 96
+
 		contentView = UIView()
-		contentView.frame = CGRect(x: self.view.bounds.size.width, y: 20 + 44, width: self.view.bounds.size.width -  CGFloat(kLeftViewWidth), height: self.view.bounds.size.height - 44 - 20 - 44)
+		contentView.frame = CGRect(x: self.view.bounds.size.width, y: statusBarHeight + tabBarHeight + loginBarHeight,
+			width: self.view.bounds.size.width -  kLeftViewWidth, height: self.view.bounds.size.height - statusBarHeight - tabBarHeight - loginBarHeight)
 		contentView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
 		contentView.backgroundColor = UIColor.redColor()
 		self.view.addSubview(contentView)
 
 		rightTableView = SKSTableView()
-		rightTableView.frame = CGRect(x: 0, y: 0, width: contentView.bounds.size.width, height: contentView.bounds.size.height)
+		rightTableView.frame = CGRect(x: 0, y: 0, width: contentView.bounds.size.width, height: contentView.bounds.size.height - tabBarHeight)
 		rightTableView.SKSTableViewDelegate = self
 		rightTableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
 		rightTableView.tableFooterView = UIView()
@@ -77,9 +86,13 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		return self.contentList[indexPath.row].count - 1
 	}
 
-	let CellIdentifier = "Cell"
-	let SKSCellIdentifier = "SKSTableViewCell"
-	let SubCellIdentifier = "SubCell"
+	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return "全站商品分類"
+	}
+
+	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return 36
+	}
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		if tableView == leftTableView {

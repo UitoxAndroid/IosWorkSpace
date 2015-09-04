@@ -366,8 +366,8 @@
 		AF790AE61B81BFC500070875 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AF0F3BC11B97E2C000EE8CD2 /* SearchListResponse.swift */,
 				AF0F3BC21B97E2C000EE8CD2 /* SearchModel.swift */,
+				AF0F3BC11B97E2C000EE8CD2 /* SearchListResponse.swift */,
 				AF790AE71B81C0D900070875 /* OpenWeatherModel.swift */,
 				AF251DC91B7C869F00F06143 /* WeatherResponse.swift */,
 				AF7E8FEF1B95581200AFD3EF /* ItemInfo.swift */,

@@ -130,9 +130,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="sds-T3-zf5">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zPJ-pe-vef">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0u-V1-y5z">
+                                        <rect key="frame" x="168" y="7" width="30" height="30"/>
+                                        <state key="normal" title="登出">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hi, xxx@uitox.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GjB-yj-1x4">
+                                        <rect key="frame" x="15" y="11" width="140" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="GjB-yj-1x4" secondAttribute="bottom" constant="12" id="6P3-WJ-M8d"/>
+                                    <constraint firstItem="N0u-V1-y5z" firstAttribute="top" secondItem="zPJ-pe-vef" secondAttribute="top" constant="7" id="6fe-nY-WD6"/>
+                                    <constraint firstItem="GjB-yj-1x4" firstAttribute="leading" secondItem="zPJ-pe-vef" secondAttribute="leading" constant="15" id="7Kg-cK-Qgu"/>
+                                    <constraint firstItem="GjB-yj-1x4" firstAttribute="top" secondItem="zPJ-pe-vef" secondAttribute="top" constant="11" id="8Mg-tX-MVW"/>
+                                    <constraint firstItem="N0u-V1-y5z" firstAttribute="leading" secondItem="GjB-yj-1x4" secondAttribute="trailing" constant="13" id="iUF-Xr-3Ua"/>
+                                    <constraint firstAttribute="height" constant="44" id="rVN-Ug-2SX"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="sds-T3-zf5">
+                                <rect key="frame" x="0.0" y="116" width="600" height="484"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="ePm-4F-hiU" id="O8l-Ke-Sxr"/>
                                     <outlet property="delegate" destination="ePm-4F-hiU" id="oNt-q9-xHi"/>
@@ -142,12 +167,25 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="sds-T3-zf5" secondAttribute="trailing" id="9yP-e0-cMc"/>
-                            <constraint firstItem="sds-T3-zf5" firstAttribute="top" secondItem="304-WK-FWe" secondAttribute="top" id="FLd-Ih-aDz"/>
+                            <constraint firstItem="sds-T3-zf5" firstAttribute="top" secondItem="304-WK-FWe" secondAttribute="top" constant="44" id="FLd-Ih-aDz"/>
                             <constraint firstAttribute="bottom" secondItem="sds-T3-zf5" secondAttribute="bottom" id="HFM-D2-8hQ"/>
+                            <constraint firstAttribute="trailing" secondItem="zPJ-pe-vef" secondAttribute="trailing" id="Qfu-h1-Fkb"/>
+                            <constraint firstItem="sds-T3-zf5" firstAttribute="top" secondItem="zPJ-pe-vef" secondAttribute="bottom" id="SHa-9G-FsE"/>
+                            <constraint firstItem="zPJ-pe-vef" firstAttribute="leading" secondItem="304-WK-FWe" secondAttribute="leading" id="cOJ-T8-tMx"/>
+                            <constraint firstItem="sds-T3-zf5" firstAttribute="top" secondItem="zPJ-pe-vef" secondAttribute="bottom" constant="8" symbolic="YES" id="gCE-Tb-qkI"/>
+                            <constraint firstItem="zPJ-pe-vef" firstAttribute="top" secondItem="kXL-Tf-K0B" secondAttribute="bottom" id="r4U-N7-yDO"/>
                             <constraint firstItem="sds-T3-zf5" firstAttribute="leading" secondItem="304-WK-FWe" secondAttribute="leading" id="tnf-UI-O06"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="FLd-Ih-aDz"/>
+                                <exclude reference="SHa-9G-FsE"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="選單" id="xnT-Qa-j1m"/>
+                    <navigationItem key="navigationItem" title="選單" id="xnT-Qa-j1m">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="CgV-f3-i1E"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="leftTableView" destination="sds-T3-zf5" id="NLa-9X-U4t"/>
                     </connections>
