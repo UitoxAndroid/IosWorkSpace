@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		60A234011B97E1EB00BE7333 /* CategoryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A234001B97E1EB00BE7333 /* CategoryRequest.swift */; };
-		60A234031B97E20000BE7333 /* CategoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A234021B97E20000BE7333 /* CategoryResponse.swift */; };
 		AF010EC31B7C3FBA00EB4596 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF010EC21B7C3FBA00EB4596 /* AppDelegate.swift */; };
 		AF010ECA1B7C3FBA00EB4596 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF010EC81B7C3FBA00EB4596 /* Main.storyboard */; };
 		AF010ECC1B7C3FBA00EB4596 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF010ECB1B7C3FBA00EB4596 /* Images.xcassets */; };
@@ -86,8 +84,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		60A234001B97E1EB00BE7333 /* CategoryRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryRequest.swift; sourceTree = "<group>"; };
-		60A234021B97E20000BE7333 /* CategoryResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryResponse.swift; sourceTree = "<group>"; };
 		AF010EBD1B7C3FBA00EB4596 /* ASAP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF010EC11B7C3FBA00EB4596 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF010EC21B7C3FBA00EB4596 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -345,8 +341,6 @@
 				AF790AE71B81C0D900070875 /* OpenWeatherModel.swift */,
 				AF251DC91B7C869F00F06143 /* WeatherResponse.swift */,
 				AF7E8FEF1B95581200AFD3EF /* ItemInfo.swift */,
-				60A234001B97E1EB00BE7333 /* CategoryRequest.swift */,
-				60A234021B97E20000BE7333 /* CategoryResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -531,12 +525,10 @@
 				AF3195E01B83144F001D6E75 /* Alamofire.swift in Sources */,
 				AF7E900A1B95791D00AFD3EF /* HeaderCell.swift in Sources */,
 				AF3195E21B83144F001D6E75 /* Manager.swift in Sources */,
-				60A234011B97E1EB00BE7333 /* CategoryRequest.swift in Sources */,
 				AF3195E71B83144F001D6E75 /* ServerTrustPolicy.swift in Sources */,
 				AF3195F51B83144F001D6E75 /* EnumTransform.swift in Sources */,
 				AF3195E81B83144F001D6E75 /* Upload.swift in Sources */,
 				AF3195E51B83144F001D6E75 /* Request.swift in Sources */,
-				60A234031B97E20000BE7333 /* CategoryResponse.swift in Sources */,
 				AF7E8FEB1B9557C400AFD3EF /* MenuItemView.swift in Sources */,
 				AF7E90051B95592500AFD3EF /* UsersViewController.swift in Sources */,
 				AF790AE81B81C0D900070875 /* OpenWeatherModel.swift in Sources */,
