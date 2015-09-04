@@ -65,15 +65,17 @@ class FirstViewController: UIViewController
 				self.searchData!.search = search!
 				println("statusCode:\(search!.statusCode)")
 				println("total:\(search!.total)")
+				println("currentPage:\(search!.currentPage)")
 
-				//                if let searchList = search?.searchList {
-				//                    for searchItem in searchList {
-				//                        print("\(searchItem.seq!)\\t")
-				//                        print("\(searchItem.name!)\\t")
-				//                        print("\(searchItem.pic!)\\t")
-				//                        println()
-				//                    }
-				//                }
+				if let storeList = search?.stroeList {
+					for stroe in storeList {
+						print("\(stroe.name!)\t")
+						print("\(stroe.pic!)\t")
+						//                        print("\(stroe.title!)\t")
+						println()
+					}
+				}
+
 			}
 		}
 	}
