@@ -16,6 +16,7 @@
 		AF0F3BC41B97E2C000EE8CD2 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0F3BC21B97E2C000EE8CD2 /* SearchModel.swift */; };
 		AF0F3BC71B99776800EE8CD2 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0F3BC51B99776800EE8CD2 /* CategoryModel.swift */; };
 		AF0F3BC81B99776800EE8CD2 /* CategoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0F3BC61B99776800EE8CD2 /* CategoryResponse.swift */; };
+		AF0F3BCA1B9D7DBA00EE8CD2 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0F3BC91B9D7DBA00EE8CD2 /* SearchResultViewController.swift */; };
 		AF251DCA1B7C869F00F06143 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF251DC71B7C869F00F06143 /* ApiManager.swift */; };
 		AF251DCB1B7C869F00F06143 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF251DC81B7C869F00F06143 /* Logger.swift */; };
 		AF251DCC1B7C869F00F06143 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF251DC91B7C869F00F06143 /* WeatherResponse.swift */; };
@@ -110,6 +111,7 @@
 		AF0F3BC21B97E2C000EE8CD2 /* SearchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		AF0F3BC51B99776800EE8CD2 /* CategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		AF0F3BC61B99776800EE8CD2 /* CategoryResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryResponse.swift; sourceTree = "<group>"; };
+		AF0F3BC91B9D7DBA00EE8CD2 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		AF251DC71B7C869F00F06143 /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		AF251DC81B7C869F00F06143 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		AF251DC91B7C869F00F06143 /* WeatherResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 				AF7E8FFB1B95592500AFD3EF /* UsersViewController.swift */,
 				AF7E900D1B957DB600AFD3EF /* FirstViewController.swift */,
 				AF7E902B1B96A2DD00AFD3EF /* MenuViewController.swift */,
+				AF0F3BC91B9D7DBA00EE8CD2 /* SearchResultViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				AF3195E61B83144F001D6E75 /* ResponseSerialization.swift in Sources */,
 				AF3195F91B83144F001D6E75 /* URLTransform.swift in Sources */,
 				AF3195F71B83144F001D6E75 /* TransformOf.swift in Sources */,
+				AF0F3BCA1B9D7DBA00EE8CD2 /* SearchResultViewController.swift in Sources */,
 				AF3195E11B83144F001D6E75 /* Download.swift in Sources */,
 				AF3195EE1B83144F001D6E75 /* FromJSON.swift in Sources */,
 			);

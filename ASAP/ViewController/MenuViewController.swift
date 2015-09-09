@@ -66,6 +66,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
         // Do any additional setup after loading the view.
     }
 
+
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 		if tableView == leftTableView {
 			return 1
