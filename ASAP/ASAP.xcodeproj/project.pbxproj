@@ -72,6 +72,7 @@
 		AF7E90321B96A59800AFD3EF /* PGCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7E902F1B96A59800AFD3EF /* PGCategoryView.m */; };
 		AF7E90331B96A59800AFD3EF /* re_prduct_pan_toggle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF7E90301B96A59800AFD3EF /* re_prduct_pan_toggle@2x.png */; };
 		AF7E90341B96A59800AFD3EF /* re_product_pan_b@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF7E90311B96A59800AFD3EF /* re_product_pan_b@2x.png */; };
+		AFEF5D401BA0346700A4961D /* SwiftNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF5D3F1BA0346700A4961D /* SwiftNotice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +173,7 @@
 		AF7E902F1B96A59800AFD3EF /* PGCategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCategoryView.m; sourceTree = "<group>"; };
 		AF7E90301B96A59800AFD3EF /* re_prduct_pan_toggle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "re_prduct_pan_toggle@2x.png"; sourceTree = "<group>"; };
 		AF7E90311B96A59800AFD3EF /* re_product_pan_b@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "re_product_pan_b@2x.png"; sourceTree = "<group>"; };
+		AFEF5D3F1BA0346700A4961D /* SwiftNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftNotice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +267,7 @@
 		AF3195B81B83144F001D6E75 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				AFEF5D3E1BA0346700A4961D /* SwiftNotice-3.1 */,
 				AF7E902D1B96A59800AFD3EF /* PGCategoryMenu */,
 				AF7E901D1B96A14300AFD3EF /* SKSTableViewImp */,
 				AF7E8FE41B9557C400AFD3EF /* PageMenuController */,
@@ -449,6 +452,14 @@
 			path = PGCategoryMenu;
 			sourceTree = "<group>";
 		};
+		AFEF5D3E1BA0346700A4961D /* SwiftNotice-3.1 */ = {
+			isa = PBXGroup;
+			children = (
+				AFEF5D3F1BA0346700A4961D /* SwiftNotice.swift */,
+			);
+			path = "SwiftNotice-3.1";
+			sourceTree = "<group>";
+		};
 		F39DA90FC632ABF7B58E8331 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -583,6 +594,7 @@
 				AF7E90031B95592500AFD3EF /* OrganizationsViewController.swift in Sources */,
 				AF7E90041B95592500AFD3EF /* RepositoriesViewController.swift in Sources */,
 				AF3195E91B83144F001D6E75 /* Validation.swift in Sources */,
+				AFEF5D401BA0346700A4961D /* SwiftNotice.swift in Sources */,
 				AF0F3BC41B97E2C000EE8CD2 /* SearchModel.swift in Sources */,
 				AF3195F61B83144F001D6E75 /* ISO8601DateTransform.swift in Sources */,
 				AF7E8FFF1B95592500AFD3EF /* GoodsListViewController.swift in Sources */,

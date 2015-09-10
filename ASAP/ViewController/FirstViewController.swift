@@ -12,7 +12,6 @@ class FirstViewController: UIViewController
 {
 	@IBOutlet weak var tableView: UITableView!
 	lazy var openWeather:OpenWeatherModel? = OpenWeatherModel()
-	lazy var searchData:SearchModel? = SearchModel()
 	lazy var categoryData:CategoryModel? = CategoryModel()
 
 	override func viewDidLoad() {
@@ -22,6 +21,14 @@ class FirstViewController: UIViewController
 //		searchTest()
 //		CategoryTest()
 
+		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
+		self.navigationItem.rightBarButtonItem = searchItem
+	}
+
+	func searchButtonOnClicked(sender:UIBarButtonItem) {
+//		performSegueWithIdentifier("SearchPage", sender: self)
+		let searchController = self.storyboard?.instantiateViewControllerWithIdentifier("SearchResultViewController") as? SearchResultViewController
+		self.navigationController?.pushViewController(searchController!, animated: false)
 	}
 
 	func apiManagerTest() {
@@ -48,34 +55,6 @@ class FirstViewController: UIViewController
 						println(wea.icon!)
 					}
 				}
-			}
-		}
-	}
-
-	func searchTest() {
-		searchData?.getSearchData() { (search: SearchListResponse?, errorMessage: String?) in
-			if search == nil {
-				dispatch_async(dispatch_get_main_queue(), { () -> Void in
-					let alert = UIAlertController(title: "警告", message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
-					let confirmAction = UIAlertAction(title: "確定", style: UIAlertActionStyle.Default, handler: nil)
-					alert.addAction(confirmAction)
-					self.presentViewController(alert, animated: true, completion: nil)
-				})
-			} else {
-				self.searchData!.search = search!
-				println("statusCode:\(search!.statusCode)")
-				println("total:\(search!.total)")
-				println("currentPage:\(search!.currentPage)")
-
-				if let storeList = search?.stroeList {
-					for stroe in storeList {
-						print("\(stroe.name!)\t")
-						print("\(stroe.pic!)\t")
-						//                        print("\(stroe.title!)\t")
-						println()
-					}
-				}
-
 			}
 		}
 	}

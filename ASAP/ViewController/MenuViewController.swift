@@ -62,10 +62,16 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		categoryView = PGCategoryView.categoryRightView(contentView)
 		categoryView.frame = viewFrame
 		self.view.addSubview(categoryView)
+		
+		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
+		self.navigationItem.rightBarButtonItem = searchItem
+	}
 
-        // Do any additional setup after loading the view.
-    }
-
+	func searchButtonOnClicked(sender:UIBarButtonItem) {
+		//		performSegueWithIdentifier("SearchPage", sender: self)
+		let searchController = self.storyboard?.instantiateViewControllerWithIdentifier("SearchResultViewController") as? SearchResultViewController
+		self.navigationController?.pushViewController(searchController!, animated: false)
+	}
 
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 		if tableView == leftTableView {

@@ -12,7 +12,7 @@ public class SearchListResponse: Mappable
 {
     public var statusCode:      String?
     public var attrList:        [AttributeInfo] = []
-    public var stroeList:       [StoreInfo]     = []
+    public var storeList:       [StoreInfo]     = []
     public var cateogryList:    [CategoryInfo]  = []
     public var total:           Int?
     public var currentPage:     Int?
@@ -27,7 +27,7 @@ public class SearchListResponse: Mappable
     public func mapping(map: Map) {
         statusCode      <- map["status_code"]
         attrList        <- map["attr_value_list"]
-        stroeList       <- map["list"]
+        storeList       <- map["list"]
         cateogryList    <- map["category_list"]
         total           <- map["total"]
         currentPage     <- map["current_page"]
@@ -67,18 +67,20 @@ public class StoreInfo: Mappable
         respone/list/sm_pic     賣場圖片	String
         respone/list/sm_title	賣場標題	String*/
 
-    public var name:    String?
-    public var pic:     String?
-    public var title:   String?
+    public var name:		String?
+    public var pic:			String?
+    public var title:		String?
+	public var marketInfo:	MarketInfo?
     
     public static func newInstance(map: Map) -> Mappable? {
         return StoreInfo()
     }
   
     public func mapping(map: Map) {
-        name    <- map["SM_NAME"]
-        pic     <- map["SM_PIC"]
-        title   <- map["SM_TITLE"]
+        name		<- map["SM_NAME"]
+        pic			<- map["SM_PIC"]
+        title		<- map["SM_TITLE"]
+		marketInfo	<- map["market_info"]
     }
 }
 
@@ -105,4 +107,27 @@ public class CategoryInfo: Mappable
         sort    <- map["CP_SORT"]
         total   <- map["total"]
     }
+}
+
+// 可賣量
+public class MarketInfo: Mappable
+{
+	/*	respone/list/market_info/price/final_price/show_price/price	價格 String
+
+		*/
+
+	public var showPrice:   Int?
+	public var finalPrice:  Int?
+	public var slogan:		[String] = []
+
+	public static func newInstance(map: Map) -> Mappable? {
+		return MarketInfo()
+	}
+
+	public func mapping(map: Map) {
+		showPrice     <- map["price.show_price.price"]
+		finalPrice    <- map["price.final_price.price"]
+		slogan		  <- map["other.slogan"]
+	}
+
 }

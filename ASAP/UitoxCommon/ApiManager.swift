@@ -10,6 +10,10 @@ import Foundation
 
 class ApiManager<T:Mappable>
 {
+	static var domain: String {
+		return "https://uxapi.uitoxbeta.com/"
+	}
+
 	static func resetTrustPolicy() -> Void {
 		let serverTrustPolicy = ServerTrustPolicy.PinCertificates(
 			certificates: ServerTrustPolicy.certificatesInBundle(),
@@ -28,7 +32,9 @@ class ApiManager<T:Mappable>
 	static func postDictionary(urlPath:String, params:[String:AnyObject]?, completionHandler: (mapperObject: T?, errorMessage:String?) -> Void) {
 		resetTrustPolicy()
 
-		Manager.sharedInstance.request(.POST, urlPath, parameters: params, encoding: .JSON).responseObject {
+		let url = domain + urlPath
+
+		Manager.sharedInstance.request(.POST, url, parameters: params, encoding: .JSON).responseObject {
 			(responseEntity: T?, error: NSError?) in
 			if responseEntity == nil || error != nil {
 				completionHandler(mapperObject:nil, errorMessage:error?.localizedDescription)
@@ -40,7 +46,10 @@ class ApiManager<T:Mappable>
 
 	static func postArray(urlPath:String, params:[String:AnyObject]?, completionHandler: (mapperObject: [T]?, errorMessage:String?) -> Void) {
 		resetTrustPolicy()
-		request(.POST, urlPath, parameters: params).responseArray {
+
+		let url = domain + urlPath
+
+		request(.POST, url, parameters: params).responseArray {
 			(responseEntity: [T]?, error: NSError?) in
 			if responseEntity == nil || error != nil {
 				completionHandler(mapperObject:nil, errorMessage:error?.localizedDescription)

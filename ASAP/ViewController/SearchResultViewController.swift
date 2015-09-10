@@ -10,6 +10,7 @@ import UIKit
 
 class SearchResultViewController: UITableViewController, UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate
 {
+	lazy var searchData:SearchModel? = SearchModel()
 	var searchController: UISearchController!
 	var kindViewController: KindViewController!
 	var searchResult: [String]!
@@ -27,24 +28,33 @@ class SearchResultViewController: UITableViewController, UISearchResultsUpdating
 		self.searchController.delegate = self
 		self.searchController.hidesNavigationBarDuringPresentation = false
 		self.searchController.dimsBackgroundDuringPresentation = false
-		self.definesPresentationContext = false
-		searchController.searchBar.sizeToFit()
+		self.definesPresentationContext = true
 		searchController.searchBar.delegate = self
+		searchController.searchBar.sizeToFit()
 		tableView.tableHeaderView = searchController.searchBar
     }
 
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(true)
+		searchController.searchBar.hidden = false
+	}
+
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(true)
-		searchController.searchBar.hidden = false
 		self.searchController.active = true
+		searchController.searchBar.resignFirstResponder()
 	}
 
 	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-		searchController.searchBar.hidden = true
-		let kindViewController = storyboard?.instantiateViewControllerWithIdentifier("KindViewController") as? KindViewController
-		self.navigationController?.pushViewController(kindViewController!, animated: true)
-//		self.showViewController(kindViewController!, sender: self)
-//		self.showDetailViewController(kindViewController!, sender: self)
+		if let searchText = searchBar.text {
+			self.pleaseWait()
+			searchTest(searchText)
+		}
+
+	}
+
+	func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+		return true
 	}
 
 	func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
@@ -74,7 +84,8 @@ class SearchResultViewController: UITableViewController, UISearchResultsUpdating
 	}
 
 	func didDismissSearchController(searchController: UISearchController) {
-		self.dismissViewControllerAnimated(false, completion: nil)
+//		self.dismissViewControllerAnimated(false, completion: nil)
+//		self.navigationController!.popViewControllerAnimated(true)
 	}
 
 
@@ -118,50 +129,38 @@ class SearchResultViewController: UITableViewController, UISearchResultsUpdating
         return cell!
     }
 
+	func searchTest( query: String) {
+		searchData?.getSearchData( query) { (search: SearchListResponse?, errorMessage: String?) in
+			if search == nil {
+				dispatch_async(dispatch_get_main_queue(), { () -> Void in
+					let alert = UIAlertController(title: "警告", message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
+					let confirmAction = UIAlertAction(title: "確定", style: UIAlertActionStyle.Default, handler: nil)
+					alert.addAction(confirmAction)
+					self.presentViewController(alert, animated: true, completion: nil)
+				})
+			} else {
+				self.searchData!.search = search!
+				println("statusCode:\(search!.statusCode)")
+				println("total:\(search!.total)")
+				println("currentPage:\(search!.currentPage)")
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
+				if let storeList = search?.storeList {
+					for stroe in storeList {
+						print("\(stroe.name!)\t")
+						print("\(stroe.pic!)\t")
+						//                        print("\(stroe.title!)\t")
+						println()
+					}
+				}
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
+				self.searchController.searchBar.hidden = true
+				let kindViewController = self.storyboard?.instantiateViewControllerWithIdentifier("KindViewController") as? KindViewController
+				kindViewController!.searchListResponse = search!
+				self.navigationController?.pushViewController(kindViewController!, animated: true)
+			}
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
+			self.clearAllNotice()
+		}
+	}
 
 }
