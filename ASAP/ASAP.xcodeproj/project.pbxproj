@@ -269,8 +269,8 @@
 			children = (
 				AF251DC71B7C869F00F06143 /* ApiManager.swift */,
 				AF251DC81B7C869F00F06143 /* Logger.swift */,
-				AF790AE31B7D922000070875 /* ASAP-Bridging-Header.h */,
 				AFEF5D491BA2A8DF00A4961D /* ViewControllerCommon.swift */,
+				AF790AE31B7D922000070875 /* ASAP-Bridging-Header.h */,
 			);
 			path = UitoxCommon;
 			sourceTree = "<group>";

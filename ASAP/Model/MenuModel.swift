@@ -24,7 +24,19 @@ class MenuModel{
                 completionHandler(menuResponse: nil, errorMessage: error)
                 return
             }
-            
+
+			println("statusCode:\(responseObject!.status_code)")
+
+			if let mnuList = responseObject?.menuList{
+				for goodsdata in mnuList {
+					println("SID:\(goodsdata.sid)")
+					println("NAME:\(goodsdata.name)")
+					println("LINK:\(goodsdata.link)")
+					println("TYPE:\(goodsdata.type)")
+					println("SI_TYPE:\(goodsdata.siType)")
+				}
+			}
+
             completionHandler(menuResponse: responseObject, errorMessage: nil)
         }
         

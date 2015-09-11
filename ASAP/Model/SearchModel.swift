@@ -22,14 +22,26 @@ class SearchModel
 								,"version": version,"data": data]
         
         ApiManager<SearchListResponse>.postDictionary(urlPath, params: requestDic) {
-            (responseObject: SearchListResponse?, error: String?) -> Void in
+            (search: SearchListResponse?, error: String?) -> Void in
             
-            if responseObject == nil {
+            if search == nil {
                 completionHandler(search: nil, errorMessage: error)
                 return
             }
-                        
-            completionHandler(search: responseObject, errorMessage: nil)
+
+			println("statusCode:\(search!.statusCode)")
+			println("total:\(search!.total)")
+			println("currentPage:\(search!.currentPage)")
+
+			if let storeList = search?.storeList {
+				for stroe in storeList {
+					print("\(stroe.name!)\t")
+					print("\(stroe.pic!)\t")
+					println()
+				}
+			}
+
+            completionHandler(search: search, errorMessage: nil)
         }
     }
 }

@@ -20,9 +20,16 @@ class SearchResultViewController: UITableViewController, UISearchResultsUpdating
 		"Jacksonville, FL", "San Francisco, CA", "Columbus, OH", "Austin, TX",
 		"Memphis, TN", "Baltimore, MD", "Charlotte, ND", "Fort Worth, TX"]
 
+
+	// MARK: - View
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		setupSearchController()
+    }
+
+	func setupSearchController() {
 		self.searchController = UISearchController(searchResultsController: nil)
 		self.searchController.searchResultsUpdater = self
 		self.searchController.delegate = self
@@ -32,7 +39,7 @@ class SearchResultViewController: UITableViewController, UISearchResultsUpdating
 		searchController.searchBar.delegate = self
 		searchController.searchBar.sizeToFit()
 		tableView.tableHeaderView = searchController.searchBar
-    }
+	}
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(true)
@@ -45,12 +52,14 @@ class SearchResultViewController: UITableViewController, UISearchResultsUpdating
 		searchController.searchBar.resignFirstResponder()
 	}
 
+
+	// MARK: - UISearchBarDelegate
+
 	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
 		if let searchText = searchBar.text {
 			self.pleaseWait()
-			searchTest(searchText)
+			getSearchData(searchText)
 		}
-
 	}
 
 	func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
@@ -61,6 +70,9 @@ class SearchResultViewController: UITableViewController, UISearchResultsUpdating
 		return true
 	}
 
+
+	// MARK: - UISearchResultsUpdating
+
 	func updateSearchResultsForSearchController(searchController: UISearchController) {
 //		let searchText = searchController.searchBar.text
 //
@@ -70,6 +82,9 @@ class SearchResultViewController: UITableViewController, UISearchResultsUpdating
 //
 //		tableView.reloadData()
 	}
+
+
+	// MARK: - UISearchControllerDelegate
 
 	func willPresentSearchController(searchController: UISearchController) {
 
@@ -89,31 +104,19 @@ class SearchResultViewController: UITableViewController, UISearchResultsUpdating
 	}
 
 
-
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
 		if (searchResult != nil) {
 			return searchResult.count
 		}
 
         return 0
     }
-
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? UITableViewCell
@@ -129,30 +132,14 @@ class SearchResultViewController: UITableViewController, UISearchResultsUpdating
         return cell!
     }
 
-	func searchTest( query: String) {
+
+	// MARK: - Call Api
+
+	func getSearchData( query: String) {
 		searchData?.getSearchData( query) { (search: SearchListResponse?, errorMessage: String?) in
 			if search == nil {
-				dispatch_async(dispatch_get_main_queue(), { () -> Void in
-					let alert = UIAlertController(title: "警告", message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
-					let confirmAction = UIAlertAction(title: "確定", style: UIAlertActionStyle.Default, handler: nil)
-					alert.addAction(confirmAction)
-					self.presentViewController(alert, animated: true, completion: nil)
-				})
+				self.showAlert(errorMessage!)
 			} else {
-				self.searchData!.search = search!
-				println("statusCode:\(search!.statusCode)")
-				println("total:\(search!.total)")
-				println("currentPage:\(search!.currentPage)")
-
-				if let storeList = search?.storeList {
-					for stroe in storeList {
-						print("\(stroe.name!)\t")
-						print("\(stroe.pic!)\t")
-						//                        print("\(stroe.title!)\t")
-						println()
-					}
-				}
-
 				self.searchController.searchBar.hidden = true
 				let kindViewController = self.storyboard?.instantiateViewControllerWithIdentifier("KindViewController") as? KindViewController
 				kindViewController!.searchListResponse = search!

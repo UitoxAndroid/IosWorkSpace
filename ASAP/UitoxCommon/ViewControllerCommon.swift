@@ -16,4 +16,12 @@ extension UIViewController {
 		self.navigationController?.pushViewController(searchController!, animated: false)
 	}
 
+	func showAlert( message: String) {
+		dispatch_async(dispatch_get_main_queue(), { () -> Void in
+			let alert = UIAlertController(title: "警告", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+			let confirmAction = UIAlertAction(title: "確定", style: UIAlertActionStyle.Default, handler: nil)
+			alert.addAction(confirmAction)
+			self.presentViewController(alert, animated: true, completion: nil)
+		})
+	}
 }

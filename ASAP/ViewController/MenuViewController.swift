@@ -38,10 +38,29 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		return _contentList
 	}
 
+	// MARK: - View
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		setupView()
+
+		self.pleaseWait()
+
+		GetMenu("A14954") {
+			(menu: MenuResponse?) in
+			if let menu = menu {
+				self.leftMenuList = menu.menuList
+				self.leftTableView!.reloadData()
+			}
+			self.clearAllNotice()
+		}
+
+		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
+		self.navigationItem.rightBarButtonItem = searchItem
+	}
+
+	func setupView() {
 		let statusBarHeight:CGFloat = 20
 		let loginBarHeight:CGFloat = 54
 		let tabBarHeight:CGFloat = 44
@@ -67,22 +86,9 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		categoryView = PGCategoryView.categoryRightView(contentView)
 		categoryView.frame = viewFrame
 		self.view.addSubview(categoryView)
-
-		self.pleaseWait()
-
-		GetMenu("A14954") {
-			(menu: MenuResponse?) in
-			if let menu = menu {
-				self.leftMenuList = menu.menuList
-				self.leftTableView!.reloadData()
-			}
-			self.clearAllNotice()
-		}
-
-		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
-		self.navigationItem.rightBarButtonItem = searchItem
 	}
 
+	// MARK: - TableView
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 		if tableView == leftTableView {
 			return 1
@@ -203,37 +209,16 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 					self.navigationController?.pushViewController(goodListViewController!, animated: true)
 				}
 			}
-
-
-
-
 		}
 	}
 
+	// MARK: - Call Api
 
 	func GetMenu( siSeq: String, completionHandler: (menuResponse: MenuResponse?) -> Void) {
 		menuData?.getMenuData(siSeq) { (menu: MenuResponse?, errorMessage: String?) in
 			if menu == nil {
-				dispatch_async(dispatch_get_main_queue(), { () -> Void in
-					let alert = UIAlertController(title: "警告", message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
-					let confirmAction = UIAlertAction(title: "確定", style: UIAlertActionStyle.Default, handler: nil)
-					alert.addAction(confirmAction)
-					self.presentViewController(alert, animated: true, completion: nil)
-				})
+				self.showAlert(errorMessage!)
 			} else {
-				self.menuData!.menu = menu!
-				println("statusCode:\(menu!.status_code)")
-
-				if let mnuList = menu?.menuList{
-					for goodsdata in mnuList {
-						println("SID:\(goodsdata.sid)")
-						println("NAME:\(goodsdata.name)")
-						println("LINK:\(goodsdata.link)")
-						println("TYPE:\(goodsdata.type)")
-						println("SI_TYPR:\(goodsdata.siType)")
-					}
-				}
-
 				completionHandler(menuResponse: menu)
 			}
 		}
@@ -242,20 +227,9 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 	func GetCategory( siSeq: String, completionHandler: (categoryResponse: SearchListResponse?) -> Void) {
 		categoryData?.getCategoryData(siSeq) { (category: SearchListResponse?, errorMessage: String?) in
 			if category == nil {
-				dispatch_async(dispatch_get_main_queue(), { () -> Void in
-					let alert = UIAlertController(title: "警告", message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
-					let confirmAction = UIAlertAction(title: "確定", style: UIAlertActionStyle.Default, handler: nil)
-					alert.addAction(confirmAction)
-					self.presentViewController(alert, animated: true, completion: nil)
-				})
+				self.showAlert(errorMessage!)
 			} else {
-				self.categoryData!.category = category!
-				println("statusCode:\(category!.statusCode)")
-				println("total:\(category!.total)")
-
-
 				completionHandler(categoryResponse: category!)
-
 			}
 		}
 	}

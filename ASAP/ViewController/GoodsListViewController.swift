@@ -16,7 +16,8 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 	var viewControllers = [UIViewController]()
 	lazy var categoryData:CategoryModel? = CategoryModel()
 
-
+	// MARK: - View
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,22 +32,15 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 			viewControllers.append(vc)
 		}
 
+		setupPagingMenu()
 
+		self.clearAllNotice()
 
-//		let usersViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UsersViewController") as! UsersViewController
-//		let repositoriesViewController = self.storyboard?.instantiateViewControllerWithIdentifier("RepositoriesViewController") as! RepositoriesViewController
-//		let gistsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("GistsViewController") as! GistsViewController
-//		let organizationsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("OrganizationsViewController") as! OrganizationsViewController
-//
-//		let test1Controller = UIViewController()
-//		test1Controller.title = "test1Controller"
-//		let test2Controller = UIViewController()
-//		test2Controller.title = "test2Controller"
-//
-//		let viewControllers = [kindViewController, usersViewController, repositoriesViewController, gistsViewController, organizationsViewController, test1Controller, test2Controller]
+		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
+		self.navigationItem.rightBarButtonItem = searchItem
+    }
 
-
-
+	func setupPagingMenu() {
 		let options = PagingMenuOptions()
 
 		//間隔距離
@@ -65,13 +59,9 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 		let pagingMenuController = self.childViewControllers.first as! PagingMenuController
 		pagingMenuController.delegate = self
 		pagingMenuController.setup(viewControllers: viewControllers, options: options)
+	}
 
-		self.clearAllNotice()
-
-		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
-		self.navigationItem.rightBarButtonItem = searchItem
-    }
-
+	// MARK: - PagingMenuControllerDelegate
 	func willMoveToMenuPage(page: Int) {
 		if page < 0 || page >= self.relatedMenuList.count {
 			return
@@ -97,23 +87,13 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 
 	}
 
+	// MARK - Call Api
 	func GetCategory( siSeq: String, completionHandler: (categoryResponse: SearchListResponse?) -> Void) {
 		categoryData?.getCategoryData(siSeq) { (category: SearchListResponse?, errorMessage: String?) in
 			if category == nil {
-				dispatch_async(dispatch_get_main_queue(), { () -> Void in
-					let alert = UIAlertController(title: "警告", message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
-					let confirmAction = UIAlertAction(title: "確定", style: UIAlertActionStyle.Default, handler: nil)
-					alert.addAction(confirmAction)
-					self.presentViewController(alert, animated: true, completion: nil)
-				})
+				self.showAlert(errorMessage!)
 			} else {
-				self.categoryData!.category = category!
-				println("statusCode:\(category!.statusCode)")
-				println("total:\(category!.total)")
-
-
 				completionHandler(categoryResponse: category!)
-
 			}
 		}
 	}
