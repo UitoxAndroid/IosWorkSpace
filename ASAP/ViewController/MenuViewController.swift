@@ -12,6 +12,11 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 {
 	@IBOutlet weak var leftTableView: UITableView!
 
+	lazy var categoryData:CategoryModel? = CategoryModel()
+	lazy var menuData:MenuModel? = MenuModel()
+	var leftMenuList:[DataInfo] = []
+	var rightMenuList:[DataInfo] = []
+	var detailMenuList:[DataInfo] = []
 	var rightTableView: SKSTableView!
 	var contentView: UIView!
 	var categoryView: PGCategoryView!
@@ -62,15 +67,20 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		categoryView = PGCategoryView.categoryRightView(contentView)
 		categoryView.frame = viewFrame
 		self.view.addSubview(categoryView)
-		
+
+		self.pleaseWait()
+
+		GetMenu("A14954") {
+			(menu: MenuResponse?) in
+			if let menu = menu {
+				self.leftMenuList = menu.menuList
+				self.leftTableView!.reloadData()
+			}
+			self.clearAllNotice()
+		}
+
 		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
 		self.navigationItem.rightBarButtonItem = searchItem
-	}
-
-	func searchButtonOnClicked(sender:UIBarButtonItem) {
-		//		performSegueWithIdentifier("SearchPage", sender: self)
-		let searchController = self.storyboard?.instantiateViewControllerWithIdentifier("SearchResultViewController") as? SearchResultViewController
-		self.navigationController?.pushViewController(searchController!, animated: false)
 	}
 
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -83,14 +93,16 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if tableView == leftTableView {
-			return 10
+			return self.leftMenuList.count
 		} else {
-			return self.contentList.count
+			return self.rightMenuList.count
+//			return self.contentList.count
 		}
 	}
 
 	func tableView(tableView: SKSTableView!, numberOfSubRowsAtIndexPath indexPath: NSIndexPath!) -> Int {
-		return self.contentList[indexPath.row].count - 1
+		return self.detailMenuList.count
+//		return self.contentList[indexPath.row].count - 1
 	}
 
 	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -110,7 +122,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 				cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: CellIdentifier)
 			}
 
-			cell?.textLabel!.text = "left"
+			cell?.textLabel!.text = self.leftMenuList[indexPath.row].name
 			return cell!
 		} else {
 			var cell: SKSTableViewCell? = tableView.dequeueReusableCellWithIdentifier(SKSCellIdentifier) as? SKSTableViewCell
@@ -119,13 +131,17 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 				cell = SKSTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: SKSCellIdentifier)
 			}
 
-			cell?.textLabel!.text = self.contentList[indexPath.row][0]
+//			cell?.textLabel!.text = self.contentList[indexPath.row][0]
+			cell?.textLabel!.text = self.rightMenuList[indexPath.row].name
 
-			if (self.contentList[indexPath.row].count > 1) {
-				cell?.isExpandable = true
-			} else {
-				cell?.isExpandable = false
-			}
+//			if (self.contentList[indexPath.row].count > 1) {
+//				cell?.isExpandable = true
+//			} else {
+//				cell?.isExpandable = false
+//			}
+
+			cell?.isExpandable = false
+
 
 			return cell!
 		}
@@ -142,7 +158,8 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		println("row:\(indexPath.row)")
 		println("subRow:\(indexPath.subRow)")
 
-		var s = self.contentList[indexPath.row][indexPath.subRow]
+//		var s = self.contentList[indexPath.row][indexPath.subRow]
+		var s = self.detailMenuList[indexPath.row]
 		cell?.textLabel?.text = "\(s)"
 		cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
 
@@ -151,12 +168,96 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
 		if tableView == leftTableView {
-			categoryView.show()
+			let selectedRowId = self.leftMenuList[indexPath.row].sid
+			println(selectedRowId)
+			GetMenu(selectedRowId!) {
+				(menu: MenuResponse?) in
+					self.rightMenuList = menu!.menuList
+					self.rightTableView.reloadData()
+					self.categoryView.show()
+			}
+
 		} else {
-			print(indexPath.row)
+			let selectedRowId = self.rightMenuList[indexPath.row].sid
+			println(selectedRowId)
+
+			self.pleaseWait()
+
+			GetMenu(selectedRowId!) {
+				(menu: MenuResponse?) in
+				if let menu = menu {
+					if menu.menuList.count != 0 {
+						self.detailMenuList = menu.menuList
+						return
+					}
+				}
+
+				self.GetCategory(selectedRowId!) {
+					(categoryResponse: SearchListResponse?) in
+					let goodListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("GoodListViewController") as? GoodsListViewController
+					goodListViewController?.searchListResponse = categoryResponse
+					goodListViewController!.relatedMenuList = self.rightMenuList
+					goodListViewController!.currentIndex = indexPath.row
+					self.navigationController?.pushViewController(goodListViewController!, animated: true)
+				}
+			}
+
+
+
+
 		}
 	}
 
+
+	func GetMenu( siSeq: String, completionHandler: (menuResponse: MenuResponse?) -> Void) {
+		menuData?.getMenuData(siSeq) { (menu: MenuResponse?, errorMessage: String?) in
+			if menu == nil {
+				dispatch_async(dispatch_get_main_queue(), { () -> Void in
+					let alert = UIAlertController(title: "警告", message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
+					let confirmAction = UIAlertAction(title: "確定", style: UIAlertActionStyle.Default, handler: nil)
+					alert.addAction(confirmAction)
+					self.presentViewController(alert, animated: true, completion: nil)
+				})
+			} else {
+				self.menuData!.menu = menu!
+				println("statusCode:\(menu!.status_code)")
+
+				if let mnuList = menu?.menuList{
+					for goodsdata in mnuList {
+						println("SID:\(goodsdata.sid)")
+						println("NAME:\(goodsdata.name)")
+						println("LINK:\(goodsdata.link)")
+						println("TYPE:\(goodsdata.type)")
+						println("SI_TYPR:\(goodsdata.siType)")
+					}
+				}
+
+				completionHandler(menuResponse: menu)
+			}
+		}
+	}
+
+	func GetCategory( siSeq: String, completionHandler: (categoryResponse: SearchListResponse?) -> Void) {
+		categoryData?.getCategoryData(siSeq) { (category: SearchListResponse?, errorMessage: String?) in
+			if category == nil {
+				dispatch_async(dispatch_get_main_queue(), { () -> Void in
+					let alert = UIAlertController(title: "警告", message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
+					let confirmAction = UIAlertAction(title: "確定", style: UIAlertActionStyle.Default, handler: nil)
+					alert.addAction(confirmAction)
+					self.presentViewController(alert, animated: true, completion: nil)
+				})
+			} else {
+				self.categoryData!.category = category!
+				println("statusCode:\(category!.statusCode)")
+				println("total:\(category!.total)")
+
+
+				completionHandler(categoryResponse: category!)
+
+			}
+		}
+	}
 
 }

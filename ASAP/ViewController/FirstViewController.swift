@@ -13,6 +13,7 @@ class FirstViewController: UIViewController
 	@IBOutlet weak var tableView: UITableView!
 	lazy var openWeather:OpenWeatherModel? = OpenWeatherModel()
 	lazy var categoryData:CategoryModel? = CategoryModel()
+	lazy var campaignData:CampaignModel? = CampaignModel()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -23,12 +24,6 @@ class FirstViewController: UIViewController
 
 		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
 		self.navigationItem.rightBarButtonItem = searchItem
-	}
-
-	func searchButtonOnClicked(sender:UIBarButtonItem) {
-//		performSegueWithIdentifier("SearchPage", sender: self)
-		let searchController = self.storyboard?.instantiateViewControllerWithIdentifier("SearchResultViewController") as? SearchResultViewController
-		self.navigationController?.pushViewController(searchController!, animated: false)
 	}
 
 	func apiManagerTest() {
@@ -59,9 +54,11 @@ class FirstViewController: UIViewController
 		}
 	}
 
-	func CategoryTest(){
-		categoryData?.getCategoryData() { (category: CategoryResponse?, errorMessage: String?) in
-			if category == nil {
+
+
+	func GetCampaign(){
+		campaignData?.getMenuData() { (campain: CampaignResponse?, errorMessage: String?) in
+			if campain == nil {
 				dispatch_async(dispatch_get_main_queue(), { () -> Void in
 					let alert = UIAlertController(title: "警告", message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
 					let confirmAction = UIAlertAction(title: "確定", style: UIAlertActionStyle.Default, handler: nil)
@@ -69,22 +66,13 @@ class FirstViewController: UIViewController
 					self.presentViewController(alert, animated: true, completion: nil)
 				})
 			} else {
-				self.categoryData!.category = category!
-				println("statusCode:\(category!.status_code)")
-				println("total:\(category!.total)")
-				println("range:\(category!.range)")
-
-				if let attList = category?.attrValueList{
-					for attr in attList {
-						print("avName:\(attr.avName)")
-						print("avseq:\(attr.avSeq)")
-						print("avSort:\(attr.avSort)")
-					}
-				}
+				self.campaignData!.campaign = campain!
+				println("statusCode:\(campain!.status_code)")
 
 			}
 		}
 	}
+
 
 
 	override func prefersStatusBarHidden() -> Bool {

@@ -10,24 +10,18 @@ import Foundation
 
 class CategoryModel {
     
-    var category:CategoryResponse?
+    var category:SearchListResponse?
     
-    func getCategoryData( completionHandler: (category: CategoryResponse?, errorMessage: String?) -> Void ) {
-        let url = "https://uxapi.uitoxbeta.com/web_category/new_category_list_multi/"
-        
-        let data = [
-            "si_seq":"AJ0001" ,
-            "wc_seq":"AWC000001"]
-        
-        let request = [
-            "client_id":"f0fa5432-ea4b-70ee-e264-d35dcdc1b831",
-            "token":"74C73A27-B15F-9C34-B41B-3F26E208E120-CEF1A257490DE7C1FCDF309",
-            "platform_id":"AW000001",
-            "version":"1.0.0",
-            "data":data]
+	func getCategoryData( siSeq: String, completionHandler: (category: SearchListResponse?, errorMessage: String?) -> Void ) {
+        let url = "web_search/get_app_category_list_multi"
+        let data = ["si_seq":siSeq, "wc_seq":"AWC000001"]
+        let request = ["account":"01_uitoxtest","password":"Aa1234%!@#", "platform_id":"AW000001","version":"1.0.0","data":data]
+
    
-        ApiManager<CategoryResponse>.postDictionary(url, params: request as? [String : AnyObject]) {
-            (responseObject: CategoryResponse?, error: String?) -> Void in
+        
+        
+        ApiManager<SearchListResponse>.postDictionary(url, params: request as? [String : AnyObject]) {
+            (responseObject: SearchListResponse?, error: String?) -> Void in
             
             if responseObject == nil {
                 completionHandler(category: nil, errorMessage: error)

@@ -29,13 +29,6 @@ class KindViewController: UITableViewController
 		self.navigationItem.rightBarButtonItem = searchItem
 	}
 
-	func searchButtonOnClicked(sender:UIBarButtonItem) {
-//		performSegueWithIdentifier("SearchPage", sender: self)
-		let searchController = self.storyboard?.instantiateViewControllerWithIdentifier("SearchResultViewController") as? SearchResultViewController
-		self.navigationController?.pushViewController(searchController!, animated: false)
-	}
-
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -50,7 +43,10 @@ class KindViewController: UITableViewController
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchListResponse!.storeList.count
+		if let searchListResponse = self.searchListResponse {
+			return searchListResponse.storeList.count
+		}
+		return 0
     }
 
 
