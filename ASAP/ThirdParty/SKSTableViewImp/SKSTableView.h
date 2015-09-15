@@ -73,6 +73,8 @@
  */
 @property (nonatomic, weak) id <SKSTableViewDelegate> SKSTableViewDelegate;
 
+- (void)doSubCell:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 

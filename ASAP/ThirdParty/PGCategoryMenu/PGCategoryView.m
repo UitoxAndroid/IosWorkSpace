@@ -150,7 +150,8 @@
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
     
-    CGRect frame = _toggleView.frame;
+//    CGRect frame = _toggleView.frame;
+	CGRect frame = CGRectMake(16.5, self.frame.origin.y, 13.5, self.frame.size.height);
     frame = CGRectInset(frame, - 5, 0);
     return  CGRectContainsPoint(frame, point);
 }

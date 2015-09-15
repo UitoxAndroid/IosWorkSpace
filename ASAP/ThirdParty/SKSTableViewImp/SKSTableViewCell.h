@@ -26,6 +26,11 @@
 @property (nonatomic, assign) BOOL isExpanded;
 
 /**
+ * 我加的參數
+ */
+@property (nonatomic, assign) NSString *sid;
+
+/**
  * Adds an indicator view into the receiver when the relevant cell is expanded.
  */
 - (void)addIndicatorView;

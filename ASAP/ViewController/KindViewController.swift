@@ -71,12 +71,44 @@ class KindViewController: UITableViewController
 		cell.costLabel.text = "$" + String(showPrice!)
 		cell.priceLabel.text = "$" + String(finalPrice!)
 
-		//"/A/show/AW000001/2015/0819/AM0004746/201508AM190004746_144055242877335.jpg"
-		if let url = NSURL(string: "http://img10-tw1.uitoximg.com" + searchListResponse!.storeList[indexPath.row].pic! ) {
-			if let data = NSData(contentsOfURL: url) {
-				cell.imagedView.image = UIImage(data: data)
-			}
+
+		cell.imagedView.kf_showIndicatorWhenLoading = false
+
+		let URL = NSURL(string: searchListResponse!.storeList[indexPath.row].pic!)!
+//		let resource = Resource(downloadURL: URL)
+//		cell.imagedView.kf_setImageWithResource( resource, placeholderImage: nil, optionsInfo: nil, progressBlock: { (receivedSize, totalSize) -> () in
+//			println("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
+//			}) { (image, error, cacheType, imageURL) -> () in
+//				if error != nil  {
+//					println(error?.description)
+//				}
+//
+//				println("\(indexPath.row + 1): Finished")
+//		}
+
+//		println("\(searchListResponse!.storeList[indexPath.row].name)")
+//		println("\(indexPath.row + 1): URL: \(URL)")
+
+		cell.imagedView.kf_setImageWithURL(URL, placeholderImage: nil, optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly], progressBlock: { (receivedSize, totalSize) -> () in
+//			println("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
+		}) { (image, error, cacheType, imageURL) -> () in
+//			if error != nil  {
+//				println(error?.description)
+//			}
+
+//			println("\(indexPath.row + 1): Finished")
 		}
+
+//		println()
+
+
+		//"http://img10-tw1.uitoximg.com"
+		//"/A/show/AW000001/2015/0819/AM0004746/201508AM190004746_144055242877335.jpg"
+//		if let url = NSURL(string: searchListResponse!.storeList[indexPath.row].pic! ) {
+//			if let data = NSData(contentsOfURL: url) {
+//				cell.imagedView.image = UIImage(data: data)
+//			}
+//		}
 
         return cell
     }

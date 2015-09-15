@@ -78,6 +78,20 @@
 		AFEF5D471BA15AE200A4961D /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF5D451BA15AE200A4961D /* MenuModel.swift */; };
 		AFEF5D481BA15AE200A4961D /* MenuResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF5D461BA15AE200A4961D /* MenuResponse.swift */; };
 		AFEF5D4A1BA2A8DF00A4961D /* ViewControllerCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF5D491BA2A8DF00A4961D /* ViewControllerCommon.swift */; };
+		AFF0664A1BA6BD430098706F /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF0663C1BA6BD430098706F /* ImageCache.swift */; };
+		AFF0664B1BA6BD430098706F /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF0663D1BA6BD430098706F /* ImageDownloader.swift */; };
+		AFF0664C1BA6BD430098706F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFF0663E1BA6BD430098706F /* Info.plist */; };
+		AFF0664D1BA6BD430098706F /* KingfisherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066401BA6BD430098706F /* KingfisherManager.swift */; };
+		AFF0664E1BA6BD430098706F /* KingfisherOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066411BA6BD430098706F /* KingfisherOptions.swift */; };
+		AFF0664F1BA6BD430098706F /* KingfisherOptionsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066421BA6BD430098706F /* KingfisherOptionsInfo.swift */; };
+		AFF066501BA6BD430098706F /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066431BA6BD430098706F /* Resource.swift */; };
+		AFF066511BA6BD430098706F /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066441BA6BD430098706F /* String+MD5.swift */; };
+		AFF066521BA6BD430098706F /* UIButton+Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066451BA6BD430098706F /* UIButton+Kingfisher.swift */; };
+		AFF066531BA6BD430098706F /* UIImage+Decode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066461BA6BD430098706F /* UIImage+Decode.swift */; };
+		AFF066541BA6BD430098706F /* UIImage+Normalize.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066471BA6BD430098706F /* UIImage+Normalize.swift */; };
+		AFF066551BA6BD430098706F /* UIImageView+Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066481BA6BD430098706F /* UIImageView+Kingfisher.swift */; };
+		AFF066561BA6BD430098706F /* WKInterfaceImage+Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066491BA6BD430098706F /* WKInterfaceImage+Kingfisher.swift */; };
+		AFF066581BA7FA200098706F /* ic_chevron_right_24dp.png in Resources */ = {isa = PBXBuildFile; fileRef = AFF066571BA7FA200098706F /* ic_chevron_right_24dp.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -184,6 +198,21 @@
 		AFEF5D451BA15AE200A4961D /* MenuModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
 		AFEF5D461BA15AE200A4961D /* MenuResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuResponse.swift; sourceTree = "<group>"; };
 		AFEF5D491BA2A8DF00A4961D /* ViewControllerCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerCommon.swift; sourceTree = "<group>"; };
+		AFF0663C1BA6BD430098706F /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		AFF0663D1BA6BD430098706F /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		AFF0663E1BA6BD430098706F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AFF0663F1BA6BD430098706F /* Kingfisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kingfisher.h; sourceTree = "<group>"; };
+		AFF066401BA6BD430098706F /* KingfisherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KingfisherManager.swift; sourceTree = "<group>"; };
+		AFF066411BA6BD430098706F /* KingfisherOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KingfisherOptions.swift; sourceTree = "<group>"; };
+		AFF066421BA6BD430098706F /* KingfisherOptionsInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KingfisherOptionsInfo.swift; sourceTree = "<group>"; };
+		AFF066431BA6BD430098706F /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		AFF066441BA6BD430098706F /* String+MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
+		AFF066451BA6BD430098706F /* UIButton+Kingfisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Kingfisher.swift"; sourceTree = "<group>"; };
+		AFF066461BA6BD430098706F /* UIImage+Decode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Decode.swift"; sourceTree = "<group>"; };
+		AFF066471BA6BD430098706F /* UIImage+Normalize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Normalize.swift"; sourceTree = "<group>"; };
+		AFF066481BA6BD430098706F /* UIImageView+Kingfisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Kingfisher.swift"; sourceTree = "<group>"; };
+		AFF066491BA6BD430098706F /* WKInterfaceImage+Kingfisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WKInterfaceImage+Kingfisher.swift"; sourceTree = "<group>"; };
+		AFF066571BA7FA200098706F /* ic_chevron_right_24dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_chevron_right_24dp.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +307,7 @@
 		AF3195B81B83144F001D6E75 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				AFF0663B1BA6BD430098706F /* Kingfisher */,
 				AFEF5D3E1BA0346700A4961D /* SwiftNotice-3.1 */,
 				AF7E902D1B96A59800AFD3EF /* PGCategoryMenu */,
 				AF7E901D1B96A14300AFD3EF /* SKSTableViewImp */,
@@ -446,6 +476,7 @@
 			children = (
 				AF7E901E1B96A14300AFD3EF /* expandableImage.png */,
 				AF7E901F1B96A14300AFD3EF /* expandableImage@2x.png */,
+				AFF066571BA7FA200098706F /* ic_chevron_right_24dp.png */,
 				AF7E90201B96A14300AFD3EF /* SKSTableView.h */,
 				AF7E90211B96A14300AFD3EF /* SKSTableView.m */,
 				AF7E90221B96A14300AFD3EF /* SKSTableViewCell.h */,
@@ -473,6 +504,27 @@
 				AFEF5D3F1BA0346700A4961D /* SwiftNotice.swift */,
 			);
 			path = "SwiftNotice-3.1";
+			sourceTree = "<group>";
+		};
+		AFF0663B1BA6BD430098706F /* Kingfisher */ = {
+			isa = PBXGroup;
+			children = (
+				AFF0663C1BA6BD430098706F /* ImageCache.swift */,
+				AFF0663D1BA6BD430098706F /* ImageDownloader.swift */,
+				AFF0663E1BA6BD430098706F /* Info.plist */,
+				AFF0663F1BA6BD430098706F /* Kingfisher.h */,
+				AFF066401BA6BD430098706F /* KingfisherManager.swift */,
+				AFF066411BA6BD430098706F /* KingfisherOptions.swift */,
+				AFF066421BA6BD430098706F /* KingfisherOptionsInfo.swift */,
+				AFF066431BA6BD430098706F /* Resource.swift */,
+				AFF066441BA6BD430098706F /* String+MD5.swift */,
+				AFF066451BA6BD430098706F /* UIButton+Kingfisher.swift */,
+				AFF066461BA6BD430098706F /* UIImage+Decode.swift */,
+				AFF066471BA6BD430098706F /* UIImage+Normalize.swift */,
+				AFF066481BA6BD430098706F /* UIImageView+Kingfisher.swift */,
+				AFF066491BA6BD430098706F /* WKInterfaceImage+Kingfisher.swift */,
+			);
+			path = Kingfisher;
 			sourceTree = "<group>";
 		};
 		F39DA90FC632ABF7B58E8331 /* Frameworks */ = {
@@ -572,6 +624,8 @@
 				AF010ECC1B7C3FBA00EB4596 /* Images.xcassets in Resources */,
 				AF3195FE1B832705001D6E75 /* Info.plist in Resources */,
 				AF7E90331B96A59800AFD3EF /* re_prduct_pan_toggle@2x.png in Resources */,
+				AFF066581BA7FA200098706F /* ic_chevron_right_24dp.png in Resources */,
+				AFF0664C1BA6BD430098706F /* Info.plist in Resources */,
 				AF7E90341B96A59800AFD3EF /* re_product_pan_b@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -603,17 +657,23 @@
 				AF3195F41B83144F001D6E75 /* DateTransform.swift in Sources */,
 				AF7E8FFE1B95592500AFD3EF /* GistsViewController.swift in Sources */,
 				AF251DCA1B7C869F00F06143 /* ApiManager.swift in Sources */,
+				AFF066531BA6BD430098706F /* UIImage+Decode.swift in Sources */,
 				AF7E8FFD1B95592500AFD3EF /* DetailViewController.swift in Sources */,
 				AF7E90091B95791D00AFD3EF /* BasicCell.swift in Sources */,
 				AF3195EF1B83144F001D6E75 /* Mapper.swift in Sources */,
+				AFF0664B1BA6BD430098706F /* ImageDownloader.swift in Sources */,
 				AF7E90291B96A14300AFD3EF /* SKSTableViewCell.m in Sources */,
 				AF7E90031B95592500AFD3EF /* OrganizationsViewController.swift in Sources */,
 				AF7E90041B95592500AFD3EF /* RepositoriesViewController.swift in Sources */,
 				AF3195E91B83144F001D6E75 /* Validation.swift in Sources */,
+				AFF066561BA6BD430098706F /* WKInterfaceImage+Kingfisher.swift in Sources */,
 				AFEF5D401BA0346700A4961D /* SwiftNotice.swift in Sources */,
 				AF0F3BC41B97E2C000EE8CD2 /* SearchModel.swift in Sources */,
+				AFF0664E1BA6BD430098706F /* KingfisherOptions.swift in Sources */,
 				AF3195F61B83144F001D6E75 /* ISO8601DateTransform.swift in Sources */,
 				AFEF5D441BA15A7500A4961D /* CampaignResponse.swift in Sources */,
+				AFF0664A1BA6BD430098706F /* ImageCache.swift in Sources */,
+				AFF066541BA6BD430098706F /* UIImage+Normalize.swift in Sources */,
 				AF7E8FFF1B95592500AFD3EF /* GoodsListViewController.swift in Sources */,
 				AF7E8FEE1B9557C400AFD3EF /* PagingMenuOptions.swift in Sources */,
 				AFEF5D481BA15AE200A4961D /* MenuResponse.swift in Sources */,
@@ -622,14 +682,18 @@
 				AF7E90021B95592500AFD3EF /* MyTabBarViewController.swift in Sources */,
 				AF7E90321B96A59800AFD3EF /* PGCategoryView.m in Sources */,
 				AF3195F31B83144F001D6E75 /* DateFormaterTransform.swift in Sources */,
+				AFF066511BA6BD430098706F /* String+MD5.swift in Sources */,
 				AF3195EA1B83144F001D6E75 /* AlamofireObjectMapper.swift in Sources */,
+				AFF0664F1BA6BD430098706F /* KingfisherOptionsInfo.swift in Sources */,
 				AF3195F21B83144F001D6E75 /* CustomDateFormatTransform.swift in Sources */,
 				AF7E8FED1B9557C400AFD3EF /* PagingMenuController.swift in Sources */,
 				AF3195E31B83144F001D6E75 /* MultipartFormData.swift in Sources */,
 				AF3195E41B83144F001D6E75 /* ParameterEncoding.swift in Sources */,
 				AF3195E01B83144F001D6E75 /* Alamofire.swift in Sources */,
 				AF7E900A1B95791D00AFD3EF /* HeaderCell.swift in Sources */,
+				AFF066501BA6BD430098706F /* Resource.swift in Sources */,
 				AF3195E21B83144F001D6E75 /* Manager.swift in Sources */,
+				AFF066551BA6BD430098706F /* UIImageView+Kingfisher.swift in Sources */,
 				AF3195E71B83144F001D6E75 /* ServerTrustPolicy.swift in Sources */,
 				AF3195F51B83144F001D6E75 /* EnumTransform.swift in Sources */,
 				AF3195E81B83144F001D6E75 /* Upload.swift in Sources */,
@@ -639,10 +703,12 @@
 				AF7E8FEB1B9557C400AFD3EF /* MenuItemView.swift in Sources */,
 				AFEF5D471BA15AE200A4961D /* MenuModel.swift in Sources */,
 				AF7E90051B95592500AFD3EF /* UsersViewController.swift in Sources */,
+				AFF066521BA6BD430098706F /* UIButton+Kingfisher.swift in Sources */,
 				AF7E902A1B96A14300AFD3EF /* SKSTableViewCellIndicator.m in Sources */,
 				AF0F3BC81B99776800EE8CD2 /* CategoryResponse.swift in Sources */,
 				AF0F3BC71B99776800EE8CD2 /* CategoryModel.swift in Sources */,
 				AF790AE81B81C0D900070875 /* OpenWeatherModel.swift in Sources */,
+				AFF0664D1BA6BD430098706F /* KingfisherManager.swift in Sources */,
 				AF3195F01B83144F001D6E75 /* Operators.swift in Sources */,
 				AF3195F11B83144F001D6E75 /* ToJSON.swift in Sources */,
 				AF3195E61B83144F001D6E75 /* ResponseSerialization.swift in Sources */,

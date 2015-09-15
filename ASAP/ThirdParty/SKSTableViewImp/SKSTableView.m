@@ -252,14 +252,18 @@
     
     if ([cell isKindOfClass:[SKSTableViewCell class]] && cell.isExpandable) {
         
-        cell.isExpanded = !cell.isExpanded;
-        
         NSInteger numberOfSubRows = [self numberOfSubRowsAtIndexPath:indexPath];
-        
+
+		if (numberOfSubRows == 0) {
+			return;
+		}
+
+		cell.isExpanded = !cell.isExpanded;
+
         NSMutableArray *indexPaths = [NSMutableArray array];
         NSInteger row = indexPath.row;
         NSInteger section = indexPath.section;
-        
+
         for (NSInteger index = 1; index <= numberOfSubRows; index++) {
             
             NSIndexPath *expIndexPath = [NSIndexPath indexPathForRow:row+index inSection:section];
@@ -298,11 +302,69 @@
     }
 }
 
+- (void)doSubCell:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	NSLog(@"doSubCell");
+	__block SKSTableViewCell *cell = (SKSTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+
+	if ([cell isKindOfClass:[SKSTableViewCell class]] && cell.isExpandable) {
+
+		cell.isExpanded = !cell.isExpanded;
+
+		NSInteger numberOfSubRows = [self numberOfSubRowsAtIndexPath:indexPath];
+
+		NSMutableArray *indexPaths = [NSMutableArray array];
+		NSInteger row = indexPath.row;
+		NSInteger section = indexPath.section;
+
+		if (numberOfSubRows == 0) {
+			return;
+		}
+
+		for (NSInteger index = 1; index <= numberOfSubRows; index++) {
+
+			NSIndexPath *expIndexPath = [NSIndexPath indexPathForRow:row+index inSection:section];
+			[indexPaths addObject:expIndexPath];
+		}
+
+		if (cell.isExpanded) {
+
+			[self setIsExpanded:YES forCellAtIndexPath:indexPath];
+			[self insertExpandedIndexPaths:indexPaths forSection:indexPath.section];
+			[tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+
+		} else {
+
+			[self setIsExpanded:NO forCellAtIndexPath:indexPath];
+			[self removeExpandedIndexPaths:indexPaths forSection:indexPath.section];
+			[tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+
+		}
+
+		[UIView animateWithDuration:0.2 animations:^{
+			if (cell.isExpanded) {
+
+				cell.accessoryView.transform = CGAffineTransformMakeRotation(M_PI_2);
+
+			} else {
+				cell.accessoryView.transform = CGAffineTransformMakeRotation(0);
+			}
+		} completion:^(BOOL finished) {
+
+			if (!cell.isExpanded)
+				[cell removeIndicatorView];
+
+		}];
+
+	}
+
+}
+
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     if ([_SKSTableViewDelegate respondsToSelector:@selector(tableView:accessoryButtonTappedForRowWithIndexPath:)])
         [_SKSTableViewDelegate tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
-    
+
     [self.delegate tableView:tableView didSelectRowAtIndexPath:indexPath];
 }
 
