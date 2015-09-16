@@ -12,7 +12,7 @@ class DeployModel {
     var deploy:DeployResponse?
     
     func getDeployData( siSeq:String, completionHandler: (deploy: DeployResponse?, errorMessage: String?) -> Void ) {
-        let url = "https://uxapi.uitoxbeta.com/web_deploy/get_deploy_data"
+        let url = "web_deploy/get_deploy_data"
         let data = [
             "page_code": "index",
             "mode": "release",

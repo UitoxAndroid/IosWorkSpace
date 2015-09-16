@@ -14,9 +14,12 @@ class FirstViewController: UIViewController, UIScrollViewDelegate, UITableViewDa
 {
 	@IBOutlet weak var tableView: UITableView!
     
-	lazy var openWeather:OpenWeatherModel? = OpenWeatherModel()
-	lazy var searchData:SearchModel? = SearchModel()
-    lazy var deployData:DeployModel? = DeployModel()
+	lazy var openWeather:OpenWeatherModel?  = OpenWeatherModel()
+    lazy var searchData:SearchModel?        = SearchModel()
+    lazy var categoryData:CategoryModel?    = CategoryModel()
+    lazy var campaignData:CampaignModel?    = CampaignModel()
+    lazy var deployData:DeployModel?        = DeployModel()
+    
     lazy var slideDataList:[SlideData] = [SlideData]()
     lazy var productList:[ProductData] = [ProductData]()
     
@@ -25,16 +28,21 @@ class FirstViewController: UIViewController, UIScrollViewDelegate, UITableViewDa
         self.deployTest()
     }
       
-    
+
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		//apiManagerTest()
-		//searchTest()
+//		apiManagerTest()
+//      searchTest()
+//		CategoryTest()
         
         self.tableView.dataSource   = self
         self.tableView.delegate     = self
         
         getDealsList()
+
+		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
+		self.navigationItem.rightBarButtonItem = searchItem
 	}
 
 	func apiManagerTest() {
@@ -77,19 +85,8 @@ class FirstViewController: UIViewController, UIScrollViewDelegate, UITableViewDa
 					self.presentViewController(alert, animated: true, completion: nil)
 				})
 			} else {
-				self.searchData!.search = search!
-				println("statusCode:\(search!.statusCode)")
-				println("total:\(search!.total)")
-                println("currentPage:\(search!.currentPage)")
-                
-                if let storeList = search?.stroeList {
-                    for stroe in storeList {
-                        print("\(stroe.name!)\t")
-                        print("\(stroe.pic!)\t")
-//                        print("\(stroe.title!)\t")
-                        println()
-                    }
-                }
+				self.campaignData!.campaign = campain!
+				println("statusCode:\(campain!.status_code)")
 
 			}
 		}
