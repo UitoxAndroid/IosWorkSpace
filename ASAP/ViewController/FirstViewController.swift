@@ -11,7 +11,7 @@ import UIKit
 class FirstViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, CirCleViewDelegate
 {
 	@IBOutlet weak var tableView: UITableView!
-//	@IBOutlet weak var dealsView: DealsCollectionView!
+	var dealsView: DealsCollectionView!
 	@IBOutlet weak var dealsCollectionView: DealsCollectionView!
 
 	lazy var deployModel:DeployModel?			= DeployModel()
@@ -75,6 +75,10 @@ class FirstViewController: UIViewController, UIScrollViewDelegate, UITableViewDa
 
 		cell.detailTextLabel?.text = "10:20:05"
 
+		if (self.dealsView == nil) {
+			self.dealsView = cell.dealsCollectionView
+		}
+
 		return cell
 	}
 
@@ -108,41 +112,43 @@ class FirstViewController: UIViewController, UIScrollViewDelegate, UITableViewDa
 				self.showAlert(errorMessage!)
 			} else {
 				self.dealsOnTimeData = dealsOntime!.dataList
-				self.tableView.reloadData()
+				if (self.dealsView != nil) {
+					self.dealsView.reloadData()
+				}
 			}
 		}
 
-		return
+//		return
 
-		let deal1 = ProductData()
-		deal1.img = "http://img02-tw1.uitoxbeta.com/A/show/2014/0709/AM0000010/201407AM090000010_047493227.png"
-		deal1.name = "Apple iPhone 5S 16GB -銀"
-		deal1.price = "21500"
-		productList.append(deal1)
-
-		let deal2 = ProductData()
-		deal2.img = "http://img02-tw1.uitoxbeta.com/A/show/2013/0925/AM0001074/201309AM250001074_417329728.jpg"
-		deal2.name = "Blue Star 折疊式老人機 A608"
-		deal2.price = "1790"
-		productList.append(deal2)
-
-		let deal3 = ProductData()
-		deal3.img = "http://img02-tw1.uitoxbeta.com/A/show/2013/0926/AM0000853/201309AM260000853_135974997.jpg"
-		deal3.name = "iNO CP99極簡風老人摺疊手機"
-		deal3.price = "1588"
-		productList.append(deal3)
-
-		let deal4 = ProductData()
-		deal4.img = "http://img02-tw1.uitoxbeta.com/A/show/2013/0926/AM0000870/201309AM260000870_400345476.jpg"
-		deal4.name = "iNO CP79摺疊式銀髮族手機"
-		deal4.price = "1490"
-		productList.append(deal4)
-
-		let deal5 = ProductData()
-		deal5.img = "http://img02-tw1.uitoxbeta.com/A/show/2013/0926/AM0000953/201309AM260000953_897866938.jpg"
-		deal5.name = "YAVi雅米 i05銀髮族極簡御守機"
-		deal5.price = "988"
-		productList.append(deal5)
+//		let deal1 = ProductData()
+//		deal1.img = "http://img02-tw1.uitoxbeta.com/A/show/2014/0709/AM0000010/201407AM090000010_047493227.png"
+//		deal1.name = "Apple iPhone 5S 16GB -銀"
+//		deal1.price = "21500"
+//		productList.append(deal1)
+//
+//		let deal2 = ProductData()
+//		deal2.img = "http://img02-tw1.uitoxbeta.com/A/show/2013/0925/AM0001074/201309AM250001074_417329728.jpg"
+//		deal2.name = "Blue Star 折疊式老人機 A608"
+//		deal2.price = "1790"
+//		productList.append(deal2)
+//
+//		let deal3 = ProductData()
+//		deal3.img = "http://img02-tw1.uitoxbeta.com/A/show/2013/0926/AM0000853/201309AM260000853_135974997.jpg"
+//		deal3.name = "iNO CP99極簡風老人摺疊手機"
+//		deal3.price = "1588"
+//		productList.append(deal3)
+//
+//		let deal4 = ProductData()
+//		deal4.img = "http://img02-tw1.uitoxbeta.com/A/show/2013/0926/AM0000870/201309AM260000870_400345476.jpg"
+//		deal4.name = "iNO CP79摺疊式銀髮族手機"
+//		deal4.price = "1490"
+//		productList.append(deal4)
+//
+//		let deal5 = ProductData()
+//		deal5.img = "http://img02-tw1.uitoxbeta.com/A/show/2013/0926/AM0000953/201309AM260000953_897866938.jpg"
+//		deal5.name = "YAVi雅米 i05銀髮族極簡御守機"
+//		deal5.price = "988"
+//		productList.append(deal5)
 	}
 }
 
@@ -163,8 +169,22 @@ extension FirstViewController: UICollectionViewDataSource, UICollectionViewDeleg
 				cell.productImage.image = UIImage(data: data)
 			}
 		}
-		cell.productNameLabel?.text     = self.dealsOnTimeData[indexPath.row].wsoItemName
-		cell.productPriceLabel?.text    = ("\(self.dealsOnTimeData[indexPath.row].calCurrency)\(self.dealsOnTimeData[indexPath.row].calPrice)")
+
+		if let itemName = self.dealsOnTimeData[indexPath.row].wsoItemName {
+			cell.productNameLabel?.text = itemName
+		}
+
+		var price = ""
+
+		if let calCurrency = self.dealsOnTimeData[indexPath.row].calCurrency {
+			price += calCurrency
+		}
+
+		if let calPrice = self.dealsOnTimeData[indexPath.row].calPrice {
+			price += calPrice
+		}
+
+		cell.productPriceLabel?.text = price
 
 		return cell
 	}
