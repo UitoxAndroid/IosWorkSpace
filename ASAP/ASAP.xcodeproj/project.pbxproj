@@ -92,6 +92,13 @@
 		AFF066551BA6BD430098706F /* UIImageView+Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066481BA6BD430098706F /* UIImageView+Kingfisher.swift */; };
 		AFF066561BA6BD430098706F /* WKInterfaceImage+Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066491BA6BD430098706F /* WKInterfaceImage+Kingfisher.swift */; };
 		AFF066581BA7FA200098706F /* ic_chevron_right_24dp.png in Resources */ = {isa = PBXBuildFile; fileRef = AFF066571BA7FA200098706F /* ic_chevron_right_24dp.png */; };
+		AFF0665B1BA943A70098706F /* DeployModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066591BA943A70098706F /* DeployModel.swift */; };
+		AFF0665C1BA943A70098706F /* DeployResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF0665A1BA943A70098706F /* DeployResponse.swift */; };
+		AFF0665F1BA943CC0098706F /* CirCleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF0665E1BA943CC0098706F /* CirCleView.swift */; };
+		AFF066621BA944000098706F /* DealsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066601BA944000098706F /* DealsCollectionViewCell.swift */; };
+		AFF066631BA944000098706F /* DealsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066611BA944000098706F /* DealsTableViewCell.swift */; };
+		AFF066661BA94E2A0098706F /* DealsOntimeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066641BA94E2A0098706F /* DealsOntimeModel.swift */; };
+		AFF066671BA94E2A0098706F /* DealsOntimeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066651BA94E2A0098706F /* DealsOntimeResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,6 +220,13 @@
 		AFF066481BA6BD430098706F /* UIImageView+Kingfisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Kingfisher.swift"; sourceTree = "<group>"; };
 		AFF066491BA6BD430098706F /* WKInterfaceImage+Kingfisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WKInterfaceImage+Kingfisher.swift"; sourceTree = "<group>"; };
 		AFF066571BA7FA200098706F /* ic_chevron_right_24dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_chevron_right_24dp.png; sourceTree = "<group>"; };
+		AFF066591BA943A70098706F /* DeployModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeployModel.swift; sourceTree = "<group>"; };
+		AFF0665A1BA943A70098706F /* DeployResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeployResponse.swift; sourceTree = "<group>"; };
+		AFF0665E1BA943CC0098706F /* CirCleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CirCleView.swift; sourceTree = "<group>"; };
+		AFF066601BA944000098706F /* DealsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealsCollectionViewCell.swift; sourceTree = "<group>"; };
+		AFF066611BA944000098706F /* DealsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealsTableViewCell.swift; sourceTree = "<group>"; };
+		AFF066641BA94E2A0098706F /* DealsOntimeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealsOntimeModel.swift; sourceTree = "<group>"; };
+		AFF066651BA94E2A0098706F /* DealsOntimeResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealsOntimeResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +321,7 @@
 		AF3195B81B83144F001D6E75 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				AFF0665D1BA943CC0098706F /* GLCircleScrollVeiw */,
 				AFF0663B1BA6BD430098706F /* Kingfisher */,
 				AFEF5D3E1BA0346700A4961D /* SwiftNotice-3.1 */,
 				AF7E902D1B96A59800AFD3EF /* PGCategoryMenu */,
@@ -416,6 +431,10 @@
 		AF790AE61B81BFC500070875 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AFF066641BA94E2A0098706F /* DealsOntimeModel.swift */,
+				AFF066651BA94E2A0098706F /* DealsOntimeResponse.swift */,
+				AFF066591BA943A70098706F /* DeployModel.swift */,
+				AFF0665A1BA943A70098706F /* DeployResponse.swift */,
 				AF0F3BC21B97E2C000EE8CD2 /* SearchModel.swift */,
 				AF0F3BC11B97E2C000EE8CD2 /* SearchListResponse.swift */,
 				AFEF5D451BA15AE200A4961D /* MenuModel.swift */,
@@ -465,6 +484,8 @@
 		AF7E90061B9578E300AFD3EF /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
+				AFF066601BA944000098706F /* DealsCollectionViewCell.swift */,
+				AFF066611BA944000098706F /* DealsTableViewCell.swift */,
 				AF7E90071B95791D00AFD3EF /* BasicCell.swift */,
 				AF7E90081B95791D00AFD3EF /* HeaderCell.swift */,
 			);
@@ -525,6 +546,14 @@
 				AFF066491BA6BD430098706F /* WKInterfaceImage+Kingfisher.swift */,
 			);
 			path = Kingfisher;
+			sourceTree = "<group>";
+		};
+		AFF0665D1BA943CC0098706F /* GLCircleScrollVeiw */ = {
+			isa = PBXGroup;
+			children = (
+				AFF0665E1BA943CC0098706F /* CirCleView.swift */,
+			);
+			path = GLCircleScrollVeiw;
 			sourceTree = "<group>";
 		};
 		F39DA90FC632ABF7B58E8331 /* Frameworks */ = {
@@ -657,6 +686,7 @@
 				AF3195F41B83144F001D6E75 /* DateTransform.swift in Sources */,
 				AF7E8FFE1B95592500AFD3EF /* GistsViewController.swift in Sources */,
 				AF251DCA1B7C869F00F06143 /* ApiManager.swift in Sources */,
+				AFF0665C1BA943A70098706F /* DeployResponse.swift in Sources */,
 				AFF066531BA6BD430098706F /* UIImage+Decode.swift in Sources */,
 				AF7E8FFD1B95592500AFD3EF /* DetailViewController.swift in Sources */,
 				AF7E90091B95791D00AFD3EF /* BasicCell.swift in Sources */,
@@ -667,6 +697,7 @@
 				AF7E90041B95592500AFD3EF /* RepositoriesViewController.swift in Sources */,
 				AF3195E91B83144F001D6E75 /* Validation.swift in Sources */,
 				AFF066561BA6BD430098706F /* WKInterfaceImage+Kingfisher.swift in Sources */,
+				AFF0665F1BA943CC0098706F /* CirCleView.swift in Sources */,
 				AFEF5D401BA0346700A4961D /* SwiftNotice.swift in Sources */,
 				AF0F3BC41B97E2C000EE8CD2 /* SearchModel.swift in Sources */,
 				AFF0664E1BA6BD430098706F /* KingfisherOptions.swift in Sources */,
@@ -683,11 +714,14 @@
 				AF7E90321B96A59800AFD3EF /* PGCategoryView.m in Sources */,
 				AF3195F31B83144F001D6E75 /* DateFormaterTransform.swift in Sources */,
 				AFF066511BA6BD430098706F /* String+MD5.swift in Sources */,
+				AFF066621BA944000098706F /* DealsCollectionViewCell.swift in Sources */,
 				AF3195EA1B83144F001D6E75 /* AlamofireObjectMapper.swift in Sources */,
 				AFF0664F1BA6BD430098706F /* KingfisherOptionsInfo.swift in Sources */,
 				AF3195F21B83144F001D6E75 /* CustomDateFormatTransform.swift in Sources */,
+				AFF066631BA944000098706F /* DealsTableViewCell.swift in Sources */,
 				AF7E8FED1B9557C400AFD3EF /* PagingMenuController.swift in Sources */,
 				AF3195E31B83144F001D6E75 /* MultipartFormData.swift in Sources */,
+				AFF066661BA94E2A0098706F /* DealsOntimeModel.swift in Sources */,
 				AF3195E41B83144F001D6E75 /* ParameterEncoding.swift in Sources */,
 				AF3195E01B83144F001D6E75 /* Alamofire.swift in Sources */,
 				AF7E900A1B95791D00AFD3EF /* HeaderCell.swift in Sources */,
@@ -695,6 +729,7 @@
 				AF3195E21B83144F001D6E75 /* Manager.swift in Sources */,
 				AFF066551BA6BD430098706F /* UIImageView+Kingfisher.swift in Sources */,
 				AF3195E71B83144F001D6E75 /* ServerTrustPolicy.swift in Sources */,
+				AFF066671BA94E2A0098706F /* DealsOntimeResponse.swift in Sources */,
 				AF3195F51B83144F001D6E75 /* EnumTransform.swift in Sources */,
 				AF3195E81B83144F001D6E75 /* Upload.swift in Sources */,
 				AFEF5D431BA15A7500A4961D /* CampaignModel.swift in Sources */,
@@ -712,6 +747,7 @@
 				AF3195F01B83144F001D6E75 /* Operators.swift in Sources */,
 				AF3195F11B83144F001D6E75 /* ToJSON.swift in Sources */,
 				AF3195E61B83144F001D6E75 /* ResponseSerialization.swift in Sources */,
+				AFF0665B1BA943A70098706F /* DeployModel.swift in Sources */,
 				AF3195F91B83144F001D6E75 /* URLTransform.swift in Sources */,
 				AF3195F71B83144F001D6E75 /* TransformOf.swift in Sources */,
 				AF0F3BCA1B9D7DBA00EE8CD2 /* SearchResultViewController.swift in Sources */,

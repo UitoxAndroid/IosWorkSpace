@@ -18,14 +18,16 @@ class CampaignModel{
         ["account":"01_uitoxtest","password":"Aa1234%!@#", "platform_id":"AW000001","version":"1.0.0","data":data]
         
         ApiManager<CampaignResponse>.postDictionary(url, params: request as? [String : AnyObject]) {
-            (responseObject: CampaignResponse?, error: String?) -> Void in
+            (campain: CampaignResponse?, error: String?) -> Void in
             
-            if responseObject == nil {
+            if campain == nil {
                 completionHandler(category: nil, errorMessage: error)
                 return
             }
-            
-            completionHandler(category: responseObject, errorMessage: nil)
+
+			println("statusCode:\(campain!.status_code)")
+
+            completionHandler(category: campain, errorMessage: nil)
         }
         
     }
