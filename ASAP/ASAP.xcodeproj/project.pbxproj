@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A142F0AA1BA2813100D329F6 /* DealsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A142F0A91BA2813100D329F6 /* DealsCollectionViewCell.swift */; };
-		A16D82DE1BA272040054DAED /* DealsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16D82DD1BA272040054DAED /* DealsTableViewCell.swift */; };
-		A1A09B911BA6B82F0099843B /* CirCleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A09B901BA6B82F0099843B /* CirCleView.swift */; };
+		A11F29B91BA937D00044290F /* CirCleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F29B81BA937D00044290F /* CirCleView.swift */; };
+		A11F29BC1BA93CB80044290F /* DealsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F29BA1BA93CB80044290F /* DealsCollectionViewCell.swift */; };
+		A11F29BD1BA93CB80044290F /* DealsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F29BB1BA93CB80044290F /* DealsTableViewCell.swift */; };
 		A1A09B941BA6C25E0099843B /* DeployModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A09B921BA6C25E0099843B /* DeployModel.swift */; };
 		A1A09B951BA6C25E0099843B /* DeployResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A09B931BA6C25E0099843B /* DeployResponse.swift */; };
 		AF010EC31B7C3FBA00EB4596 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF010EC21B7C3FBA00EB4596 /* AppDelegate.swift */; };
@@ -109,9 +109,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A142F0A91BA2813100D329F6 /* DealsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DealsCollectionViewCell.swift; path = ../DealsCollectionViewCell.swift; sourceTree = "<group>"; };
-		A16D82DD1BA272040054DAED /* DealsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DealsTableViewCell.swift; path = ../DealsTableViewCell.swift; sourceTree = "<group>"; };
-		A1A09B901BA6B82F0099843B /* CirCleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CirCleView.swift; sourceTree = "<group>"; };
+		A11F29B81BA937D00044290F /* CirCleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CirCleView.swift; sourceTree = "<group>"; };
+		A11F29BA1BA93CB80044290F /* DealsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealsCollectionViewCell.swift; sourceTree = "<group>"; };
+		A11F29BB1BA93CB80044290F /* DealsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealsTableViewCell.swift; sourceTree = "<group>"; };
 		A1A09B921BA6C25E0099843B /* DeployModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeployModel.swift; sourceTree = "<group>"; };
 		A1A09B931BA6C25E0099843B /* DeployResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeployResponse.swift; sourceTree = "<group>"; };
 		AF010EBD1B7C3FBA00EB4596 /* ASAP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAP.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -217,10 +217,9 @@
 		A1A09B8F1BA6B7F90099843B /* GLCircleScrollVeiw */ = {
 			isa = PBXGroup;
 			children = (
-				A1A09B901BA6B82F0099843B /* CirCleView.swift */,
+				A11F29B81BA937D00044290F /* CirCleView.swift */,
 			);
-			name = GLCircleScrollVeiw;
-			path = PageMenuController;
+			path = GLCircleScrollVeiw;
 			sourceTree = "<group>";
 		};
 		AF010EB41B7C3FBA00EB4596 = {
@@ -408,7 +407,6 @@
 			children = (
 				A1A09B921BA6C25E0099843B /* DeployModel.swift */,
 				A1A09B931BA6C25E0099843B /* DeployResponse.swift */,
-				AF0F3BC11B97E2C000EE8CD2 /* SearchListResponse.swift */,
 				AF0F3BC21B97E2C000EE8CD2 /* SearchModel.swift */,
 				AF0F3BC11B97E2C000EE8CD2 /* SearchListResponse.swift */,
 				AFEF5D451BA15AE200A4961D /* MenuModel.swift */,
@@ -458,8 +456,8 @@
 		AF7E90061B9578E300AFD3EF /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
-				A142F0A91BA2813100D329F6 /* DealsCollectionViewCell.swift */,
-				A16D82DD1BA272040054DAED /* DealsTableViewCell.swift */,
+				A11F29BA1BA93CB80044290F /* DealsCollectionViewCell.swift */,
+				A11F29BB1BA93CB80044290F /* DealsTableViewCell.swift */,
 				AF7E90071B95791D00AFD3EF /* BasicCell.swift */,
 				AF7E90081B95791D00AFD3EF /* HeaderCell.swift */,
 			);
@@ -633,11 +631,10 @@
 				AF7E8FFD1B95592500AFD3EF /* DetailViewController.swift in Sources */,
 				AF7E90091B95791D00AFD3EF /* BasicCell.swift in Sources */,
 				AF3195EF1B83144F001D6E75 /* Mapper.swift in Sources */,
-				A142F0AA1BA2813100D329F6 /* DealsCollectionViewCell.swift in Sources */,
 				AF7E90291B96A14300AFD3EF /* SKSTableViewCell.m in Sources */,
 				AF7E90031B95592500AFD3EF /* OrganizationsViewController.swift in Sources */,
 				AF7E90041B95592500AFD3EF /* RepositoriesViewController.swift in Sources */,
-				A16D82DE1BA272040054DAED /* DealsTableViewCell.swift in Sources */,
+				A11F29BD1BA93CB80044290F /* DealsTableViewCell.swift in Sources */,
 				AF3195E91B83144F001D6E75 /* Validation.swift in Sources */,
 				AFEF5D401BA0346700A4961D /* SwiftNotice.swift in Sources */,
 				AF0F3BC41B97E2C000EE8CD2 /* SearchModel.swift in Sources */,
@@ -664,7 +661,7 @@
 				AF3195E81B83144F001D6E75 /* Upload.swift in Sources */,
 				AFEF5D431BA15A7500A4961D /* CampaignModel.swift in Sources */,
 				AF0F3BC31B97E2C000EE8CD2 /* SearchListResponse.swift in Sources */,
-				A1A09B911BA6B82F0099843B /* CirCleView.swift in Sources */,
+				A11F29BC1BA93CB80044290F /* DealsCollectionViewCell.swift in Sources */,
 				AF3195E51B83144F001D6E75 /* Request.swift in Sources */,
 				AF7E8FEB1B9557C400AFD3EF /* MenuItemView.swift in Sources */,
 				AFEF5D471BA15AE200A4961D /* MenuModel.swift in Sources */,
@@ -678,6 +675,7 @@
 				AF3195E61B83144F001D6E75 /* ResponseSerialization.swift in Sources */,
 				AF3195F91B83144F001D6E75 /* URLTransform.swift in Sources */,
 				AF3195F71B83144F001D6E75 /* TransformOf.swift in Sources */,
+				A11F29B91BA937D00044290F /* CirCleView.swift in Sources */,
 				AF0F3BCA1B9D7DBA00EE8CD2 /* SearchResultViewController.swift in Sources */,
 				AF3195E11B83144F001D6E75 /* Download.swift in Sources */,
 				AF3195EE1B83144F001D6E75 /* FromJSON.swift in Sources */,

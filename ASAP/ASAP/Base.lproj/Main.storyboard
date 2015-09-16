@@ -23,13 +23,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="NuN-hv-jCn"/>
                                 </constraints>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="eFs-GL-h4d"/>
-                                </connections>
                             </scrollView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="JnZ-mZ-O0r">
-                                <rect key="frame" x="280" y="70" width="40" height="37"/>
-                            </pageControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="phl-An-kyw">
                                 <rect key="frame" x="0.0" y="183" width="600" height="368"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -246,8 +240,6 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="L4v-J1-cH1"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="galleryPageControl" destination="JnZ-mZ-O0r" id="n9E-pm-MWj"/>
-                        <outlet property="galleryScrollView" destination="ojM-pr-Wjm" id="C99-7U-ynw"/>
                         <outlet property="tableView" destination="phl-An-kyw" id="mxf-AB-AJk"/>
                     </connections>
                 </viewController>

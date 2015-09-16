@@ -10,7 +10,7 @@ import UIKit
 
 let reuseTableViewCellIdentifier = "DealsCell"
 
-class FirstViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, CirCleViewDelegate
+class FirstViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CirCleViewDelegate
 {
 	@IBOutlet weak var tableView: UITableView!
     
@@ -119,10 +119,6 @@ class FirstViewController: UIViewController, UIScrollViewDelegate, UITableViewDa
 
 
     /* 首頁－輪播廣告 */
-    
-    @IBOutlet var galleryScrollView: UIScrollView!
-
-    @IBOutlet var galleryPageControl: UIPageControl!
     
     var circleView: CirCleView!
     
