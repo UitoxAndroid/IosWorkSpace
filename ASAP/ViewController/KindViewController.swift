@@ -12,21 +12,22 @@ class KindViewController: UITableViewController
 {
 	let basicCellIdentifier = "BasicCell"
 	let headerCellIdentifier = "HeaderCell"
+	var searchListResponse: SearchListResponse?
 	var listItem = [ItemInfo]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
 		let info = ItemInfo()
-		info.title = "得意連續抽取式花紋衛生紙"
-		info.subtitle = "紙張加厚 更吸水"
+		info.title = "得意連續抽取式花紋衛生紙得意得意得意得意得意得意得意得意"
+		info.subtitle = "紙張加厚 更吸水更吸水更吸水更吸水更吸水更吸水"
 		info.cost = 930
 		info.price = 599
-
 		listItem.append(info)
 
-
-    }
+		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
+		self.navigationItem.rightBarButtonItem = searchItem
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -42,21 +43,36 @@ class KindViewController: UITableViewController
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return listItem.count
+		if let searchListResponse = self.searchListResponse {
+			return searchListResponse.storeList.count
+		}
+		return 0
     }
 
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier( basicCellIdentifier) as! BasicCell
 
-		cell.titleLabel.text = listItem[indexPath.row].title
-		cell.subtitleLabel.text = listItem[indexPath.row].subtitle
-		cell.costLabel.text = "$" + String(listItem[indexPath.row].cost)
-		cell.priceLabel.text = "$" + String(listItem[indexPath.row].price)
+//		cell.titleLabel.text =  listItem[indexPath.row].title
+//		cell.subtitleLabel.text = listItem[indexPath.row].subtitle
+//		cell.costLabel.text = "$" + String(listItem[indexPath.row].cost)
+//		cell.priceLabel.text = "$" + String(listItem[indexPath.row].price)
 
-		if let url = NSURL(string: "http://img10-tw1.uitoximg.com/A/show/AW000001/2015/0819/AM0004746/201508AM190004746_144055242877335.jpg") {
+		cell.titleLabel.text =  searchListResponse!.storeList[indexPath.row].name
+
+		if let slogan = searchListResponse!.storeList[indexPath.row].marketInfo?.slogan {
+			if slogan.count > 0 {
+				cell.subtitleLabel.text = searchListResponse!.storeList[indexPath.row].marketInfo?.slogan[0]
+			}
+		}
+
+		let showPrice = searchListResponse!.storeList[indexPath.row].marketInfo?.showPrice!
+		let finalPrice = searchListResponse!.storeList[indexPath.row].marketInfo?.finalPrice!
+		cell.costLabel.text = "$" + String(showPrice!)
+		cell.priceLabel.text = "$" + String(finalPrice!)
+
+		//"/A/show/AW000001/2015/0819/AM0004746/201508AM190004746_144055242877335.jpg"
+		if let url = NSURL(string: "http://img10-tw1.uitoximg.com" + searchListResponse!.storeList[indexPath.row].pic! ) {
 			if let data = NSData(contentsOfURL: url) {
 				cell.imagedView.image = UIImage(data: data)
 			}

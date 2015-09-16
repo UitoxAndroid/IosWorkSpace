@@ -8,26 +8,39 @@
 
 import UIKit
 
-class GoodsListViewController: UIViewController, PagingMenuControllerDelegate {
+class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
+{
+	var searchListResponse: SearchListResponse?
+	var relatedMenuList:[DataInfo] = []
+	var currentIndex:Int = 0
+	var viewControllers = [UIViewController]()
+	lazy var categoryData:CategoryModel? = CategoryModel()
 
+	// MARK: - View
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		let usersViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UsersViewController") as! UsersViewController
-		let repositoriesViewController = self.storyboard?.instantiateViewControllerWithIdentifier("RepositoriesViewController") as! RepositoriesViewController
-		let gistsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("GistsViewController") as! GistsViewController
-		let organizationsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("OrganizationsViewController") as! OrganizationsViewController
+		for (index, p) in enumerate(relatedMenuList) {
+			let vc = self.storyboard?.instantiateViewControllerWithIdentifier("KindViewController") as! KindViewController
+			vc.title = p.name
 
-		let test1Controller = UIViewController()
-		test1Controller.title = "test1Controller"
-		let test2Controller = UIViewController()
-		test2Controller.title = "test2Controller"
+			if index == currentIndex {
+				vc.searchListResponse = searchListResponse!
+			}
 
-		let kindViewController = self.storyboard?.instantiateViewControllerWithIdentifier("KindViewController") as! KindViewController
-		kindViewController.title = "Life"
+			viewControllers.append(vc)
+		}
 
-		let viewControllers = [kindViewController, usersViewController, repositoriesViewController, gistsViewController, organizationsViewController, test1Controller, test2Controller]
+		setupPagingMenu()
 
+		self.clearAllNotice()
+
+		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
+		self.navigationItem.rightBarButtonItem = searchItem
+    }
+
+	func setupPagingMenu() {
 		let options = PagingMenuOptions()
 
 		//間隔距離
@@ -39,28 +52,50 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate {
 		options.menuDisplayMode = PagingMenuOptions.MenuDisplayMode.FlexibleItemWidth(centerItem: false, scrollingMode: PagingMenuOptions.MenuScrollingMode.ScrollEnabled)
 		//設定底線高度、顏色
 		options.menuItemMode = PagingMenuOptions.MenuItemMode.Underline(height: 3, color: UIColor.redColor())
+		//預設頁面
+		options.defaultPage = currentIndex
 
 
 		let pagingMenuController = self.childViewControllers.first as! PagingMenuController
 		pagingMenuController.delegate = self
 		pagingMenuController.setup(viewControllers: viewControllers, options: options)
+	}
 
-    }
+	// MARK: - PagingMenuControllerDelegate
+	func willMoveToMenuPage(page: Int) {
+		if page < 0 || page >= self.relatedMenuList.count {
+			return
+		}
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+	 	var vc = viewControllers[page] as? KindViewController
+		if vc?.searchListResponse != nil {
+			return
+		}
+		
+		let siSeq = self.relatedMenuList[page].sid
+		println("name:\(self.relatedMenuList[page].name)")
 
-    /*
-    // MARK: - Navigation
+		self.GetCategory(siSeq!) {
+			(categoryResponse: SearchListResponse?) in
+			vc?.searchListResponse = categoryResponse
+			vc?.tableView.reloadData()
+		}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+	}
+
+	func didMoveToMenuPage(page: Int) {
+
+	}
+
+	// MARK - Call Api
+	func GetCategory( siSeq: String, completionHandler: (categoryResponse: SearchListResponse?) -> Void) {
+		categoryData?.getCategoryData(siSeq) { (category: SearchListResponse?, errorMessage: String?) in
+			if category == nil {
+				self.showAlert(errorMessage!)
+			} else {
+				completionHandler(categoryResponse: category!)
+			}
+		}
+	}
 
 }

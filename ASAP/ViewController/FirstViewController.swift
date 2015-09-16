@@ -65,9 +65,11 @@ class FirstViewController: UIViewController, UIScrollViewDelegate, UITableViewDa
 		}
 	}
 
-	func searchTest() {
-		searchData?.getSearchData() { (search: SearchListResponse?, errorMessage: String?) in
-			if search == nil {
+
+
+	func GetCampaign(){
+		campaignData?.getMenuData() { (campain: CampaignResponse?, errorMessage: String?) in
+			if campain == nil {
 				dispatch_async(dispatch_get_main_queue(), { () -> Void in
 					let alert = UIAlertController(title: "警告", message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
 					let confirmAction = UIAlertAction(title: "確定", style: UIAlertActionStyle.Default, handler: nil)
@@ -111,6 +113,8 @@ class FirstViewController: UIViewController, UIScrollViewDelegate, UITableViewDa
             }
         })
     }
+
+
 
 	override func prefersStatusBarHidden() -> Bool {
 		return false
