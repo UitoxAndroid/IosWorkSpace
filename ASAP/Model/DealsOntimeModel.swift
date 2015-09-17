@@ -16,7 +16,7 @@ class DealsOntimeModel {
         let data = [
             "wc_seq":"AWC000001",
             "range":"date",
-            "date":"2015/09/16"
+            "date":"2015/10/31"
             ]
         let request = [
             "account": "01_uitoxtest",

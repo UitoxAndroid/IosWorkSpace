@@ -60,16 +60,16 @@ class KindViewController: UITableViewController
 
 		cell.titleLabel.text =  searchListResponse!.storeList[indexPath.row].name
 
-		if let slogan = searchListResponse!.storeList[indexPath.row].marketInfo?.slogan {
-			if slogan.count > 0 {
-				cell.subtitleLabel.text = searchListResponse!.storeList[indexPath.row].marketInfo?.slogan[0]
-			}
-		}
+//		if let slogan = searchListResponse!.storeList[indexPath.row].marketInfo?.slogan {
+//			if slogan.count > 0 {
+//				cell.subtitleLabel.text = searchListResponse!.storeList[indexPath.row].marketInfo?.slogan[0]
+//			}
+//		}
 
-		let showPrice = searchListResponse!.storeList[indexPath.row].marketInfo?.showPrice!
-		let finalPrice = searchListResponse!.storeList[indexPath.row].marketInfo?.finalPrice!
-		cell.costLabel.text = "$" + String(showPrice!)
-		cell.priceLabel.text = "$" + String(finalPrice!)
+//		let showPrice = searchListResponse!.storeList[indexPath.row].marketInfo?.showPrice!
+		let finalPrice = searchListResponse!.storeList[indexPath.row].finalPrice!
+//		cell.costLabel.text = "$" + String(showPrice!)
+		cell.priceLabel.text = "$" + String(finalPrice)
 
 
 		cell.imagedView.kf_showIndicatorWhenLoading = false
