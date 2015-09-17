@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A11F29B91BA937D00044290F /* CirCleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F29B81BA937D00044290F /* CirCleView.swift */; };
-		A11F29BC1BA93CB80044290F /* DealsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F29BA1BA93CB80044290F /* DealsCollectionViewCell.swift */; };
-		A11F29BD1BA93CB80044290F /* DealsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F29BB1BA93CB80044290F /* DealsTableViewCell.swift */; };
-		A1A09B941BA6C25E0099843B /* DeployModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A09B921BA6C25E0099843B /* DeployModel.swift */; };
-		A1A09B951BA6C25E0099843B /* DeployResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A09B931BA6C25E0099843B /* DeployResponse.swift */; };
 		AF010EC31B7C3FBA00EB4596 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF010EC21B7C3FBA00EB4596 /* AppDelegate.swift */; };
 		AF010ECA1B7C3FBA00EB4596 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF010EC81B7C3FBA00EB4596 /* Main.storyboard */; };
 		AF010ECC1B7C3FBA00EB4596 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF010ECB1B7C3FBA00EB4596 /* Images.xcassets */; };
@@ -109,11 +104,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A11F29B81BA937D00044290F /* CirCleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CirCleView.swift; sourceTree = "<group>"; };
-		A11F29BA1BA93CB80044290F /* DealsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealsCollectionViewCell.swift; sourceTree = "<group>"; };
-		A11F29BB1BA93CB80044290F /* DealsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealsTableViewCell.swift; sourceTree = "<group>"; };
-		A1A09B921BA6C25E0099843B /* DeployModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeployModel.swift; sourceTree = "<group>"; };
-		A1A09B931BA6C25E0099843B /* DeployResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeployResponse.swift; sourceTree = "<group>"; };
 		AF010EBD1B7C3FBA00EB4596 /* ASAP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF010EC11B7C3FBA00EB4596 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF010EC21B7C3FBA00EB4596 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -214,14 +204,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A1A09B8F1BA6B7F90099843B /* GLCircleScrollVeiw */ = {
-			isa = PBXGroup;
-			children = (
-				A11F29B81BA937D00044290F /* CirCleView.swift */,
-			);
-			path = GLCircleScrollVeiw;
-			sourceTree = "<group>";
-		};
 		AF010EB41B7C3FBA00EB4596 = {
 			isa = PBXGroup;
 			children = (
@@ -296,7 +278,6 @@
 		AF3195B81B83144F001D6E75 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				A1A09B8F1BA6B7F90099843B /* GLCircleScrollVeiw */,
 				AFEF5D3E1BA0346700A4961D /* SwiftNotice-3.1 */,
 				AF7E902D1B96A59800AFD3EF /* PGCategoryMenu */,
 				AF7E901D1B96A14300AFD3EF /* SKSTableViewImp */,
@@ -405,8 +386,6 @@
 		AF790AE61B81BFC500070875 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A1A09B921BA6C25E0099843B /* DeployModel.swift */,
-				A1A09B931BA6C25E0099843B /* DeployResponse.swift */,
 				AF0F3BC21B97E2C000EE8CD2 /* SearchModel.swift */,
 				AF0F3BC11B97E2C000EE8CD2 /* SearchListResponse.swift */,
 				AFEF5D451BA15AE200A4961D /* MenuModel.swift */,
@@ -456,8 +435,6 @@
 		AF7E90061B9578E300AFD3EF /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
-				A11F29BA1BA93CB80044290F /* DealsCollectionViewCell.swift */,
-				A11F29BB1BA93CB80044290F /* DealsTableViewCell.swift */,
 				AF7E90071B95791D00AFD3EF /* BasicCell.swift */,
 				AF7E90081B95791D00AFD3EF /* HeaderCell.swift */,
 			);
@@ -616,13 +593,11 @@
 				AF7E900E1B957DB600AFD3EF /* FirstViewController.swift in Sources */,
 				AF7E90011B95592500AFD3EF /* KindViewController.swift in Sources */,
 				AF7E8FF01B95581200AFD3EF /* ItemInfo.swift in Sources */,
-				A1A09B951BA6C25E0099843B /* DeployResponse.swift in Sources */,
 				AF7E902C1B96A2DD00AFD3EF /* MenuViewController.swift in Sources */,
 				AF7E90281B96A14300AFD3EF /* SKSTableView.m in Sources */,
 				AF7E8FEC1B9557C400AFD3EF /* MenuView.swift in Sources */,
 				AF251DCB1B7C869F00F06143 /* Logger.swift in Sources */,
 				AF251DCC1B7C869F00F06143 /* WeatherResponse.swift in Sources */,
-				A1A09B941BA6C25E0099843B /* DeployModel.swift in Sources */,
 				AFEF5D4A1BA2A8DF00A4961D /* ViewControllerCommon.swift in Sources */,
 				AF3195F81B83144F001D6E75 /* TransformType.swift in Sources */,
 				AF3195F41B83144F001D6E75 /* DateTransform.swift in Sources */,
@@ -634,7 +609,6 @@
 				AF7E90291B96A14300AFD3EF /* SKSTableViewCell.m in Sources */,
 				AF7E90031B95592500AFD3EF /* OrganizationsViewController.swift in Sources */,
 				AF7E90041B95592500AFD3EF /* RepositoriesViewController.swift in Sources */,
-				A11F29BD1BA93CB80044290F /* DealsTableViewCell.swift in Sources */,
 				AF3195E91B83144F001D6E75 /* Validation.swift in Sources */,
 				AFEF5D401BA0346700A4961D /* SwiftNotice.swift in Sources */,
 				AF0F3BC41B97E2C000EE8CD2 /* SearchModel.swift in Sources */,
@@ -661,7 +635,6 @@
 				AF3195E81B83144F001D6E75 /* Upload.swift in Sources */,
 				AFEF5D431BA15A7500A4961D /* CampaignModel.swift in Sources */,
 				AF0F3BC31B97E2C000EE8CD2 /* SearchListResponse.swift in Sources */,
-				A11F29BC1BA93CB80044290F /* DealsCollectionViewCell.swift in Sources */,
 				AF3195E51B83144F001D6E75 /* Request.swift in Sources */,
 				AF7E8FEB1B9557C400AFD3EF /* MenuItemView.swift in Sources */,
 				AFEF5D471BA15AE200A4961D /* MenuModel.swift in Sources */,
@@ -675,7 +648,6 @@
 				AF3195E61B83144F001D6E75 /* ResponseSerialization.swift in Sources */,
 				AF3195F91B83144F001D6E75 /* URLTransform.swift in Sources */,
 				AF3195F71B83144F001D6E75 /* TransformOf.swift in Sources */,
-				A11F29B91BA937D00044290F /* CirCleView.swift in Sources */,
 				AF0F3BCA1B9D7DBA00EE8CD2 /* SearchResultViewController.swift in Sources */,
 				AF3195E11B83144F001D6E75 /* Download.swift in Sources */,
 				AF3195EE1B83144F001D6E75 /* FromJSON.swift in Sources */,
