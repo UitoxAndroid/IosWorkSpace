@@ -475,8 +475,11 @@
 				AF7E8FF31B95592500AFD3EF /* DetailViewController.swift */,
 				AF7E8FF41B95592500AFD3EF /* GistsViewController.swift */,
 				AF7E8FF71B95592500AFD3EF /* KindViewController.swift */,
-				AFF066681BAAA1E00098706F /* OnSaleViewController.swift */,
+<<<<<<< Updated upstream
 				A1916A831BAAB9CD00DA5447 /* SignInViewController.swift */,
+=======
+				AFF066681BAAA1E00098706F /* OnSaleViewController.swift */,
+>>>>>>> Stashed changes
 				AF7E8FF81B95592500AFD3EF /* MyTabBarViewController.swift */,
 				AF7E8FF91B95592500AFD3EF /* OrganizationsViewController.swift */,
 				AF7E8FFA1B95592500AFD3EF /* RepositoriesViewController.swift */,

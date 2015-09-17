@@ -1,5 +1,5 @@
 //
-//  BasicCell.swift
+//  HeaderCell.swift
 //  UitoxSample1
 //
 //  Created by uitox_macbook on 2015/8/27.
@@ -8,15 +8,9 @@
 
 import UIKit
 
-class BasicCell: UITableViewCell
+class OnSaleHeaderCell: UITableViewCell
 {
-
-	@IBOutlet var titleLabel: UILabel!
-	@IBOutlet var subtitleLabel: UILabel!
-	@IBOutlet var costLabel: UILabel!
-	@IBOutlet var priceLabel: UILabel!
-	@IBOutlet var imagedView:UIImageView!
-	@IBOutlet var timeLabel: UILabel!
+	@IBOutlet weak var titleLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

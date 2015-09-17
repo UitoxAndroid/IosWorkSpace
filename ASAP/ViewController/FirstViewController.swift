@@ -43,6 +43,24 @@ class FirstViewController: UIViewController, UIScrollViewDelegate, UITableViewDa
 		return false
 	}
 
+	override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+		if dealsOnTimeData.count > 0 {
+			return true
+		}
+		return false
+	}
+
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if segue.identifier == "ShowOnSaleViewController" {
+
+			if let onSaleViewController = segue.destinationViewController as? OnSaleViewController {
+				if dealsOnTimeData.count > 0 {
+					onSaleViewController.onSaleData = dealsOnTimeData
+				}
+			}
+		}
+	}
+
 
 	// MARK: -  首頁－輪播廣告
 
