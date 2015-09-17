@@ -46,13 +46,14 @@ static UIImage *_image = nil;
 - (UIView *)expandableView
 {
     if (!_image) {
-        _image = [UIImage imageNamed:@"expandableImage.png"];
+        _image = [UIImage imageNamed:@"ic_chevron_right_24dp.png"];
     }
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    CGRect frame = CGRectMake(0.0, 0.0, _image.size.width, _image.size.height);
+//    CGRect frame = CGRectMake(0.0, 0.0, _image.size.width, _image.size.height);
+	CGRect frame = CGRectMake(0.0, 0.0, 20, 20);
     button.frame = frame;
-    
+
     [button setBackgroundImage:_image forState:UIControlStateNormal];
     
     return button;

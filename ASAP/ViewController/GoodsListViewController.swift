@@ -24,6 +24,7 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 		for (index, p) in enumerate(relatedMenuList) {
 			let vc = self.storyboard?.instantiateViewControllerWithIdentifier("KindViewController") as! KindViewController
 			vc.title = p.name
+			
 
 			if index == currentIndex {
 				vc.searchListResponse = searchListResponse!
@@ -71,7 +72,9 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 		if vc?.searchListResponse != nil {
 			return
 		}
-		
+
+		self.pleaseWait()
+
 		let siSeq = self.relatedMenuList[page].sid
 		println("name:\(self.relatedMenuList[page].name)")
 
@@ -79,6 +82,7 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 			(categoryResponse: SearchListResponse?) in
 			vc?.searchListResponse = categoryResponse
 			vc?.tableView.reloadData()
+			self.clearAllNotice()
 		}
 
 	}

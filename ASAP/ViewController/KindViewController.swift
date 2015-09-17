@@ -60,23 +60,55 @@ class KindViewController: UITableViewController
 
 		cell.titleLabel.text =  searchListResponse!.storeList[indexPath.row].name
 
-		if let slogan = searchListResponse!.storeList[indexPath.row].marketInfo?.slogan {
-			if slogan.count > 0 {
-				cell.subtitleLabel.text = searchListResponse!.storeList[indexPath.row].marketInfo?.slogan[0]
-			}
+//		if let slogan = searchListResponse!.storeList[indexPath.row].marketInfo?.slogan {
+//			if slogan.count > 0 {
+//				cell.subtitleLabel.text = searchListResponse!.storeList[indexPath.row].marketInfo?.slogan[0]
+//			}
+//		}
+
+//		let showPrice = searchListResponse!.storeList[indexPath.row].marketInfo?.showPrice!
+		let finalPrice = searchListResponse!.storeList[indexPath.row].finalPrice!
+//		cell.costLabel.text = "$" + String(showPrice!)
+		cell.priceLabel.text = "$" + String(finalPrice)
+
+
+		cell.imagedView.kf_showIndicatorWhenLoading = false
+
+		let URL = NSURL(string: searchListResponse!.storeList[indexPath.row].pic!)!
+//		let resource = Resource(downloadURL: URL)
+//		cell.imagedView.kf_setImageWithResource( resource, placeholderImage: nil, optionsInfo: nil, progressBlock: { (receivedSize, totalSize) -> () in
+//			println("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
+//			}) { (image, error, cacheType, imageURL) -> () in
+//				if error != nil  {
+//					println(error?.description)
+//				}
+//
+//				println("\(indexPath.row + 1): Finished")
+//		}
+
+//		println("\(searchListResponse!.storeList[indexPath.row].name)")
+//		println("\(indexPath.row + 1): URL: \(URL)")
+
+		cell.imagedView.kf_setImageWithURL(URL, placeholderImage: nil, optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly], progressBlock: { (receivedSize, totalSize) -> () in
+//			println("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
+		}) { (image, error, cacheType, imageURL) -> () in
+//			if error != nil  {
+//				println(error?.description)
+//			}
+
+//			println("\(indexPath.row + 1): Finished")
 		}
 
-		let showPrice = searchListResponse!.storeList[indexPath.row].marketInfo?.showPrice!
-		let finalPrice = searchListResponse!.storeList[indexPath.row].marketInfo?.finalPrice!
-		cell.costLabel.text = "$" + String(showPrice!)
-		cell.priceLabel.text = "$" + String(finalPrice!)
+//		println()
 
+
+		//"http://img10-tw1.uitoximg.com"
 		//"/A/show/AW000001/2015/0819/AM0004746/201508AM190004746_144055242877335.jpg"
-		if let url = NSURL(string: "http://img10-tw1.uitoximg.com" + searchListResponse!.storeList[indexPath.row].pic! ) {
-			if let data = NSData(contentsOfURL: url) {
-				cell.imagedView.image = UIImage(data: data)
-			}
-		}
+//		if let url = NSURL(string: searchListResponse!.storeList[indexPath.row].pic! ) {
+//			if let data = NSData(contentsOfURL: url) {
+//				cell.imagedView.image = UIImage(data: data)
+//			}
+//		}
 
         return cell
     }

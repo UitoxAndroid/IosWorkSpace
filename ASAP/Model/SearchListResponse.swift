@@ -42,9 +42,8 @@ public class AttributeInfo: Mappable
         respone/attr/av_sort	屬性排序	String
         respone/attr/total      屬性總數	Integer*/
 
-    public var seq:     String?
     public var name:    String?
-    public var sort:    String?
+	public var sort:    String?
     public var total:   Int?
 
     public static func newInstance(map: Map) -> Mappable? {
@@ -52,10 +51,7 @@ public class AttributeInfo: Mappable
     }
     
     public func mapping(map: Map) {
-        seq     <- map["AV_SEQ"]
-        name    <- map["AV_NAME"]
-        sort    <- map["AV_SORT"]
-        total   <- map["total"]
+        total		<- map["total"]
     }
 }
 
@@ -68,19 +64,22 @@ public class StoreInfo: Mappable
         respone/list/sm_title	賣場標題	String*/
 
     public var name:		String?
-    public var pic:			String?
-    public var title:		String?
-	public var marketInfo:	MarketInfo?
-    
+	public var pic:			String?
+	public var smPicSize:	String?
+	public var smSeq:		String?
+	public var finalPrice:  Int?
+	public var title:		String?
+
     public static func newInstance(map: Map) -> Mappable? {
         return StoreInfo()
     }
   
     public func mapping(map: Map) {
-        name		<- map["SM_NAME"]
-        pic			<- map["SM_PIC"]
         title		<- map["SM_TITLE"]
-		marketInfo	<- map["market_info"]
+		name		<- map["SM_NAME"]
+		pic			<- map["SM_PIC"]
+		smPicSize	<- map["SM_PIC_SIZE"]
+		finalPrice  <- map["FINAL_PRICE"]
     }
 }
 
@@ -126,7 +125,6 @@ public class MarketInfo: Mappable
 
 	public func mapping(map: Map) {
 		showPrice     <- map["price.show_price.price"]
-		finalPrice    <- map["price.final_price.price"]
 		slogan		  <- map["other.slogan"]
 	}
 
