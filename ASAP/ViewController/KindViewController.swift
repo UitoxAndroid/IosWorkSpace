@@ -25,8 +25,7 @@ class KindViewController: UITableViewController
 		info.price = 599
 		listItem.append(info)
 
-		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
-		self.navigationItem.rightBarButtonItem = searchItem
+		setRightItemSearch()
 	}
 
     override func didReceiveMemoryWarning() {
@@ -67,9 +66,14 @@ class KindViewController: UITableViewController
 //		}
 
 //		let showPrice = searchListResponse!.storeList[indexPath.row].marketInfo?.showPrice!
-		let finalPrice = searchListResponse!.storeList[indexPath.row].finalPrice!
+
+		cell.priceLabel.text = "$"
+		if let finalPrice = searchListResponse!.storeList[indexPath.row].finalPrice {
+			cell.priceLabel.text = cell.priceLabel.text! + String(finalPrice)
+		}
+
+		cell.costLabel.text = "$1999"
 //		cell.costLabel.text = "$" + String(showPrice!)
-		cell.priceLabel.text = "$" + String(finalPrice)
 
 
 		cell.imagedView.kf_showIndicatorWhenLoading = false

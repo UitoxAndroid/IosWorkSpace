@@ -58,8 +58,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 			self.clearAllNotice()
 		}
 
-		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
-		self.navigationItem.rightBarButtonItem = searchItem
+		setRightItemSearch()
 	}
 
 	func setupView() {
@@ -162,10 +161,10 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 
 	func tableView(tableView: SKSTableView!, cellForSubRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
 
-		var cell: UITableViewCell? = tableView.dequeueReusableCellWithIdentifier(SubCellIdentifier) as? UITableViewCell
+		var cell: SKSTableViewCell? = tableView.dequeueReusableCellWithIdentifier(SubCellIdentifier) as? SKSTableViewCell
 
 		if cell == nil {
-			cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: SubCellIdentifier)
+			cell = SKSTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: SubCellIdentifier)
 		}
 
 		println("row:\(indexPath.row)")
@@ -174,6 +173,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 //		var s = self.contentList[indexPath.row][indexPath.subRow]
 		var name = self.detailMenuList[indexPath.subRow].name
 		cell?.textLabel?.text = name
+		cell?.sid = self.detailMenuList[indexPath.subRow].sid
 		cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
 
 		return cell!
@@ -183,25 +183,37 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
 		if tableView == leftTableView {
-			self.subCount = 0
 			let selectedRowId = self.leftMenuList[indexPath.row].sid
 			println(selectedRowId)
 			GetMenu(selectedRowId!) {
 				(menu: MenuResponse?) in
+
+				if menu?.menuList == nil || menu?.menuList.count == 0 {
+					self.showAlert("no data")
+//					self.GetCategory(selectedRowId!) {
+//						(categoryResponse: SearchListResponse?) in
+//						let goodListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("GoodListViewController") as? GoodsListViewController
+//						goodListViewController?.searchListResponse = categoryResponse
+//						goodListViewController!.relatedMenuList = self.leftMenuList
+//						goodListViewController!.currentIndex = indexPath.row
+//						self.navigationController?.pushViewController(goodListViewController!, animated: true)
+//					}
+				} else {
 					self.rightMenuList = menu!.menuList
 					self.rightTableView.reloadData()
 					self.categoryView.show()
+				}
+
 			}
 
 		} else {
+			println("indexPath.row:\(indexPath.row)")
 			let cell = tableView.cellForRowAtIndexPath(indexPath) as? SKSTableViewCell
 
 			if cell == nil {
 				return
 			}
 
-			println("indexPath.row:\(indexPath.row)")
-//			let currentRow = indexPath.row - self.subCount
 			let selectedRowId = cell!.sid
 			println(selectedRowId)
 
@@ -209,31 +221,29 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 
 			GetMenu(selectedRowId!) {
 				(menu: MenuResponse?) in
-				var menu:MenuResponse? = MenuResponse()
+//				var menu:MenuResponse? = MenuResponse()
 				if let menu = menu {
 
-					if (indexPath.row == 1 || indexPath.row == 2) {
-						menu.menuList = [DataInfo]()
-						let d1 = DataInfo()
-						d1.name = "假資料1"
-						menu.menuList.append(d1)
-						let d2 = DataInfo()
-						d2.name = "假資料2"
-						menu.menuList.append(d2)
-						let d3 = DataInfo()
-						d3.name = "假資料3"
-						menu.menuList.append(d3)
-					}
+//					if (indexPath.row == 1 || indexPath.row == 2) {
+//						menu.menuList = [DataInfo]()
+//						let d1 = DataInfo()
+//						d1.name = "假資料1"
+//						menu.menuList.append(d1)
+//						let d2 = DataInfo()
+//						d2.name = "假資料2"
+//						menu.menuList.append(d2)
+//						let d3 = DataInfo()
+//						d3.name = "假資料3"
+//						menu.menuList.append(d3)
+//					}
 
 					if menu.menuList.count != 0 {
+						menu.menuList.insert(DataInfo(), atIndex: 0)
 						self.detailMenuList = menu.menuList
-						self.subCount += self.detailMenuList.count - 1
 						(tableView as! SKSTableView).doSubCell(tableView, didSelectRowAtIndexPath: indexPath)
 						return
 					}
 				}
-
-				self.pleaseWait()
 
 				self.GetCategory(selectedRowId!) {
 					(categoryResponse: SearchListResponse?) in
@@ -250,7 +260,9 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 	// MARK: - Call Api
 
 	func GetMenu( siSeq: String, completionHandler: (menuResponse: MenuResponse?) -> Void) {
+		self.pleaseWait()
 		menuData?.getMenuData(siSeq) { (menu: MenuResponse?, errorMessage: String?) in
+			self.clearAllNotice()
 			if menu == nil {
 				self.showAlert(errorMessage!)
 			} else {
@@ -260,8 +272,10 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 	}
 
 	func GetCategory( siSeq: String, completionHandler: (categoryResponse: SearchListResponse?) -> Void) {
+		self.pleaseWait()
 		categoryData?.getCategoryData(siSeq) { (category: SearchListResponse?, errorMessage: String?) in
-			if category == nil {
+			self.clearAllNotice()
+			if errorMessage != nil {
 				self.showAlert(errorMessage!)
 			} else {
 				completionHandler(categoryResponse: category!)

@@ -19,9 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 //		UITabBar.appearance().barTintColor = UIColor.blackColor()
 		//		UITabBar.appearance().tintColor = UIColor.whiteColor()
-		UINavigationBar.appearance().barTintColor = UIColor.brownColor()
-		UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-		UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+//		UINavigationBar.appearance().barTintColor = UIColor.brownColor()
+//		UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+//		UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
 
 
 
@@ -44,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationDidBecomeActive(application: UIApplication) {
 		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+		NSHTTPCookieStorage.sharedHTTPCookieStorage().cookieAcceptPolicy = NSHTTPCookieAcceptPolicy.Always
 	}
 
 	func applicationWillTerminate(application: UIApplication) {

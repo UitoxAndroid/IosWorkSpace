@@ -34,9 +34,10 @@ class SearchModel
 			println("currentPage:\(search!.currentPage)")
 
 			if let storeList = search?.storeList {
-				for stroe in storeList {
-					print("\(stroe.name!)\t")
-					print("\(stroe.pic!)\t")
+				for store in storeList {
+					print("\(store.name!)\t")
+					print("\(store.pic!)\t")
+					print("\(store.finalPrice!)\t")
 					println()
 				}
 			}

@@ -37,8 +37,7 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 
 		self.clearAllNotice()
 
-		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
-		self.navigationItem.rightBarButtonItem = searchItem
+		setRightItemSearch()
     }
 
 	func setupPagingMenu() {
@@ -76,13 +75,12 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 		self.pleaseWait()
 
 		let siSeq = self.relatedMenuList[page].sid
-		println("name:\(self.relatedMenuList[page].name)")
+		println("name:\(self.relatedMenuList[page].name!)")
 
 		self.GetCategory(siSeq!) {
 			(categoryResponse: SearchListResponse?) in
 			vc?.searchListResponse = categoryResponse
 			vc?.tableView.reloadData()
-			self.clearAllNotice()
 		}
 
 	}
@@ -94,7 +92,8 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 	// MARK - Call Api
 	func GetCategory( siSeq: String, completionHandler: (categoryResponse: SearchListResponse?) -> Void) {
 		categoryData?.getCategoryData(siSeq) { (category: SearchListResponse?, errorMessage: String?) in
-			if category == nil {
+			self.clearAllNotice()
+			if errorMessage != nil {
 				self.showAlert(errorMessage!)
 			} else {
 				completionHandler(categoryResponse: category!)

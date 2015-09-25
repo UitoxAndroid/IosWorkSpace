@@ -19,9 +19,14 @@ class MenuModel{
         
         ApiManager<MenuResponse>.postDictionary(url, params: request as? [String : AnyObject]) {
             (responseObject: MenuResponse?, error: String?) -> Void in
-            
+
             if responseObject == nil {
-                completionHandler(menuResponse: nil, errorMessage: error)
+//				if error == nil || error == "" {
+//					completionHandler(menuResponse: nil, errorMessage: "no data")
+//				} else {
+//					completionHandler(menuResponse: nil, errorMessage: error)
+//				}
+				completionHandler(menuResponse: nil, errorMessage: error)
                 return
             }
 

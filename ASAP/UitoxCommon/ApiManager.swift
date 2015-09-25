@@ -33,7 +33,7 @@ class ApiManager<T:Mappable>
 		resetTrustPolicy()
 
 		let url = domain + urlPath
-
+		
 		Manager.sharedInstance.request(.POST, url, parameters: params, encoding: .JSON).responseObject {
 			(responseEntity: T?, error: NSError?) in
 			if responseEntity == nil || error != nil {

@@ -75,6 +75,7 @@
 		AF7E90321B96A59800AFD3EF /* PGCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7E902F1B96A59800AFD3EF /* PGCategoryView.m */; };
 		AF7E90331B96A59800AFD3EF /* re_prduct_pan_toggle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF7E90301B96A59800AFD3EF /* re_prduct_pan_toggle@2x.png */; };
 		AF7E90341B96A59800AFD3EF /* re_product_pan_b@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF7E90311B96A59800AFD3EF /* re_product_pan_b@2x.png */; };
+		AFCA535D1BB5240F0009BF76 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCA535C1BB5240F0009BF76 /* AccountViewController.swift */; };
 		AFEF5D401BA0346700A4961D /* SwiftNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF5D3F1BA0346700A4961D /* SwiftNotice.swift */; };
 		AFEF5D431BA15A7500A4961D /* CampaignModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF5D411BA15A7500A4961D /* CampaignModel.swift */; };
 		AFEF5D441BA15A7500A4961D /* CampaignResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF5D421BA15A7500A4961D /* CampaignResponse.swift */; };
@@ -207,6 +208,7 @@
 		AF7E902F1B96A59800AFD3EF /* PGCategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCategoryView.m; sourceTree = "<group>"; };
 		AF7E90301B96A59800AFD3EF /* re_prduct_pan_toggle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "re_prduct_pan_toggle@2x.png"; sourceTree = "<group>"; };
 		AF7E90311B96A59800AFD3EF /* re_product_pan_b@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "re_product_pan_b@2x.png"; sourceTree = "<group>"; };
+		AFCA535C1BB5240F0009BF76 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		AFEF5D3F1BA0346700A4961D /* SwiftNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftNotice.swift; sourceTree = "<group>"; };
 		AFEF5D411BA15A7500A4961D /* CampaignModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampaignModel.swift; sourceTree = "<group>"; };
 		AFEF5D421BA15A7500A4961D /* CampaignResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampaignResponse.swift; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				AF7E900D1B957DB600AFD3EF /* FirstViewController.swift */,
 				AF7E902B1B96A2DD00AFD3EF /* MenuViewController.swift */,
 				AF0F3BC91B9D7DBA00EE8CD2 /* SearchResultViewController.swift */,
+				AFCA535C1BB5240F0009BF76 /* AccountViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -694,6 +697,7 @@
 				AF7E8FF01B95581200AFD3EF /* ItemInfo.swift in Sources */,
 				AF7E902C1B96A2DD00AFD3EF /* MenuViewController.swift in Sources */,
 				AF7E90281B96A14300AFD3EF /* SKSTableView.m in Sources */,
+				AFCA535D1BB5240F0009BF76 /* AccountViewController.swift in Sources */,
 				AF7E8FEC1B9557C400AFD3EF /* MenuView.swift in Sources */,
 				AF251DCB1B7C869F00F06143 /* Logger.swift in Sources */,
 				AF251DCC1B7C869F00F06143 /* WeatherResponse.swift in Sources */,

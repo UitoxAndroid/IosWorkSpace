@@ -21,8 +21,7 @@ class OnSaleViewController: UITableViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
-		self.navigationItem.rightBarButtonItem = searchItem
+		setRightItemSearch()
 	}
 
 

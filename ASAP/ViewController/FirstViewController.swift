@@ -32,16 +32,16 @@ class FirstViewController: UITableViewController, UIScrollViewDelegate, UITableV
 
 	required init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		self.getDeployData()
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        
+
+		self.getDeployData()
+
         getDealsList()
 
-		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
-		self.navigationItem.rightBarButtonItem = searchItem
+		setRightItemSearch()
 	}
 
 	override func prefersStatusBarHidden() -> Bool {

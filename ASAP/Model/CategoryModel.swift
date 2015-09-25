@@ -20,8 +20,12 @@ class CategoryModel {
         ApiManager<SearchListResponse>.postDictionary(url, params: request as? [String : AnyObject]) {
             (responseObject: SearchListResponse?, error: String?) -> Void in
             
-            if responseObject == nil {
-                completionHandler(category: nil, errorMessage: error)
+            if responseObject == nil || responseObject?.storeList == nil || responseObject?.storeList.count == 0 {
+				if error == nil || error == "" {
+					completionHandler(category: nil, errorMessage: "no data")
+				} else {
+					completionHandler(category: nil, errorMessage: error)
+				}
                 return
             }
 
