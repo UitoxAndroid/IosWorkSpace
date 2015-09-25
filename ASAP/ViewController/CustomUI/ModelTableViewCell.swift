@@ -1,32 +1,25 @@
 //
-//  DealsTableViewCell.swift
+//  ModelTableViewCell.swift
 //  ASAP
 //
-//  Created by janet on 2015/9/11.
+//  Created by janet on 2015/9/21.
 //  Copyright (c) 2015年 uitox. All rights reserved.
 //
 
 import UIKit
 
-class DealsTableViewCell: UITableViewCell
-{
-
-    @IBOutlet var countDownLabel: UILabel!
-
+class ModelTableViewCell: UITableViewCell {
+        
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
+
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
+
         // Configure the view for the selected state
     }
 
 }
 
-class ADTableViewCell: UITableViewCell, CirCleViewDelegate
-{
-    
-}

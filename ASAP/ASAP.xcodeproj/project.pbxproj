@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A1916A841BAAB9CD00DA5447 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1916A831BAAB9CD00DA5447 /* SignInViewController.swift */; };
+		A199C8E31BAFE53600F2A0B6 /* ModelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A199C8E21BAFE53600F2A0B6 /* ModelTableViewCell.swift */; };
+		A199C8E51BAFE67600F2A0B6 /* ModelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A199C8E41BAFE67600F2A0B6 /* ModelCollectionViewCell.swift */; };
 		AF010EC31B7C3FBA00EB4596 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF010EC21B7C3FBA00EB4596 /* AppDelegate.swift */; };
 		AF010ECA1B7C3FBA00EB4596 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF010EC81B7C3FBA00EB4596 /* Main.storyboard */; };
 		AF010ECC1B7C3FBA00EB4596 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF010ECB1B7C3FBA00EB4596 /* Images.xcassets */; };
@@ -129,6 +131,8 @@
 
 /* Begin PBXFileReference section */
 		A1916A831BAAB9CD00DA5447 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		A199C8E21BAFE53600F2A0B6 /* ModelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTableViewCell.swift; sourceTree = "<group>"; };
+		A199C8E41BAFE67600F2A0B6 /* ModelCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelCollectionViewCell.swift; sourceTree = "<group>"; };
 		AF010EBD1B7C3FBA00EB4596 /* ASAP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF010EC11B7C3FBA00EB4596 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF010EC21B7C3FBA00EB4596 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -493,10 +497,12 @@
 			isa = PBXGroup;
 			children = (
 				AFF066601BA944000098706F /* DealsCollectionViewCell.swift */,
+				A199C8E21BAFE53600F2A0B6 /* ModelTableViewCell.swift */,
 				AFF066611BA944000098706F /* DealsTableViewCell.swift */,
 				AF7E90071B95791D00AFD3EF /* BasicCell.swift */,
 				AF7E90081B95791D00AFD3EF /* HeaderCell.swift */,
 				AFF0666A1BAAA4AD0098706F /* OnSaleHeaderCell.swift */,
+				A199C8E41BAFE67600F2A0B6 /* ModelCollectionViewCell.swift */,
 			);
 			path = CustomUI;
 			sourceTree = "<group>";
@@ -684,6 +690,7 @@
 			files = (
 				AF7E900E1B957DB600AFD3EF /* FirstViewController.swift in Sources */,
 				AF7E90011B95592500AFD3EF /* KindViewController.swift in Sources */,
+				A199C8E51BAFE67600F2A0B6 /* ModelCollectionViewCell.swift in Sources */,
 				AF7E8FF01B95581200AFD3EF /* ItemInfo.swift in Sources */,
 				AF7E902C1B96A2DD00AFD3EF /* MenuViewController.swift in Sources */,
 				AF7E90281B96A14300AFD3EF /* SKSTableView.m in Sources */,
@@ -749,6 +756,7 @@
 				AFEF5D471BA15AE200A4961D /* MenuModel.swift in Sources */,
 				AF7E90051B95592500AFD3EF /* UsersViewController.swift in Sources */,
 				AFF066521BA6BD430098706F /* UIButton+Kingfisher.swift in Sources */,
+				A199C8E31BAFE53600F2A0B6 /* ModelTableViewCell.swift in Sources */,
 				AF7E902A1B96A14300AFD3EF /* SKSTableViewCellIndicator.m in Sources */,
 				AF0F3BC81B99776800EE8CD2 /* CategoryResponse.swift in Sources */,
 				A1916A841BAAB9CD00DA5447 /* SignInViewController.swift in Sources */,
