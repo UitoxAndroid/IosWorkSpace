@@ -29,17 +29,16 @@ class SearchModel
                 return
             }
 
-			println("statusCode:\(search!.statusCode)")
-			println("total:\(search!.total)")
-			println("currentPage:\(search!.currentPage)")
+			print("statusCode:\(search!.statusCode)")
+			print("total:\(search!.total)")
+			print("currentPage:\(search!.currentPage)")
 
 			if let storeList = search?.storeList {
 				for store in storeList {
 					print("\(store.name!)\t")
 					print("\(store.pic!)\t")
 					print("\(store.finalPrice!)\t")
-					println()
-				}
+                    print("\n")				}
 			}
 
             completionHandler(search: search, errorMessage: nil)

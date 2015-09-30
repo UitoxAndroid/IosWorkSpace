@@ -11,12 +11,11 @@ import Foundation
 public class MenuResponse : Mappable{
     public var status_code:String?
     public var menuList:[DataInfo] = []
-    
-    
-    public class func newInstance(map: Map) -> Mappable? {
-        return MenuResponse()
-    }
-    
+
+	required public init?(_ map: Map) {
+
+	}
+
     public func mapping(map: Map) {
         status_code <- map["status_code"]
         menuList <- map["menu_list"]
@@ -30,10 +29,14 @@ public class DataInfo:Mappable{
     public var type:String?
     public var siType:String?
     
-    public class func newInstance(map: Map) -> Mappable? {
-        return DataInfo()
-    }
-    
+	required public init?(_ map: Map) {
+
+	}
+
+	public init?() {
+		
+	}
+
     public func mapping(map: Map) {
         sid <- map["SID"]
         name <- map["NAME"]

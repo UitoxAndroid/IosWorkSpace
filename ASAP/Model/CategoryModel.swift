@@ -29,8 +29,8 @@ class CategoryModel {
                 return
             }
 
-			println("statusCode:\(responseObject!.statusCode)")
-			println("total:\(responseObject!.total)")
+			print("statusCode:\(responseObject!.statusCode)")
+			print("total:\(responseObject!.total)")
 
             completionHandler(category: responseObject, errorMessage: nil)
         }

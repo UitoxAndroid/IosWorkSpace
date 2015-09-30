@@ -21,7 +21,11 @@ class OnSaleViewController: UITableViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		setRightItemSearch()
+		if #available(iOS 8.0, *) {
+		    setRightItemSearch()
+		} else {
+		    // Fallback on earlier versions
+		}
 	}
 
 
@@ -55,14 +59,22 @@ class OnSaleViewController: UITableViewController
 		cell.priceLabel.text = price
 		cell.costLabel.text = ""
 
-		cell.imagedView.kf_showIndicatorWhenLoading = false
+//		cell.imagedView.kf_showIndicatorWhenLoading = false
+
+//		if let smPic = onSaleData[indexPath.row].smPic {
+//			let url = NSURL(string: smPic)!
+////			cell.imagedView.kf_setImageWithURL(url, placeholderImage: nil, optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly], progressBlock: { (receivedSize, totalSize) -> () in
+////
+////				}) { (image, error, cacheType, imageURL) -> () in
+////
+////			}
+//		}
 
 		if let smPic = onSaleData[indexPath.row].smPic {
-			let url = NSURL(string: smPic)!
-			cell.imagedView.kf_setImageWithURL(url, placeholderImage: nil, optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly], progressBlock: { (receivedSize, totalSize) -> () in
-
-				}) { (image, error, cacheType, imageURL) -> () in
-
+			if let url = NSURL(string: smPic ) {
+				if let data = NSData(contentsOfURL: url) {
+					cell.imagedView.image = UIImage(data: data)
+				}
 			}
 		}
 

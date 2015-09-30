@@ -19,8 +19,8 @@ public class WeatherResponse:Mappable
 	public var humidity:String?
 	public var pressure:String?
 
-	public class func newInstance(map: Map) -> Mappable? {
-		return WeatherResponse()
+	required public init?(_ map: Map) {
+
 	}
 
 	public func mapping(map: Map) {
@@ -33,10 +33,10 @@ public class WeatherResponse:Mappable
 			}
 			return nil
 			}, toJSON: {(value: String?) -> Int? in
-				return value?.toInt()
+				return Int(value!)
 		}))
 
-		pressure <- (map["main.pressure"], TransformOf<String, Int>(fromJSON: {$0.map { String($0) } }, toJSON: {$0?.toInt()}))
+		pressure <- (map["main.pressure"], TransformOf<String, Int>(fromJSON: {$0.map { String($0) } }, toJSON: {Int($0!)}))
 		weather <- map["weather"]
 	}
 
@@ -47,8 +47,8 @@ public class Weather: Mappable
 	public var description:String?
 	public var icon:String?
 
-	public static func newInstance(map: Map) -> Mappable? {
-		return Weather()
+	required public init?(_ map: Map) {
+
 	}
 
 	public func mapping(map: Map) {

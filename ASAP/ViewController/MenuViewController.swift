@@ -58,7 +58,11 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 			self.clearAllNotice()
 		}
 
-		setRightItemSearch()
+		if #available(iOS 8.0, *) {
+		    setRightItemSearch()
+		} else {
+		    // Fallback on earlier versions
+		}
 	}
 
 	func setupView() {
@@ -77,7 +81,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		rightTableView = SKSTableView()
 		rightTableView.frame = CGRect(x: 0, y: 0, width: contentView.bounds.size.width, height: contentView.bounds.size.height - tabBarHeight)
 		rightTableView.SKSTableViewDelegate = self
-		rightTableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+		rightTableView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
 		rightTableView.tableFooterView = UIView()
 		contentView.addSubview(rightTableView)
 
@@ -126,7 +130,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		if tableView == leftTableView {
 
-			var cell: UITableViewCell? = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as? UITableViewCell
+			var cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)
 
 			if cell == nil {
 				cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: CellIdentifier)
@@ -167,11 +171,11 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 			cell = SKSTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: SubCellIdentifier)
 		}
 
-		println("row:\(indexPath.row)")
-		println("subRow:\(indexPath.subRow)")
+		print("row:\(indexPath.row)")
+		print("subRow:\(indexPath.subRow)")
 
 //		var s = self.contentList[indexPath.row][indexPath.subRow]
-		var name = self.detailMenuList[indexPath.subRow].name
+		let name = self.detailMenuList[indexPath.subRow].name
 		cell?.textLabel?.text = name
 		cell?.sid = self.detailMenuList[indexPath.subRow].sid
 		cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
@@ -184,12 +188,16 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 
 		if tableView == leftTableView {
 			let selectedRowId = self.leftMenuList[indexPath.row].sid
-			println(selectedRowId)
+			print(selectedRowId)
 			GetMenu(selectedRowId!) {
 				(menu: MenuResponse?) in
 
 				if menu?.menuList == nil || menu?.menuList.count == 0 {
-					self.showAlert("no data")
+					if #available(iOS 8.0, *) {
+					    self.showAlert("no data")
+					} else {
+					    // Fallback on earlier versions
+					}
 //					self.GetCategory(selectedRowId!) {
 //						(categoryResponse: SearchListResponse?) in
 //						let goodListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("GoodListViewController") as? GoodsListViewController
@@ -207,7 +215,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 			}
 
 		} else {
-			println("indexPath.row:\(indexPath.row)")
+			print("indexPath.row:\(indexPath.row)")
 			let cell = tableView.cellForRowAtIndexPath(indexPath) as? SKSTableViewCell
 
 			if cell == nil {
@@ -215,7 +223,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 			}
 
 			let selectedRowId = cell!.sid
-			println(selectedRowId)
+			print(selectedRowId)
 
 			self.detailMenuList = [DataInfo]()
 
@@ -238,7 +246,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 //					}
 
 					if menu.menuList.count != 0 {
-						menu.menuList.insert(DataInfo(), atIndex: 0)
+						menu.menuList.insert(DataInfo()!, atIndex: 0)
 						self.detailMenuList = menu.menuList
 						(tableView as! SKSTableView).doSubCell(tableView, didSelectRowAtIndexPath: indexPath)
 						return
@@ -264,7 +272,11 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		menuData?.getMenuData(siSeq) { (menu: MenuResponse?, errorMessage: String?) in
 			self.clearAllNotice()
 			if menu == nil {
-				self.showAlert(errorMessage!)
+				if #available(iOS 8.0, *) {
+				    self.showAlert(errorMessage!)
+				} else {
+				    // Fallback on earlier versions
+				}
 			} else {
 				completionHandler(menuResponse: menu)
 			}
@@ -276,7 +288,11 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		categoryData?.getCategoryData(siSeq) { (category: SearchListResponse?, errorMessage: String?) in
 			self.clearAllNotice()
 			if errorMessage != nil {
-				self.showAlert(errorMessage!)
+				if #available(iOS 8.0, *) {
+				    self.showAlert(errorMessage!)
+				} else {
+				    // Fallback on earlier versions
+				}
 			} else {
 				completionHandler(categoryResponse: category!)
 			}

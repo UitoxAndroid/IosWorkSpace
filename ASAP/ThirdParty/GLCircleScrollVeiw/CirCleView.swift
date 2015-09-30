@@ -40,11 +40,11 @@ class CirCleView: UIView, UIScrollViewDelegate {
         didSet {
             //这里用了强制拆包，所以不要把urlImageArray设为nil
             for urlStr in self.urlImageArray! {
-                var urlImage = NSURL(string: urlStr)
+                let urlImage = NSURL(string: urlStr)
                 if urlImage == nil { break }
-                var dataImage = NSData(contentsOfURL: urlImage!)
+                let dataImage = NSData(contentsOfURL: urlImage!)
                 if dataImage == nil { break }
-                var tempImage = UIImage(data: dataImage!)
+                let tempImage = UIImage(data: dataImage!)
                 if tempImage == nil { break }
                 imageArray.append(tempImage)
             }
@@ -109,7 +109,7 @@ class CirCleView: UIView, UIScrollViewDelegate {
         contentScrollView.addSubview(currentImageView)
         
         //添加点击事件
-        var imageTap = UITapGestureRecognizer(target: self, action: Selector("imageTapAction:"))
+        let imageTap = UITapGestureRecognizer(target: self, action: Selector("imageTapAction:"))
         currentImageView.addGestureRecognizer(imageTap)
         
         self.lastImageView = UIImageView()
@@ -147,7 +147,7 @@ class CirCleView: UIView, UIScrollViewDelegate {
     
     // 得到上一张图片的下标
     private func getLastImageIndex(indexOfCurrentImage index: Int) -> Int{
-        var tempIndex = index - 1
+        let tempIndex = index - 1
         if tempIndex == -1 {
             return self.imageArray.count - 1
         }else{
@@ -158,7 +158,7 @@ class CirCleView: UIView, UIScrollViewDelegate {
     // 得到下一张图片的下标
     private func getNextImageIndex(indexOfCurrentImage index: Int) -> Int
     {
-        var tempIndex = index + 1
+        let tempIndex = index + 1
         return tempIndex < self.imageArray.count ? tempIndex : 0
     }
     
@@ -194,7 +194,7 @@ class CirCleView: UIView, UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
 
-        var offset = scrollView.contentOffset.x
+        let offset = scrollView.contentOffset.x
         if offset == 0 {
             self.indexOfCurrentImage = self.getLastImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)
         }else if offset == self.frame.size.width * 2 {

@@ -16,13 +16,10 @@ public class SearchListResponse: Mappable
     public var cateogryList:    [CategoryInfo]  = []
     public var total:           Int?
     public var currentPage:     Int?
-    
 
-    public class func newInstance(map: Map) -> Mappable? {
-        return SearchListResponse()
-    }
+	required public init?(_ map: Map) {
 
-    
+	}
 
     public func mapping(map: Map) {
         statusCode      <- map["status_code"]
@@ -46,10 +43,10 @@ public class AttributeInfo: Mappable
 	public var sort:    String?
     public var total:   Int?
 
-    public static func newInstance(map: Map) -> Mappable? {
-        return AttributeInfo()
-    }
-    
+	required public init?(_ map: Map) {
+
+	}
+
     public func mapping(map: Map) {
         total		<- map["total"]
     }
@@ -70,10 +67,10 @@ public class StoreInfo: Mappable
 	public var finalPrice:  Int?
 	public var title:		String?
 
-    public static func newInstance(map: Map) -> Mappable? {
-        return StoreInfo()
-    }
-  
+	required public init?(_ map: Map) {
+
+	}
+
     public func mapping(map: Map) {
         title		<- map["SM_TITLE"]
 		name		<- map["SM_NAME"]
@@ -96,10 +93,10 @@ public class CategoryInfo: Mappable
     public var sort:    String?
     public var total:   Int?
    
-    public static func newInstance(map: Map) -> Mappable? {
-        return CategoryInfo()
-    }
-    
+	required public init?(_ map: Map) {
+
+	}
+
     public func mapping(map: Map) {
         seq     <- map["CP_SEQ"]
         name    <- map["CP_NAME"]
@@ -119,8 +116,8 @@ public class MarketInfo: Mappable
 	public var finalPrice:  Int?
 	public var slogan:		[String] = []
 
-	public static func newInstance(map: Map) -> Mappable? {
-		return MarketInfo()
+	required public init?(_ map: Map) {
+
 	}
 
 	public func mapping(map: Map) {

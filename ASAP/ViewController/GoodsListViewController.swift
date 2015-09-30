@@ -21,7 +21,7 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		for (index, p) in enumerate(relatedMenuList) {
+		for (index, p) in relatedMenuList.enumerate() {
 			let vc = self.storyboard?.instantiateViewControllerWithIdentifier("KindViewController") as! KindViewController
 			vc.title = p.name
 			
@@ -37,7 +37,11 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 
 		self.clearAllNotice()
 
-		setRightItemSearch()
+		if #available(iOS 8.0, *) {
+		    setRightItemSearch()
+		} else {
+		    // Fallback on earlier versions
+		}
     }
 
 	func setupPagingMenu() {
@@ -49,16 +53,20 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 		options.menuHeight = 50
 		//設定顯示模式:FlexibleItemWidth、FixedItemWidth、SegmentedControl
 		//設定捲軸模式:ScrollEnabled、ScrollEnabledAndBouces、PagingEnabled
-		options.menuDisplayMode = PagingMenuOptions.MenuDisplayMode.FlexibleItemWidth(centerItem: false, scrollingMode: PagingMenuOptions.MenuScrollingMode.ScrollEnabled)
+		options.menuDisplayMode = PagingMenuOptions.MenuDisplayMode.Standard(widthMode: PagingMenuOptions.MenuItemWidthMode.Flexible, centerItem: false, scrollingMode: PagingMenuOptions.MenuScrollingMode.ScrollEnabled)
 		//設定底線高度、顏色
-		options.menuItemMode = PagingMenuOptions.MenuItemMode.Underline(height: 3, color: UIColor.redColor())
+		options.menuItemMode = PagingMenuOptions.MenuItemMode.Underline(height: 3, color: UIColor.redColor(), horizontalPadding: 0, verticalPadding: 0)
 		//預設頁面
 		options.defaultPage = currentIndex
 
 
-		let pagingMenuController = self.childViewControllers.first as! PagingMenuController
-		pagingMenuController.delegate = self
-		pagingMenuController.setup(viewControllers: viewControllers, options: options)
+		if #available(iOS 8.0, *) {
+		    let pagingMenuController = self.childViewControllers.first as! PagingMenuController
+			pagingMenuController.delegate = self
+			pagingMenuController.setup(viewControllers: viewControllers, options: options)
+		} else {
+		    // Fallback on earlier versions
+		}
 	}
 
 	// MARK: - PagingMenuControllerDelegate
@@ -67,7 +75,7 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 			return
 		}
 
-	 	var vc = viewControllers[page] as? KindViewController
+	 	let vc = viewControllers[page] as? KindViewController
 		if vc?.searchListResponse != nil {
 			return
 		}
@@ -75,7 +83,7 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 		self.pleaseWait()
 
 		let siSeq = self.relatedMenuList[page].sid
-		println("name:\(self.relatedMenuList[page].name!)")
+		print("name:\(self.relatedMenuList[page].name!)")
 
 		self.GetCategory(siSeq!) {
 			(categoryResponse: SearchListResponse?) in
@@ -94,7 +102,11 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 		categoryData?.getCategoryData(siSeq) { (category: SearchListResponse?, errorMessage: String?) in
 			self.clearAllNotice()
 			if errorMessage != nil {
-				self.showAlert(errorMessage!)
+				if #available(iOS 8.0, *) {
+				    self.showAlert(errorMessage!)
+				} else {
+				    // Fallback on earlier versions
+				}
 			} else {
 				completionHandler(categoryResponse: category!)
 			}

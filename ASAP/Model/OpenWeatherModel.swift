@@ -22,7 +22,7 @@ class OpenWeatherModel
 				}
 
 				if let weather = responseObject?.weather {
-					for wea in weather {
+					for _ in weather {
 
 					}
 				}

@@ -8,6 +8,7 @@
 
 import UIKit
 
+@available(iOS 8.0, *)
 class SearchResultViewController: UITableViewController, UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate
 {
 	lazy var searchData:SearchModel? = SearchModel()
@@ -119,14 +120,14 @@ class SearchResultViewController: UITableViewController, UISearchResultsUpdating
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("Cell")
 
-		if (cell == nil) {
+		if cell == nil {
 			cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
 		}
 
 		if searchResult != nil {
-			cell?.textLabel!.text = searchResult[indexPath.row]
+			cell!.textLabel!.text = searchResult[indexPath.row]
 		}
 
         return cell!

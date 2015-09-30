@@ -14,12 +14,11 @@ public class DealsOntimeResponse : Mappable
     public var counts:String?
     public var dataList:[DealsOntimeData] = []
     public var status_code:String?
-    
-    
-    public class func newInstance(map: Map) -> Mappable? {
-        return DealsOntimeResponse()
-    }
-    
+
+	required public init?(_ map: Map) {
+
+	}
+
     public func mapping(map: Map) {
         status      <- map["status"]
         counts      <- map["counts"]
@@ -41,12 +40,11 @@ public class DealsOntimeData : Mappable
     public var calPriceDetet:String?
     public var calPrice:String?
     public var calCurrency:String?
-    
-    
-    public class func newInstance(map: Map) -> Mappable? {
-        return DealsOntimeData()
-    }
-    
+
+	required public init?(_ map: Map) {
+
+	}
+
     public func mapping(map: Map) {
         wsoSeq          <- map["WSO_SEQ"]
         promoHour       <- map["PROMO_HOUR"]

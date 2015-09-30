@@ -12,10 +12,10 @@ public class DeployResponse : Mappable{
     public var status_code:String?
     public var dataList:DeployData?
     
-    public class func newInstance(map: Map) -> Mappable? {
-        return DeployResponse()
-    }
-    
+	required public init?(_ map: Map) {
+
+	}
+
     public func mapping(map: Map) {
         status_code <- map["status_code"]
         dataList    <- map["data"]
@@ -28,10 +28,10 @@ public class DeployData : Mappable
     public var slideDataList:[SlideData]=[]
     public var productDataList:[ProductData]=[]
     
-    public class func newInstance(map: Map) -> Mappable? {
-        return DeployData()
-    }
-    
+	required public init?(_ map: Map) {
+
+	}
+
     public func mapping(map: Map) {
         slideDataList   <- map["slide_data"]
         productDataList <- map["product_data"]
@@ -47,10 +47,10 @@ public class SlideData : Mappable
     public var pageCode:String?
     public var seq:String?
     
-    public class func newInstance(map: Map) -> Mappable? {
-        return SlideData()
-    }
-    
+	required public init?(_ map: Map) {
+
+	}
+
     public func mapping(map: Map) {
         img         <- map["img"]
         link        <- map["link"]
@@ -81,10 +81,10 @@ public class ProductData : Mappable
     public var area:String?
     public var orderStatus:String?
     
-    public class func newInstance(map: Map) -> Mappable? {
-        return ProductData()
-    }
-    
+	required public init?(_ map: Map) {
+
+	}
+
     public func mapping(map: Map) {
         name        <- map["name"]
         desc        <- map["desc"]
@@ -113,9 +113,9 @@ public class Slogan : Mappable
     public var two:String?
     public var three:String?
     
-    public class func newInstance(map: Map) -> Mappable? {
-        return Slogan()
-    }
+	required public init?(_ map: Map) {
+
+	}
 
     public func mapping(map: Map) {
         one     <- map["1"]

@@ -33,23 +33,23 @@ class DealsOntimeModel {
                 return
             }
             
-            println("statusCode:\(dealsOntime!.status_code)")
-            println("data:\(dealsOntime!.dataList)")
+            print("statusCode:\(dealsOntime!.status_code)")
+            print("data:\(dealsOntime!.dataList)")
             
             if let dealsOntimeList = dealsOntime?.dataList {
                 for goodsData in dealsOntimeList {
-                    println("\(goodsData.wsoSeq)\t")
-                    println("\(goodsData.promoHour)\t")
-                    println("\(goodsData.promoDate)\t")
-                    println("\(goodsData.smSeq)\t")
-                    println("\(goodsData.wsoItemPic)\t")
-                    println("\(goodsData.wsoItemName)\t")
-                    println("\(goodsData.smName)\t")
-                    println("\(goodsData.smPic)\t")
-                    println("\(goodsData.calPriceDetet)\t")
-                    println("\(goodsData.calPrice)\t")
-                    println("\(goodsData.calCurrency)\t")
-                    println()
+                    print("\(goodsData.wsoSeq)\t")
+                    print("\(goodsData.promoHour)\t")
+                    print("\(goodsData.promoDate)\t")
+                    print("\(goodsData.smSeq)\t")
+                    print("\(goodsData.wsoItemPic)\t")
+                    print("\(goodsData.wsoItemName)\t")
+                    print("\(goodsData.smName)\t")
+                    print("\(goodsData.smPic)\t")
+                    print("\(goodsData.calPriceDetet)\t")
+                    print("\(goodsData.calPrice)\t")
+                    print("\(goodsData.calCurrency)\t")
+                    print("\n")
                 }
             }
             completionHandler(dealsOntime: dealsOntime, errorMessage: nil)

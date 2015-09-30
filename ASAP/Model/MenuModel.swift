@@ -30,15 +30,15 @@ class MenuModel{
                 return
             }
 
-			println("statusCode:\(responseObject!.status_code)")
+			print("statusCode:\(responseObject!.status_code)")
 
 			if let mnuList = responseObject?.menuList{
 				for goodsdata in mnuList {
-					println("SID:\(goodsdata.sid)")
-					println("NAME:\(goodsdata.name)")
-					println("LINK:\(goodsdata.link)")
-					println("TYPE:\(goodsdata.type)")
-					println("SI_TYPE:\(goodsdata.siType)")
+					print("SID:\(goodsdata.sid)")
+					print("NAME:\(goodsdata.name)")
+					print("LINK:\(goodsdata.link)")
+					print("TYPE:\(goodsdata.type)")
+					print("SI_TYPE:\(goodsdata.siType)")
 				}
 			}
 

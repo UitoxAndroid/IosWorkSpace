@@ -32,30 +32,36 @@ class DeployModel {
                 completionHandler(deploy: nil, errorMessage: error)
                 return
             }
-            
-            println("statusCode:\(deploy!.status_code)")
-            println("data:\(deploy!.dataList)")
+
+			if deploy?.dataList?.slideDataList.count == 0 || deploy?.dataList?.productDataList.count == 0 {
+				completionHandler(deploy: nil, errorMessage: "no data")
+				return
+			}
+
+
+            print("statusCode:\(deploy!.status_code)")
+            print("data:\(deploy!.dataList)")
             
             if let slideDataInfo = deploy?.dataList?.slideDataList {
                 for slideDataDetail in slideDataInfo {
-                    println("\(slideDataDetail.img)\t")
-                    println("\(slideDataDetail.link)\t")
-                    println("\(slideDataDetail.startDate)\t")
-                    println("\(slideDataDetail.endDate)\t")
-                    println()
+                    print("\(slideDataDetail.img)\t")
+                    print("\(slideDataDetail.link)\t")
+                    print("\(slideDataDetail.startDate)\t")
+                    print("\(slideDataDetail.endDate)\t")
+                    print("\n")
                 }
             }
             
             if let productDataInfo = deploy?.dataList?.productDataList {
                 for productDataDetail in productDataInfo {
-                    println("\(productDataDetail.name)\t")
-                    println("\(productDataDetail.desc)\t")
-                    println("\(productDataDetail.price)\t")
-                    println("\(productDataDetail.smPrice)\t")
-                    println("\(productDataDetail.img)")
-                    println("\(productDataDetail.link)\t")
-                    println("\(productDataDetail.smSeq)\t")
-                    println()
+                    print("\(productDataDetail.name)\t")
+                    print("\(productDataDetail.desc)\t")
+                    print("\(productDataDetail.price)\t")
+                    print("\(productDataDetail.smPrice)\t")
+                    print("\(productDataDetail.img)")
+                    print("\(productDataDetail.link)\t")
+                    print("\(productDataDetail.smSeq)\t")
+                    print("\n")
                 }
             }
 

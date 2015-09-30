@@ -25,7 +25,7 @@ class CampaignModel{
                 return
             }
 
-			println("statusCode:\(campain!.status_code)")
+			print("statusCode:\(campain!.status_code)")
 
             completionHandler(category: campain, errorMessage: nil)
         }

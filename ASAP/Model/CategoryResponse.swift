@@ -16,12 +16,11 @@ public class CategoryResponse : Mappable{
     public var attrValueList:[AttrValueList] = []
     public var goodsList:[goodsInfo] = []
     public var categoryList:[CategoryList] = []
-    
-    
-    public class func newInstance(map: Map) -> Mappable? {
-        return CategoryResponse()
-    }
-    
+
+	required public init?(_ map: Map) {
+
+	}
+
     public func mapping(map: Map) {
         status_code     <- map["status_code"]
         total           <- map["total"]
@@ -39,10 +38,10 @@ public class AttrValueList:Mappable{
     public var avSort:String?
     public var total:String?
     
-    public class func newInstance(map: Map) -> Mappable? {
-        return AttrValueList()
-    }
-    
+	required public init?(_ map: Map) {
+
+	}
+
     public func mapping(map: Map) {
         avSeq   <- map["av_seq"]
         avName  <- map["av_name"]
@@ -58,10 +57,10 @@ public class goodsInfo:Mappable
     public var smPic:String?
     public var smSeq:String?
     
-    public class func newInstance(map: Map) -> Mappable? {
-        return goodsInfo()
-    }
-    
+	required public init?(_ map: Map) {
+
+	}
+
     public  func mapping(map: Map) {
         smName  <- map["SM_NAME"]
         smPic   <- map["SM_PIC"]
@@ -76,10 +75,10 @@ public class CategoryList:Mappable{
     public var cpName:String?
     public var total:String?
     
-    public class func newInstance(map: Map) -> Mappable? {
-        return CategoryList()
-    }
-    
+	required public init?(_ map: Map) {
+
+	}
+
     public func mapping(map: Map) {
         cpSeq   <- map["cp_seq"]
         cpName  <- map["cp_name"]

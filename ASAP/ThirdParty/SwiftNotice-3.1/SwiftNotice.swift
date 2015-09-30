@@ -57,7 +57,7 @@ enum NoticeType{
 class SwiftNotice: NSObject {
     
     static var windows = Array<UIWindow!>()
-    static let rv = UIApplication.sharedApplication().keyWindow?.subviews.first as! UIView
+    static let rv = UIApplication.sharedApplication().keyWindow?.subviews.first
     
     static func clear() {
         for i in windows {
@@ -101,7 +101,7 @@ class SwiftNotice: NSObject {
         mainView.addSubview(ai)
         
         window.windowLevel = UIWindowLevelAlert
-        window.center = rv.center
+        window.center = rv!.center
         window.hidden = false
         window.addSubview(mainView)
         windows.append(window)
@@ -128,7 +128,7 @@ class SwiftNotice: NSObject {
         label.center = mainView.center
         
         window.windowLevel = UIWindowLevelAlert
-        window.center = rv.center
+        window.center = rv!.center
         window.hidden = false
         window.addSubview(mainView)
         windows.append(window)
@@ -164,7 +164,7 @@ class SwiftNotice: NSObject {
         mainView.addSubview(label)
 
         window.windowLevel = UIWindowLevelAlert
-        window.center = rv.center
+        window.center = rv!.center
         window.hidden = false
         window.addSubview(mainView)
         windows.append(window)
@@ -189,7 +189,7 @@ class SwiftNoticeSDK {
         static var imageOfInfo: UIImage?
     }
     class func draw(type: NoticeType) {
-        var checkmarkShapePath = UIBezierPath()
+        let checkmarkShapePath = UIBezierPath()
         
         // draw circle
         checkmarkShapePath.moveToPoint(CGPointMake(36, 18))
@@ -219,7 +219,7 @@ class SwiftNoticeSDK {
             UIColor.whiteColor().setStroke()
             checkmarkShapePath.stroke()
             
-            var checkmarkShapePath = UIBezierPath()
+            let checkmarkShapePath = UIBezierPath()
             checkmarkShapePath.moveToPoint(CGPointMake(18, 27))
             checkmarkShapePath.addArcWithCenter(CGPointMake(18, 27), radius: 1, startAngle: 0, endAngle: CGFloat(M_PI*2), clockwise: true)
             checkmarkShapePath.closePath()

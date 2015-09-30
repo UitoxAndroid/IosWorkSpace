@@ -21,22 +21,6 @@ class AccountViewController: UIViewController, UIWebViewDelegate, NSURLConnectio
 	let loginUrl = NSURL(string:"https://member-tw1.uitoxbeta.com/AW000001/maccount/app_login")!
 	let memberUrl = NSURL(string: "https://member-tw1.uitoxbeta.com/AW000001/morder/orderList")!
 
-	let userAgent: String = {
-		if let info = NSBundle.mainBundle().infoDictionary {
-			let executable: AnyObject = info[kCFBundleExecutableKey] ?? "Unknown"
-			let bundle: AnyObject = info[kCFBundleIdentifierKey] ?? "Unknown"
-			let version: AnyObject = info[kCFBundleVersionKey] ?? "Unknown"
-			let os: AnyObject = NSProcessInfo.processInfo().operatingSystemVersionString ?? "Unknown"
-
-			var mutableUserAgent = NSMutableString(string: "\(executable)/\(bundle) (\(version); OS \(os))") as CFMutableString
-			let transform = NSString(string: "Any-Latin; Latin-ASCII; [:^ASCII:] Remove") as CFString
-
-			if CFStringTransform(mutableUserAgent, nil, transform, 0) == 1 {
-				return mutableUserAgent as String
-			}
-		}
-		return "XX"
-	}()
 
 	func configureManager() -> Manager {
 		let cfg = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -119,8 +103,8 @@ class AccountViewController: UIViewController, UIWebViewDelegate, NSURLConnectio
 		reSaveToStorage()
 		self._request = NSMutableURLRequest(URL: memberUrl)
 
-		var cookies = storage.cookiesForURL(self.loginUrl)!
-		var cookieHeaders = NSHTTPCookie.requestHeaderFieldsWithCookies(cookies)
+		let cookies = storage.cookiesForURL(self.loginUrl)!
+		let cookieHeaders = NSHTTPCookie.requestHeaderFieldsWithCookies(cookies)
 		self._request!.allHTTPHeaderFields = cookieHeaders
 
 
@@ -166,8 +150,8 @@ class AccountViewController: UIViewController, UIWebViewDelegate, NSURLConnectio
 //		self._request!.setValue("ASAP/com.uitox.ASAP (1; OS Version 8.4 (Build 12H141))", forHTTPHeaderField: "User-Agent")
 //		self._request!.setValue("charset=UTF-8", forHTTPHeaderField: "Content-Type")
 
-		var cookies = storage.cookiesForURL(self.loginUrl)!
-		var cookieHeaders = NSHTTPCookie.requestHeaderFieldsWithCookies(cookies)
+		let cookies = storage.cookiesForURL(self.loginUrl)!
+		let cookieHeaders = NSHTTPCookie.requestHeaderFieldsWithCookies(cookies)
 		self._request!.allHTTPHeaderFields = cookieHeaders
 
 		self.webView!.loadRequest(self._request!)
@@ -229,8 +213,8 @@ class AccountViewController: UIViewController, UIWebViewDelegate, NSURLConnectio
 
 	func GetCookieArray()->[NSHTTPCookie]{
 		let cookieArray = storage.cookies
-		if let arr = cookieArray{
-			return cookieArray as! [NSHTTPCookie]
+		if let cookieArray = cookieArray{
+			return cookieArray
 		}
 		else{
 			return []
@@ -252,11 +236,11 @@ class AccountViewController: UIViewController, UIWebViewDelegate, NSURLConnectio
 
 
 	func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-		NSLog("Did start loading: %@ auth:%d", request.URL!.absoluteString!, _authenticated)
+		NSLog("Did start loading: %@ auth:%d", request.URL!.absoluteString, _authenticated)
 
 		reSaveToStorage()
-		var cookies = storage.cookiesForURL(self.loginUrl)!
-		var cookieHeaders = NSHTTPCookie.requestHeaderFieldsWithCookies(cookies)
+		let cookies = storage.cookiesForURL(self.loginUrl)!
+		let cookieHeaders = NSHTTPCookie.requestHeaderFieldsWithCookies(cookies)
 		self._request!.allHTTPHeaderFields = cookieHeaders
 
 
@@ -277,8 +261,8 @@ class AccountViewController: UIViewController, UIWebViewDelegate, NSURLConnectio
 //		self._request!.setValue("charset=UTF-8", forHTTPHeaderField: "Content-Type")
 
 		reSaveToStorage()
-		var cookies = storage.cookiesForURL(self.loginUrl)!
-		var cookieHeaders = NSHTTPCookie.requestHeaderFieldsWithCookies(cookies)
+		let cookies = storage.cookiesForURL(self.loginUrl)!
+		let cookieHeaders = NSHTTPCookie.requestHeaderFieldsWithCookies(cookies)
 		self._request!.allHTTPHeaderFields = cookieHeaders
 
 
@@ -289,20 +273,20 @@ class AccountViewController: UIViewController, UIWebViewDelegate, NSURLConnectio
 		NSLog("WebController Got auth challange via NSURLConnection")
 		if challenge.previousFailureCount == 0 {
 			_authenticated = true
-			var credential: NSURLCredential = NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!)
-			challenge.sender.useCredential(credential, forAuthenticationChallenge: challenge)
+			let credential: NSURLCredential = NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!)
+			challenge.sender!.useCredential(credential, forAuthenticationChallenge: challenge)
 		}
 		else {
-			challenge.sender.cancelAuthenticationChallenge(challenge)
+			challenge.sender!.cancelAuthenticationChallenge(challenge)
 		}
-		challenge.sender.continueWithoutCredentialForAuthenticationChallenge(challenge)
+		challenge.sender!.continueWithoutCredentialForAuthenticationChallenge(challenge)
 
 	}
 
 	func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse) {
 		NSLog("WebController received response via NSURLConnection")
 
-		if let res = response as? NSHTTPURLResponse {
+		if let _ = response as? NSHTTPURLResponse {
 //			println(res.allHeaderFields)
 //			let url = NSURL(string: "https://member-tw1.uitoxbeta.com/AW000001")!
 //			let cookies = NSHTTPCookie.cookiesWithResponseHeaderFields(res.allHeaderFields, forURL: url)
@@ -312,8 +296,8 @@ class AccountViewController: UIViewController, UIWebViewDelegate, NSURLConnectio
 		_urlConnection!.cancel()
 
 		reSaveToStorage()
-		var cookies = storage.cookiesForURL(self.loginUrl)!
-		var cookieHeaders = NSHTTPCookie.requestHeaderFieldsWithCookies(cookies)
+		let cookies = storage.cookiesForURL(self.loginUrl)!
+		let cookieHeaders = NSHTTPCookie.requestHeaderFieldsWithCookies(cookies)
 		self._request!.allHTTPHeaderFields = cookieHeaders
 
 
@@ -324,7 +308,7 @@ class AccountViewController: UIViewController, UIWebViewDelegate, NSURLConnectio
 		NSLog("Did finish load")
 
 		if _request?.URL == loginUrl {
-			println("\(loginUrl)")
+			print("\(loginUrl)")
 			saveCookiesToLocal()
 		}
 		self.clearAllNotice()

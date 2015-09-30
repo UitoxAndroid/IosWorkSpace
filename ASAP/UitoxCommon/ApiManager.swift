@@ -33,30 +33,22 @@ class ApiManager<T:Mappable>
 		resetTrustPolicy()
 
 		let url = domain + urlPath
-		
 		Manager.sharedInstance.request(.POST, url, parameters: params, encoding: .JSON).responseObject {
-			(responseEntity: T?, error: NSError?) in
+			(req:NSURLRequest, httpUrlResponse:NSHTTPURLResponse?, responseEntity:T?, _, error:ErrorType?) in
 			if responseEntity == nil || error != nil {
-				completionHandler(mapperObject:nil, errorMessage:error?.localizedDescription)
+				completionHandler(mapperObject:nil, errorMessage:error.debugDescription)
 			} else {
 				completionHandler(mapperObject:responseEntity, errorMessage:nil)
 			}
 		}
-	}
-
-	static func postArray(urlPath:String, params:[String:AnyObject]?, completionHandler: (mapperObject: [T]?, errorMessage:String?) -> Void) {
-		resetTrustPolicy()
-
-		let url = domain + urlPath
-
-		request(.POST, url, parameters: params).responseArray {
-			(responseEntity: [T]?, error: NSError?) in
-			if responseEntity == nil || error != nil {
-				completionHandler(mapperObject:nil, errorMessage:error?.localizedDescription)
-			} else {
-				completionHandler(mapperObject:responseEntity, errorMessage:nil)
-			}
-		}
+//		Manager.sharedInstance.request(.POST, url, parameters: params, encoding: .JSON).responseObject {
+//			(responseEntity: T?, error: NSError?) in
+//			if responseEntity == nil || error != nil {
+//				completionHandler(mapperObject:nil, errorMessage:error?.localizedDescription)
+//			} else {
+//				completionHandler(mapperObject:responseEntity, errorMessage:nil)
+//			}
+//		}
 	}
 
 }

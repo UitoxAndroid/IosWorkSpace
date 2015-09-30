@@ -11,10 +11,10 @@ import Foundation
 public class CampaignResponse : Mappable{
     public var status_code:String?
     
-    public class func newInstance(map: Map) -> Mappable? {
-        return CampaignResponse()
-    }
-    
+	required public init?(_ map: Map) {
+
+	}
+
     public func mapping(map: Map) {
         status_code <- map["status_code"]
     }

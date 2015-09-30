@@ -64,17 +64,17 @@ class SignInViewController: UITableViewController {
     
     //登入
     @IBAction func SignInClick(sender: AnyObject) {
-        println("登入")
+        print("登入")
     }
     
     //忘記密碼
     @IBAction func ForgotPasswordClick(sender: AnyObject) {
-        println("忘記密碼")
+        print("忘記密碼")
     }
 
     //註冊帳號
     @IBAction func RegisterClick(sender: AnyObject) {
-        println("註冊帳號")
+        print("註冊帳號")
     }
     
 }

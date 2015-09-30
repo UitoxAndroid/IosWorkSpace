@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FirstViewController: UITableViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate
+class FirstViewController: UITableViewController//, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate
 {
 
     @IBOutlet var adTableCell: ADTableViewCell!
@@ -30,7 +30,7 @@ class FirstViewController: UITableViewController, UIScrollViewDelegate, UITableV
 
 	// MARK: - View
 
-	required init(coder aDecoder: NSCoder) {
+	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 
@@ -41,7 +41,11 @@ class FirstViewController: UITableViewController, UIScrollViewDelegate, UITableV
 
         getDealsList()
 
-		setRightItemSearch()
+		if #available(iOS 8.0, *) {
+		    setRightItemSearch()
+		} else {
+		    // Fallback on earlier versions
+		}
 	}
 
 	override func prefersStatusBarHidden() -> Bool {
@@ -153,12 +157,16 @@ class FirstViewController: UITableViewController, UIScrollViewDelegate, UITableV
 	func getDeployData() {
 		deployModel?.getDeployData("", completionHandler: { (deploy: DeployResponse?, errorMessage: String?) -> Void in
 			if (deploy == nil) {
-				self.showAlert(errorMessage!)
+				if #available(iOS 8.0, *) {
+				    self.showAlert(errorMessage!)
+				} else {
+				    // Fallback on earlier versions
+				}
 			} else {
 				self.deployModel?.deploy = deploy!
 				self.slideDataList      = deploy!.dataList!.slideDataList
 				self.productList        = deploy!.dataList!.productDataList
-                
+
                 self.modelCollectionView.contentSize = CGSize(width: self.modelCollectionView.contentSize.width, height: CGFloat(220 * (self.productList.count / 2 + self.productList.count % 2)))
                 
                 self.tableView.reloadData()
@@ -171,7 +179,11 @@ class FirstViewController: UITableViewController, UIScrollViewDelegate, UITableV
 	func getDealsList() {
 		dealsOnTimeModel.getDealsOntimeData { (dealsOntime, errorMessage) in
 			if (dealsOntime == nil) {
-				self.showAlert(errorMessage!)
+				if #available(iOS 8.0, *) {
+				    self.showAlert(errorMessage!)
+				} else {
+				    // Fallback on earlier versions
+				}
 			} else {
 				self.dealsOnTimeData = dealsOntime!.dataList
                 //self.dealsTableCell.countDownLabel.text = "04:10:05"
@@ -297,7 +309,7 @@ extension FirstViewController: UICollectionViewDataSource, UICollectionViewDeleg
 	}
 
 	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-		println("點選\(indexPath.row)")
+		print("點選\(indexPath.row)")
     }
 
 	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {

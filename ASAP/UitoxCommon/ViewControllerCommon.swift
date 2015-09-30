@@ -8,6 +8,7 @@
 
 import Foundation
 
+@available(iOS 8.0, *)
 extension UIViewController {
 	// MARK: - Action
 	func searchButtonOnClicked(sender:UIBarButtonItem) {
@@ -28,7 +29,7 @@ extension UIViewController {
 	func setRightItemSearch() {
 //		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
 		let img = UIImage(named: "ic_search")
-		var searchItem = UIBarButtonItem(image: img, style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("searchButtonOnClicked:"))
+		let searchItem = UIBarButtonItem(image: img, style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("searchButtonOnClicked:"))
 		self.navigationItem.rightBarButtonItem = searchItem
 
 	}
