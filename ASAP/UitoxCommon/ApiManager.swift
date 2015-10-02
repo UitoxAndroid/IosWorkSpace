@@ -63,7 +63,6 @@ class ApiManager<T:Mappable>
 	}
 
 	static func resetTrustPolicy() -> Void {
-//		let serverTrustPolicy = ServerTrustPolicy.PerformDefaultEvaluation(validateHost: true)
 		let serverTrustPolicy = ServerTrustPolicy.PinCertificates(
 			certificates: ServerTrustPolicy.certificatesInBundle(),
 			validateCertificateChain: true,
@@ -76,28 +75,6 @@ class ApiManager<T:Mappable>
 		]
 
 		Manager.sharedInstance.session.serverTrustPolicyManager = ServerTrustPolicyManager(policies: serverTrustPolicies)
-
-		Manager.sharedInstance.delegate.sessionDidReceiveChallenge = { session, challenge in
-			var disposition: NSURLSessionAuthChallengeDisposition = .PerformDefaultHandling
-			var credential: NSURLCredential?
-
-			if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
-				disposition = NSURLSessionAuthChallengeDisposition.UseCredential
-				credential = NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!)
-			} else {
-				if challenge.previousFailureCount > 0 {
-					disposition = .CancelAuthenticationChallenge
-				} else {
-					credential = Manager.sharedInstance.session.configuration.URLCredentialStorage?.defaultCredentialForProtectionSpace(challenge.protectionSpace)
-
-					if credential != nil {
-						disposition = .UseCredential
-					}
-				}
-			}
-
-			return (disposition, credential)
-		}
 	}
 
 	static func postDictionary(urlPath:String, params:[String:AnyObject]?, completionHandler: (mapperObject: T?, errorMessage:String?) -> Void) {
