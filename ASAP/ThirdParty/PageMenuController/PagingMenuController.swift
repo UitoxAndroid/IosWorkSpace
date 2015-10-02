@@ -13,7 +13,6 @@ import UIKit
     optional func didMoveToMenuPage(page: Int)
 }
 
-@available(iOS 8.0, *)
 public class PagingMenuController: UIViewController, UIScrollViewDelegate {
     
     public weak var delegate: PagingMenuControllerDelegate?
@@ -101,7 +100,6 @@ public class PagingMenuController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    @available(iOS 8.0, *)
     override public func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         

@@ -37,11 +37,8 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 
 		self.clearAllNotice()
 
-		if #available(iOS 8.0, *) {
-		    setRightItemSearch()
-		} else {
-		    // Fallback on earlier versions
-		}
+		setRightItemSearch()
+
     }
 
 	func setupPagingMenu() {
@@ -60,13 +57,10 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 		options.defaultPage = currentIndex
 
 
-		if #available(iOS 8.0, *) {
-		    let pagingMenuController = self.childViewControllers.first as! PagingMenuController
-			pagingMenuController.delegate = self
-			pagingMenuController.setup(viewControllers: viewControllers, options: options)
-		} else {
-		    // Fallback on earlier versions
-		}
+		let pagingMenuController = self.childViewControllers.first as! PagingMenuController
+		pagingMenuController.delegate = self
+		pagingMenuController.setup(viewControllers: viewControllers, options: options)
+
 	}
 
 	// MARK: - PagingMenuControllerDelegate
@@ -102,11 +96,7 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 		categoryData?.getCategoryData(siSeq) { (category: SearchListResponse?, errorMessage: String?) in
 			self.clearAllNotice()
 			if errorMessage != nil {
-				if #available(iOS 8.0, *) {
-				    self.showAlert(errorMessage!)
-				} else {
-				    // Fallback on earlier versions
-				}
+				self.showAlert(errorMessage!)
 			} else {
 				completionHandler(categoryResponse: category!)
 			}

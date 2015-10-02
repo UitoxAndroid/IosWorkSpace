@@ -29,7 +29,7 @@ extension UIViewController {
 	func setRightItemSearch() {
 //		var searchItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: Selector("searchButtonOnClicked:"))
 		let img = UIImage(named: "ic_search")
-		let searchItem = UIBarButtonItem(image: img, style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("searchButtonOnClicked:"))
+		let searchItem = UIBarButtonItem(image: img, style: UIBarButtonItemStyle.Plain, target: self, action: Selector("searchButtonOnClicked:"))
 		self.navigationItem.rightBarButtonItem = searchItem
 
 	}

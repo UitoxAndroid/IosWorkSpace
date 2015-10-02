@@ -8,6 +8,54 @@
 
 import Foundation
 
+class ApiManager2<T:Mappable>
+{
+	var manager: Manager?
+
+	var domain: String {
+		return "https://uxapi.uitoxbeta.com/"
+	}
+
+
+	init() {
+		let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+
+		let serverTrustPolicy = ServerTrustPolicy.PinCertificates(
+			certificates: ServerTrustPolicy.certificatesInBundle(),
+			validateCertificateChain: true,
+			validateHost: true
+		)
+
+		let serverTrustPolicies: [String: ServerTrustPolicy] = [
+			"uxapi.uitoxbeta.com2": serverTrustPolicy,
+			"uxapi.uitoxbeta.com": .DisableEvaluation
+		]
+
+//		manager!.session.serverTrustPolicyManager = ServerTrustPolicyManager(policies: serverTrustPolicies)
+		manager = Manager(configuration: configuration, serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies))
+	}
+
+	func postDictionary(urlPath:String, params:[String:AnyObject]?, completionHandler: (mapperObject: T?, errorMessage:String?) -> Void) {
+//		let url = domain + urlPath
+
+//		let req = Manager.sharedInstance.request(.POST, url, parameters: params, encoding: .JSON)
+//		req.responseString { ( res:Response<String, NSError>) -> Void in
+//			print(res)
+//		}
+
+//		Manager.sharedInstance.request(.POST, url, parameters: params, encoding: .JSON).responseObject {
+//			(req:NSURLRequest, httpUrlResponse:NSHTTPURLResponse?, responseEntity:T?, _, error:ErrorType?) in
+//			if responseEntity == nil || error != nil {
+//				completionHandler(mapperObject:nil, errorMessage:error.debugDescription)
+//			} else {
+//				completionHandler(mapperObject:responseEntity, errorMessage:nil)
+//			}
+//		}
+	}
+
+
+}
+
 class ApiManager<T:Mappable>
 {
 	static var domain: String {
@@ -15,6 +63,7 @@ class ApiManager<T:Mappable>
 	}
 
 	static func resetTrustPolicy() -> Void {
+//		let serverTrustPolicy = ServerTrustPolicy.PerformDefaultEvaluation(validateHost: true)
 		let serverTrustPolicy = ServerTrustPolicy.PinCertificates(
 			certificates: ServerTrustPolicy.certificatesInBundle(),
 			validateCertificateChain: true,
@@ -27,12 +76,40 @@ class ApiManager<T:Mappable>
 		]
 
 		Manager.sharedInstance.session.serverTrustPolicyManager = ServerTrustPolicyManager(policies: serverTrustPolicies)
+
+		Manager.sharedInstance.delegate.sessionDidReceiveChallenge = { session, challenge in
+			var disposition: NSURLSessionAuthChallengeDisposition = .PerformDefaultHandling
+			var credential: NSURLCredential?
+
+			if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
+				disposition = NSURLSessionAuthChallengeDisposition.UseCredential
+				credential = NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!)
+			} else {
+				if challenge.previousFailureCount > 0 {
+					disposition = .CancelAuthenticationChallenge
+				} else {
+					credential = Manager.sharedInstance.session.configuration.URLCredentialStorage?.defaultCredentialForProtectionSpace(challenge.protectionSpace)
+
+					if credential != nil {
+						disposition = .UseCredential
+					}
+				}
+			}
+
+			return (disposition, credential)
+		}
 	}
 
 	static func postDictionary(urlPath:String, params:[String:AnyObject]?, completionHandler: (mapperObject: T?, errorMessage:String?) -> Void) {
 		resetTrustPolicy()
 
 		let url = domain + urlPath
+//		let req = Manager.sharedInstance.request(.POST, url, parameters: params, encoding: .JSON)
+//		req.responseString { ( res:Response<String, NSError>) -> Void in
+//			print(res)
+//			print(			res.response?.statusCode)
+//		}
+
 		Manager.sharedInstance.request(.POST, url, parameters: params, encoding: .JSON).responseObject {
 			(req:NSURLRequest, httpUrlResponse:NSHTTPURLResponse?, responseEntity:T?, _, error:ErrorType?) in
 			if responseEntity == nil || error != nil {
@@ -41,6 +118,7 @@ class ApiManager<T:Mappable>
 				completionHandler(mapperObject:responseEntity, errorMessage:nil)
 			}
 		}
+
 //		Manager.sharedInstance.request(.POST, url, parameters: params, encoding: .JSON).responseObject {
 //			(responseEntity: T?, error: NSError?) in
 //			if responseEntity == nil || error != nil {

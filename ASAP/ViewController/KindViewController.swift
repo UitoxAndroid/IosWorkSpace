@@ -25,11 +25,8 @@ class KindViewController: UITableViewController
 		info.price = 599
 		listItem.append(info)
 
-		if #available(iOS 8.0, *) {
-		    setRightItemSearch()
-		} else {
-		    // Fallback on earlier versions
-		}
+		setRightItemSearch()
+
 	}
 
     override func didReceiveMemoryWarning() {

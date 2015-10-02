@@ -58,11 +58,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 			self.clearAllNotice()
 		}
 
-		if #available(iOS 8.0, *) {
-		    setRightItemSearch()
-		} else {
-		    // Fallback on earlier versions
-		}
+		setRightItemSearch()
 	}
 
 	func setupView() {
@@ -193,11 +189,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 				(menu: MenuResponse?) in
 
 				if menu?.menuList == nil || menu?.menuList.count == 0 {
-					if #available(iOS 8.0, *) {
-					    self.showAlert("no data")
-					} else {
-					    // Fallback on earlier versions
-					}
+					self.showAlert("no data")
 //					self.GetCategory(selectedRowId!) {
 //						(categoryResponse: SearchListResponse?) in
 //						let goodListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("GoodListViewController") as? GoodsListViewController
@@ -272,11 +264,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		menuData?.getMenuData(siSeq) { (menu: MenuResponse?, errorMessage: String?) in
 			self.clearAllNotice()
 			if menu == nil {
-				if #available(iOS 8.0, *) {
-				    self.showAlert(errorMessage!)
-				} else {
-				    // Fallback on earlier versions
-				}
+				self.showAlert(errorMessage!)
 			} else {
 				completionHandler(menuResponse: menu)
 			}
@@ -288,11 +276,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		categoryData?.getCategoryData(siSeq) { (category: SearchListResponse?, errorMessage: String?) in
 			self.clearAllNotice()
 			if errorMessage != nil {
-				if #available(iOS 8.0, *) {
-				    self.showAlert(errorMessage!)
-				} else {
-				    // Fallback on earlier versions
-				}
+				self.showAlert(errorMessage!)
 			} else {
 				completionHandler(categoryResponse: category!)
 			}

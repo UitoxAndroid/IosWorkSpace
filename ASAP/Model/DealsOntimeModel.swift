@@ -24,7 +24,17 @@ class DealsOntimeModel {
             "platform_id": "AW000001",
             "version": "1.0.0",
             "data": data        ]
-        
+
+		let api = ApiManager2<DealsOntimeResponse>()
+		api.postDictionary(url, params: request as? [String : AnyObject]) {
+			(dealsOntime: DealsOntimeResponse?, error: String?) -> Void in
+			if dealsOntime == nil {
+				completionHandler(dealsOntime: nil, errorMessage: error)
+				return
+			}
+
+		}
+
         ApiManager<DealsOntimeResponse>.postDictionary(url, params: request as? [String : AnyObject]) {
             (dealsOntime: DealsOntimeResponse?, error: String?) -> Void in
             

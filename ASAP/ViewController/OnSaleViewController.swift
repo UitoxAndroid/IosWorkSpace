@@ -21,11 +21,7 @@ class OnSaleViewController: UITableViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		if #available(iOS 8.0, *) {
-		    setRightItemSearch()
-		} else {
-		    // Fallback on earlier versions
-		}
+		setRightItemSearch()
 	}
 
 

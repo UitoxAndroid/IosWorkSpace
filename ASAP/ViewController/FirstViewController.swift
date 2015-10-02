@@ -41,11 +41,8 @@ class FirstViewController: UITableViewController//, UIScrollViewDelegate, UITabl
 
         getDealsList()
 
-		if #available(iOS 8.0, *) {
-		    setRightItemSearch()
-		} else {
-		    // Fallback on earlier versions
-		}
+		setRightItemSearch()
+
 	}
 
 	override func prefersStatusBarHidden() -> Bool {
@@ -157,11 +154,7 @@ class FirstViewController: UITableViewController//, UIScrollViewDelegate, UITabl
 	func getDeployData() {
 		deployModel?.getDeployData("", completionHandler: { (deploy: DeployResponse?, errorMessage: String?) -> Void in
 			if (deploy == nil) {
-				if #available(iOS 8.0, *) {
-				    self.showAlert(errorMessage!)
-				} else {
-				    // Fallback on earlier versions
-				}
+				self.showAlert(errorMessage!)
 			} else {
 				self.deployModel?.deploy = deploy!
 				self.slideDataList      = deploy!.dataList!.slideDataList
@@ -179,11 +172,7 @@ class FirstViewController: UITableViewController//, UIScrollViewDelegate, UITabl
 	func getDealsList() {
 		dealsOnTimeModel.getDealsOntimeData { (dealsOntime, errorMessage) in
 			if (dealsOntime == nil) {
-				if #available(iOS 8.0, *) {
-				    self.showAlert(errorMessage!)
-				} else {
-				    // Fallback on earlier versions
-				}
+				self.showAlert(errorMessage!)
 			} else {
 				self.dealsOnTimeData = dealsOntime!.dataList
                 //self.dealsTableCell.countDownLabel.text = "04:10:05"

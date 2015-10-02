@@ -95,18 +95,12 @@ class MenuItemView: UIView {
         let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
         let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[label]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
         
-        if #available(iOS 8.0, *) {
-            NSLayoutConstraint.activateConstraints(horizontalConstraints + verticalConstraints)
-        } else {
-            // Fallback on earlier versions
-        }
+        NSLayoutConstraint.activateConstraints(horizontalConstraints + verticalConstraints)
         
         widthLabelConstraint = NSLayoutConstraint(item: titleLabel, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: labelSize.width)
-        if #available(iOS 8.0, *) {
-            widthLabelConstraint.active = true
-        } else {
-            // Fallback on earlier versions
-        }
+
+		widthLabelConstraint.active = true
+
     }
     
     // MARK: - Size calculator
