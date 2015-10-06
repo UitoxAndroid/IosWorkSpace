@@ -10,6 +10,11 @@
 		A1916A841BAAB9CD00DA5447 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1916A831BAAB9CD00DA5447 /* SignInViewController.swift */; };
 		A199C8E31BAFE53600F2A0B6 /* ModelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A199C8E21BAFE53600F2A0B6 /* ModelTableViewCell.swift */; };
 		A199C8E51BAFE67600F2A0B6 /* ModelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A199C8E41BAFE67600F2A0B6 /* ModelCollectionViewCell.swift */; };
+		A1B36B151BC3748E00ADEAAA /* VerifyMobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B36B141BC3748E00ADEAAA /* VerifyMobileViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		A1B36B171BC374A400ADEAAA /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B36B161BC374A400ADEAAA /* RegisterViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		A1B36B191BC374B200ADEAAA /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B36B181BC374B200ADEAAA /* ForgotPasswordViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		A1B36B1B1BC374D100ADEAAA /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B36B1A1BC374D100ADEAAA /* ResetPasswordViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		A1B36B1E1BC3753600ADEAAA /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B36B1D1BC3753600ADEAAA /* CheckBox.swift */; settings = {ASSET_TAGS = (); }; };
 		AF010EC31B7C3FBA00EB4596 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF010EC21B7C3FBA00EB4596 /* AppDelegate.swift */; };
 		AF010ECA1B7C3FBA00EB4596 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF010EC81B7C3FBA00EB4596 /* Main.storyboard */; };
 		AF010ECC1B7C3FBA00EB4596 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF010ECB1B7C3FBA00EB4596 /* Images.xcassets */; };
@@ -117,6 +122,11 @@
 		A1916A831BAAB9CD00DA5447 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		A199C8E21BAFE53600F2A0B6 /* ModelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTableViewCell.swift; sourceTree = "<group>"; };
 		A199C8E41BAFE67600F2A0B6 /* ModelCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelCollectionViewCell.swift; sourceTree = "<group>"; };
+		A1B36B141BC3748E00ADEAAA /* VerifyMobileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyMobileViewController.swift; sourceTree = "<group>"; };
+		A1B36B161BC374A400ADEAAA /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		A1B36B181BC374B200ADEAAA /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		A1B36B1A1BC374D100ADEAAA /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		A1B36B1D1BC3753600ADEAAA /* CheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		AF010EBD1B7C3FBA00EB4596 /* ASAP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF010EC11B7C3FBA00EB4596 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF010EC21B7C3FBA00EB4596 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -227,6 +237,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A1B36B1C1BC3751F00ADEAAA /* CheckBox */ = {
+			isa = PBXGroup;
+			children = (
+				A1B36B1D1BC3753600ADEAAA /* CheckBox.swift */,
+			);
+			name = CheckBox;
+			sourceTree = "<group>";
+		};
 		AF010EB41B7C3FBA00EB4596 = {
 			isa = PBXGroup;
 			children = (
@@ -301,6 +319,7 @@
 		AF3195B81B83144F001D6E75 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				A1B36B1C1BC3751F00ADEAAA /* CheckBox */,
 				AFF0665D1BA943CC0098706F /* GLCircleScrollVeiw */,
 				AFEF5D3E1BA0346700A4961D /* SwiftNotice-3.1 */,
 				AF7E902D1B96A59800AFD3EF /* PGCategoryMenu */,
@@ -368,6 +387,10 @@
 				AF7E902B1B96A2DD00AFD3EF /* MenuViewController.swift */,
 				AF0F3BC91B9D7DBA00EE8CD2 /* SearchResultViewController.swift */,
 				AFCA535C1BB5240F0009BF76 /* AccountViewController.swift */,
+				A1B36B181BC374B200ADEAAA /* ForgotPasswordViewController.swift */,
+				A1B36B141BC3748E00ADEAAA /* VerifyMobileViewController.swift */,
+				A1B36B161BC374A400ADEAAA /* RegisterViewController.swift */,
+				A1B36B1A1BC374D100ADEAAA /* ResetPasswordViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -615,6 +638,7 @@
 				AF7E900E1B957DB600AFD3EF /* FirstViewController.swift in Sources */,
 				AF7E90011B95592500AFD3EF /* KindViewController.swift in Sources */,
 				AF5F2C501BBD3B8300A7A977 /* AlamofireObjectMapper.swift in Sources */,
+				A1B36B1E1BC3753600ADEAAA /* CheckBox.swift in Sources */,
 				A199C8E51BAFE67600F2A0B6 /* ModelCollectionViewCell.swift in Sources */,
 				AF5F2C421BBD3B6C00A7A977 /* Alamofire.swift in Sources */,
 				AF7E8FF01B95581200AFD3EF /* ItemInfo.swift in Sources */,
@@ -623,6 +647,7 @@
 				AFCA535D1BB5240F0009BF76 /* AccountViewController.swift in Sources */,
 				AF251DCB1B7C869F00F06143 /* Logger.swift in Sources */,
 				AF5F2C431BBD3B6C00A7A977 /* Download.swift in Sources */,
+				A1B36B191BC374B200ADEAAA /* ForgotPasswordViewController.swift in Sources */,
 				AF251DCC1B7C869F00F06143 /* WeatherResponse.swift in Sources */,
 				AF5F2C4B1BBD3B6C00A7A977 /* ServerTrustPolicy.swift in Sources */,
 				AFEF5D4A1BA2A8DF00A4961D /* ViewControllerCommon.swift in Sources */,
@@ -662,9 +687,11 @@
 				AFEB071E1BBBC370001C2AD7 /* MenuItemView.swift in Sources */,
 				AFF066671BA94E2A0098706F /* DealsOntimeResponse.swift in Sources */,
 				AFEB07061BBBB380001C2AD7 /* Mapper.swift in Sources */,
+				A1B36B1B1BC374D100ADEAAA /* ResetPasswordViewController.swift in Sources */,
 				AF5F2C4E1BBD3B6C00A7A977 /* Validation.swift in Sources */,
 				AFEF5D431BA15A7500A4961D /* CampaignModel.swift in Sources */,
 				AF0F3BC31B97E2C000EE8CD2 /* SearchListResponse.swift in Sources */,
+				A1B36B171BC374A400ADEAAA /* RegisterViewController.swift in Sources */,
 				AFEF5D471BA15AE200A4961D /* MenuModel.swift in Sources */,
 				A199C8E31BAFE53600F2A0B6 /* ModelTableViewCell.swift in Sources */,
 				AF7E902A1B96A14300AFD3EF /* SKSTableViewCellIndicator.m in Sources */,
@@ -684,6 +711,7 @@
 				AFF0665B1BA943A70098706F /* DeployModel.swift in Sources */,
 				AF0F3BCA1B9D7DBA00EE8CD2 /* SearchResultViewController.swift in Sources */,
 				AFEB07111BBBB380001C2AD7 /* URLTransform.swift in Sources */,
+				A1B36B151BC3748E00ADEAAA /* VerifyMobileViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
