@@ -8,16 +8,24 @@
 
 import Foundation
 
-class CategoryModel {
-    
-    var category:SearchListResponse?
-    
+class CategoryModel
+{    
 	func getCategoryData( siSeq: String, completionHandler: (category: SearchListResponse?, errorMessage: String?) -> Void ) {
-        let url = "web_search/get_app_category_list_multi"
-        let data = ["si_seq":siSeq, "wc_seq":"AWC000001"]
-        let request = ["account":"01_uitoxtest","password":"Aa1234%!@#", "platform_id":"AW000001","version":"1.0.0","data":data]
+        let url = DomainPath.Mview.rawValue + "/web_search/get_app_category_list_multi"
+        let data = [
+			"si_seq":siSeq,
+			"wc_seq":"AWC000001"
+		]
+
+        let request = [
+			"account":"01_uitoxtest",
+			"password":"Aa1234%!@#",
+			"platform_id":"AW000001",
+			"version":"1.0.0",
+			"data":data
+		]
         
-        ApiManager<SearchListResponse>.postDictionary(url, params: request as? [String : AnyObject]) {
+        ApiManager.sharedInstance.postDictionary(url, params: request as? [String : AnyObject]) {
             (responseObject: SearchListResponse?, error: String?) -> Void in
             
             if responseObject == nil || responseObject?.storeList == nil || responseObject?.storeList.count == 0 {
@@ -29,8 +37,8 @@ class CategoryModel {
                 return
             }
 
-			print("statusCode:\(responseObject!.statusCode)")
-			print("total:\(responseObject!.total)")
+			log.debug("statusCode:\(responseObject!.statusCode)")
+			log.debug("total:\(responseObject!.total)")
 
             completionHandler(category: responseObject, errorMessage: nil)
         }

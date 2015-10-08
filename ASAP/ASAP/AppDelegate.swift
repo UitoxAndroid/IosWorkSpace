@@ -8,11 +8,34 @@
 
 import UIKit
 
+//記錄log
+let log: XCGLogger = {
+	// Setup XCGLogger
+	let log = XCGLogger.defaultInstance()
+	log.xcodeColorsEnabled = false // Or set the XcodeColors environment variable in your scheme to YES
+	log.xcodeColors = [
+		.Verbose: .lightGrey,
+		.Debug: .darkGrey,
+		.Info: .darkGreen,
+		.Warning: .orange,
+		.Error: XCGLogger.XcodeColor(fg: UIColor.redColor(), bg: UIColor.whiteColor()), // Optionally use a UIColor
+		.Severe: XCGLogger.XcodeColor(fg: (255, 255, 255), bg: (255, 0, 0)) // Optionally use RGB values directly
+	]
+	
+	#if DEBUG // Set via Build Settings, under Other Swift Flags
+		log.setup(.Info, showThreadName: false, showLogLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: nil)
+	#else
+		log.setup(.Verbose, showThreadName: false, showLogLevel: false, showFileNames: false, showLineNumbers: false, writeToFile: nil)		
+	#endif
+	
+	return log
+}()
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
-
+	
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
@@ -51,6 +74,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
 
+}
 
+// MARK - Login
+
+extension AppDelegate
+{
+	func login(account: String, passwd: String) {
+		let myTabBarViewController = self.window!.rootViewController as? MyTabBarViewController
+		if let myTabBarViewController = myTabBarViewController {
+			myTabBarViewController.login("shengeih@gmail.com", passwd: "123456")
+		}
+	}
 }
 

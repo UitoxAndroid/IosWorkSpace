@@ -8,17 +8,23 @@
 
 import Foundation
 
-class ApiManager2<T:Mappable>
+public enum DomainPath: String {
+	case Uxapi		= "https://uxapi.uitoxbeta.com"
+	case Mview		= "https://mview.uitoxbeta.com/A"
+	case MemberTw1	= "https://member-tw1.uitoxbeta.com/AW000001"
+}
+
+public class ApiManager
 {
-	var manager: Manager?
+	public static let sharedInstance: ApiManager = {
+		return ApiManager()
+	}()
 
-	var domain: String {
-		return "https://uxapi.uitoxbeta.com/"
-	}
-
+	private var manager: Manager
 
 	init() {
 		let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+		configuration.HTTPAdditionalHeaders = Manager.defaultHTTPHeaders
 
 		let serverTrustPolicy = ServerTrustPolicy.PinCertificates(
 			certificates: ServerTrustPolicy.certificatesInBundle(),
@@ -27,83 +33,37 @@ class ApiManager2<T:Mappable>
 		)
 
 		let serverTrustPolicies: [String: ServerTrustPolicy] = [
-			"uxapi.uitoxbeta.com2": serverTrustPolicy,
-			"uxapi.uitoxbeta.com": .DisableEvaluation
+			"uxapi.uitoxbeta.com2"								: serverTrustPolicy,
+			NSURL(string: DomainPath.Uxapi.rawValue)!.host!		: .DisableEvaluation,
+			NSURL(string: DomainPath.Mview.rawValue)!.host!		: .DisableEvaluation,
+			NSURL(string: DomainPath.MemberTw1.rawValue)!.host!	: .DisableEvaluation
 		]
 
-//		manager!.session.serverTrustPolicyManager = ServerTrustPolicyManager(policies: serverTrustPolicies)
 		manager = Manager(configuration: configuration, serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies))
 	}
 
-	func postDictionary(urlPath:String, params:[String:AnyObject]?, completionHandler: (mapperObject: T?, errorMessage:String?) -> Void) {
-//		let url = domain + urlPath
-
-//		let req = Manager.sharedInstance.request(.POST, url, parameters: params, encoding: .JSON)
-//		req.responseString { ( res:Response<String, NSError>) -> Void in
-//			print(res)
-//		}
-
-//		Manager.sharedInstance.request(.POST, url, parameters: params, encoding: .JSON).responseObject {
-//			(req:NSURLRequest, httpUrlResponse:NSHTTPURLResponse?, responseEntity:T?, _, error:ErrorType?) in
-//			if responseEntity == nil || error != nil {
-//				completionHandler(mapperObject:nil, errorMessage:error.debugDescription)
-//			} else {
-//				completionHandler(mapperObject:responseEntity, errorMessage:nil)
-//			}
-//		}
-	}
-
-
-}
-
-class ApiManager<T:Mappable>
-{
-	static var domain: String {
-		return "https://uxapi.uitoxbeta.com/"
-	}
-
-	static func resetTrustPolicy() -> Void {
-		let serverTrustPolicy = ServerTrustPolicy.PinCertificates(
-			certificates: ServerTrustPolicy.certificatesInBundle(),
-			validateCertificateChain: true,
-			validateHost: true
-		)
-
-		let serverTrustPolicies: [String: ServerTrustPolicy] = [
-			"uxapi.uitoxbeta.com2": serverTrustPolicy,
-			"uxapi.uitoxbeta.com": .DisableEvaluation
-		]
-
-		Manager.sharedInstance.session.serverTrustPolicyManager = ServerTrustPolicyManager(policies: serverTrustPolicies)
-	}
-
-	static func postDictionary(urlPath:String, params:[String:AnyObject]?, completionHandler: (mapperObject: T?, errorMessage:String?) -> Void) {
-		resetTrustPolicy()
-
-		let url = domain + urlPath
-//		let req = Manager.sharedInstance.request(.POST, url, parameters: params, encoding: .JSON)
-//		req.responseString { ( res:Response<String, NSError>) -> Void in
-//			print(res)
-//			print(			res.response?.statusCode)
-//		}
-
-		Manager.sharedInstance.request(.POST, url, parameters: params, encoding: .JSON).responseObject {
+	func postDictionary<T:Mappable>(urlPath:String, params:[String:AnyObject]?, completionHandler: (mapperObject: T?, errorMessage:String?) -> Void) {
+		log.info { () -> String? in
+			var output = "\nUrl: \(urlPath)\nRequest >>>\n"
+			if let params = params {
+				for (key,value) in params {
+					output += "\(key):\(value) \n"
+				}
+			}
+			return output
+		}
+		
+		manager.request(.POST, urlPath, parameters: params, encoding: .JSON).responseObject {
 			(req:NSURLRequest, httpUrlResponse:NSHTTPURLResponse?, responseEntity:T?, _, error:ErrorType?) in
 			if responseEntity == nil || error != nil {
+				if error != nil {
+					log.error(error.debugDescription)
+				}
 				completionHandler(mapperObject:nil, errorMessage:error.debugDescription)
 			} else {
 				completionHandler(mapperObject:responseEntity, errorMessage:nil)
 			}
 		}
-
-//		Manager.sharedInstance.request(.POST, url, parameters: params, encoding: .JSON).responseObject {
-//			(responseEntity: T?, error: NSError?) in
-//			if responseEntity == nil || error != nil {
-//				completionHandler(mapperObject:nil, errorMessage:error?.localizedDescription)
-//			} else {
-//				completionHandler(mapperObject:responseEntity, errorMessage:nil)
-//			}
-//		}
 	}
 
 }

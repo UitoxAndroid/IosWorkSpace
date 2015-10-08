@@ -82,29 +82,29 @@ class KindViewController: UITableViewController
 //		let URL = NSURL(string: searchListResponse!.storeList[indexPath.row].pic!)!
 //		let resource = Resource(downloadURL: URL)
 //		cell.imagedView.kf_setImageWithResource( resource, placeholderImage: nil, optionsInfo: nil, progressBlock: { (receivedSize, totalSize) -> () in
-//			println("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
+//			log.debugln("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
 //			}) { (image, error, cacheType, imageURL) -> () in
 //				if error != nil  {
-//					println(error?.description)
+//					log.debugln(error?.description)
 //				}
 //
-//				println("\(indexPath.row + 1): Finished")
+//				log.debugln("\(indexPath.row + 1): Finished")
 //		}
 
-//		println("\(searchListResponse!.storeList[indexPath.row].name)")
-//		println("\(indexPath.row + 1): URL: \(URL)")
+//		log.debugln("\(searchListResponse!.storeList[indexPath.row].name)")
+//		log.debugln("\(indexPath.row + 1): URL: \(URL)")
 
 //		cell.imagedView.kf_setImageWithURL(URL, placeholderImage: nil, optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly], progressBlock: { (receivedSize, totalSize) -> () in
-////			println("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
+////			log.debugln("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
 //		}) { (image, error, cacheType, imageURL) -> () in
 ////			if error != nil  {
-////				println(error?.description)
+////				log.debugln(error?.description)
 ////			}
 //
-////			println("\(indexPath.row + 1): Finished")
+////			log.debugln("\(indexPath.row + 1): Finished")
 //		}
 
-//		println()
+//		log.debugln()
 
 
 		if let url = NSURL(string: searchListResponse!.storeList[indexPath.row].pic! ) {

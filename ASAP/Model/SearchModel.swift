@@ -11,17 +11,21 @@ import Foundation
 // 搜尋頁 Model
 class SearchModel
 {
-    var search: SearchListResponse?
 	typealias completedHandler = (search: SearchListResponse?, errorMessage: String?) -> Void
     
 	func getSearchData( query: String, completionHandler: completedHandler ) {
-        let urlPath = "web_search/get_app_show_main_multi/"
-        let data: Dictionary<String,String> = ["q":query]
+        let urlPath = DomainPath.Mview.rawValue + "/web_search/get_app_show_main_multi/"
+        let data = ["q":query]
 		let version = "1.0.0"
-		let requestDic: Dictionary<String, AnyObject> = ["account": "01_uitoxtest","password": "Aa1234%!@#","platform_id": "AW000001"
-								,"version": version,"data": data]
+		let requestDic = [
+			"account": "01_uitoxtest",
+			"password": "Aa1234%!@#",
+			"platform_id": "AW000001",
+			"version": version,
+			"data": data
+		]
         
-        ApiManager<SearchListResponse>.postDictionary(urlPath, params: requestDic) {
+        ApiManager.sharedInstance.postDictionary(urlPath, params: requestDic as? [String : AnyObject]) {
             (search: SearchListResponse?, error: String?) -> Void in
             
             if search == nil {
@@ -29,16 +33,16 @@ class SearchModel
                 return
             }
 
-			print("statusCode:\(search!.statusCode)")
-			print("total:\(search!.total)")
-			print("currentPage:\(search!.currentPage)")
+			log.debug("statusCode:\(search!.statusCode)")
+			log.debug("total:\(search!.total)")
+			log.debug("currentPage:\(search!.currentPage)")
 
 			if let storeList = search?.storeList {
 				for store in storeList {
-					print("\(store.name!)\t")
-					print("\(store.pic!)\t")
-					print("\(store.finalPrice!)\t")
-                    print("\n")				}
+					log.debug("\(store.name!)\t")
+					log.debug("\(store.pic!)\t")
+					log.debug("\(store.finalPrice!)\t")
+                    log.debug("\n")				}
 			}
 
             completionHandler(search: search, errorMessage: nil)

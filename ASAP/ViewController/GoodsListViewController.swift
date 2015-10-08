@@ -77,7 +77,7 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 		self.pleaseWait()
 
 		let siSeq = self.relatedMenuList[page].sid
-		print("name:\(self.relatedMenuList[page].name!)")
+		log.debug("name:\(self.relatedMenuList[page].name!)")
 
 		self.GetCategory(siSeq!) {
 			(categoryResponse: SearchListResponse?) in

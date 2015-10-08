@@ -167,8 +167,8 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 			cell = SKSTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: SubCellIdentifier)
 		}
 
-		print("row:\(indexPath.row)")
-		print("subRow:\(indexPath.subRow)")
+		log.debug("row:\(indexPath.row)")
+		log.debug("subRow:\(indexPath.subRow)")
 
 //		var s = self.contentList[indexPath.row][indexPath.subRow]
 		let name = self.detailMenuList[indexPath.subRow].name
@@ -184,7 +184,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 
 		if tableView == leftTableView {
 			let selectedRowId = self.leftMenuList[indexPath.row].sid
-			print(selectedRowId)
+			log.debug(selectedRowId)
 			GetMenu(selectedRowId!) {
 				(menu: MenuResponse?) in
 
@@ -207,7 +207,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 			}
 
 		} else {
-			print("indexPath.row:\(indexPath.row)")
+			log.debug("indexPath.row:\(indexPath.row)")
 			let cell = tableView.cellForRowAtIndexPath(indexPath) as? SKSTableViewCell
 
 			if cell == nil {
@@ -215,7 +215,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 			}
 
 			let selectedRowId = cell!.sid
-			print(selectedRowId)
+			log.debug(selectedRowId)
 
 			self.detailMenuList = [DataInfo]()
 

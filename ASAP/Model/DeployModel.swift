@@ -8,24 +8,27 @@
 
 import Foundation
 
-class DeployModel {
+class DeployModel
+{
     var deploy:DeployResponse?
     
     func getDeployData( siSeq:String, completionHandler: (deploy: DeployResponse?, errorMessage: String?) -> Void ) {
-        let url = "web_deploy/get_deploy_data"
+        let url = DomainPath.Mview.rawValue + "/web_deploy/get_deploy_data"
         let data = [
             "page_code": "index",
             "mode": "release",
-            "si_seq": siSeq]
+            "si_seq": siSeq
+		]
 
         let request = [
             "account": "01_uitoxtest",
             "password": "Aa1234%!@#",
             "platform_id": "AW000001",
             "version": "1.0.0",
-            "data": data        ]
+            "data": data
+		]
         
-        ApiManager<DeployResponse>.postDictionary(url, params: request as? [String : AnyObject]) {
+        ApiManager.sharedInstance.postDictionary(url, params: request as? [String : AnyObject]) {
             (deploy: DeployResponse?, error: String?) -> Void in
             
             if deploy == nil {
@@ -39,29 +42,29 @@ class DeployModel {
 			}
 
 
-            print("statusCode:\(deploy!.status_code)")
-            print("data:\(deploy!.dataList)")
+            log.debug("statusCode:\(deploy!.status_code)")
+            log.debug("data:\(deploy!.dataList)")
             
             if let slideDataInfo = deploy?.dataList?.slideDataList {
                 for slideDataDetail in slideDataInfo {
-                    print("\(slideDataDetail.img)\t")
-                    print("\(slideDataDetail.link)\t")
-                    print("\(slideDataDetail.startDate)\t")
-                    print("\(slideDataDetail.endDate)\t")
-                    print("\n")
+                    log.debug("\(slideDataDetail.img)\t")
+                    log.debug("\(slideDataDetail.link)\t")
+                    log.debug("\(slideDataDetail.startDate)\t")
+                    log.debug("\(slideDataDetail.endDate)\t")
+                    log.debug("\n")
                 }
             }
             
             if let productDataInfo = deploy?.dataList?.productDataList {
                 for productDataDetail in productDataInfo {
-                    print("\(productDataDetail.name)\t")
-                    print("\(productDataDetail.desc)\t")
-                    print("\(productDataDetail.price)\t")
-                    print("\(productDataDetail.smPrice)\t")
-                    print("\(productDataDetail.img)")
-                    print("\(productDataDetail.link)\t")
-                    print("\(productDataDetail.smSeq)\t")
-                    print("\n")
+                    log.debug("\(productDataDetail.name)\t")
+                    log.debug("\(productDataDetail.desc)\t")
+                    log.debug("\(productDataDetail.price)\t")
+                    log.debug("\(productDataDetail.smPrice)\t")
+                    log.debug("\(productDataDetail.img)")
+                    log.debug("\(productDataDetail.link)\t")
+                    log.debug("\(productDataDetail.smSeq)\t")
+                    log.debug("\n")
                 }
             }
 
