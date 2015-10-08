@@ -322,6 +322,7 @@
 			children = (
 				AF8027581BC6693F0032B02E /* XCGLogger */,
 				AF7570BB1BC221A300223714 /* SwiftCommon */,
+				A1B36B1C1BC3751F00ADEAAA /* CheckBox */,
 				AFF0665D1BA943CC0098706F /* GLCircleScrollVeiw */,
 				AFEF5D3E1BA0346700A4961D /* SwiftNotice-3.1 */,
 				AF7E902D1B96A59800AFD3EF /* PGCategoryMenu */,
@@ -665,6 +666,7 @@
 				AFCA535D1BB5240F0009BF76 /* AccountViewController.swift in Sources */,
 				AF5F2C431BBD3B6C00A7A977 /* Download.swift in Sources */,
 				AF7570BD1BC221C700223714 /* SCCookie.swift in Sources */,
+				A1B36B191BC374B200ADEAAA /* ForgotPasswordViewController.swift in Sources */,
 				AF251DCC1B7C869F00F06143 /* WeatherResponse.swift in Sources */,
 				AF5F2C4B1BBD3B6C00A7A977 /* ServerTrustPolicy.swift in Sources */,
 				AFEF5D4A1BA2A8DF00A4961D /* ViewControllerCommon.swift in Sources */,
