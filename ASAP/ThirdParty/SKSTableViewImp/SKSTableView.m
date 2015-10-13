@@ -36,9 +36,6 @@
 
 @interface SKSTableView () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray *expandedIndexPaths;
-
-@property (nonatomic, strong) NSMutableDictionary *expandableCells;
 
 @end
 
@@ -304,7 +301,6 @@
 
 - (void)doSubCell:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSLog(@"doSubCell");
 	__block SKSTableViewCell *cell = (SKSTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
 
 	if ([cell isKindOfClass:[SKSTableViewCell class]] && cell.isExpandable) {

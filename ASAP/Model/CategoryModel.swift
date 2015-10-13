@@ -11,7 +11,7 @@ import Foundation
 class CategoryModel
 {    
 	func getCategoryData( siSeq: String, completionHandler: (category: SearchListResponse?, errorMessage: String?) -> Void ) {
-        let url = DomainPath.Mview.rawValue + "/web_search/get_app_category_list_multi"
+        let url = DomainPath.Uxapi.rawValue + "/web_search/get_app_category_list_multi"
         let data = [
 			"si_seq":siSeq,
 			"wc_seq":"AWC000001"

@@ -11,7 +11,7 @@ import Foundation
 class DealsOntimeModel
 {   
     func getDealsOntimeData( completionHandler: (dealsOntime: DealsOntimeResponse?, errorMessage: String?) -> Void ) {
-        let url = DomainPath.Mview.rawValue + "/web_ontime/get_items"
+        let url = DomainPath.Uxapi.rawValue + "/web_ontime/get_items"
         let data = [
             "wc_seq":"AWC000001",
             "range":"date",

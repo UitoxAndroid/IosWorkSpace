@@ -106,15 +106,34 @@ class KindViewController: UITableViewController
 
 //		log.debugln()
 
-
-		if let url = NSURL(string: searchListResponse!.storeList[indexPath.row].pic! ) {
-			if let data = NSData(contentsOfURL: url) {
-				cell.imagedView.image = UIImage(data: data)
+		if cell.imagedView.image == nil {
+			if let url = NSURL(string: searchListResponse!.storeList[indexPath.row].pic! ) {
+				downloadImage(url, imageView: cell.imagedView)
+				//			if let data = NSData(contentsOfURL: url) {
+				//				cell.imagedView.image = UIImage(data: data)
+				//			}
 			}
+			
 		}
 
         return cell
     }
+	
+	func getDataFromUrl(url:NSURL, completeion: ((data: NSData?) -> Void)) {
+		NSURLSession.sharedSession().dataTaskWithURL(url) {
+			(data, reseponse, error) in 
+			completeion(data: data)
+		}.resume()
+	}
+	
+	func downloadImage(url:NSURL, imageView:UIImageView) {
+		log.debug(url.URLString)
+		getDataFromUrl(url) { data in
+			dispatch_async(dispatch_get_main_queue()) {
+				imageView.image = UIImage(data: data!)
+			}
+		}
+	}
 
 	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let headerCell = tableView.dequeueReusableCellWithIdentifier(headerCellIdentifier) as! HeaderCell

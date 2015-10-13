@@ -17,33 +17,18 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 	var leftMenuList:[DataInfo] = []
 	var rightMenuList:[DataInfo] = []
 	var detailMenuList:[DataInfo] = []
-	var subCount:Int = 0
 	var rightTableView: SKSTableView!
 	var contentView: UIView!
 	var categoryView: PGCategoryView!
 	let CellIdentifier = "Cell"
 	let SKSCellIdentifier = "SKSTableViewCell"
 	let SubCellIdentifier = "SubCell"
-	var _contentList:[[String]] = []
-	var contentList: [[String]] {
-		if _contentList.count == 0 {
 
-			_contentList.append(["Section0_Row0", "Row0_Subrow1","Row0_Subrow2"])
-			_contentList.append(["Section0_Row1", "Row1_Subrow1", "Row1_Subrow2", "Row1_Subrow3", "Row1_Subrow4", "Row1_Subrow5", "Row1_Subrow6", "Row1_Subrow7", "Row1_Subrow8", "Row1_Subrow9", "Row1_Subrow10", "Row1_Subrow11", "Row1_Subrow12"])
-			_contentList.append(["Section0_Row2"])
-			_contentList.append(["Section1_Row0", "Row0_Subrow1", "Row0_Subrow2", "Row0_Subrow3"])
-			_contentList.append(["Section1_Row1"])
-			_contentList.append(["Section1_Row2", "Row2_Subrow1", "Row2_Subrow2", "Row2_Subrow3", "Row2_Subrow4", "Row2_Subrow5"])
-		}
-
-		return _contentList
-	}
-
+	
 	// MARK: - View
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
 
 		setupView()
 
@@ -89,7 +74,9 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		self.view.addSubview(categoryView)
 	}
 
-	// MARK: - TableView
+	
+	// MARK: - UITableViewDataSource
+	
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 		if tableView == leftTableView {
 			return 1
@@ -103,7 +90,6 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 			return self.leftMenuList.count
 		} else {
 			return self.rightMenuList.count
-//			return self.contentList.count
 		}
 	}
 
@@ -112,7 +98,6 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 			return 0
 		}
 		return self.detailMenuList.count - 1
-//		return self.contentList[indexPath.row].count - 1
 	}
 
 	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -135,27 +120,16 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 			cell?.textLabel!.text = self.leftMenuList[indexPath.row].name
 			return cell!
 		} else {
-			var cell: SKSTableViewCell? = tableView.dequeueReusableCellWithIdentifier(SKSCellIdentifier) as? SKSTableViewCell
+			//由於會記錄著上次的展開狀態，會影響別的Cell，所以都重新取新的
+			let cell = SKSTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: SKSCellIdentifier)
 
-			if cell == nil {
-				cell = SKSTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: SKSCellIdentifier)
-			}
+			cell.textLabel!.text = self.rightMenuList[indexPath.row].name
+			cell.sid = self.rightMenuList[indexPath.row].sid
+			cell.tag = indexPath.row
 
-//			cell?.textLabel!.text = self.contentList[indexPath.row][0]
-			cell?.textLabel!.text = self.rightMenuList[indexPath.row].name
-			cell?.sid = self.rightMenuList[indexPath.row].sid
-			cell?.tag = indexPath.row
+			cell.isExpandable = true
 
-//			if (self.contentList[indexPath.row].count > 1) {
-//				cell?.isExpandable = true
-//			} else {
-//				cell?.isExpandable = false
-//			}
-
-			cell?.isExpandable = true
-
-
-			return cell!
+			return cell
 		}
 	}
 
@@ -170,7 +144,6 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		log.debug("row:\(indexPath.row)")
 		log.debug("subRow:\(indexPath.subRow)")
 
-//		var s = self.contentList[indexPath.row][indexPath.subRow]
 		let name = self.detailMenuList[indexPath.subRow].name
 		cell?.textLabel?.text = name
 		cell?.sid = self.detailMenuList[indexPath.subRow].sid
@@ -185,19 +158,22 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		if tableView == leftTableView {
 			let selectedRowId = self.leftMenuList[indexPath.row].sid
 			log.debug(selectedRowId)
+			self.rightTableView.expandedIndexPaths.removeAllObjects()
+			self.rightTableView.expandableCells.removeAllObjects()
+			
 			GetMenu(selectedRowId!) {
 				(menu: MenuResponse?) in
 
 				if menu?.menuList == nil || menu?.menuList.count == 0 {
-					self.showAlert("no data")
-//					self.GetCategory(selectedRowId!) {
-//						(categoryResponse: SearchListResponse?) in
-//						let goodListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("GoodListViewController") as? GoodsListViewController
-//						goodListViewController?.searchListResponse = categoryResponse
-//						goodListViewController!.relatedMenuList = self.leftMenuList
-//						goodListViewController!.currentIndex = indexPath.row
-//						self.navigationController?.pushViewController(goodListViewController!, animated: true)
-//					}
+//					self.showAlert("no data")
+					self.GetCategory(selectedRowId!) {
+						(categoryResponse: SearchListResponse?) in
+						let goodListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("GoodListViewController") as? GoodsListViewController
+						goodListViewController?.searchListResponse = categoryResponse
+						goodListViewController!.relatedMenuList = self.leftMenuList
+						goodListViewController!.currentIndex = indexPath.row
+						self.navigationController?.pushViewController(goodListViewController!, animated: true)
+					}
 				} else {
 					self.rightMenuList = menu!.menuList
 					self.rightTableView.reloadData()
@@ -215,28 +191,18 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 			}
 
 			let selectedRowId = cell!.sid
-			log.debug(selectedRowId)
+			log.debug("sid:\(selectedRowId)")
+			
+			//已展開情況下，只要合起來即可
+			if cell!.isExpanded == true {
+				return
+			}
 
 			self.detailMenuList = [DataInfo]()
 
 			GetMenu(selectedRowId!) {
 				(menu: MenuResponse?) in
-//				var menu:MenuResponse? = MenuResponse()
 				if let menu = menu {
-
-//					if (indexPath.row == 1 || indexPath.row == 2) {
-//						menu.menuList = [DataInfo]()
-//						let d1 = DataInfo()
-//						d1.name = "假資料1"
-//						menu.menuList.append(d1)
-//						let d2 = DataInfo()
-//						d2.name = "假資料2"
-//						menu.menuList.append(d2)
-//						let d3 = DataInfo()
-//						d3.name = "假資料3"
-//						menu.menuList.append(d3)
-//					}
-
 					if menu.menuList.count != 0 {
 						menu.menuList.insert(DataInfo()!, atIndex: 0)
 						self.detailMenuList = menu.menuList
@@ -257,6 +223,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		}
 	}
 
+	
 	// MARK: - Call Api
 
 	func GetMenu( siSeq: String, completionHandler: (menuResponse: MenuResponse?) -> Void) {
