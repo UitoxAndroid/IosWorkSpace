@@ -306,9 +306,9 @@
 				60567C931BCCB9E1005BB52A /* RelationViewCell.swift */,
 				60567C941BCCB9E1005BB52A /* SectionHeaderCell.swift */,
 				60567C951BCCB9E1005BB52A /* SpecificationCell.swift */,
-				60567C961BCCB9E1005BB52A /* SpecificPage */,
 				60567C9E1BCCB9E1005BB52A /* SpecificViewController.swift */,
 				60567C9F1BCCB9E1005BB52A /* TabCell.swift */,
+				60567C961BCCB9E1005BB52A /* SpecificPage */,
 			);
 			path = SingleGoodsView;
 			sourceTree = "<group>";

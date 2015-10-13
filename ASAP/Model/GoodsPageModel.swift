@@ -31,10 +31,10 @@ class GoodsPageModel {
                 return
             }
             
-            print("statusCode:\(goodsPage!.status_code)")
+            log.debug("statusCode:\(goodsPage!.status_code)")
             
             if let goodsPageDetail = goodsPage?.itemInfo{
-                print("smName = \(goodsPageDetail.SmName)")
+                log.debug("smName = \(goodsPageDetail.SmName)")
             }
             
             completionHandler(goodsPage: goodsPage, errorMessage: nil)

@@ -9,8 +9,7 @@
 import UIKit
 
 
-class GoodsTableViewController: UITableViewController 
-{
+class GoodsTableViewController: UITableViewController {
     
     var moreToBuyGoods = ["iphone6s","Sony Z5","nexus 6","One M9","Sony Xpria C5","Asus ZenPhone2"]
     
@@ -37,13 +36,11 @@ class GoodsTableViewController: UITableViewController
     
     // MARK: -設定tableView
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int
-    {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 4
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(section){
         case 0:
             return 6
@@ -58,8 +55,7 @@ class GoodsTableViewController: UITableViewController
         }
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
-    {
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch(indexPath.section){
         case 0:
             switch(indexPath.row){
@@ -105,12 +101,10 @@ class GoodsTableViewController: UITableViewController
         }
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
-    {
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if(section == 3)
         {
             let headerCell = tableView.dequeueReusableCellWithIdentifier("SectionHeaderCell") as! SectionHeaderCell
-            print("Created SectionHeaderCell.....")
             return headerCell
         }else{
             let headerCell = tableView.dequeueReusableCellWithIdentifier("SectionHeaderCell") as! SectionHeaderCell
@@ -119,14 +113,12 @@ class GoodsTableViewController: UITableViewController
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //自動消除選取時該列時會以灰色來顯示的效果
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-    {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch(indexPath.section){
         case 0:
             switch(indexPath.row){
@@ -190,9 +182,9 @@ class GoodsTableViewController: UITableViewController
         case 3://說明,規格,保固
             let footerCell = tableView.dequeueReusableCellWithIdentifier("FooterCell", forIndexPath: indexPath) as! FooterCell
             
-            print("cellIndex \(indexPath)")
-            print("y = \(footerCell.frame.origin.y)")
-            print("x = \(footerCell.frame.origin.x)")
+            log.debug("cellIndex \(indexPath)")
+            log.debug("y = \(footerCell.frame.origin.y)")
+            log.debug("x = \(footerCell.frame.origin.x)")
             
             SectionHeaderCell().OnTableViewScrolling(AnimateBarXPosition: 20.0)
             return footerCell
@@ -205,8 +197,7 @@ class GoodsTableViewController: UITableViewController
     
     // MARK: -呼叫api
     
-    func getGoodsPageData()
-    {
+    func getGoodsPageData() {
         goodsPageModel?.getGoodsPageData({ (goodsPage: GoodsPageResponse?, errorMessage:String?) -> Void in
             if (goodsPage == nil){
                 self.showAlert(errorMessage!)

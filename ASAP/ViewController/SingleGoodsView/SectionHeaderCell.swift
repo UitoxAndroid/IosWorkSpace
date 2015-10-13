@@ -74,14 +74,14 @@ class SectionHeaderCell: UITableViewCell , UIScrollViewDelegate {
         self.setAnimatedBarColor(UIColor.blueColor())
         
         // MARK: - Size Of The Container View -
-        var pagesContainerHeight = self.frame.height - yOrigin - distanceToBottom
-        var pagesContainerWidth = self.frame.width
+        let pagesContainerHeight = self.frame.height - yOrigin - distanceToBottom
+        let pagesContainerWidth = self.frame.width
         
         //Set the containerView, every item is constructed relative to this view
         containerView = UIView(frame: CGRectMake(xOrigin, yOrigin, pagesContainerWidth, pagesContainerHeight))
         containerView.backgroundColor = containerViewBackground
         self.addSubview(containerView)
-        print("Cteated containerView.....")
+        log.debug("Cteated containerView.....")
         
         //Set the scrollview
         if (aeroEffectInTopBar) {
@@ -111,12 +111,12 @@ class SectionHeaderCell: UITableViewCell , UIScrollViewDelegate {
             topBar.addSubview(blurView)
         }
         containerView.addSubview(topBar)
-        print("Created topBar.......")
+        log.debug("Created topBar.......")
         
         //Set the top bar buttons
         var buttonsXPosition: CGFloat = 0
         var buttonNumber = 0
-        for item in buttonTitles
+        for _ in buttonTitles
         {
             var barButton: UIButton!
             barButton = UIButton(frame: CGRectMake(buttonsXPosition, 0, containerView.frame.size.width/(CGFloat)(buttonTitles.count), topBarHeight))

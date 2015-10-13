@@ -8,8 +8,7 @@
 
 import Foundation
 
-public class GoodsPageResponse : Mappable
-{
+public class GoodsPageResponse : Mappable {
     public var status_code:String?
     public var itemInfo:GoodsPageItemInfo?
     
@@ -25,8 +24,7 @@ public class GoodsPageResponse : Mappable
 }
 
 
-public class GoodsPageItemInfo : Mappable
-{
+public class GoodsPageItemInfo : Mappable {
     public var SmSubTitle:GoodsSubTitle?
     public var PreOrderQty:Int?
     public var SmPicSize:String?
@@ -115,8 +113,7 @@ public class GoodsPageItemInfo : Mappable
 
 }
 
-public class GoodsSubTitle:Mappable
-{
+public class GoodsSubTitle:Mappable {
     public var type:Int?
     public var title:String?
     

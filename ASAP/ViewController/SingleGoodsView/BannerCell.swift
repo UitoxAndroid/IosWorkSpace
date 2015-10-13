@@ -52,8 +52,7 @@ class BannerCell: UITableViewCell, UIScrollViewDelegate {
         }
     }
     
-    func ImageBannerSetting()
-    {
+    func ImageBannerSetting() {
         //关闭滚动条显示
         ImageBannerScroll.scrollsToTop = false
         ImageBannerScroll.delegate = self
@@ -64,14 +63,14 @@ class BannerCell: UITableViewCell, UIScrollViewDelegate {
         
         if imageList != nil{
             //設置scrollView的内容總尺寸
-            var screenSize = UIScreen.mainScreen().bounds
+            let screenSize = UIScreen.mainScreen().bounds
             ImageBannerScroll.contentSize = CGSizeMake(CGFloat(screenSize.width) * CGFloat(self.imageList.count),0)
             
             for var index = 0 ;index < imageList.count ; ++index{
-                var page = UIView()
+                let page = UIView()
                 if let url = NSURL(string: imageList[index]){
                     if  let data = NSData(contentsOfURL: url){
-                        var imageView = UIImageView(image: UIImage(data: data))
+                        let imageView = UIImageView(image: UIImage(data: data))
                         page.addSubview(imageView)
                         page.backgroundColor = UIColor.blueColor()
                         page.frame = CGRect(x: CGFloat(index) * screenSize.width, y: 0,width: screenSize.width, height: size.height)
@@ -91,8 +90,7 @@ class BannerCell: UITableViewCell, UIScrollViewDelegate {
     
     
     //UIScrollViewDelegate方法，每次滚动结束后调用
-    func  scrollViewDidEndDecelerating(scrollView: UIScrollView)
-    {
+    func  scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         //通过scrollView内容的偏移计算当前显示的是第几页
         let page = Int(ImageBannerScroll.contentOffset.x / ImageBannerScroll.frame.size.width)
         //设置pageController的当前页
@@ -100,8 +98,7 @@ class BannerCell: UITableViewCell, UIScrollViewDelegate {
     }
     
     //点击页控件时事件处理
-    func pageChanged(sender:UIPageControl)
-    {
+    func pageChanged(sender:UIPageControl) {
         //根据点击的页数，计算scrollView需要显示的偏移量
         var frame = ImageBannerScroll.frame
         frame.origin.x = frame.size.width * CGFloat(sender.currentPage)

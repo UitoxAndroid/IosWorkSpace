@@ -30,7 +30,7 @@ class RelationViewCell: UITableViewCell,UICollectionViewDataSource, UICollection
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell:RelationGoodsCell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! RelationGoodsCell
+        let cell:RelationGoodsCell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! RelationGoodsCell
         cell.lblNameCell.text = tableName[indexPath.row]
         cell.lblPriceCell.text = tablePrice[indexPath.row]
         cell.imgCell.image = UIImage(named: tableImage[indexPath.row])
@@ -38,7 +38,7 @@ class RelationViewCell: UITableViewCell,UICollectionViewDataSource, UICollection
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        print("Cell \(indexPath.row) selected")
+        log.debug("Cell \(indexPath.row) selected")
     }
 
 
