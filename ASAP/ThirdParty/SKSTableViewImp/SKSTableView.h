@@ -72,6 +72,9 @@
  *  @discussion You must set only this protocol for the delegation and the datasource of SKSTableView instance.
  */
 @property (nonatomic, weak) id <SKSTableViewDelegate> SKSTableViewDelegate;
+@property (nonatomic, strong) NSMutableArray *expandedIndexPaths;
+@property (nonatomic, strong) NSMutableDictionary *expandableCells;
+
 
 - (void)doSubCell:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 

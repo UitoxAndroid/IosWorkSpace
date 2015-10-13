@@ -37,13 +37,13 @@ extension UIViewController {
     func notice(text: String, type: NoticeType, autoClear: Bool) {
         SwiftNotice.showNoticeWithText(type, text: text, autoClear: autoClear)
     }
-    func pleaseWait() {
+    func pleaseWait2() {
         SwiftNotice.wait()
     }
     func noticeOnlyText(text: String) {
         SwiftNotice.showText(text)
     }
-    func clearAllNotice() {
+    func clearAllNotice2() {
         SwiftNotice.clear()
     }
 }
