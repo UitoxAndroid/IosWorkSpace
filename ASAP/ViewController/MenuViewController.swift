@@ -45,7 +45,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 
 		setRightItemSearch()
 	}
-
+	
 	func setupView() {
 		let statusBarHeight:CGFloat = 20
 		let loginBarHeight:CGFloat = 44
@@ -165,15 +165,16 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 				(menu: MenuResponse?) in
 
 				if menu?.menuList == nil || menu?.menuList.count == 0 {
-//					self.showAlert("no data")
-					self.GetCategory(selectedRowId!) {
-						(categoryResponse: SearchListResponse?) in
-						let goodListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("GoodListViewController") as? GoodsListViewController
-						goodListViewController?.searchListResponse = categoryResponse
-						goodListViewController!.relatedMenuList = self.leftMenuList
-						goodListViewController!.currentIndex = indexPath.row
-						self.navigationController?.pushViewController(goodListViewController!, animated: true)
-					}
+//					self.GetCategory(selectedRowId!) {
+//						(categoryResponse: SearchListResponse?) in
+//						let goodListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("GoodListViewController") as? GoodsListViewController
+//						goodListViewController?.searchListResponse = categoryResponse
+//						let filterMenu = self.filterCategory(self.leftMenuList)
+//						goodListViewController!.relatedMenuList = filterMenu
+//						goodListViewController!.currentIndex = indexPath.row
+//						self.navigationController?.pushViewController(goodListViewController!, animated: true)
+//					}
+					self.pushToCategoryPage(selectedRowId!, menu: self.leftMenuList)
 				} else {
 					self.rightMenuList = menu!.menuList
 					self.rightTableView.reloadData()
@@ -183,7 +184,6 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 			}
 
 		} else {
-			log.debug("indexPath.row:\(indexPath.row)")
 			let cell = tableView.cellForRowAtIndexPath(indexPath) as? SKSTableViewCell
 
 			if cell == nil {
@@ -211,18 +211,32 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 					}
 				}
 
-				self.GetCategory(selectedRowId!) {
-					(categoryResponse: SearchListResponse?) in
-					let goodListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("GoodListViewController") as? GoodsListViewController
-					goodListViewController?.searchListResponse = categoryResponse
-					goodListViewController!.relatedMenuList = self.rightMenuList
-					goodListViewController!.currentIndex = cell!.tag
-					self.navigationController?.pushViewController(goodListViewController!, animated: true)
-				}
+//				self.GetCategory(selectedRowId!) {
+//					(categoryResponse: SearchListResponse?) in
+//					let goodListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("GoodListViewController") as? GoodsListViewController
+//					goodListViewController?.searchListResponse = categoryResponse
+//					goodListViewController!.relatedMenuList = self.rightMenuList
+//					goodListViewController!.currentIndex = cell!.tag
+//					self.navigationController?.pushViewController(goodListViewController!, animated: true)
+//				}
+				self.pushToCategoryPage(selectedRowId!, menu: self.rightMenuList)
 			}
 		}
 	}
 
+	func pushToCategoryPage(sid:String, menu:[DataInfo]) {
+		self.GetCategory(sid) {
+			(categoryResponse: SearchListResponse?) in
+			let goodListViewController = self.storyboard?.instantiateViewControllerWithIdentifier("GoodListViewController") as? GoodsListViewController
+			goodListViewController?.searchListResponse = categoryResponse
+			let filterMenu = self.filterCategory(menu)
+			goodListViewController!.relatedMenuList = filterMenu
+			let currentIndexRow = self.getCurrentIndex(filterMenu, sid: sid)
+			goodListViewController!.currentIndex = currentIndexRow
+			self.navigationController?.pushViewController(goodListViewController!, animated: true)
+		}
+
+	}
 	
 	// MARK: - Call Api
 
@@ -250,4 +264,32 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 		}
 	}
 
+	
+	// MARK: - 導到館頁之前
+	
+	//過濾只有館分類的選單
+	func filterCategory(allMenu: [DataInfo]) -> [DataInfo] {
+		var filterMenu = [DataInfo]()
+		for info in allMenu {
+			if let type = info.type {
+				if type == "category" {
+					filterMenu.append(info)
+				}
+			}
+		}
+		
+		return filterMenu
+	}
+
+	//取得過濾之後，點選的索引
+	func getCurrentIndex(menu:[DataInfo], sid:String) -> Int {
+		var i = 0
+		for info in menu {
+			if info.sid! == sid {
+				return i
+			}
+			i++
+		}
+		return i
+	}
 }
