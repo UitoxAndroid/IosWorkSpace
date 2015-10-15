@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 //記錄log
 let log: XCGLogger = {
@@ -31,6 +32,7 @@ let log: XCGLogger = {
 	return log
 }()
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -46,7 +48,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //		UINavigationBar.appearance().tintColor = UIColor.whiteColor()
 //		UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
 
-
+		
+		do {
+			try NSFileManager.defaultManager().removeItemAtPath(Realm.Configuration.defaultConfiguration.path!)
+		} catch {}
 
 		return true
 	}
