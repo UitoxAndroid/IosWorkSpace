@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ModelTableViewCell: UITableViewCell {
+class ModelTableViewCell1: UITableViewCell {
         
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,3 +23,32 @@ class ModelTableViewCell: UITableViewCell {
 
 }
 
+class ModelTableViewCell2: UITableViewCell {
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+    
+}
+
+class LinkTableViewCell: UITableViewCell {
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+
+}

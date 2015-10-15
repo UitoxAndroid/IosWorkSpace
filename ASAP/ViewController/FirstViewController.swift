@@ -8,30 +8,54 @@
 
 import UIKit
 
-class FirstViewController: UITableViewController//, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate
+class FirstViewController: UITableViewController, CirCleViewDelegate
 {
 
     @IBOutlet var adTableCell: ADTableViewCell!
     @IBOutlet var dealsTableCell: DealsTableViewCell!
     
+    @IBOutlet var linkCollectionView: UICollectionView!
     @IBOutlet var dealsCollectionView: UICollectionView!
-    @IBOutlet var modelCollectionView: UICollectionView!
+    @IBOutlet var modelCollectionView1: UICollectionView!
+    @IBOutlet var modelCollectionView2: UICollectionView!
+    
+    @IBOutlet var titleLabel1: UILabel!
+    @IBOutlet var titleLabel2: UILabel!
+    @IBOutlet var titleLabel3: UILabel!
+    @IBOutlet var titleLabel4: UILabel!
+    
+    @IBOutlet var m046Image1: UIImageView!
+    @IBOutlet var m046Image2: UIImageView!
+    @IBOutlet var m046Image3: UIImageView!
+    
+    @IBOutlet var m047Image1: UIImageView!
+    @IBOutlet var m047Image2: UIImageView!
+    @IBOutlet var m047Image3: UIImageView!
+    @IBOutlet var m047Image4: UIImageView!
+    
     
 	lazy var deployModel:DeployModel?			= DeployModel()
-	lazy var slideDataList:[SlideData]			= [SlideData]()
-	lazy var productList:[ProductData]			= [ProductData]()
+    lazy var slideDataList:[SlideData]			= [SlideData]()
+    lazy var linkDataList:[LinkData]            = [LinkData]()
+    lazy var iconDataList1:[IconLinkData]       = [IconLinkData]()
+    lazy var iconDataList2:[IconLinkData]       = [IconLinkData]()
+    lazy var productList1:[ProductData]			= [ProductData]()
+	lazy var productList2:[ProductData]			= [ProductData]()
+    
 	lazy var dealsOnTimeModel:DealsOntimeModel	= DealsOntimeModel()
 	lazy var dealsOnTimeData:[DealsOntimeData]	= []
+    
+    let reuseLinkCollectionViewCellIdentifier   = "LinkCollectionCell"
 	let reuseCollectionViewCellIdentifier		= "DealsCollectionCell"
-	let reuseTableViewCellIdentifier			= "DealsCell"
-    let reuseModelCollectionViewCellIdentifier  = "ModelCollectionCell"
-    let reuseModelTableViewCellIdentifier       = "ModelCell"
-
+    let reuseTableViewCellIdentifier			= "DealsCell"
+    let reuseModelCollectionViewCellIdentifier1 = "ModelCollectionCell1"
+    let reuseModelCollectionViewCellIdentifier2 = "ModelCollectionCell2"
 
 	// MARK: - View
 
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
+
 	}
 
 	override func viewDidLoad() {
@@ -39,10 +63,9 @@ class FirstViewController: UITableViewController//, UIScrollViewDelegate, UITabl
 
 		self.getDeployData()
 
-        getDealsList()
+        self.getDealsList()
 
-		setRightItemSearch()
-
+		self.setRightItemSearch()
 	}
 
 	override func prefersStatusBarHidden() -> Bool {
@@ -82,11 +105,78 @@ class FirstViewController: UITableViewController//, UIScrollViewDelegate, UITabl
 		}
 
 		self.circleView = CirCleView(frame: CGRectMake(0, 0, self.view.frame.size.width, 120), imageArray: self.imageArray)
-        self.circleView.delegate = adTableCell
-        adTableCell.addSubview(self.circleView)
+        self.circleView.delegate = self
+        self.view.addSubview(self.circleView)
 	}
+    
+    func clickCurrentImage(currentIndxe: Int) {
+        if let page_code = self.slideDataList[currentIndxe].pageCode {
+            switch (page_code) {
+            case "market":
+                log.debug("\(self.slideDataList[currentIndxe].link!) \(self.slideDataList[currentIndxe].seq!)")
+            case "category":
+                log.debug("\(self.slideDataList[currentIndxe].link!) \(self.slideDataList[currentIndxe].seq!)")
+            case "edm":
+                log.debug("\(self.slideDataList[currentIndxe].link!) \(self.slideDataList[currentIndxe].seq!)")
+            default:
+                log.debug(self.slideDataList[currentIndxe].pageCode)
+            }
+        }
+    }
 
-
+    // MARK: -  首頁－圖片一大二小
+    
+    func set046Image() {
+        var index = 0
+        for iconLink:IconLinkData in self.iconDataList1 {
+            if let url = NSURL(string: iconLink.img!) {
+                if let data = NSData(contentsOfURL: url) {
+                    switch index {
+                    case 0:
+                        self.m046Image1.image = UIImage(data: data)
+                        index++
+                    case 1:
+                        self.m046Image2.image = UIImage(data: data)
+                        index++
+                    case 2:
+                        self.m046Image3.image = UIImage(data: data)
+                        index++
+                    default:
+                        index++
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: -  首頁－圖片二大二小
+    
+    func set047Image() {
+        var index = 0
+        for iconLink:IconLinkData in self.iconDataList2 {
+            if let url = NSURL(string: iconLink.img!) {
+                if let data = NSData(contentsOfURL: url) {
+                    switch index {
+                    case 0:
+                        self.m047Image1.image = UIImage(data: data)
+                        index++
+                    case 1:
+                        self.m047Image2.image = UIImage(data: data)
+                        index++
+                    case 2:
+                        self.m047Image3.image = UIImage(data: data)
+                        index++
+                    case 3:
+                        self.m047Image4.image = UIImage(data: data)
+                        index++
+                    default:
+                        index++
+                    }
+                }
+            }
+        }
+    }
+    
 	// MARK: -  首頁－整點特賣
 
 	/*override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -135,13 +225,22 @@ class FirstViewController: UITableViewController//, UIScrollViewDelegate, UITabl
             case 0:
                 return 120
             case 1:
-                return 200
+                return self.linkDataList.count == 0 ? 0 : 40
             case 2:
-                if(self.productList.count > 0) {
-                    return CGFloat(225 * (self.productList.count / 2 + self.productList.count % 2))
-                } else {
-                    return 0
-                }
+                self.dealsTableCell.hidden = (self.dealsOnTimeData.count == 0)
+                return self.dealsOnTimeData.count == 0 ? 0 : 176
+            case 3:
+                self.titleLabel1.hidden = (self.iconDataList1.count == 0)
+                return self.iconDataList1.count == 0 ? 0 : 330
+            case 4:
+                self.titleLabel2.hidden = (self.productList1.count == 0)
+                return self.productList1.count == 0 ? 0 : 176
+            case 5:
+                self.titleLabel3.hidden = (self.iconDataList2.count == 0)
+                return self.iconDataList2.count == 0 ? 0 : 330
+            case 6:
+                self.titleLabel4.hidden = (self.productList2.count == 0)
+                return self.productList2.count == 0 ? 0 : CGFloat(265 * (self.productList2.count / 2 + self.productList2.count % 2))
             default:
                 return 0
             }
@@ -158,13 +257,22 @@ class FirstViewController: UITableViewController//, UIScrollViewDelegate, UITabl
 			} else {
 				self.deployModel?.deploy = deploy!
 				self.slideDataList      = deploy!.dataList!.slideDataList
-				self.productList        = deploy!.dataList!.productDataList
+                self.linkDataList       = deploy!.dataList!.linkDataList
+                self.iconDataList1      = deploy!.dataList!.iconLinkDataList1
+                self.iconDataList2      = deploy!.dataList!.iconLinkDataList2
+				self.productList1       = deploy!.dataList!.productDataList1
+   				self.productList2       = deploy!.dataList!.productDataList2
 
-                self.modelCollectionView.contentSize = CGSize(width: self.modelCollectionView.contentSize.width, height: CGFloat(220 * (self.productList.count / 2 + self.productList.count % 2)))
+                self.modelCollectionView2.contentSize = CGSize(width: self.modelCollectionView2.contentSize.width, height: CGFloat(220 * (self.productList2.count / 2 + self.productList2.count % 2)))
                 
                 self.tableView.reloadData()
-                self.modelCollectionView.reloadData()
+                self.linkCollectionView.reloadData()
+                self.modelCollectionView1.reloadData()
+                self.modelCollectionView2.reloadData()
 				self.pictureGallery()
+                
+                self.set046Image()
+                self.set047Image()
 			}
 		})
 	}
@@ -179,38 +287,6 @@ class FirstViewController: UITableViewController//, UIScrollViewDelegate, UITabl
                 self.dealsCollectionView.reloadData()
             }
 		}
-
-//		return
-
-//		let deal1 = ProductData()
-//		deal1.img = "http://img02-tw1.uitoxbeta.com/A/show/2014/0709/AM0000010/201407AM090000010_047493227.png"
-//		deal1.name = "Apple iPhone 5S 16GB -銀"
-//		deal1.price = "21500"
-//		productList.append(deal1)
-//
-//		let deal2 = ProductData()
-//		deal2.img = "http://img02-tw1.uitoxbeta.com/A/show/2013/0925/AM0001074/201309AM250001074_417329728.jpg"
-//		deal2.name = "Blue Star 折疊式老人機 A608"
-//		deal2.price = "1790"
-//		productList.append(deal2)
-//
-//		let deal3 = ProductData()
-//		deal3.img = "http://img02-tw1.uitoxbeta.com/A/show/2013/0926/AM0000853/201309AM260000853_135974997.jpg"
-//		deal3.name = "iNO CP99極簡風老人摺疊手機"
-//		deal3.price = "1588"
-//		productList.append(deal3)
-//
-//		let deal4 = ProductData()
-//		deal4.img = "http://img02-tw1.uitoxbeta.com/A/show/2013/0926/AM0000870/201309AM260000870_400345476.jpg"
-//		deal4.name = "iNO CP79摺疊式銀髮族手機"
-//		deal4.price = "1490"
-//		productList.append(deal4)
-//
-//		let deal5 = ProductData()
-//		deal5.img = "http://img02-tw1.uitoxbeta.com/A/show/2013/0926/AM0000953/201309AM260000953_897866938.jpg"
-//		deal5.name = "YAVi雅米 i05銀髮族極簡御守機"
-//		deal5.price = "988"
-//		productList.append(deal5)
 	}
 }
 
@@ -220,17 +296,25 @@ class FirstViewController: UITableViewController//, UIScrollViewDelegate, UITabl
 extension FirstViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
 	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if(collectionView.tag == 0) {
-            return dealsOnTimeData.count
-        } else {
-            return productList.count
+        switch collectionView.tag {
+        case 0:
+            return self.dealsOnTimeData.count
+        case 1:
+            return self.productList1.count
+        case 2:
+            return self.productList2.count
+        case 3:
+            return self.linkDataList.count
+        default:
+            return 0
         }
 	}
 
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        if(collectionView.tag == 0) {
+        switch collectionView.tag {
+        case 0:
             let cell: DealsCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseCollectionViewCellIdentifier, forIndexPath: indexPath) as! DealsCollectionViewCell
-
+            
             if let pic = self.dealsOnTimeData[indexPath.row].smPic {
                 if let url = NSURL(string: pic) {
                     if let data = NSData(contentsOfURL: url) {
@@ -238,77 +322,137 @@ extension FirstViewController: UICollectionViewDataSource, UICollectionViewDeleg
                     }
                 }
             }
-
+            
             if let itemName = self.dealsOnTimeData[indexPath.row].smName {
                 cell.productNameLabel?.text = itemName
             }
-
+            
             var price = ""
-
+            
             if let calCurrency = self.dealsOnTimeData[indexPath.row].calCurrency {
                 price += calCurrency
             }
-
+            
             if let calPrice = self.dealsOnTimeData[indexPath.row].calPrice {
                 price += calPrice
             }
-
-            cell.productPriceLabel?.text = price
-
-            return cell
-        } else {
-            let cell: ModelCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseModelCollectionViewCellIdentifier, forIndexPath: indexPath) as! ModelCollectionViewCell
             
-            if let url = NSURL(string: self.productList[indexPath.row].img!) {
-                if let data = NSData(contentsOfURL: url) {
-                    cell.productImage.image = UIImage(data: data)
+            cell.productPriceLabel?.text = price
+            
+            return cell
+        case 1:
+            let cell: ModelCollectionViewCell1 = collectionView.dequeueReusableCellWithReuseIdentifier(reuseModelCollectionViewCellIdentifier1, forIndexPath: indexPath) as! ModelCollectionViewCell1
+            
+            if let pic = self.productList1[indexPath.row].img {
+                if let url = NSURL(string: pic) {
+                    if let data = NSData(contentsOfURL: url) {
+                        cell.productImage.image = UIImage(data: data)
+                    }
                 }
             }
             
-            if let itemName = self.productList[indexPath.row].name {
+            if let itemName = self.productList1[indexPath.row].name {
                 cell.productNameLabel?.text = itemName
             }
             
             var price = ""
             
             /*if let smCurrency = self.productList[indexPath.row].smPrice {
-                price += smCurrency
+            price += smCurrency
             }*/
             
-            if let sugPrice = self.productList[indexPath.row].price {
+            if let sugPrice = self.productList1[indexPath.row].price {
                 price += sugPrice
             }
+            
+            cell.productPriceLabel?.text = price
+            
+            return cell
+        case 2:
+            let cell: ModelCollectionViewCell2 = collectionView.dequeueReusableCellWithReuseIdentifier(reuseModelCollectionViewCellIdentifier2, forIndexPath: indexPath) as! ModelCollectionViewCell2
+            
+            if let url = NSURL(string: self.productList2[indexPath.row].img!) {
+                if let data = NSData(contentsOfURL: url) {
+                    cell.productImage.image = UIImage(data: data)
+                }
+            }
+            
+            if let itemName = self.productList2[indexPath.row].name {
+                cell.productNameLabel?.text = itemName
+            }
+            
+            var price = ""
+            
+            /*if let smCurrency = self.productList[indexPath.row].smPrice {
+            price += smCurrency
+            }*/
+            
+            if let sugPrice = self.productList2[indexPath.row].price {
+                price += sugPrice
+            }
+            
             
             cell.productPriceLabel?.text = price
             
             price = ""
             
             /*if let ssmCurrency = self.productList[indexPath.row].ssmPrice {
-                price += ssmCurrency
+            price += ssmCurrency
             }*/
             
-            if let smPrice = self.productList[indexPath.row].smPrice {
+            if let smPrice = self.productList2[indexPath.row].smPrice {
                 price += smPrice
             }
             
             cell.productSalePriceLabel?.text = price
             
             return cell
+        case 3:
+            let cell: LinkCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseLinkCollectionViewCellIdentifier, forIndexPath: indexPath) as! LinkCollectionViewCell
+            
+            cell.verticalBarLabel.hidden = (indexPath.row == 0)
+            if let linkName = self.linkDataList[indexPath.row].name {
+                //cell.linkButton?.setTitle("", forState: UIControlState.Normal)
+                cell.linkLabel?.text = linkName
+            }
+            
+            return cell
+        default:
+            return UICollectionViewCell()
         }
 	}
 
 	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-		print("點選\(indexPath.row)")
+        switch collectionView.tag {
+        case 0:
+            log.debug("點選\(indexPath.row)")
+        case 1:
+            let row = self.productList1[indexPath.row]
+            log.debug("\(indexPath.row)-\(row.name)")
+        case 2:
+            let row = self.productList2[indexPath.row]
+            log.debug("\(indexPath.row)-\(row.name)")
+        case 3:
+            let row = self.linkDataList[indexPath.row]
+            log.debug("\(indexPath.row)-\(row.pageCode)")
+        default:
+            log.debug("點選\(indexPath.row)")
+        }
     }
 
 	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        if(collectionView.tag == 0 ) {
-            let width = (self.view.frame.width - 20) / 3
+        switch collectionView.tag {
+        case 0, 1:
+            let width = (self.view.frame.width - 16 - 8) / 3
             return CGSize(width: width, height: collectionView.frame.height)
-        } else {
-            
+        case 2:
             let width = (collectionView.frame.width - 20) / 2
             return CGSize(width: width, height: 230)
+        case 3:
+            let width = (self.view.frame.width - 16 - 8) / 3
+            return CGSize(width: width, height: 33 )
+        default:
+            return CGSize(width: 0.0, height: 0.0)
         }
 	}
    

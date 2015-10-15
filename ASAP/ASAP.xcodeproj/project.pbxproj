@@ -32,6 +32,8 @@
 		60567CB41BCCB9E1005BB52A /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60567C9D1BCCB9E1005BB52A /* TitleCell.swift */; settings = {ASSET_TAGS = (); }; };
 		60567CB51BCCB9E1005BB52A /* SpecificViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60567C9E1BCCB9E1005BB52A /* SpecificViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		60567CB61BCCB9E1005BB52A /* TabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60567C9F1BCCB9E1005BB52A /* TabCell.swift */; settings = {ASSET_TAGS = (); }; };
+		A17FEE571BCF47BA00DCC422 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FEE551BCF47BA00DCC422 /* RegisterModel.swift */; settings = {ASSET_TAGS = (); }; };
+		A17FEE581BCF47BA00DCC422 /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FEE561BCF47BA00DCC422 /* RegisterResponse.swift */; settings = {ASSET_TAGS = (); }; };
 		A1916A841BAAB9CD00DA5447 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1916A831BAAB9CD00DA5447 /* SignInViewController.swift */; };
 		A199C8E31BAFE53600F2A0B6 /* ModelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A199C8E21BAFE53600F2A0B6 /* ModelTableViewCell.swift */; };
 		A199C8E51BAFE67600F2A0B6 /* ModelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A199C8E41BAFE67600F2A0B6 /* ModelCollectionViewCell.swift */; };
@@ -173,6 +175,8 @@
 		60567C9D1BCCB9E1005BB52A /* TitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
 		60567C9E1BCCB9E1005BB52A /* SpecificViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificViewController.swift; sourceTree = "<group>"; };
 		60567C9F1BCCB9E1005BB52A /* TabCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabCell.swift; sourceTree = "<group>"; };
+		A17FEE551BCF47BA00DCC422 /* RegisterModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
+		A17FEE561BCF47BA00DCC422 /* RegisterResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterResponse.swift; sourceTree = "<group>"; };
 		A1916A831BAAB9CD00DA5447 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SignInViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		A199C8E21BAFE53600F2A0B6 /* ModelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTableViewCell.swift; sourceTree = "<group>"; };
 		A199C8E41BAFE67600F2A0B6 /* ModelCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -452,6 +456,8 @@
 		AF790AE61B81BFC500070875 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A17FEE551BCF47BA00DCC422 /* RegisterModel.swift */,
+				A17FEE561BCF47BA00DCC422 /* RegisterResponse.swift */,
 				60567C811BCCB863005BB52A /* GoodsPageModel.swift */,
 				60567C821BCCB863005BB52A /* GoodsPageResponse.swift */,
 				AFF066641BA94E2A0098706F /* DealsOntimeModel.swift */,
@@ -807,6 +813,7 @@
 				AF5F2C451BBD3B6C00A7A977 /* Manager.swift in Sources */,
 				AFEB07101BBBB380001C2AD7 /* TransformType.swift in Sources */,
 				60567CB51BCCB9E1005BB52A /* SpecificViewController.swift in Sources */,
+				A17FEE571BCF47BA00DCC422 /* RegisterModel.swift in Sources */,
 				60567CB21BCCB9E1005BB52A /* SizeCell.swift in Sources */,
 				AF5F2C481BBD3B6C00A7A977 /* Request.swift in Sources */,
 				AFEB070C1BBBB380001C2AD7 /* DateTransform.swift in Sources */,
@@ -818,6 +825,7 @@
 				60567CAD1BCCB9E1005BB52A /* SpecificationCell.swift in Sources */,
 				AFF066691BAAA1E00098706F /* OnSaleViewController.swift in Sources */,
 				AF5F2C441BBD3B6C00A7A977 /* Error.swift in Sources */,
+				A17FEE581BCF47BA00DCC422 /* RegisterResponse.swift in Sources */,
 				AF7E90021B95592500AFD3EF /* MyTabBarViewController.swift in Sources */,
 				AF7E90321B96A59800AFD3EF /* PGCategoryView.m in Sources */,
 				AFF066621BA944000098706F /* DealsCollectionViewCell.swift in Sources */,

@@ -26,15 +26,23 @@ public class DeployData : Mappable
 {
     
     public var slideDataList:[SlideData]=[]
-    public var productDataList:[ProductData]=[]
+    public var linkDataList:[LinkData]=[]
+    public var iconLinkDataList1:[IconLinkData]=[]
+    public var iconLinkDataList2:[IconLinkData]=[]
+    public var productDataList1:[ProductData]=[]
+    public var productDataList2:[ProductData]=[]
     
 	required public init?(_ map: Map) {
 
 	}
 
     public func mapping(map: Map) {
-        slideDataList   <- map["slide_data"]
-        productDataList <- map["product_data"]
+        slideDataList       <- map["slide.045"]
+        linkDataList        <- map["link.050"]
+        iconLinkDataList1   <- map["iconlink.046"]
+        iconLinkDataList2   <- map["iconlink.047"]
+        productDataList1    <- map["product.048"]
+        productDataList2    <- map["product.049"]
     }
 }
 
@@ -42,8 +50,6 @@ public class SlideData : Mappable
 {
     public var img:String?
     public var link:String?
-    public var startDate:String?
-    public var endDate:String?
     public var pageCode:String?
     public var seq:String?
     
@@ -54,54 +60,69 @@ public class SlideData : Mappable
     public func mapping(map: Map) {
         img         <- map["img"]
         link        <- map["link"]
-        startDate   <- map["st_dt"]
-        endDate     <- map["end_dt"]
         pageCode    <- map["page_code"]
         seq         <- map["seq"]
     }
+}
 
+public class LinkData : Mappable
+{
+    public var name:String?
+    public var link:String?
+    public var pageCode:String?
+    public var seq:String?
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        name        <- map["name"]
+        link        <- map["link"]
+        pageCode    <- map["page_code"]
+        seq         <- map["seq"]
+    }
+}
+
+public class IconLinkData : Mappable
+{
+    public var img:String?
+    public var link:String?
+    public var pageCode:String?
+    public var seq:String?
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        img         <- map["img"]
+        link        <- map["link"]
+        pageCode    <- map["page_code"]
+        seq         <- map["seq"]
+    }
 }
 
 public class ProductData : Mappable
 {
+    public var smSeq:String?
     public var name:String?
-    public var desc:String?
     public var sloganList:Slogan?
     public var smPrice:String?
-    public var ssmPrice:String?
-    public var ssmType:String?
     public var price:String?
     public var img:String?
-    public var link:String?
-    public var startDate:String?
-    public var endDate:String?
-    public var smSeq:String?
-    public var isCross:String?
-    public var country:String?
-    public var area:String?
-    public var orderStatus:String?
     
 	required public init?(_ map: Map) {
 
 	}
 
     public func mapping(map: Map) {
+        smSeq       <- map["sm_seq"]
         name        <- map["name"]
-        desc        <- map["desc"]
         sloganList  <- map["slogan"]
         smPrice     <- map["sm_price"]
-        ssmPrice    <- map["ssm_price"]
-        ssmType     <- map["ssm_type"]
         price       <- map["price"]
         img         <- map["img"]
-        link        <- map["link"]
-        startDate   <- map["st_dt"]
-        endDate     <- map["end_dt"]
-        smSeq       <- map["sm_seq"]
-        isCross     <- map["is_cross"]
-        country     <- map["country"]
-        area        <- map["area"]
-        orderStatus <- map["order_status"]
     }
     
     
