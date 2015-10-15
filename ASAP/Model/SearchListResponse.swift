@@ -16,6 +16,7 @@ public class SearchListResponse: Mappable
     public var cateogryList:    [CategoryInfo]  = []
     public var total:           Int?
     public var currentPage:     Int?
+    public var campInfo:        [CampaignInfo]  = []  // 行銷活動頁用
 
 	required public init?(_ map: Map) {
 
@@ -28,6 +29,7 @@ public class SearchListResponse: Mappable
         cateogryList    <- map["category_list"]
         total           <- map["total"]
         currentPage     <- map["current_page"]
+        campInfo        <- map["campaign_info"]
     }
 }
 
@@ -125,4 +127,51 @@ public class MarketInfo: Mappable
 		slogan		  <- map["other.slogan"]
 	}
 
+}
+
+// 行銷活動頁資料
+public class CampaignInfo: Mappable
+{
+    /*
+    respone/campaign_info/camp_name     行銷活動名稱
+    respone/campaign_info/camp_promote	滿額多少 折抵多少
+    respone/campaign_info/start_dt      活動開始日期
+    respone/campaign_info/edn_dt        活動結束日期
+    */
+    
+    public var campName     :String?
+    public var campPromote  :String?
+    public var startDate    :String?
+    public var endDate      :String?
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map:Map) {
+        campName    <- map["CAMP_NAME"]
+        campPromote <- map["CAMP_PROMOTE"]
+        startDate   <- map["START_DT"]
+        endDate     <- map["END_DT"]
+    }
+}
+
+// 行銷活動規則
+public class campPromoteDetail:Mappable
+{
+    /*
+    campPrice      滿額多少
+    campDiscount   折抵多少
+    */
+    public var campPrice    :String?
+    public var campDiscount :String?
+    
+    required public init?(_ map: Map){
+        
+    }
+    
+    public func mapping(map: Map) {
+        campPrice    <- map["camp_price"]
+        campDiscount <- map["camp_discount"]
+    }
 }

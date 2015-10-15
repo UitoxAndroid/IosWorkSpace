@@ -34,7 +34,7 @@ class GoodsPageModel {
             log.debug("statusCode:\(goodsPage!.status_code)")
             
             if let goodsPageDetail = goodsPage?.itemInfo{
-                log.debug("smName = \(goodsPageDetail.SmName)")
+                log.debug("smName = \(goodsPageDetail.smName)")
             }
             
             completionHandler(goodsPage: goodsPage, errorMessage: nil)

@@ -9,11 +9,13 @@
 import UIKit
 
 
-class GoodsTableViewController: UITableViewController {
+class GoodsTableViewController: UITableViewController
+{
     
     var moreToBuyGoods = ["iphone6s","Sony Z5","nexus 6","One M9","Sony Xpria C5","Asus ZenPhone2"]
     
     lazy var goodsPageModel:GoodsPageModel? = GoodsPageModel()
+    lazy var campaignData:CampaignModel? = CampaignModel()
     var goodsInfo:GoodsPageItemInfo? = nil
     //是否要展開加購商品 Bool
     var isOpenMoroToBuyCell:Bool = false
@@ -26,7 +28,7 @@ class GoodsTableViewController: UITableViewController {
         self.tableView.endUpdates()
     }
     
-    // MARK: -View
+    // MARK: - View
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,20 +36,20 @@ class GoodsTableViewController: UITableViewController {
     }
     
     
-    // MARK: -設定tableView
+    // MARK: - 設定tableView
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 4
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch(section){
+        switch(section) {
         case 0:
             return 6
         case 1:
             return moreToBuyGoods.count
         case 2:
-            return 2
+            return 1
         case 3:
             return 3
         default :
@@ -56,9 +58,9 @@ class GoodsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        switch(indexPath.section){
+        switch(indexPath.section) {
         case 0:
-            switch(indexPath.row){
+            switch(indexPath.row) {
             case 0:
                 return 350  //Banner
             case 1:
@@ -76,23 +78,23 @@ class GoodsTableViewController: UITableViewController {
             }
         case 1:
             //加購商品
-            if(indexPath.row > 1 && isOpenMoroToBuyCell == true){
+            if(indexPath.row > 1 && isOpenMoroToBuyCell == true) {
                 return 70
-            }else if(indexPath.row > 1 && isOpenMoroToBuyCell == false) {
+            } else if(indexPath.row > 1 && isOpenMoroToBuyCell == false) {
                 return 0
-            }else{
+            } else {
                 return 70
             }
         case 2:
             //展開列
-            if(indexPath.row == 0){
-                if(isOpenMoroToBuyCell == true){
+            if(indexPath.row == 0) {
+                if(isOpenMoroToBuyCell == true) {
                     return 0
-                }else{
+                } else {
                     return 40
                 }
-            }else{
-                return 226      //相關商品
+            } else {
+                return 0      //相關商品
             }
         case 3:
             return 300      //TabCell
@@ -106,7 +108,7 @@ class GoodsTableViewController: UITableViewController {
         {
             let headerCell = tableView.dequeueReusableCellWithIdentifier("SectionHeaderCell") as! SectionHeaderCell
             return headerCell
-        }else{
+        } else {
             let headerCell = tableView.dequeueReusableCellWithIdentifier("SectionHeaderCell") as! SectionHeaderCell
             headerCell.hidden = true
             return headerCell
@@ -116,16 +118,17 @@ class GoodsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //自動消除選取時該列時會以灰色來顯示的效果
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        switch(indexPath.section){
+        switch(indexPath.section) {
         case 0:
-            switch(indexPath.row){
+            switch(indexPath.row) {
             case 0: //圖片&品名&售價
                 let bannerCell = tableView.dequeueReusableCellWithIdentifier("BannerCell", forIndexPath: indexPath) as! BannerCell
-                bannerCell.lblGoodsName.text = self.goodsInfo?.SmName
-                bannerCell.imageList = self.goodsInfo?.SmPicMulti
+                bannerCell.lblGoodsName.text = self.goodsInfo?.smName
+                bannerCell.imageList = self.goodsInfo?.smPicMulti
                 bannerCell.lblPriceNow.text = "$1000"
                 bannerCell.lblPriceOrigin.text = "$5000"
                 bannerCell.ImageBannerSetting()
@@ -135,18 +138,18 @@ class GoodsTableViewController: UITableViewController {
                 return specificationCell
             case 2://活動
                 let activityCell = tableView.dequeueReusableCellWithIdentifier("ActivityCell", forIndexPath: indexPath) as! ActivityCell
-                activityCell.lblActTime.text = "a~B"
+                activityCell.lblActTime.text = "2015/10/20 00:00 ~ 2015/10/11 00:00"
                 activityCell.lblGoodPrice.text = "$1234"
                 return activityCell
             case 3://預購倒數
                 let preorderCell = tableView.dequeueReusableCellWithIdentifier("PreorderCell", forIndexPath: indexPath) as! PreorderCell
-                preorderCell.lblPreorderDeadline.text = self.goodsInfo?.PreDtE
+                preorderCell.lblPreorderDeadline.text = self.goodsInfo?.preDtE
                 return preorderCell
             case 4://說明
                 let directionCell = tableView.dequeueReusableCellWithIdentifier("DirectionCell", forIndexPath: indexPath) as! DirectionCell
-                directionCell.lblDesc.text = "會員限購\(self.goodsInfo?.SsmLimitQty)個"
-                directionCell.lblOutDay.text = self.goodsInfo?.RefEtdDt
-                directionCell.lblLeftCount.text = self.goodsInfo?.PreAvaQty
+                directionCell.lblDesc.text = "會員限購\(self.goodsInfo?.ssmLimitQty)個"
+                directionCell.lblOutDay.text = self.goodsInfo?.refEtdDt
+                directionCell.lblLeftCount.text = self.goodsInfo?.preAvaQty
                 return directionCell
             case 5://加購Title
                 let moreToBuyTitleCell = tableView.dequeueReusableCellWithIdentifier("MoreToBuyTitleCell", forIndexPath: indexPath) as! MoreToBuyTitleCell
@@ -158,17 +161,17 @@ class GoodsTableViewController: UITableViewController {
         case 1://加購商品
             let moreToBuyCell = tableView.dequeueReusableCellWithIdentifier("MoreToBuyCell", forIndexPath: indexPath) as! MoreToBuyCell
             moreToBuyCell.lblName.text = moreToBuyGoods[indexPath.row]
-            if(indexPath.row > 1 && isOpenMoroToBuyCell == true){
+            if(indexPath.row > 1 && isOpenMoroToBuyCell == true) {
                 moreToBuyCell.hidden = false
-            }else if(indexPath.row > 1 && isOpenMoroToBuyCell == false){
+            } else if(indexPath.row > 1 && isOpenMoroToBuyCell == false) {
                 moreToBuyCell.hidden = true
             }
             return moreToBuyCell
         case 2:
-            switch(indexPath.row){
+            switch(indexPath.row) {
             case 0://加購商品展開按鈕
                 let buttonInCell = tableView.dequeueReusableCellWithIdentifier("ButtonInCell", forIndexPath: indexPath) as! ButtonInCell
-                if(isOpenMoroToBuyCell == true){
+                if(isOpenMoroToBuyCell == true) {
                     buttonInCell.hidden = true
                 }
                 return buttonInCell
@@ -194,20 +197,43 @@ class GoodsTableViewController: UITableViewController {
         }
     }
     
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == "ShowCampaignViewController" {
+//            if let campaignViewController = segue.destinationViewController as? CampaignViewController {
+//                self.GetCampaign {
+//                    (campaignResponse:SearchListResponse?) in
+//                    if campaignResponse?.total > 0 {
+//                        campaignViewController.campaignData = campaignResponse
+//                    }
+//                    self.clearAllNotice()
+//                }
+//            }
+//        }
+//    }
     
-    // MARK: -呼叫api
+    // MARK: - 呼叫api
     
     func getGoodsPageData() {
         goodsPageModel?.getGoodsPageData({ (goodsPage: GoodsPageResponse?, errorMessage:String?) -> Void in
-            if (goodsPage == nil){
+            if (goodsPage == nil) {
                 self.showAlert(errorMessage!)
             }
-            else{
+            else {
                 self.goodsPageModel?.GoodsPage = goodsPage!
                 self.goodsInfo = goodsPage!.itemInfo
                 self.tableView.reloadData()
             }
         })
+    }
+    
+    func GetCampaign(completionHandler: (campaignResponse :SearchListResponse?) -> Void) {
+        campaignData?.getCampaignData{ (campaign:SearchListResponse?, errorMessage: String?) in
+            if(errorMessage != nil) {
+                self.showAlert(errorMessage!)
+            } else {
+                completionHandler(campaignResponse: campaign!)
+            }
+        }
     }
        
 }

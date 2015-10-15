@@ -10,32 +10,33 @@ import Foundation
 
 class CampaignModel
 {   
-    func getMenuData( completionHandler: (category: CampaignResponse?, errorMessage: String?) -> Void ) {
-        let url = DomainPath.Mview.rawValue + "/web_campaign/campaign_info"
+    func getCampaignData( completionHandler: (campaign: SearchListResponse?, errorMessage: String?) -> Void ) {
+        let url = DomainPath.Uxapi.rawValue + "/web_campaign/campaign_info"
         let data = [
-			"camp_seq":"201509A0300000001",
+			"camp_seq":"201510A0700000001",
 			"wc_seq":"AWC000001"
 		]
 
         let request = [
-			"account":"01_uitoxtest",
-			"password":"Aa1234%!@#",
-			"platform_id":"AW000001",
-			"version":"1.0.0",
-			"data":data
-		]
+            "account":"01_uitoxtest",
+            "password":"Aa1234%!@#",
+            "platform_id":"AW000001",
+            "version":"1.0.0",
+            "data":data
+        ]
         
         ApiManager.sharedInstance.postDictionary(url, params: request as? [String : AnyObject]) {
-            (campain: CampaignResponse?, error: String?) -> Void in
+            (campaign: SearchListResponse?, error: String?) -> Void in
             
-            if campain == nil {
-                completionHandler(category: nil, errorMessage: error)
+            if campaign == nil {
+                completionHandler(campaign: nil, errorMessage: error)
                 return
             }
 
-			log.debug("statusCode:\(campain!.status_code)")
-
-            completionHandler(category: campain, errorMessage: nil)
+			log.debug("statusCode:\(campaign!.statusCode)")
+            log.info("活動詳細資料數: \(campaign!.campInfo[0].campPromote)")
+            
+            completionHandler(campaign: campaign, errorMessage: nil)
         }
         
     }

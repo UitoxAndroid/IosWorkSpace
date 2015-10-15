@@ -8,14 +8,19 @@
 
 import Foundation
 
-public class CampaignResponse : Mappable{
+public class CampaignResponse : Mappable
+{
     public var status_code:String?
+    public var goodsList:[StoreInfo] = []
     
-	required public init?(_ map: Map) {
+    required public init?(_ map: Map) {
 
 	}
 
     public func mapping(map: Map) {
-        status_code <- map["status_code"]
+        status_code  <- map["status_code"]
+        goodsList    <- map["list"]
     }
 }
+
+

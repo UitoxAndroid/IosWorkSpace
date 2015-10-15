@@ -22,6 +22,11 @@ class BannerCell: UITableViewCell, UIScrollViewDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        //設定label為多行
+        lblGoodsName.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        lblGoodsName.numberOfLines = 2
+        
         ImageBannerSetting()
     }
    

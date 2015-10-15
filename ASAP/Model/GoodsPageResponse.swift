@@ -8,7 +8,8 @@
 
 import Foundation
 
-public class GoodsPageResponse : Mappable {
+public class GoodsPageResponse : Mappable
+{
     public var status_code:String?
     public var itemInfo:GoodsPageItemInfo?
     
@@ -24,96 +25,112 @@ public class GoodsPageResponse : Mappable {
 }
 
 
-public class GoodsPageItemInfo : Mappable {
-    public var SmSubTitle:GoodsSubTitle?
-    public var PreOrderQty:Int?
-    public var SmPicSize:String?
-    public var PreAvaQty:String?
-    public var IsPreOrd:Bool?
-    public var CpSeq:String?
-    public var ItRecycle:Bool?
-    public var ItInType:Int?
-    public var PreDtS:String?
-    public var PreDtE:String?
-    public var RefEtdDt:String?
-    public var ShowDt:String?
-    public var SsmStDt:String?
-    public var SsmEnDt:String?
-    public var SmName:String?
-    public var SmPic:String?
-    public var SmColorPic:String?
-    public var SmStatus:Bool?
-    public var SmPrice:Int?
-    public var OwnerNo:String?
-    public var SsmLimitQty:Int?
-    public var IsOrgiItem:Int?
-    public var ItPayway:Int?
-    public var IsCvsPay:Bool?
-    public var SsmPrice:Int?
-    public var SsmType:Int?
-    public var SmPicMulti:[String]?
-    public var Color:String?
-    public var ItSize:String?
-    public var ItMprice:Int?
-    public var Itno:String?
-    public var ItSalyqtyLimit:Int?
-    public var ItSpecSeq:String?
-    public var ItColorSeq:String?
-    public var ItLargeVolume:Bool?
-    public var SpecType:Int?
-    public var Trans:Int?
-    public var MarketCrossCountry:String?
+public class GoodsPageItemInfo : Mappable
+{
+    /*  smSubTitle      賣場副標題
+        preOrderQty     預購量
+        smPicSize       賣場圖檔尺寸
+        preAvaQty       可被預購量
+        isPreOrd        預購旗標
+        preDtS          預購開始時間
+        preDtE          預購結束時間
+        refEtdDt        參考出貨時間
+        showDt          單品曝光時間
+        ssmStDt         活動開始時間
+        ssmEnDt         活動結束時間
+        smName          賣場名稱
+        smPic           賣場大圖
+        smColorPic      賣場色圖(小)
+        smStatus        賣場狀態         0:不顯示, 1:顯示
+        smPrice         賣場售價
+        ssmLimitQty     限購數量
+        ssmPrice        特賣變價售價
+        ssmType         特賣變價型態      1:特賣變價, 2:折扣   若為 1 或 2 時，價格拿  SSM_PRICE
+        smPicMulti      賣場多主圖
+        color           顏色
+        itSize          商品尺寸
+        itMprice        商品市價
+        itno            商品流水號
+        itSalyqtyLimit  商品最低可賣量
+        itSpecSeq       商品規格群組
+        itColorSeq      商品顏色群組
+        specType        商品規格         0:無COLOR, 1:無IT_SIZE, 2:有IT_SIZE
+    */
     
+    public var smSubTitle:GoodsSubTitle?
+    public var preOrderQty:Int?
+    public var smPicSize:String?
+    public var preAvaQty:String?
+    public var isPreOrd:Bool?
+    public var preDtS:String?
+    public var preDtE:String?
+    public var refEtdDt:String?
+    public var showDt:String?
+    public var ssmStDt:String?
+    public var ssmEnDt:String?
+    public var smName:String?
+    public var smPic:String?
+    public var smColorPic:String?
+    public var smStatus:Bool?
+    public var smPrice:Int?
+    public var ssmLimitQty:Int?
+    public var ssmPrice:Int?
+    public var ssmType:Int?
+    public var smPicMulti:[String]?
+    public var color:String?
+    public var itSize:String?
+    public var itMprice:Int?
+    public var itno:String?
+    public var itSalyqtyLimit:Int?
+    public var itSpecSeq:String?
+    public var itColorSeq:String?
+    public var specType:Int?
     
     required public init?(_ map: Map) {
         
     }
     
     public func mapping(map: Map) {
-        SmSubTitle          <- map["SM_SUB_TITLE"]
-        PreOrderQty         <- map["PRE_ORD_QTY"]
-        SmPicSize           <- map["SM_PIC_SIZE"]
-        PreAvaQty           <- map["PRE_AVA_QTY"]
-        IsPreOrd            <- map["IS_PRE_QRD"]
-        CpSeq               <- map["CP_SEQ"]
-        ItRecycle           <- map["IT_RECYCLE"]
-        ItInType            <- map["IT_IN_TYPE"]
-        PreDtS              <- map["PRE_DT_S"]
-        PreDtE              <- map["PRE_DT_E"]
-        RefEtdDt            <- map["REF_ETD_DT"]
-        ShowDt              <- map["SHOW_DT"]
-        SsmStDt             <- map["SSM_ST_DT"]
-        SsmEnDt             <- map["SSM_EN_DT"]
-        SmName              <- map["SM_NAME"]
-        SmPic               <- map["SM_PIC"]
-        SmColorPic          <- map["SM_COLOR_PIC"]
-        SmStatus            <- map["SM_STATUS"]
-        SmPrice             <- map["SM_PRICE"]
-        OwnerNo             <- map["OWNER_NO"]
-        SsmLimitQty         <- map["SSM_LIMIT_QTY"]
-        IsOrgiItem          <- map["IS_ORGI_ITEM"]
-        ItPayway            <- map["IT_PAYWAY"]
-        IsCvsPay            <- map["IT_CVS_PAY"]
-        SsmPrice            <- map["SSM_PRICE"]
-        SsmType             <- map["SSM_TYPE"]
-        SmPicMulti          <- map["SM_PIC_MULTI"]
-        Color               <- map["COLOR"]
-        ItSize              <- map["IT_SIZE"]
-        ItMprice            <- map["IT_MPRICE"]
-        Itno                <- map["ITNO"]
-        ItSalyqtyLimit      <- map["IT_SALYQTY_LIMIT"]
-        ItSpecSeq           <- map["IT_SPEC_SEQ"]
-        ItColorSeq          <- map["IT_COLOR_SEQ"]
-        ItLargeVolume       <- map["IT_LARGE_VOLUME"]
-        SpecType            <- map["SPEC_TYPE"]
-        Trans               <- map["TRANS"]
-        MarketCrossCountry  <- map["market_cross_country"]
+        smSubTitle          <- map["SM_SUB_TITLE"]
+        preOrderQty         <- map["PRE_ORD_QTY"]
+        smPicSize           <- map["SM_PIC_SIZE"]
+        preAvaQty           <- map["PRE_AVA_QTY"]
+        isPreOrd            <- map["IS_PRE_QRD"]
+        preDtS              <- map["PRE_DT_S"]
+        preDtE              <- map["PRE_DT_E"]
+        refEtdDt            <- map["REF_ETD_DT"]
+        showDt              <- map["SHOW_DT"]
+        ssmStDt             <- map["SSM_ST_DT"]
+        ssmEnDt             <- map["SSM_EN_DT"]
+        smName              <- map["SM_NAME"]
+        smPic               <- map["SM_PIC"]
+        smColorPic          <- map["SM_COLOR_PIC"]
+        smStatus            <- map["SM_STATUS"]
+        smPrice             <- map["SM_PRICE"]
+        ssmLimitQty         <- map["SSM_LIMIT_QTY"]
+        ssmPrice            <- map["SSM_PRICE"]
+        ssmType             <- map["SSM_TYPE"]
+        smPicMulti          <- map["SM_PIC_MULTI"]
+        color               <- map["COLOR"]
+        itSize              <- map["IT_SIZE"]
+        itMprice            <- map["IT_MPRICE"]
+        itno                <- map["ITNO"]
+        itSalyqtyLimit      <- map["IT_SALYQTY_LIMIT"]
+        itSpecSeq           <- map["IT_SPEC_SEQ"]
+        itColorSeq          <- map["IT_COLOR_SEQ"]
+        specType            <- map["SPEC_TYPE"]
     }
 
 
 }
 
-public class GoodsSubTitle:Mappable {
+public class GoodsSubTitle:Mappable
+{
+    /*
+        type    啓用賣場副標題   0:否, 1:是
+        title   賣場副標題       
+    */
+
     public var type:Int?
     public var title:String?
     

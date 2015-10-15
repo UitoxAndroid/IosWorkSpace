@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6046D1ED1BCDFD2100561DBE /* ActCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6046D1EC1BCDFD2100561DBE /* ActCell.swift */; settings = {ASSET_TAGS = (); }; };
+		6046D1F11BCE2A0C00561DBE /* CampaignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6046D1F01BCE2A0C00561DBE /* CampaignViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		60567C831BCCB863005BB52A /* GoodsPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60567C811BCCB863005BB52A /* GoodsPageModel.swift */; settings = {ASSET_TAGS = (); }; };
 		60567C841BCCB863005BB52A /* GoodsPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60567C821BCCB863005BB52A /* GoodsPageResponse.swift */; settings = {ASSET_TAGS = (); }; };
 		60567CA01BCCB9E1005BB52A /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60567C881BCCB9E1005BB52A /* ActivityCell.swift */; settings = {ASSET_TAGS = (); }; };
@@ -145,6 +147,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6046D1EC1BCDFD2100561DBE /* ActCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActCell.swift; sourceTree = "<group>"; };
+		6046D1F01BCE2A0C00561DBE /* CampaignViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampaignViewController.swift; sourceTree = "<group>"; };
 		60567C811BCCB863005BB52A /* GoodsPageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsPageModel.swift; sourceTree = "<group>"; };
 		60567C821BCCB863005BB52A /* GoodsPageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsPageResponse.swift; sourceTree = "<group>"; };
 		60567C881BCCB9E1005BB52A /* ActivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
@@ -483,16 +487,17 @@
 				AF7E8FF71B95592500AFD3EF /* KindViewController.swift */,
 				AFF066681BAAA1E00098706F /* OnSaleViewController.swift */,
 				A1916A831BAAB9CD00DA5447 /* SignInViewController.swift */,
-				AF7E8FF81B95592500AFD3EF /* MyTabBarViewController.swift */,
 				AF7E8FF51B95592500AFD3EF /* GoodsListViewController.swift */,
 				AF7E900D1B957DB600AFD3EF /* FirstViewController.swift */,
 				AF7E902B1B96A2DD00AFD3EF /* MenuViewController.swift */,
 				AF0F3BC91B9D7DBA00EE8CD2 /* SearchResultViewController.swift */,
 				AFCA535C1BB5240F0009BF76 /* AccountViewController.swift */,
 				A1B36B181BC374B200ADEAAA /* ForgotPasswordViewController.swift */,
+				AF7E8FF81B95592500AFD3EF /* MyTabBarViewController.swift */,
 				A1B36B141BC3748E00ADEAAA /* VerifyMobileViewController.swift */,
 				A1B36B161BC374A400ADEAAA /* RegisterViewController.swift */,
 				A1B36B1A1BC374D100ADEAAA /* ResetPasswordViewController.swift */,
+				6046D1F01BCE2A0C00561DBE /* CampaignViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -507,6 +512,7 @@
 				AF7E90081B95791D00AFD3EF /* HeaderCell.swift */,
 				AFF0666A1BAAA4AD0098706F /* OnSaleHeaderCell.swift */,
 				A199C8E41BAFE67600F2A0B6 /* ModelCollectionViewCell.swift */,
+				6046D1EC1BCDFD2100561DBE /* ActCell.swift */,
 			);
 			path = CustomUI;
 			sourceTree = "<group>";
@@ -790,6 +796,7 @@
 				AF5F2C451BBD3B6C00A7A977 /* Manager.swift in Sources */,
 				AFEB07101BBBB380001C2AD7 /* TransformType.swift in Sources */,
 				60567CB51BCCB9E1005BB52A /* SpecificViewController.swift in Sources */,
+				6046D1F11BCE2A0C00561DBE /* CampaignViewController.swift in Sources */,
 				60567CB21BCCB9E1005BB52A /* SizeCell.swift in Sources */,
 				AF5F2C481BBD3B6C00A7A977 /* Request.swift in Sources */,
 				AFEB070C1BBBB380001C2AD7 /* DateTransform.swift in Sources */,
@@ -825,6 +832,7 @@
 				AF7E902A1B96A14300AFD3EF /* SKSTableViewCellIndicator.m in Sources */,
 				AF0F3BC81B99776800EE8CD2 /* CategoryResponse.swift in Sources */,
 				AF5F2C461BBD3B6C00A7A977 /* MultipartFormData.swift in Sources */,
+				6046D1ED1BCDFD2100561DBE /* ActCell.swift in Sources */,
 				60567CAA1BCCB9E1005BB52A /* RelationGoodsCell.swift in Sources */,
 				AF5F2C4D1BBD3B6C00A7A977 /* Upload.swift in Sources */,
 				A1916A841BAAB9CD00DA5447 /* SignInViewController.swift in Sources */,
