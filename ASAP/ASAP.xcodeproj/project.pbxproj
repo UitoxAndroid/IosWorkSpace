@@ -124,6 +124,10 @@
 		AFF066671BA94E2A0098706F /* DealsOntimeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066651BA94E2A0098706F /* DealsOntimeResponse.swift */; };
 		AFF066691BAAA1E00098706F /* OnSaleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF066681BAAA1E00098706F /* OnSaleViewController.swift */; };
 		AFF0666B1BAAA4AD0098706F /* OnSaleHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF0666A1BAAA4AD0098706F /* OnSaleHeaderCell.swift */; };
+		AFF88D3D1BCE3BA000015A22 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFF88D3B1BCE3BA000015A22 /* Realm.framework */; settings = {ASSET_TAGS = (); }; };
+		AFF88D401BCE3BAE00015A22 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AFF88D3B1BCE3BA000015A22 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AFF88D411BCE3BAE00015A22 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFF88D3C1BCE3BA000015A22 /* RealmSwift.framework */; };
+		AFF88D421BCE3BAE00015A22 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AFF88D3C1BCE3BA000015A22 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +147,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				AFF88D421BCE3BAE00015A22 /* RealmSwift.framework in Embed Frameworks */,
+				AFF88D401BCE3BAE00015A22 /* Realm.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,6 +289,8 @@
 		AFF066651BA94E2A0098706F /* DealsOntimeResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealsOntimeResponse.swift; sourceTree = "<group>"; };
 		AFF066681BAAA1E00098706F /* OnSaleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnSaleViewController.swift; sourceTree = "<group>"; };
 		AFF0666A1BAAA4AD0098706F /* OnSaleHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnSaleHeaderCell.swift; sourceTree = "<group>"; };
+		AFF88D3B1BCE3BA000015A22 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		AFF88D3C1BCE3BA000015A22 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +298,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFF88D411BCE3BAE00015A22 /* RealmSwift.framework in Frameworks */,
+				AFF88D3D1BCE3BA000015A22 /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +432,7 @@
 		AF3195B81B83144F001D6E75 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				AFF88D3A1BCE3BA000015A22 /* RealmSwift */,
 				AFB5F87E1BCB65E900D24B1C /* SVProgressHUD */,
 				AF8027581BC6693F0032B02E /* XCGLogger */,
 				AF7570BB1BC221A300223714 /* SwiftCommon */,
@@ -650,6 +661,15 @@
 				AFF0665E1BA943CC0098706F /* CirCleView.swift */,
 			);
 			path = GLCircleScrollVeiw;
+			sourceTree = "<group>";
+		};
+		AFF88D3A1BCE3BA000015A22 /* RealmSwift */ = {
+			isa = PBXGroup;
+			children = (
+				AFF88D3B1BCE3BA000015A22 /* Realm.framework */,
+				AFF88D3C1BCE3BA000015A22 /* RealmSwift.framework */,
+			);
+			path = RealmSwift;
 			sourceTree = "<group>";
 		};
 		F39DA90FC632ABF7B58E8331 /* Frameworks */ = {
@@ -1011,6 +1031,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/UitoxShopProduct-amxlflortglgsrdfviqdytoeewaq/Build/Products/Debug-iphoneos",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/ThirdParty/RealmSwift",
 				);
 				INFOPLIST_FILE = ASAP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1033,6 +1055,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/UitoxShopProduct-amxlflortglgsrdfviqdytoeewaq/Build/Products/Debug-iphoneos",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/ThirdParty/RealmSwift",
 				);
 				INFOPLIST_FILE = ASAP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
