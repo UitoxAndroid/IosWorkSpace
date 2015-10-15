@@ -26,7 +26,7 @@ class DealsTableViewCell: UITableViewCell
 
 }
 
-class ADTableViewCell: UITableViewCell, CirCleViewDelegate
+class ADTableViewCell: UITableViewCell
 {
     
 }

@@ -46,10 +46,41 @@ class RegisterViewController: UITableViewController {
         }
     }
     
+    @IBAction func passwordTextChanged(sender: AnyObject) {
+        let pwd = self.passwordText.text!
+        if pwd.characters.count < 6 {
+//            self.passwordText.background = UIImage(named: "")
+        } else {
+//            self.passwordText.background = UIImage(named: "")
+        }
+    }
+    
     // MARK: 註冊
     @IBAction func registerButtonClick(sender: AnyObject) {
-        print("閱讀且同意 \(readAgreeCheckBox.isChecked)")
-        print("訂閱電子報 \(subscribeCheckBox.isChecked)")
+        self.sendRegisterData()
+    }
+    
+    var registerModel: RegisterModel? = RegisterModel()
+    // MARK: Call Api
+    func sendRegisterData() {
+        let account     = self.accountText.text
+        let password    = self.passwordText.text
+        let sendEdm     = self.subscribeCheckBox.isChecked ? "1" : "0"
+        registerModel?.sendRegisterData(account!, password: password!, sendEdm: sendEdm, completionHandler: { (register: RegisterResponse?, errorMessage: String?) -> Void in
+            if (register == nil) {
+                self.showAlert(errorMessage!)
+            } else {
+                var status_code = register!.status_code
+                let range = status_code!.startIndex.advancedBy(0)..<status_code!.startIndex.advancedBy(7)
+                status_code?.removeRange(range)
+                if(status_code != "100") {
+                    self.showAlert((register?.description)!)
+                    return
+                }
+                let alert = UIAlertView(title: "", message: "註冊成功！\n歡迎使用此帳號進行購物", delegate: self, cancelButtonTitle: "確定")
+                alert.show()
+            }
+        })
     }
      // MARK: - Table view data source
 

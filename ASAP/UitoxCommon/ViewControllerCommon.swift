@@ -9,7 +9,7 @@
 import Foundation
 
 @available(iOS 8.0, *)
-extension UIViewController {
+extension UIViewController { 
 	// MARK: - Action
 	func searchButtonOnClicked(sender:UIBarButtonItem) {
 		//		performSegueWithIdentifier("SearchPage", sender: self)
@@ -32,5 +32,22 @@ extension UIViewController {
 		let searchItem = UIBarButtonItem(image: img, style: UIBarButtonItemStyle.Plain, target: self, action: Selector("searchButtonOnClicked:"))
 		self.navigationItem.rightBarButtonItem = searchItem
 
+	}
+	
+	
+	// MARK: - ProgressHUD
+	
+	func setupHUD() {
+		SVProgressHUD.setDefaultStyle(SVProgressHUDStyle.Dark)
+		SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.Black)
+	}
+	
+	func pleaseWait() {
+		setupHUD()
+		SVProgressHUD.show()
+	}
+	
+	func clearAllNotice() {
+		SVProgressHUD.dismiss()
 	}
 }
