@@ -8,7 +8,8 @@
 
 import UIKit
 
-class SectionHeaderCell: UITableViewCell , UIScrollViewDelegate {
+class SectionHeaderCell: UITableViewCell , UIScrollViewDelegate
+{
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -116,8 +117,7 @@ class SectionHeaderCell: UITableViewCell , UIScrollViewDelegate {
         //Set the top bar buttons
         var buttonsXPosition: CGFloat = 0
         var buttonNumber = 0
-        for _ in buttonTitles
-        {
+        for _ in buttonTitles {
             var barButton: UIButton!
             barButton = UIButton(frame: CGRectMake(buttonsXPosition, 0, containerView.frame.size.width/(CGFloat)(buttonTitles.count), topBarHeight))
             barButton.backgroundColor = UIColor.clearColor()
@@ -143,8 +143,7 @@ class SectionHeaderCell: UITableViewCell , UIScrollViewDelegate {
         scrollView.contentSize = CGSize(width: pagesScrollViewSize.width,height: pagesScrollViewSize.height * CGFloat(buttonTitles.count))
     }
     
-    internal func barButtonAction(sender: UIButton?)
-    {
+    internal func barButtonAction(sender: UIButton?) {
         let index: Int = sender!.tag
         _ = scrollView.frame.size
         let pagesScrollViewSize = scrollView.frame.size
@@ -152,8 +151,7 @@ class SectionHeaderCell: UITableViewCell , UIScrollViewDelegate {
         //        println("Load Page\(index)")
     }
     
-    internal func scrollViewDidScroll(scrollView: UIScrollView)
-    {
+    internal func scrollViewDidScroll(scrollView: UIScrollView) {
         //The calculations for the animated bar's movements
         //The offset addition is based on the width of the animated bar (button width times 0.8)
         
@@ -175,8 +173,7 @@ class SectionHeaderCell: UITableViewCell , UIScrollViewDelegate {
         
     }
     
-    internal func OnTableViewScrolling(AnimateBarXPosition xPosition:CGFloat)
-    {
+    internal func OnTableViewScrolling(AnimateBarXPosition xPosition:CGFloat) {
 //        prprintTableViewIsScrolling.......")
 //        println("y : \(animatedBar.frame.origin.y)")
 //        println("width : \(animatedBar.frame.size.width)")

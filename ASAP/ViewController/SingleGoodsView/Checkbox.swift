@@ -10,14 +10,14 @@ import UIKit
 
 class Checkbox: UIButton
 {
-    let checkedImage = UIImage(named: "ic_check_box_18dp") as UIImage?
-    let uncheckedImage = UIImage(named: "ic_check_box_outline_blank_18dp") as UIImage?
+    let checkedImage = UIImage(named: "ic_check_box") as UIImage?
+    let uncheckedImage = UIImage(named: "ic_check_box_outline_blank") as UIImage?
     
-    var isChecked:Bool = false{
+    var isChecked:Bool = false {
         didSet{
-            if isChecked == true{
+            if isChecked == true {
                 self.setImage(checkedImage, forState: .Normal)
-            }else{
+            } else {
                 self.setImage(uncheckedImage, forState: .Normal)
             }
         }
@@ -28,11 +28,11 @@ class Checkbox: UIButton
         self.isChecked = false
     }
     
-    func buttonClicked(sender:UIButton){
-        if(sender == self){
-            if isChecked == true{
+    func buttonClicked(sender:UIButton) {
+        if(sender == self) {
+            if isChecked == true {
                 isChecked = false
-            }else{
+            } else {
                 isChecked = true
             }
         }

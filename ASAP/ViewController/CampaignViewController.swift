@@ -17,7 +17,6 @@ class CampaignViewController: UIViewController
     @IBOutlet weak var containerView: UIView!
     lazy var campaignData:CampaignModel? = CampaignModel()
     var campaignStatus:Bool! = true
-//    var campaignData:SearchListResponse! = nil
     
     // MARK: - View
     
@@ -32,7 +31,7 @@ class CampaignViewController: UIViewController
         if campaignStatus == false {
             lblCampaignStatus.text = "特賣即將開始"
             lblCampaignStatus.backgroundColor = UIColor.grayColor()
-        }else {
+        } else {
             lblCampaignStatus.text = "限時特賣中"
             lblCampaignStatus.backgroundColor = UIColor.redColor()
         }
@@ -53,7 +52,7 @@ class CampaignViewController: UIViewController
                 vc.tableView.reloadData()
                 self.clearAllNotice()
             }
-        }else {
+        } else {
             containerView.hidden = true
             self.pleaseWait()
             self.GetCampaign {

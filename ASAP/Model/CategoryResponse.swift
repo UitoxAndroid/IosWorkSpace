@@ -8,7 +8,8 @@
 
 import Foundation
 
-public class CategoryResponse : Mappable{
+public class CategoryResponse : Mappable
+{
     public var status_code:String?
     public var total:Int?
     public var range:String?
@@ -32,7 +33,8 @@ public class CategoryResponse : Mappable{
     }
 }
 
-public class AttrValueList:Mappable{
+public class AttrValueList:Mappable
+{
     public var avSeq:String?
     public var avName:String?
     public var avSort:String?
@@ -70,7 +72,8 @@ public class goodsInfo:Mappable
 }
 
 
-public class CategoryList:Mappable{
+public class CategoryList:Mappable
+{
     public var cpSeq:String?
     public var cpName:String?
     public var total:String?

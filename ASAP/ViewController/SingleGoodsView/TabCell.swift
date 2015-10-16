@@ -73,8 +73,7 @@ class TabCell: UITableViewCell , UIScrollViewDelegate
 
     
     
-    override  func drawRect(rect: CGRect)
-    {
+    override  func drawRect(rect: CGRect) {
         self.setOriginY(0.0)
         self.enableAeroEffectInTopBar(false)
         self.setButtonsTextColor(UIColor.blueColor())
@@ -121,8 +120,7 @@ class TabCell: UITableViewCell , UIScrollViewDelegate
         //Set the top bar buttons
         var buttonsXPosition: CGFloat = 0
         var buttonNumber = 0
-        for _ in buttonTitles
-        {
+        for _ in buttonTitles {
             var barButton: UIButton!
             barButton = UIButton(frame: CGRectMake(buttonsXPosition, 0, containerView.frame.size.width/(CGFloat)(buttonTitles.count), topBarHeight))
             barButton.backgroundColor = UIColor.clearColor()
@@ -150,8 +148,7 @@ class TabCell: UITableViewCell , UIScrollViewDelegate
     }
     
     
-    internal func barButtonAction(sender: UIButton?)
-    {
+    internal func barButtonAction(sender: UIButton?) {
         let index: Int = sender!.tag
         _ = scrollView.frame.size
         let pagesScrollViewSize = scrollView.frame.size
@@ -159,8 +156,7 @@ class TabCell: UITableViewCell , UIScrollViewDelegate
 //        println("Load Page\(index)")
     }
     
-    internal func scrollViewDidScroll(scrollView: UIScrollView)
-    {
+    internal func scrollViewDidScroll(scrollView: UIScrollView) {
         //The calculations for the animated bar's movements
         //The offset addition is based on the width of the animated bar (button width times 0.8)
         let scaleY = (CGFloat)(scrollView.contentOffset.y / (contentView.frame.size.height * (CGFloat)(buttonTitles.count)))

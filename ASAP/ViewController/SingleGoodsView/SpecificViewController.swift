@@ -29,7 +29,7 @@ class SpecificViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch(section){
+        switch(section) {
         case 0:
             return 8
         default:
@@ -38,9 +38,9 @@ class SpecificViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        switch(indexPath.section){
+        switch(indexPath.section) {
         case 0:
-            switch(indexPath.row){
+            switch(indexPath.row) {
             case 0:
                 let titleCell = tableView.dequeueReusableCellWithIdentifier("TitleCell", forIndexPath: indexPath) as! TitleCell
                 return titleCell
@@ -79,9 +79,9 @@ class SpecificViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        switch(indexPath.section){
+        switch(indexPath.section) {
         case 0:
-            switch(indexPath.row){
+            switch(indexPath.row) {
             case 0: //title
                 return 150
             case 1: //color
@@ -106,8 +106,7 @@ class SpecificViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //自動消除選取時該列時會以灰色來顯示的效果
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }

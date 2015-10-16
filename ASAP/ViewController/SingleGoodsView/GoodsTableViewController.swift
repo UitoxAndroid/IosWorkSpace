@@ -104,8 +104,7 @@ class GoodsTableViewController: UITableViewController
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if(section == 3)
-        {
+        if(section == 3) {
             let headerCell = tableView.dequeueReusableCellWithIdentifier("SectionHeaderCell") as! SectionHeaderCell
             return headerCell
         } else {
