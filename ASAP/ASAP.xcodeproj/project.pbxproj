@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6005F19D1BD092C3001896B3 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FEE551BCF47BA00DCC422 /* RegisterModel.swift */; };
 		6046D1ED1BCDFD2100561DBE /* ActCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6046D1EC1BCDFD2100561DBE /* ActCell.swift */; settings = {ASSET_TAGS = (); }; };
 		6046D1F11BCE2A0C00561DBE /* CampaignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6046D1F01BCE2A0C00561DBE /* CampaignViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		60567C831BCCB863005BB52A /* GoodsPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60567C811BCCB863005BB52A /* GoodsPageModel.swift */; settings = {ASSET_TAGS = (); }; };
@@ -34,7 +35,6 @@
 		60567CB41BCCB9E1005BB52A /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60567C9D1BCCB9E1005BB52A /* TitleCell.swift */; settings = {ASSET_TAGS = (); }; };
 		60567CB51BCCB9E1005BB52A /* SpecificViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60567C9E1BCCB9E1005BB52A /* SpecificViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		60567CB61BCCB9E1005BB52A /* TabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60567C9F1BCCB9E1005BB52A /* TabCell.swift */; settings = {ASSET_TAGS = (); }; };
-		A17FEE571BCF47BA00DCC422 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FEE551BCF47BA00DCC422 /* RegisterModel.swift */; settings = {ASSET_TAGS = (); }; };
 		A17FEE581BCF47BA00DCC422 /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FEE561BCF47BA00DCC422 /* RegisterResponse.swift */; settings = {ASSET_TAGS = (); }; };
 		A1916A841BAAB9CD00DA5447 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1916A831BAAB9CD00DA5447 /* SignInViewController.swift */; };
 		A199C8E31BAFE53600F2A0B6 /* ModelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A199C8E21BAFE53600F2A0B6 /* ModelTableViewCell.swift */; };
@@ -795,6 +795,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6005F19D1BD092C3001896B3 /* RegisterModel.swift in Sources */,
 				AF7E900E1B957DB600AFD3EF /* FirstViewController.swift in Sources */,
 				AF7E90011B95592500AFD3EF /* KindViewController.swift in Sources */,
 				AF5F2C501BBD3B8300A7A977 /* AlamofireObjectMapper.swift in Sources */,
