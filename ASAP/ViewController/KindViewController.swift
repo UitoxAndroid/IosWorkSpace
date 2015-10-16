@@ -15,6 +15,12 @@ class KindViewController: UITableViewController
 	var searchListResponse: SearchListResponse?
 	var listItem = [ItemInfo]()
 
+	lazy var placeholderImage: UIImage = {
+		let image = UIImage(named: "PlaceholderImage")!
+		return image
+	}()
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -76,10 +82,25 @@ class KindViewController: UITableViewController
 		cell.costLabel.text = "$1999"
 //		cell.costLabel.text = "$" + String(showPrice!)
 
-
+		
+		let URL = NSURL(string: searchListResponse!.storeList[indexPath.row].pic!)!
 //		cell.imagedView.kf_showIndicatorWhenLoading = false
 
-//		let URL = NSURL(string: searchListResponse!.storeList[indexPath.row].pic!)!
+		//使用Kingfisher以Url當key
+		cell.imagedView.kf_setImageWithURL(URL, placeholderImage: placeholderImage, 
+			optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)], 
+			progressBlock: { (receivedSize, totalSize) -> () in
+				log.debug("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
+			}) { (image, error, cacheType, imageURL) -> () in
+				if error != nil  {
+					log.debug(error?.description)
+				}
+				
+				log.debug("\(indexPath.row + 1): Finished")
+		}
+
+		
+//		使用Kingfisher以Url當key
 //		let resource = Resource(downloadURL: URL)
 //		cell.imagedView.kf_setImageWithResource( resource, placeholderImage: nil, optionsInfo: nil, progressBlock: { (receivedSize, totalSize) -> () in
 //			log.debugln("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
@@ -90,32 +111,15 @@ class KindViewController: UITableViewController
 //
 //				log.debugln("\(indexPath.row + 1): Finished")
 //		}
-
-//		log.debugln("\(searchListResponse!.storeList[indexPath.row].name)")
-//		log.debugln("\(indexPath.row + 1): URL: \(URL)")
-
-//		cell.imagedView.kf_setImageWithURL(URL, placeholderImage: nil, optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly], progressBlock: { (receivedSize, totalSize) -> () in
-////			log.debugln("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
-//		}) { (image, error, cacheType, imageURL) -> () in
-////			if error != nil  {
-////				log.debugln(error?.description)
-////			}
-//
-////			log.debugln("\(indexPath.row + 1): Finished")
+		
+//		自己寫非同步
+//		if cell.imagedView.image == nil {
+//			if let url = NSURL(string: searchListResponse!.storeList[indexPath.row].pic! ) {
+//				downloadImage(url, imageView: cell.imagedView)
+//			}
+//			
 //		}
-
-//		log.debugln()
-
-		if cell.imagedView.image == nil {
-			if let url = NSURL(string: searchListResponse!.storeList[indexPath.row].pic! ) {
-				downloadImage(url, imageView: cell.imagedView)
-				//			if let data = NSData(contentsOfURL: url) {
-				//				cell.imagedView.image = UIImage(data: data)
-				//			}
-			}
-			
-		}
-
+		
         return cell
     }
 	

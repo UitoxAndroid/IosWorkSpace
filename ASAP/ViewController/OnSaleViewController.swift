@@ -15,6 +15,11 @@ class OnSaleViewController: UITableViewController
 	var onSaleData: [DealsOntimeData] = []
 	var listItem = [ItemInfo]()
 
+	lazy var placeholderImage: UIImage = {
+		let image = UIImage(named: "PlaceholderImage")!
+		return image
+	}()
+
 
 	// MARK: - View
 
@@ -54,23 +59,12 @@ class OnSaleViewController: UITableViewController
 
 		cell.priceLabel.text = price
 		cell.costLabel.text = ""
-
-//		cell.imagedView.kf_showIndicatorWhenLoading = false
-
-//		if let smPic = onSaleData[indexPath.row].smPic {
-//			let url = NSURL(string: smPic)!
-////			cell.imagedView.kf_setImageWithURL(url, placeholderImage: nil, optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly], progressBlock: { (receivedSize, totalSize) -> () in
-////
-////				}) { (image, error, cacheType, imageURL) -> () in
-////
-////			}
-//		}
-
+		
+		cell.imagedView.image = placeholderImage
+		
 		if let smPic = onSaleData[indexPath.row].smPic {
 			if let url = NSURL(string: smPic ) {
-				if let data = NSData(contentsOfURL: url) {
-					cell.imagedView.image = UIImage(data: data)
-				}
+				cell.imagedView.kf_setImageWithURL(url, placeholderImage: placeholderImage, optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
 			}
 		}
 
