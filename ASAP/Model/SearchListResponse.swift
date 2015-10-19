@@ -137,12 +137,17 @@ public class CampaignInfo: Mappable
     respone/campaign_info/camp_promote	滿額多少 折抵多少
     respone/campaign_info/start_dt      活動開始日期
     respone/campaign_info/edn_dt        活動結束日期
+    respone/campaign_info/camp_type	    活動類型           0:滿額折 1:滿額贈購物金 2:滿額送贈品
+    respone/campaign_info/camp_status	行銷活動狀態        0:在活動期間內 1:活動未開始 2:活動已結束
     */
     
     public var campName     :String?
-    public var campPromote  :String?
+    public var campPromote  :[campPromoteDetail] = []
     public var startDate    :String?
     public var endDate      :String?
+    public var campType     :String?
+    public var campStatus   :Int?
+    
     
     required public init?(_ map: Map) {
         
@@ -153,6 +158,8 @@ public class CampaignInfo: Mappable
         campPromote <- map["CAMP_PROMOTE"]
         startDate   <- map["START_DT"]
         endDate     <- map["END_DT"]
+        campType    <- map["CAMP_TYPE"]
+        campStatus  <- map["CAMP_STATUS"]
     }
 }
 
@@ -166,7 +173,7 @@ public class campPromoteDetail:Mappable
     public var campPrice    :String?
     public var campDiscount :String?
     
-    required public init?(_ map: Map){
+    required public init?(_ map: Map) {
         
     }
     

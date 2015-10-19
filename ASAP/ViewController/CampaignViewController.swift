@@ -16,52 +16,54 @@ class CampaignViewController: UIViewController
     @IBOutlet weak var lblCampaignDescribe: UILabel!
     @IBOutlet weak var containerView: UIView!
     lazy var campaignData:CampaignModel? = CampaignModel()
-    var campaignStatus:Bool! = true
     
     // MARK: - View
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.lblCampaignDate.text = ""
         self.lblCampaignDescribe.text = ""
         self.lblCampaignName.text = ""
         self.lblCampaignStatus.text = ""
-        
-        if campaignStatus == false {
-            lblCampaignStatus.text = "特賣即將開始"
-            lblCampaignStatus.backgroundColor = UIColor.grayColor()
-        } else {
-            lblCampaignStatus.text = "限時特賣中"
-            lblCampaignStatus.backgroundColor = UIColor.redColor()
-        }
         setKindView()
         setRightItemSearch()
     }
     
     func setKindView() {
-        if campaignStatus == true {
-            let vc = self.childViewControllers.first as! KindViewController
-            self.pleaseWait()
-            self.GetCampaign {
-                (campaignResponse:SearchListResponse?) in
+        var campPrice : String!
+        var campDiscount : String!
+        var campType : String!
+        var campStatus : Int!
+        self.pleaseWait()
+        self.GetCampaign {
+            (campaignResponse:SearchListResponse?) in
+            campPrice = campaignResponse!.campInfo[0].campPromote[0].campPrice
+            campDiscount = campaignResponse!.campInfo[0].campPromote[0].campDiscount
+            campType = campaignResponse!.campInfo[0].campType
+            campStatus = campaignResponse!.campInfo[0].campStatus
+            self.lblCampaignName.text = campaignResponse?.campInfo[0].campName
+            self.lblCampaignDate.text = "\(campaignResponse!.campInfo[0].startDate!) ~ \(campaignResponse!.campInfo[0].endDate!)"
+            switch (campType!) {
+            case "0":
+                self.lblCampaignDescribe.text = "滿\(campPrice)折\(campDiscount)"
+            case "1":
+                self.lblCampaignDescribe.text = "滿\(campPrice)贈\(campDiscount)購物金"
+            default:
+                self.lblCampaignDescribe.text = "滿\(campPrice)送贈品"
+            }
+            
+            if campStatus == 0 {
+                let vc = self.childViewControllers.first as! KindViewController
                 vc.searchListResponse = campaignResponse
-                self.lblCampaignName.text = campaignResponse?.campInfo[0].campName
-                self.lblCampaignDate.text = "\(campaignResponse!.campInfo[0].startDate!) ~ \(campaignResponse!.campInfo[0].endDate!)"
-                self.lblCampaignDescribe.text = "\(campaignResponse!.campInfo[0].campPromote!)"
+                self.lblCampaignStatus.text = "限時特賣中"
+                self.lblCampaignStatus.backgroundColor = UIColor.redColor()
                 vc.tableView.reloadData()
-                self.clearAllNotice()
+            } else {
+                self.containerView.hidden = true
+                self.lblCampaignStatus.text = "特賣即將開始"
+                self.lblCampaignStatus.backgroundColor = UIColor.grayColor()
             }
-        } else {
-            containerView.hidden = true
-            self.pleaseWait()
-            self.GetCampaign {
-                (campaignResponse:SearchListResponse?) in
-                self.lblCampaignName.text = campaignResponse?.campInfo[0].campName
-                self.lblCampaignDate.text = "\(campaignResponse!.campInfo[0].startDate!) ~ \(campaignResponse!.campInfo[0].endDate!)"
-                self.lblCampaignDescribe.text = "\(campaignResponse!.campInfo[0].campPromote!)"
-                self.clearAllNotice()
-            }
+            self.clearAllNotice()
         }
     }
     
@@ -80,8 +82,4 @@ class CampaignViewController: UIViewController
             }
         }
     }
-    
-    
-
-   
 }
