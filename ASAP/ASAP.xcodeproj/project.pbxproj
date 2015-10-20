@@ -35,6 +35,8 @@
 		60567CB41BCCB9E1005BB52A /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60567C9D1BCCB9E1005BB52A /* TitleCell.swift */; settings = {ASSET_TAGS = (); }; };
 		60567CB51BCCB9E1005BB52A /* SpecificViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60567C9E1BCCB9E1005BB52A /* SpecificViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		60567CB61BCCB9E1005BB52A /* TabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60567C9F1BCCB9E1005BB52A /* TabCell.swift */; settings = {ASSET_TAGS = (); }; };
+		A15C0BE71BD6195D00A33A23 /* SignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15C0BE51BD6195D00A33A23 /* SignInModel.swift */; settings = {ASSET_TAGS = (); }; };
+		A15C0BE81BD6195D00A33A23 /* SignInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15C0BE61BD6195D00A33A23 /* SignInResponse.swift */; settings = {ASSET_TAGS = (); }; };
 		A17FEE581BCF47BA00DCC422 /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FEE561BCF47BA00DCC422 /* RegisterResponse.swift */; settings = {ASSET_TAGS = (); }; };
 		A1916A841BAAB9CD00DA5447 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1916A831BAAB9CD00DA5447 /* SignInViewController.swift */; };
 		A199C8E31BAFE53600F2A0B6 /* ModelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A199C8E21BAFE53600F2A0B6 /* ModelTableViewCell.swift */; };
@@ -185,6 +187,8 @@
 		60567C9D1BCCB9E1005BB52A /* TitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
 		60567C9E1BCCB9E1005BB52A /* SpecificViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificViewController.swift; sourceTree = "<group>"; };
 		60567C9F1BCCB9E1005BB52A /* TabCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabCell.swift; sourceTree = "<group>"; };
+		A15C0BE51BD6195D00A33A23 /* SignInModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInModel.swift; sourceTree = "<group>"; };
+		A15C0BE61BD6195D00A33A23 /* SignInResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInResponse.swift; sourceTree = "<group>"; };
 		A17FEE551BCF47BA00DCC422 /* RegisterModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
 		A17FEE561BCF47BA00DCC422 /* RegisterResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterResponse.swift; sourceTree = "<group>"; };
 		A1916A831BAAB9CD00DA5447 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SignInViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -471,6 +475,8 @@
 		AF790AE61B81BFC500070875 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A15C0BE51BD6195D00A33A23 /* SignInModel.swift */,
+				A15C0BE61BD6195D00A33A23 /* SignInResponse.swift */,
 				A17FEE551BCF47BA00DCC422 /* RegisterModel.swift */,
 				A17FEE561BCF47BA00DCC422 /* RegisterResponse.swift */,
 				60567C811BCCB863005BB52A /* GoodsPageModel.swift */,
@@ -852,6 +858,7 @@
 				60567CAD1BCCB9E1005BB52A /* SpecificationCell.swift in Sources */,
 				AFF066691BAAA1E00098706F /* OnSaleViewController.swift in Sources */,
 				AF5F2C441BBD3B6C00A7A977 /* Error.swift in Sources */,
+				A15C0BE81BD6195D00A33A23 /* SignInResponse.swift in Sources */,
 				A17FEE581BCF47BA00DCC422 /* RegisterResponse.swift in Sources */,
 				AF7E90021B95592500AFD3EF /* MyTabBarViewController.swift in Sources */,
 				AF7E90321B96A59800AFD3EF /* PGCategoryView.m in Sources */,
@@ -894,6 +901,7 @@
 				60567C831BCCB863005BB52A /* GoodsPageModel.swift in Sources */,
 				60567CA41BCCB9E1005BB52A /* DirectionCell.swift in Sources */,
 				AF5F2C4C1BBD3B6C00A7A977 /* Stream.swift in Sources */,
+				A15C0BE71BD6195D00A33A23 /* SignInModel.swift in Sources */,
 				AFEB070E1BBBB380001C2AD7 /* ISO8601DateTransform.swift in Sources */,
 				AF5F2C471BBD3B6C00A7A977 /* ParameterEncoding.swift in Sources */,
 				AFF0666B1BAAA4AD0098706F /* OnSaleHeaderCell.swift in Sources */,

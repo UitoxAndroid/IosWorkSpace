@@ -46,7 +46,7 @@ class DealsOntimeModel
 					log.debug("\(goodsData.wsoItemName)\t")
 					log.debug("\(goodsData.smName)\t")
 					log.debug("\(goodsData.smPic)\t")
-					log.debug("\(goodsData.calPriceDetet)\t")
+					log.debug("\(goodsData.calPriceDetect)\t")
 					log.debug("\(goodsData.calPrice)\t")
 					log.debug("\(goodsData.calCurrency)\t")
 				}

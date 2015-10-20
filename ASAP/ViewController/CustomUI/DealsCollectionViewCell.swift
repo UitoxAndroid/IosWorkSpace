@@ -8,9 +8,14 @@
 
 import UIKit
 
-class DealsCollectionViewCell: UICollectionViewCell {
+class DealsCollectionViewCell: UICollectionViewCell
+{
     
+    @IBOutlet var productNameText: UITextView!
     @IBOutlet var productImage: UIImageView!
     @IBOutlet var productNameLabel: UILabel!
     @IBOutlet var productPriceLabel: UILabel!
+    @IBOutlet var productSalePriceLabel: UILabel!
+    @IBOutlet var addCartButton: UIButton!
+
 }
