@@ -136,14 +136,15 @@ class SearchResultViewController: UITableViewController, UISearchResultsUpdating
 
 	// MARK: - Call Api
 
-	func getSearchData( query: String) {
-		searchData?.getSearchData( query) { (search: SearchListResponse?, errorMessage: String?) in
+	func getSearchData(query: String) {
+		searchData?.getSearchData(query, page: 1, sortBy: SortBy.SmSoldQty, desc: true) { (search: SearchListResponse?, errorMessage: String?) in
 			if search == nil {
 				self.showAlert(errorMessage!)
 			} else {
 				self.searchController.searchBar.hidden = true
 				let kindViewController = self.storyboard?.instantiateViewControllerWithIdentifier("KindViewController") as? KindViewController
 				kindViewController!.searchListResponse = search!
+				kindViewController!.query = query
 				self.navigationController?.pushViewController(kindViewController!, animated: true)
 			}
 

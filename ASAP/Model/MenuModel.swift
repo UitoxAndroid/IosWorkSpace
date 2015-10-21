@@ -11,7 +11,7 @@ import Foundation
 class MenuModel
 {   
 	func getMenuData( siSeq:String, completionHandler: (menuResponse: MenuResponse?, errorMessage: String?) -> Void ) {
-        let url = DomainPath.Mview.rawValue + "/web_menu/get_site_menu_list"
+        let url = DomainPath.Uxapi.rawValue + "/web_menu/get_site_menu_list"
         let data = [
 			"si_seq": siSeq,
 			"type": "child"
