@@ -1,8 +1,8 @@
 //
-//  UIImage+Decode.swift
+//  ThreadHelper.swift
 //  Kingfisher
 //
-//  Created by Wei Wang on 15/4/7.
+//  Created by Wei Wang on 15/10/9.
 //
 //  Copyright (c) 2015 Wei Wang <onevcat@gmail.com>
 //
@@ -24,26 +24,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import Foundation
-
-extension UIImage {
-    func kf_decodedImage() -> UIImage? {
-        return self.kf_decodedImage(scale: self.scale)
-    }
-    
-    func kf_decodedImage(scale scale: CGFloat) -> UIImage? {
-        let imageRef = self.CGImage
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue).rawValue
-        let contextHolder = UnsafeMutablePointer<Void>()
-        let context = CGBitmapContextCreate(contextHolder, CGImageGetWidth(imageRef), CGImageGetHeight(imageRef), 8, 0, colorSpace, bitmapInfo)
-        if let context = context {
-            let rect = CGRectMake(0, 0, CGFloat(CGImageGetWidth(imageRef)), CGFloat(CGImageGetHeight(imageRef)))
-            CGContextDrawImage(context, rect, imageRef)
-            let decompressedImageRef = CGBitmapContextCreateImage(context)
-            return UIImage(CGImage: decompressedImageRef!, scale: scale, orientation: self.imageOrientation)
-        } else {
-            return nil
+func dispatch_async_safely_main_queue(block: ()->()) {
+    if NSThread.isMainThread() {
+        block()
+    } else {
+        dispatch_async(dispatch_get_main_queue()) {
+            block()
         }
     }
 }

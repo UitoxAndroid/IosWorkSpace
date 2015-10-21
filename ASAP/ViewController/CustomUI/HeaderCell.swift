@@ -8,8 +8,10 @@
 
 import UIKit
 
-class HeaderCell: UITableViewCell {
-
+class HeaderCell: UITableViewCell 
+{
+	@IBOutlet weak var soldQtyButton: UIButton!
+	
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
