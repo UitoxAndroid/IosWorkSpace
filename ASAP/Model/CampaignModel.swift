@@ -11,14 +11,15 @@ import Foundation
 class CampaignModel
 {   
     func getCampaignData( completionHandler: (campaign: SearchListResponse?, errorMessage: String?) -> Void ) {
-        let url = DomainPath.Uxapi.rawValue + "/web_campaign/campaign_info"
+		let url = DomainPath.MviewWww.rawValue
         let data = [
 			"camp_seq":"201510A0700000001",
 			"wc_seq":"AWC000001"
 		]
 
         let request = [
-            "account":"01_uitoxtest",
+			"action": "campaign_api/campaign_info_and_list_multi_for_uxapi",
+			"account":"01_uitoxtest",
             "password":"Aa1234%!@#",
             "platform_id":"AW000001",
             "version":"1.0.0",
@@ -34,7 +35,7 @@ class CampaignModel
             }
 
 			log.debug("statusCode:\(campaign!.statusCode)")
-            log.info("活動詳細資料數: \(campaign!.campInfo[0].campPromote)")
+            log.debug("活動詳細資料數: \(campaign!.campInfo[0].campPromote)")
             
             completionHandler(campaign: campaign, errorMessage: nil)
         }

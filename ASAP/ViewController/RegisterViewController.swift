@@ -10,6 +10,8 @@ import UIKit
 
 class RegisterViewController: UITableViewController {
     
+    var registerModel: RegisterModel? = RegisterModel()
+    
     @IBOutlet var accountText:      UITextField!
     @IBOutlet var passwordText:     UITextField!
     @IBOutlet var passwordSwitch:   UISwitch!
@@ -46,12 +48,36 @@ class RegisterViewController: UITableViewController {
         }
     }
     
+    // MARK: 驗證密碼強度
     @IBAction func passwordTextChanged(sender: AnyObject) {
+        let border = CALayer()
+        let width = CGFloat(2.0)
+        border.frame = CGRect(x: 0 + width , y: passwordText.frame.size.height - width , width: passwordText.frame.size.width - (width * 2), height: passwordText.frame.size.height - width)
+        border.borderWidth = width
+        
         let pwd = self.passwordText.text!
+        if pwd.characters.count > 10 {
+            self.passwordText.rightView = UIImageView(image: UIImage(named: "ic_check_green"))
+            self.passwordText.rightViewMode = UITextFieldViewMode.Always
+            
+            border.borderColor = UIColor(red: 0/255, green: 150/255, blue: 100/255, alpha: 1).CGColor
+            passwordText.layer.addSublayer(border)
+            passwordText.layer.masksToBounds = true
+            return
+        }
+        
         if pwd.characters.count < 6 {
-//            self.passwordText.background = UIImage(named: "")
+            self.passwordText.rightView = UIImageView(image: UIImage(named: "ic_exclamation_red"))
+            self.passwordText.rightViewMode = UITextFieldViewMode.Always
+            border.borderColor = UIColor(red: 255/255, green: 0/255, blue: 0/255, alpha: 1).CGColor
+            passwordText.layer.addSublayer(border)
+            passwordText.layer.masksToBounds = true
         } else {
-//            self.passwordText.background = UIImage(named: "")
+            self.passwordText.rightView = UIImageView(image: UIImage(named: "ic_exclamation_yellow"))
+            self.passwordText.rightViewMode = UITextFieldViewMode.Always
+            border.borderColor = UIColor(red: 255/255, green: 200/255, blue: 0/255, alpha: 1).CGColor
+            passwordText.layer.addSublayer(border)
+            passwordText.layer.masksToBounds = true
         }
     }
     
@@ -60,7 +86,6 @@ class RegisterViewController: UITableViewController {
         self.sendRegisterData()
     }
     
-    var registerModel: RegisterModel? = RegisterModel()
     // MARK: Call Api
     func sendRegisterData() {
         let account     = self.accountText.text

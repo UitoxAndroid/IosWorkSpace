@@ -9,7 +9,8 @@
 import UIKit
 
 class SignInViewController: UITableViewController {
-
+    
+    var signInModel: SignInModel? = SignInModel()
     
     @IBOutlet var accountText:      UITextField!
     @IBOutlet var passwordText:     UITextField!
@@ -64,7 +65,21 @@ class SignInViewController: UITableViewController {
     
     //登入
     @IBAction func SignInClick(sender: AnyObject) {
-        log.debug("登入")
+        self.sendSignInData()
     }
     
+    // MARK: Call Api
+    func sendSignInData() {
+        let account     = self.accountText.text
+        let password    = self.passwordText.text
+        
+        signInModel?.sendSignInData(account!, password: password!, completionHandler: { (signIn, errorMessage) -> Void in
+            if (signIn == nil) {
+                self.showAlert(errorMessage!)
+            } else {
+                let alert = UIAlertView(title: "", message: "登入成功!!", delegate: self, cancelButtonTitle: "確定")
+                alert.show()
+            }
+        })
+    }
 }

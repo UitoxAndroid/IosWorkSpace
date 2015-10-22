@@ -11,13 +11,14 @@ import Foundation
 class MenuModel
 {   
 	func getMenuData( siSeq:String, completionHandler: (menuResponse: MenuResponse?, errorMessage: String?) -> Void ) {
-        let url = DomainPath.Mview.rawValue + "/web_menu/get_site_menu_list"
+		let url = DomainPath.MviewPmadmin.rawValue
         let data = [
 			"si_seq": siSeq,
 			"type": "child"
 		]
 
         let request = [
+			"action": "website_menu_api/get_site_menu_list",
 			"account": "01_uitoxtest",
 			"password": "Aa1234%!@#",
 			"platform_id": "AW000001",
@@ -33,7 +34,7 @@ class MenuModel
                 return
             }
 
-			log.debug("statusCode:\(responseObject!.status_code)")
+			log.info("statusCode:\(responseObject!.status_code)")
 
 			if let mnuList = responseObject?.menuList{
 				for goodsdata in mnuList {

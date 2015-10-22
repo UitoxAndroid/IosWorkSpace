@@ -228,19 +228,19 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
                 return self.linkDataList.count == 0 ? 0 : 40
             case 2:
                 self.dealsTableCell.hidden = (self.dealsOnTimeData.count == 0)
-                return self.dealsOnTimeData.count == 0 ? 0 : 176
+                return self.dealsOnTimeData.count == 0 ? 0 : 170
             case 3:
                 self.titleLabel1.hidden = (self.iconDataList1.count == 0)
-                return self.iconDataList1.count == 0 ? 0 : 330
+                return self.iconDataList1.count == 0 ? 0 : 280
             case 4:
                 self.titleLabel2.hidden = (self.productList1.count == 0)
                 return self.productList1.count == 0 ? 0 : 176
             case 5:
                 self.titleLabel3.hidden = (self.iconDataList2.count == 0)
-                return self.iconDataList2.count == 0 ? 0 : 330
+                return self.iconDataList2.count == 0 ? 0 : 280
             case 6:
                 self.titleLabel4.hidden = (self.productList2.count == 0)
-                return self.productList2.count == 0 ? 0 : CGFloat(265 * (self.productList2.count / 2 + self.productList2.count % 2))
+                return self.productList2.count == 0 ? 0 : CGFloat(245 * (self.productList2.count / 2 + self.productList2.count % 2))
             default:
                 return 0
             }
@@ -315,29 +315,55 @@ extension FirstViewController: UICollectionViewDataSource, UICollectionViewDeleg
         case 0:
             let cell: DealsCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseCollectionViewCellIdentifier, forIndexPath: indexPath) as! DealsCollectionViewCell
             
+            if var startHour = self.dealsOnTimeData[indexPath.row].promoHour {
+                startHour += ":00:00"
+                self.dealsTableCell.countDownLabel.text = startHour
+            }
+            
             if let pic = self.dealsOnTimeData[indexPath.row].smPic {
                 if let url = NSURL(string: pic) {
                     if let data = NSData(contentsOfURL: url) {
                         cell.productImage.image = UIImage(data: data)
                     }
                 }
+            } else {
+                cell.productImage.image = UIImage(named: "unchecked_checkbox") //缺圖
             }
             
             if let itemName = self.dealsOnTimeData[indexPath.row].smName {
                 cell.productNameLabel?.text = itemName
+                cell.productNameLabel.sizeToFit() // 文字置頂
+            } else {
+                cell.productNameLabel?.text = ""
             }
             
             var price = ""
             
-            if let calCurrency = self.dealsOnTimeData[indexPath.row].calCurrency {
-                price += calCurrency
+            if let smCurrency = self.dealsOnTimeData[indexPath.row].calCurrency {
+                price += smCurrency
             }
             
-            if let calPrice = self.dealsOnTimeData[indexPath.row].calPrice {
-                price += calPrice
+            if let sugPrice = self.dealsOnTimeData[indexPath.row].smPrice {
+                price += sugPrice
             }
             
-            cell.productPriceLabel?.text = price
+            // 刪除線
+            var myMutableString = NSMutableAttributedString()
+            myMutableString     = NSMutableAttributedString(string: price)
+            myMutableString.addAttribute(NSStrikethroughStyleAttributeName, value: 1, range: NSMakeRange(0, myMutableString.length))
+            cell.productPriceLabel.attributedText = myMutableString
+            
+            price = ""
+            
+            if let ssmCurrency = dealsOnTimeData[indexPath.row].calCurrency {
+                price += ssmCurrency
+            }
+            
+            if let smPrice = self.dealsOnTimeData[indexPath.row].calPrice {
+                price += smPrice
+            }
+            
+            cell.productSalePriceLabel?.text = price
             
             return cell
         case 1:
@@ -353,6 +379,7 @@ extension FirstViewController: UICollectionViewDataSource, UICollectionViewDeleg
             
             if let itemName = self.productList1[indexPath.row].name {
                 cell.productNameLabel?.text = itemName
+                cell.productNameLabel?.sizeToFit()
             }
             
             var price = ""
@@ -391,8 +418,11 @@ extension FirstViewController: UICollectionViewDataSource, UICollectionViewDeleg
                 price += sugPrice
             }
             
-            
-            cell.productPriceLabel?.text = price
+            // 刪除線
+            var myMutableString = NSMutableAttributedString()
+            myMutableString     = NSMutableAttributedString(string: price)
+            myMutableString.addAttribute(NSStrikethroughStyleAttributeName, value: 1, range: NSMakeRange(0, myMutableString.length))
+            cell.productPriceLabel.attributedText = myMutableString
             
             price = ""
             
@@ -442,7 +472,9 @@ extension FirstViewController: UICollectionViewDataSource, UICollectionViewDeleg
 
 	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         switch collectionView.tag {
-        case 0, 1:
+        case 0:
+            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        case 1:
             let width = (self.view.frame.width - 16 - 8) / 3
             return CGSize(width: width, height: collectionView.frame.height)
         case 2:

@@ -8,27 +8,35 @@
 
 import Foundation
 
+// 註冊頁 Model
 class RegisterModel
 {
     var Register: RegisterResponse?
     
     func sendRegisterData(account: String, password: String, sendEdm: String, completionHandler: ( register: RegisterResponse?,
         errorMessage: String?) -> Void ) {
-        let url = DomainPath.MemberTw1.rawValue + "/member/register"
+        let url = DomainPath.Mview.rawValue + "/call_api/member"
         
-            let data = [
-                "wc_seq":"AWC000001"
+        let userInfo = [
+                "ws_seq"        : "AW000001",
+                "reg_ws_seq"    : "AW000001",
+                "b2c_name"      : "BETA\\u9583\\u96fb\\u8cfc\\u7269",
+                "country"       : "TW",
+                "region"        : "TW1",
+                "area"          : "TW1",
+                "ip_addr"       : "10.1.88.102",
+                "send_edm"      : sendEdm
             ]
             
+        let accountType = account.containsString("@") ? "email" : "phone"
+            
         let request = [
-            "member_email"  : account,
-            "member_passwd" : password,
-            "send_edm"      : sendEdm,
-            "account"       : "01_uitoxtest",
-            "password"      : "Aa1234%!@#",
-            "platform_id"   : "AW00001",
-            "version"       : "1.0.0",
-            "data"          : data
+            "action"        : "member_api/register_v2",
+            "account_type"  : accountType, //"email", //"phone"
+            "account_data"  : account,
+            "security_code" : "",
+            "passwd"        : password,//"MTIzNDU2",
+            "userinfo"      : userInfo
             ]           
 
             ApiManager.sharedInstance.postDictionary(url, params: request as?[String : AnyObject]) {

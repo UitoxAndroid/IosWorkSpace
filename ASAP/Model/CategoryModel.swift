@@ -8,16 +8,34 @@
 
 import Foundation
 
+// 館頁 Model
 class CategoryModel
 {    
-	func getCategoryData( siSeq: String, completionHandler: (category: SearchListResponse?, errorMessage: String?) -> Void ) {
-        let url = DomainPath.Uxapi.rawValue + "/web_search/get_app_category_list_multi"
+	/**
+	呼叫館頁列表
+	- parameter siSeq:				館頁編號
+	- parameter page:				頁
+	- parameter sortBy:				排序方式
+	- parameter desc:				升冪降冪
+	- parameter completionHandler:  回呼之後的處理
+	
+	- returns: 
+	*/
+	func getCategoryData(siSeq: String, page: Int, sortBy: SortBy, desc: Bool, completionHandler: (category: SearchListResponse?, errorMessage: String?) -> Void ) {
+		let url = DomainPath.MviewWww.rawValue
+		let sort = [
+			[sortBy.rawValue, (desc ? "desc" : "asc")]
+		]
+		
         let data = [
 			"si_seq":siSeq,
-			"wc_seq":"AWC000001"
+			"wc_seq":"AWC000001",
+			"page":page,
+			"sort":sort
 		]
 
         let request = [
+			"action": "category_api/get_app_category_list_multi",
 			"account":"01_uitoxtest",
 			"password":"Aa1234%!@#",
 			"platform_id":"AW000001",
@@ -25,7 +43,7 @@ class CategoryModel
 			"data":data
 		]
         
-        ApiManager.sharedInstance.postDictionary(url, params: request as? [String : AnyObject]) {
+        ApiManager.sharedInstance.postDictionary(url, params: request) {
             (responseObject: SearchListResponse?, error: String?) -> Void in
             
             if responseObject == nil || responseObject?.storeList == nil || responseObject?.storeList.count == 0 {
@@ -39,6 +57,8 @@ class CategoryModel
 
 			log.debug("statusCode:\(responseObject!.statusCode)")
 			log.debug("total:\(responseObject!.total)")
+			log.debug("currentPage:\(responseObject!.currentPage)")
+			log.debug("maxPage:\(responseObject!.maxPage)")
 
             completionHandler(category: responseObject, errorMessage: nil)
         }

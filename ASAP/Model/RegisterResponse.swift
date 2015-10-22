@@ -8,6 +8,7 @@
 
 import Foundation
 
+// 註冊頁 Response
 public class RegisterResponse : Mappable
 {
     public var status_code: String?

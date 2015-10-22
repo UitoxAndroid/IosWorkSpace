@@ -254,7 +254,7 @@ class MenuViewController: UIViewController,UITableViewDataSource,UITableViewDele
 
 	func GetCategory( siSeq: String, completionHandler: (categoryResponse: SearchListResponse?) -> Void) {
 		self.pleaseWait()
-		categoryData?.getCategoryData(siSeq) { (category: SearchListResponse?, errorMessage: String?) in
+		categoryData?.getCategoryData(siSeq, page: 1, sortBy: SortBy.SmSoldQty, desc: true) { (category: SearchListResponse?, errorMessage: String?) in
 			self.clearAllNotice()
 			if errorMessage != nil {
 				self.showAlert(errorMessage!)

@@ -9,9 +9,12 @@
 import Foundation
 
 public enum DomainPath: String {
-	case Uxapi		= "https://uxapi.uitoxbeta.com"
-	case Mview		= "https://mview.uitoxbeta.com/A"
-	case MemberTw1	= "https://member-tw1.uitoxbeta.com/AW000001"
+	case Uxapi			= "https://uxapi.uitoxbeta.com"
+	case Mview			= "https://mview.uitoxbeta.com/A"
+	case MviewPmadmin	= "https://mview.uitoxbeta.com/A/call_api/pmadmin"
+	case MviewWww		= "https://mview.uitoxbeta.com/A/call_api/www"
+	case MviewMember	= "https://mview.uitoxbeta.com/A/call_api/member"
+	case MemberTw1		= "https://member-tw1.uitoxbeta.com/AW000001"
 }
 
 public class ApiManager
@@ -35,7 +38,7 @@ public class ApiManager
 		let serverTrustPolicies: [String: ServerTrustPolicy] = [
 			"uxapi.uitoxbeta.com2"								: serverTrustPolicy,
 			NSURL(string: DomainPath.Uxapi.rawValue)!.host!		: .DisableEvaluation,
-			NSURL(string: DomainPath.Mview.rawValue)!.host!		: .DisableEvaluation,
+			NSURL(string: DomainPath.MviewPmadmin.rawValue)!.host!		: .DisableEvaluation,
 			NSURL(string: DomainPath.MemberTw1.rawValue)!.host!	: .DisableEvaluation
 		]
 

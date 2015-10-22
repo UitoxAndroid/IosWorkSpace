@@ -17,6 +17,7 @@ class BasicCell: UITableViewCell
 	@IBOutlet var priceLabel: UILabel!
 	@IBOutlet var imagedView:UIImageView!
 	@IBOutlet var timeLabel: UILabel!
+	@IBOutlet var addCartButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()

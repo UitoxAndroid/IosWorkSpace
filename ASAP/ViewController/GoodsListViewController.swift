@@ -28,6 +28,7 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 
 			if index == currentIndex {
 				vc.searchListResponse = searchListResponse!
+				vc.siSeq = p.sid!
 			}
 
 			viewControllers.append(vc)
@@ -82,6 +83,7 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 		self.GetCategory(siSeq!) {
 			(categoryResponse: SearchListResponse?) in
 			vc?.searchListResponse = categoryResponse
+			vc?.siSeq = siSeq!
 			vc?.tableView.reloadData()
 		}
 
@@ -92,8 +94,9 @@ class GoodsListViewController: UIViewController, PagingMenuControllerDelegate
 	}
 
 	// MARK - Call Api
+	
 	func GetCategory( siSeq: String, completionHandler: (categoryResponse: SearchListResponse?) -> Void) {
-		categoryData?.getCategoryData(siSeq) { (category: SearchListResponse?, errorMessage: String?) in
+		categoryData?.getCategoryData(siSeq, page: 1, sortBy: SortBy.SmSoldQty, desc: true) { (category: SearchListResponse?, errorMessage: String?) in
 			self.clearAllNotice()
 			if errorMessage != nil {
 				self.showAlert(errorMessage!)
