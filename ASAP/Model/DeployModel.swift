@@ -13,7 +13,7 @@ class DeployModel
     var deploy:DeployResponse?
     
     func getDeployData( siSeq:String, completionHandler: (deploy: DeployResponse?, errorMessage: String?) -> Void ) {
-        let url = DomainPath.Uxapi.rawValue + "/web_deploy/get_deploy_data"
+        let url = DomainPath.MviewPmadmin.rawValue
         let data = [
             "page_code": "index",
             "mode": "release",
@@ -21,7 +21,8 @@ class DeployModel
 		]
 
         let request = [
-            "account": "01_uitoxtest",
+			"action": "page_deploy_api/uxapi_get_page_deploy_data",
+			"account": "01_uitoxtest",
             "password": "Aa1234%!@#",
             "platform_id": "AW000001",
             "version": "1.0.0",

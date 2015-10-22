@@ -16,7 +16,7 @@ class SignInModel
     func sendSignInData(account: String, password: String,
         completionHandler: ( signIn: SignInResponse?,
         errorMessage: String?) -> Void ) {
-        let url = DomainPath.Mview.rawValue + "/call_api/member"
+        let url = DomainPath.MviewMember.rawValue
         
         //let accountType = account.containsString("@") ? "email" : "phone"
             

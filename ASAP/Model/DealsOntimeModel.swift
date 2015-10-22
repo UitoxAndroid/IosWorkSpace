@@ -8,10 +8,11 @@
 
 import Foundation
 
+// 整點特賣 Model
 class DealsOntimeModel
 {   
     func getDealsOntimeData( completionHandler: (dealsOntime: DealsOntimeResponse?, errorMessage: String?) -> Void ) {
-        let url = DomainPath.Uxapi.rawValue + "/web_ontime/get_items"
+        let url = DomainPath.MviewWww.rawValue
         let data = [
             "wc_seq":"AWC000001",
             "range":"date",
@@ -19,6 +20,7 @@ class DealsOntimeModel
 		]
 
 		let request = [
+			"action": "show_ontime_api/get_items",
             "account": "01_uitoxtest",
             "password": "Aa1234%!@#",
             "platform_id": "AW000001",

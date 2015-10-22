@@ -29,7 +29,7 @@ class SearchModel
 	- returns: 
 	*/
 	func getSearchData(query: String, page: Int, sortBy: SortBy, desc: Bool, completionHandler: completedHandler ) {
-        let urlPath = DomainPath.Uxapi.rawValue + "/web_search/get_app_show_main_multi/"
+        let urlPath = DomainPath.MviewWww.rawValue
 		let sort = [
 			[sortBy.rawValue, (desc ? "desc" : "asc")]
 		]
@@ -42,6 +42,7 @@ class SearchModel
 
 		let version = "1.0.0"
 		let requestDic = [
+			"action": "search_api/get_app_show_main_multi",
 			"account": "01_uitoxtest",
 			"password": "Aa1234%!@#",
 			"platform_id": "AW000001",
@@ -57,7 +58,7 @@ class SearchModel
                 return
             }
 
-			log.debug("statusCode:\(search!.statusCode)")
+			log.info("statusCode:\(search!.statusCode)")
 			log.debug("total:\(search!.total)")
 			log.debug("currentPage:\(search!.currentPage)")
 			log.debug("maxPage:\(search!.maxPage)")
