@@ -11,37 +11,28 @@ import UIKit
 
 class GoodsTableViewController: UITableViewController
 {
-    
     var moreToBuyGoods = ["iphone6s","Sony Z5","nexus 6","One M9","Sony Xpria C5","Asus ZenPhone2"]
-    
     lazy var goodsPageModel:GoodsPageModel? = GoodsPageModel()
     lazy var campaignData:CampaignModel? = CampaignModel()
     var goodsInfo:GoodsPageItemInfo? = nil
-    //是否要展開加購商品 Bool
     var isOpenMoroToBuyCell:Bool = false
+    var isCampaignBegin:Bool = true
     
-    //點擊展開按鈕來展開加購商品
-    @IBAction func btnOpenCellClick(sender: UIButton) {
-        isOpenMoroToBuyCell = true
-        self.tableView.beginUpdates()
-        self.tableView.reloadData()
-        self.tableView.endUpdates()
-    }
+    
     
     // MARK: - View
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.getGoodsPageData()
+        self.setUpBarButton()
     }
-    
     
     // MARK: - 設定tableView
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 4
     }
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(section) {
         case 0:
@@ -56,23 +47,27 @@ class GoodsTableViewController: UITableViewController
             return 1
         }
     }
-    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch(indexPath.section) {
         case 0:
             switch(indexPath.row) {
-            case 0:
-                return 350  //Banner
-            case 1:
-                return 50   //規格
-            case 2:
-                return 100  //活動
-            case 3:
-                return 80   //預購
-            case 4:
-                return 120  //說明
-            case 5:
-                return 35   //加購商品Title
+            case 0:     //Banner
+                return 350
+            case 1:     //規格
+                return 50
+            case 2:     //活動
+                if(isCampaignBegin == false) {
+                    return 0
+                } else {
+                    return 100
+                }
+                
+            case 3:     //預購
+                return 80
+            case 4:     //說明
+                return 120
+            case 5:     //加購商品Title
+                return 35
             default:
                 return 70
             }
@@ -102,7 +97,6 @@ class GoodsTableViewController: UITableViewController
             return 200
         }
     }
-    
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if(section == 3) {
             let headerCell = tableView.dequeueReusableCellWithIdentifier("SectionHeaderCell") as! SectionHeaderCell
@@ -113,13 +107,11 @@ class GoodsTableViewController: UITableViewController
             return headerCell
         }
     }
-    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //自動消除選取時該列時會以灰色來顯示的效果
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         
     }
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch(indexPath.section) {
         case 0:
@@ -128,7 +120,7 @@ class GoodsTableViewController: UITableViewController
                 let bannerCell = tableView.dequeueReusableCellWithIdentifier("BannerCell", forIndexPath: indexPath) as! BannerCell
                 bannerCell.lblGoodsName.text = self.goodsInfo?.smName
                 bannerCell.imageList = self.goodsInfo?.smPicMulti
-                bannerCell.lblPriceNow.text = "$1000"
+                bannerCell.lblPriceNow.text = "$\(self.goodsInfo?.smPrice)"
                 bannerCell.lblPriceOrigin.text = "$5000"
                 bannerCell.ImageBannerSetting()
                 return bannerCell
@@ -139,6 +131,12 @@ class GoodsTableViewController: UITableViewController
                 let activityCell = tableView.dequeueReusableCellWithIdentifier("ActivityCell", forIndexPath: indexPath) as! ActivityCell
                 activityCell.lblActTime.text = "2015/10/20 00:00 ~ 2015/10/11 00:00"
                 activityCell.lblGoodPrice.text = "$1234"
+               
+                if(isCampaignBegin == true) {
+                    activityCell.hidden = false
+                } else {
+                    activityCell.hidden = true
+                }
                 return activityCell
             case 3://預購倒數
                 let preorderCell = tableView.dequeueReusableCellWithIdentifier("PreorderCell", forIndexPath: indexPath) as! PreorderCell
@@ -183,7 +181,6 @@ class GoodsTableViewController: UITableViewController
             }
         case 3://說明,規格,保固
             let footerCell = tableView.dequeueReusableCellWithIdentifier("FooterCell", forIndexPath: indexPath) as! FooterCell
-            
             log.debug("cellIndex \(indexPath)")
             log.debug("y = \(footerCell.frame.origin.y)")
             log.debug("x = \(footerCell.frame.origin.x)")
@@ -210,6 +207,64 @@ class GoodsTableViewController: UITableViewController
 //        }
 //    }
     
+    //點擊展開按鈕來展開加購商品
+    @IBAction func btnOpenCellClick(sender: UIButton) {
+        isOpenMoroToBuyCell = true
+        self.tableView.beginUpdates()
+        self.tableView.reloadData()
+        self.tableView.endUpdates()
+    }
+    
+    
+    // MARK: - ToolBar 設定
+    
+    @IBOutlet weak var shopCart: UIBarButtonItem!
+    @IBOutlet weak var buyNum: UIBarButtonItem!
+    @IBOutlet weak var addShopCart: UIBarButtonItem!
+    let addInCart = UIButton()
+    let shopCartBtn = MIBadgeButton()
+    let volumeView = VolumeButton()
+    var buyCount = 1
+    var numInCart = 0
+    func setUpBarButton() {
+        buyNum.title = "1"
+        addInCart.backgroundColor = UIColor(hue: 0.6, saturation: 0.7, brightness: 1, alpha: 1)
+        addInCart.setTitle("加入購物車", forState: .Normal)
+        addInCart.frame = CGRectMake(0, 0, 170, 43)
+        addInCart.addTarget(self, action: "btnAddInCartPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        addShopCart.customView = addInCart
+        
+        shopCartBtn.setBackgroundImage(UIImage(named: "ic_shopping_cart"), forState: UIControlState.Normal)
+        shopCartBtn.badgeString = nil
+        shopCartBtn.frame = CGRectMake(0, 0, 30, 30)
+        shopCartBtn.badgeEdgeInsets = UIEdgeInsetsMake(12, 5, 0, 10)
+        shopCart.customView = shopCartBtn
+    }
+    func btnAddInCartPressed(sender :UIButton) {
+        numInCart += buyCount
+        if(numInCart <= 0) {
+            shopCartBtn.badgeString = nil
+        } else {
+            shopCartBtn.badgeString = "\(numInCart)"
+            buyCount = 1
+            buyNum.title = "1"
+        }
+    }
+    @IBAction func btnPlusPressed(sender: UIBarButtonItem) {
+        buyCount++
+        self.buyNum.title = "\(buyCount)"
+    }
+    @IBAction func btnMinusPressed(sender: UIBarButtonItem) {
+        buyCount--
+        if(buyCount <= 1) {
+            buyCount = 1
+            self.buyNum.title = "1"
+        } else {
+            self.buyNum.title = "\(buyCount)"
+        }
+    }
+
+    
     // MARK: - 呼叫api
     
     func getGoodsPageData() {
@@ -224,7 +279,6 @@ class GoodsTableViewController: UITableViewController
             }
         })
     }
-    
     func GetCampaign(completionHandler: (campaignResponse :SearchListResponse?) -> Void) {
         campaignData?.getCampaignData{ (campaign:SearchListResponse?, errorMessage: String?) in
             if(errorMessage != nil) {

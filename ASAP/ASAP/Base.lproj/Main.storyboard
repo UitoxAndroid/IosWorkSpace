@@ -189,7 +189,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="KindViewController" id="scZ-yw-R4c" customClass="KindViewController" customModule="ASAP" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="160" sectionHeaderHeight="22" sectionFooterHeight="22" id="lSp-s1-e3Y">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="333"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="338"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -470,10 +470,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YLH-Mx-JgV">
-                                <rect key="frame" x="0.0" y="218" width="600" height="333"/>
+                                <rect key="frame" x="0.0" y="218" width="600" height="338"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ut-QP-gjT">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="333"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="338"/>
                                         <connections>
                                             <segue destination="scZ-yw-R4c" kind="embed" id="nwv-rR-qqu"/>
                                         </connections>
@@ -1411,9 +1411,6 @@
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
-                                            <connections>
-                                                <segue destination="0H7-HN-Ws2" kind="show" id="Yq2-iC-1nO"/>
-                                            </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UXg-dZ-ioJ">
                                             <rect key="frame" x="20" y="20" width="120" height="120"/>
@@ -2759,7 +2756,7 @@
                                                 <constraint firstAttribute="height" constant="22" id="Muq-Ju-n3o"/>
                                                 <constraint firstAttribute="width" constant="21" id="aqk-u2-NNb"/>
                                             </constraints>
-                                            <state key="normal" title="Button" image="430CE396-F6BF-4D56-8ECC-0A63317462AF"/>
+                                            <state key="normal" title="Button" image="81309D72-D054-4022-A5FD-27EC5080BE53"/>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SnZ-mm-BAb">
                                             <rect key="frame" x="37" y="5" width="33" height="33"/>
@@ -3015,11 +3012,41 @@
                             <outlet property="delegate" destination="0H7-HN-Ws2" id="avn-Wg-WjN"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem title="-" width="15" id="KSi-Bh-2zd">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="btnMinusPressed:" destination="0H7-HN-Ws2" id="uOi-eH-EWz"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem enabled="NO" title="|" id="fxV-RN-Fgj"/>
+                        <barButtonItem enabled="NO" title="0" width="10" id="9tu-Mb-CJS">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem enabled="NO" title="|" id="pBl-6Y-gzW"/>
+                        <barButtonItem title="+" width="10" id="hKg-Lz-Ydk">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="btnPlusPressed:" destination="0H7-HN-Ws2" id="ylN-M6-EFr"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="2ld-Uj-PZe"/>
+                        <barButtonItem title="加入購物車" width="180" style="plain" id="pea-F9-rxV">
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="H0M-hO-izW"/>
+                        <barButtonItem enabled="NO" image="ic_shopping_cart" id="erg-XI-d9v"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="單品頁" id="9LM-ta-faK"/>
+                    <connections>
+                        <outlet property="addShopCart" destination="pea-F9-rxV" id="bsx-tH-qym"/>
+                        <outlet property="buyNum" destination="9tu-Mb-CJS" id="kVO-Br-IKn"/>
+                        <outlet property="shopCart" destination="erg-XI-d9v" id="8Ba-nr-IgR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k3l-f8-bzK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2372" y="61"/>
+            <point key="canvasLocation" x="3092" y="61"/>
         </scene>
         <!--規格頁-->
         <scene sceneID="d5c-Ky-yjY">
@@ -3488,11 +3515,33 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AGJ-oE-g5T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3086" y="61"/>
+            <point key="canvasLocation" x="3778" y="61"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Nht-Uu-N3g">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="2xN-gg-gTb" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="K4C-wz-S9d">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="O0X-zO-PPz">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="0H7-HN-Ws2" kind="relationship" relationship="rootViewController" id="1Zn-q9-tJf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QK5-ZJ-CQe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2344" y="61"/>
         </scene>
     </scenes>
     <resources>
-        <image name="430CE396-F6BF-4D56-8ECC-0A63317462AF" width="18" height="18">
+        <image name="81309D72-D054-4022-A5FD-27EC5080BE53" width="18" height="18">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

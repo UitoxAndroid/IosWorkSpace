@@ -12,15 +12,18 @@ public class GoodsPageResponse : Mappable
 {
     public var status_code:String?
     public var itemInfo:GoodsPageItemInfo?
-    
+    public var campData:CampData?
+    public var suggestedData:SuggestedData?
     
     required public init?(_ map: Map) {
         
     }
     
     public func mapping(map: Map) {
-        status_code <- map["status_code"]
-        itemInfo <- map["item_info"]
+        status_code     <- map["status_code"]
+        itemInfo        <- map["item_info"]
+        campData        <- map["camp"]
+        suggestedData   <- map["suggested"]
     }
 }
 
@@ -72,7 +75,7 @@ public class GoodsPageItemInfo : Mappable
     public var smPic:String?
     public var smColorPic:String?
     public var smStatus:Bool?
-    public var smPrice:Int?
+    public var smPrice:String?
     public var ssmLimitQty:Int?
     public var ssmPrice:Int?
     public var ssmType:Int?
@@ -143,6 +146,107 @@ public class GoodsSubTitle:Mappable
         title <- map["title"]
     }
 }
+
+public class CampData:Mappable
+{
+    /*
+    Response/data[camp]/data/check              行銷活動顯示旗標			0:否, 1:是
+    */
+    
+    public var check:Bool?
+    public var campDetail:CampDetail?
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        check       <- map["check"]
+        campDetail  <- map["data"]
+    }
+}
+
+public class CampDetail:Mappable
+{
+    /*
+    Response/data[camp]/data/[num]/camp_name 	活動名稱
+    Response/data[camp]/data/[num]/camp_seq 	活動ID
+    Response/data[camp]/data/[num]/start_dt 	活動開始時間
+    Response/data[camp]/data/[num]/end_dt       活動結束時間
+    */
+    
+    public var campName:String?
+    public var campSeq:String?
+    public var startDate:String?
+    public var endDate:String?
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        campName    <- map["camp_name"]
+        campSeq     <- map["camp_seq"]
+        startDate   <- map["start_dt"]
+        endDate     <- map["end_dt"]
+    }
+}
+
+
+public class SuggestedData:Mappable {
+    /*
+    Response/data[suggested]/show	加購品顯示旗標				0:否, 1:是
+    */
+    public var show:Bool?
+    public var suggestDetail:SuggestDetail?
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        show <- map["show"]
+        suggestDetail <- map["data"]
+    }
+}
+
+public class SuggestDetail:Mappable {
+    /*
+    Response/data[suggested]/data/[num]/type                是否有多樣加購品		0:否, 1:是
+    Response/data[suggested]/data/[num]/show                顯示旗標				0:否, 1:是
+    Response/data[suggested]/data/[num]/itno                商品編號
+    Response/data[suggested]/data/[num]/photo               商品圖片
+    Response/data[suggested]/data/[num]/product_name        商品名稱
+    Response/data[suggested]/data/[num]/saleqty             可賣量
+    Response/data[suggested]/data/[num]/show_price          加購價錢
+    Response/data[suggested]/data/[num]/option/[num]/itno 	商品編號
+    Response/data[suggested]/data/[num]/option/[num]/name 	商品名稱
+    */
+    
+    public var type:Bool?
+    public var show:Bool?
+    public var itemNo:String?
+    public var photo:String?
+    public var productName:String?
+    public var saleQty:Int?
+    public var showPrice:Int?
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        type        <- map["type"]
+        show        <- map["show"]
+        itemNo      <- map["itno"]
+        photo       <- map["photo"]
+        productName <- map["product_name"]
+        saleQty     <- map["saleqty"]
+        showPrice   <- map["show_price"]
+    }
+    
+}
+
 
 
 
