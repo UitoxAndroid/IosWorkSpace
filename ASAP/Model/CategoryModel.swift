@@ -22,7 +22,7 @@ class CategoryModel
 	- returns: 
 	*/
 	func getCategoryData(siSeq: String, page: Int, sortBy: SortBy, desc: Bool, completionHandler: (category: SearchListResponse?, errorMessage: String?) -> Void ) {
-		let url = DomainPath.Mview.rawValue
+		let url = DomainPath.MviewWww.rawValue
 		let sort = [
 			[sortBy.rawValue, (desc ? "desc" : "asc")]
 		]
@@ -35,7 +35,7 @@ class CategoryModel
 		]
 
         let request = [
-			"action": "category_api/new_category_list_multi",
+			"action": "category_api/get_app_category_list_multi",
 			"account":"01_uitoxtest",
 			"password":"Aa1234%!@#",
 			"platform_id":"AW000001",
