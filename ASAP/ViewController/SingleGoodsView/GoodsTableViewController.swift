@@ -224,35 +224,47 @@ class GoodsTableViewController: UITableViewController
     let addInCart = UIButton()
     let shopCartBtn = MIBadgeButton()
     let volumeView = VolumeButton()
+    var sqliteCtl = SqlCartList()
     var buyCount = 1
     var numInCart = 0
     func setUpBarButton() {
         buyNum.title = "1"
         addInCart.backgroundColor = UIColor(hue: 0.6, saturation: 0.7, brightness: 1, alpha: 1)
         addInCart.setTitle("加入購物車", forState: .Normal)
+        addInCart.addTarget(self, action: "btnAddInCartPressed:", forControlEvents: .TouchUpInside)
         addInCart.frame = CGRectMake(0, 0, 170, 43)
-        addInCart.addTarget(self, action: "btnAddInCartPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         addShopCart.customView = addInCart
         
         shopCartBtn.setBackgroundImage(UIImage(named: "ic_shopping_cart"), forState: UIControlState.Normal)
         shopCartBtn.badgeString = nil
+        shopCartBtn.addTarget(self, action: "btnShopCartPressed:", forControlEvents: .TouchUpInside)
         shopCartBtn.frame = CGRectMake(0, 0, 30, 30)
         shopCartBtn.badgeEdgeInsets = UIEdgeInsetsMake(12, 5, 0, 10)
         shopCart.customView = shopCartBtn
     }
     func btnAddInCartPressed(sender :UIButton) {
-        numInCart += buyCount
+        numInCart++
         if(numInCart <= 0) {
             shopCartBtn.badgeString = nil
         } else {
             shopCartBtn.badgeString = "\(numInCart)"
-            buyCount = 1
-            buyNum.title = "1"
         }
+        
+        let comboData = CartComboData()
+        comboData.itno  = "AB123000\(numInCart)"
+        comboData.sno   = "CC123000\(numInCart)"
+        sqliteCtl.datas = comboData
+        sqliteCtl.sqliteInsert()
+    }
+    func btnShopCartPressed(sender: MIBadgeButton) {
+        sqliteCtl.sqliteQuery()
     }
     @IBAction func btnPlusPressed(sender: UIBarButtonItem) {
         buyCount++
         self.buyNum.title = "\(buyCount)"
+    }
+    @IBAction func btnShopCartGo(sender: UIBarButtonItem) {
+        sqliteCtl.sqliteQuery()
     }
     @IBAction func btnMinusPressed(sender: UIBarButtonItem) {
         buyCount--
