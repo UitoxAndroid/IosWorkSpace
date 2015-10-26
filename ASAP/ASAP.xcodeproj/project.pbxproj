@@ -35,10 +35,10 @@
 		60567CB41BCCB9E1005BB52A /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60567C9D1BCCB9E1005BB52A /* TitleCell.swift */; settings = {ASSET_TAGS = (); }; };
 		60567CB51BCCB9E1005BB52A /* SpecificViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60567C9E1BCCB9E1005BB52A /* SpecificViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		60567CB61BCCB9E1005BB52A /* TabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60567C9F1BCCB9E1005BB52A /* TabCell.swift */; settings = {ASSET_TAGS = (); }; };
-		A15C0BE71BD6195D00A33A23 /* SignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15C0BE51BD6195D00A33A23 /* SignInModel.swift */; settings = {ASSET_TAGS = (); }; };
-		A15C0BE81BD6195D00A33A23 /* SignInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15C0BE61BD6195D00A33A23 /* SignInResponse.swift */; settings = {ASSET_TAGS = (); }; };
 		606D22901BD8973A00AA875E /* MIBadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606D228F1BD8973A00AA875E /* MIBadgeButton.swift */; settings = {ASSET_TAGS = (); }; };
 		606DDF621BD78C9A001F21AB /* VolumeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DDF611BD78C9A001F21AB /* VolumeButton.swift */; settings = {ASSET_TAGS = (); }; };
+		A15C0BE71BD6195D00A33A23 /* SignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15C0BE51BD6195D00A33A23 /* SignInModel.swift */; settings = {ASSET_TAGS = (); }; };
+		A15C0BE81BD6195D00A33A23 /* SignInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15C0BE61BD6195D00A33A23 /* SignInResponse.swift */; settings = {ASSET_TAGS = (); }; };
 		A17FEE581BCF47BA00DCC422 /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FEE561BCF47BA00DCC422 /* RegisterResponse.swift */; settings = {ASSET_TAGS = (); }; };
 		A1916A841BAAB9CD00DA5447 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1916A831BAAB9CD00DA5447 /* SignInViewController.swift */; };
 		A199C8E31BAFE53600F2A0B6 /* ModelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A199C8E21BAFE53600F2A0B6 /* ModelTableViewCell.swift */; };
@@ -121,6 +121,9 @@
 		AFB5F8891BCB65E900D24B1C /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB5F8841BCB65E900D24B1C /* SVProgressHUD.m */; settings = {ASSET_TAGS = (); }; };
 		AFB5F88A1BCB65E900D24B1C /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB5F8861BCB65E900D24B1C /* SVRadialGradientLayer.m */; settings = {ASSET_TAGS = (); }; };
 		AFCA535D1BB5240F0009BF76 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCA535C1BB5240F0009BF76 /* AccountViewController.swift */; };
+		AFCF5D8A1BD9D2F60012E26B /* SignInDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCF5D891BD9D2F60012E26B /* SignInDelegate.swift */; settings = {ASSET_TAGS = (); }; };
+		AFCF5D8C1BD9DECB0012E26B /* MyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCF5D8B1BD9DECB0012E26B /* MyApp.swift */; settings = {ASSET_TAGS = (); }; };
+		AFCF5D921BD9DFE30012E26B /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCF5D911BD9DFE30012E26B /* MemberModel.swift */; settings = {ASSET_TAGS = (); }; };
 		AFEB07051BBBB380001C2AD7 /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB06F41BBBB380001C2AD7 /* FromJSON.swift */; settings = {ASSET_TAGS = (); }; };
 		AFEB07061BBBB380001C2AD7 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB06F51BBBB380001C2AD7 /* Mapper.swift */; settings = {ASSET_TAGS = (); }; };
 		AFEB07071BBBB380001C2AD7 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB06F61BBBB380001C2AD7 /* Operators.swift */; settings = {ASSET_TAGS = (); }; };
@@ -211,10 +214,10 @@
 		60567C9D1BCCB9E1005BB52A /* TitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
 		60567C9E1BCCB9E1005BB52A /* SpecificViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificViewController.swift; sourceTree = "<group>"; };
 		60567C9F1BCCB9E1005BB52A /* TabCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabCell.swift; sourceTree = "<group>"; };
-		A15C0BE51BD6195D00A33A23 /* SignInModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInModel.swift; sourceTree = "<group>"; };
-		A15C0BE61BD6195D00A33A23 /* SignInResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInResponse.swift; sourceTree = "<group>"; };
 		606D228F1BD8973A00AA875E /* MIBadgeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIBadgeButton.swift; sourceTree = "<group>"; };
 		606DDF611BD78C9A001F21AB /* VolumeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeButton.swift; sourceTree = "<group>"; };
+		A15C0BE51BD6195D00A33A23 /* SignInModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInModel.swift; sourceTree = "<group>"; };
+		A15C0BE61BD6195D00A33A23 /* SignInResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInResponse.swift; sourceTree = "<group>"; };
 		A17FEE551BCF47BA00DCC422 /* RegisterModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
 		A17FEE561BCF47BA00DCC422 /* RegisterResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterResponse.swift; sourceTree = "<group>"; };
 		A1916A831BAAB9CD00DA5447 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SignInViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -322,6 +325,9 @@
 		AFB5F8851BCB65E900D24B1C /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
 		AFB5F8861BCB65E900D24B1C /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		AFCA535C1BB5240F0009BF76 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AccountViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		AFCF5D891BD9D2F60012E26B /* SignInDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInDelegate.swift; sourceTree = "<group>"; };
+		AFCF5D8B1BD9DECB0012E26B /* MyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyApp.swift; sourceTree = "<group>"; };
+		AFCF5D911BD9DFE30012E26B /* MemberModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberModel.swift; sourceTree = "<group>"; };
 		AFEB06EF1BBBB380001C2AD7 /* AlamofireObjectMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlamofireObjectMapper.h; sourceTree = "<group>"; };
 		AFEB06F41BBBB380001C2AD7 /* FromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromJSON.swift; sourceTree = "<group>"; };
 		AFEB06F51BBBB380001C2AD7 /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Mapper.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -544,6 +550,7 @@
 				AF251DC71B7C869F00F06143 /* ApiManager.swift */,
 				AFEF5D491BA2A8DF00A4961D /* ViewControllerCommon.swift */,
 				AF790AE31B7D922000070875 /* ASAP-Bridging-Header.h */,
+				AFCF5D8B1BD9DECB0012E26B /* MyApp.swift */,
 			);
 			path = UitoxCommon;
 			sourceTree = "<group>";
@@ -610,6 +617,7 @@
 				AF790AE71B81C0D900070875 /* OpenWeatherModel.swift */,
 				AF251DC91B7C869F00F06143 /* WeatherResponse.swift */,
 				AF7E8FEF1B95581200AFD3EF /* ItemInfo.swift */,
+				AFCF5D911BD9DFE30012E26B /* MemberModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -634,6 +642,7 @@
 				AF7E8FF71B95592500AFD3EF /* KindViewController.swift */,
 				AFF066681BAAA1E00098706F /* OnSaleViewController.swift */,
 				A1916A831BAAB9CD00DA5447 /* SignInViewController.swift */,
+				AFCF5D891BD9D2F60012E26B /* SignInDelegate.swift */,
 				AF7E8FF51B95592500AFD3EF /* GoodsListViewController.swift */,
 				AF7E900D1B957DB600AFD3EF /* FirstViewController.swift */,
 				AF7E902B1B96A2DD00AFD3EF /* MenuViewController.swift */,
@@ -942,6 +951,7 @@
 				AF251DCC1B7C869F00F06143 /* WeatherResponse.swift in Sources */,
 				AF5F2C4B1BBD3B6C00A7A977 /* ServerTrustPolicy.swift in Sources */,
 				AF0DD7DC1BD621A100540B11 /* MJRefreshFooterView.m in Sources */,
+				AFCF5D8C1BD9DECB0012E26B /* MyApp.swift in Sources */,
 				AF0DD7BE1BD0D17200540B11 /* UIImage+Normalize.swift in Sources */,
 				AFEF5D4A1BA2A8DF00A4961D /* ViewControllerCommon.swift in Sources */,
 				AF0DD7BD1BD0D17200540B11 /* UIImage+Decode.swift in Sources */,
@@ -979,6 +989,7 @@
 				60567CB21BCCB9E1005BB52A /* SizeCell.swift in Sources */,
 				AF5F2C481BBD3B6C00A7A977 /* Request.swift in Sources */,
 				AFEB070C1BBBB380001C2AD7 /* DateTransform.swift in Sources */,
+				AFCF5D921BD9DFE30012E26B /* MemberModel.swift in Sources */,
 				AFEF5D441BA15A7500A4961D /* CampaignResponse.swift in Sources */,
 				AFEB070F1BBBB380001C2AD7 /* TransformOf.swift in Sources */,
 				AF7E8FFF1B95592500AFD3EF /* GoodsListViewController.swift in Sources */,
@@ -1037,6 +1048,7 @@
 				60567CB61BCCB9E1005BB52A /* TabCell.swift in Sources */,
 				AF790AE81B81C0D900070875 /* OpenWeatherModel.swift in Sources */,
 				60567C831BCCB863005BB52A /* GoodsPageModel.swift in Sources */,
+				AFCF5D8A1BD9D2F60012E26B /* SignInDelegate.swift in Sources */,
 				60567CA41BCCB9E1005BB52A /* DirectionCell.swift in Sources */,
 				AF0DD7DB1BD621A100540B11 /* MJRefreshConst.m in Sources */,
 				AF0DD7DD1BD621A100540B11 /* MJRefreshHeaderView.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 // 登入頁 Response
 public class SignInResponse : Mappable
@@ -27,7 +28,7 @@ public class SignInResponse : Mappable
 }
 
 // 登入會員資料
-public class MemberData : Mappable
+public class MemberData : Object, Mappable
 {
 /*    "data":{"MEM_GUID":"C1F22E37-8C74-250A-9F8D-A9E562B76E36","MEM_EMAIL":"shengeih@uitox.com","MEM_LOGIN_PHONE":"_","MEM_STATUS":"_","WS_SEQ":"AW000001","ENCODE_GUID":"GpnW2+5UtovCHgUxDtHrUndPPhnFJXRtOICmRPEs6aqGjQY88NlE\/A==","MEM_INVOICE":null}}*/
 /*  data/MEM_GUID           GUID
@@ -38,16 +39,16 @@ public class MemberData : Mappable
     data/ENCODE_GUID        加密GUID
     data/MEM_INVOICE        Invoice */
     
-    public var guid:        String?
-    public var email:       String?
-    public var phone:       String?
-    public var status:      String?
-    public var wsSeq:       String?
-    public var encodeGuid:  String?
-    public var invoice:     String?
+    public dynamic var guid:        String = ""
+    public dynamic var email:       String = ""
+    public dynamic var phone:       String = ""
+    public dynamic var status:      String = ""
+    public dynamic var wsSeq:       String = ""
+    public dynamic var encodeGuid:  String = ""
+    public dynamic var invoice:     String = ""
     
-    required public init?(_ map: Map) {
-        
+    required public convenience init?(_ map: Map) {
+        self.init()
     }
     
     public func mapping(map: Map) {

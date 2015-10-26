@@ -10,12 +10,9 @@ import Foundation
 
 // 登入頁 Model
 class SignInModel
-{
-    var SignIn: SignInResponse?
-    
-    func sendSignInData(account: String, password: String,
-        completionHandler: ( signIn: SignInResponse?,
-        errorMessage: String?) -> Void ) {
+{   
+    func sendSignInData(account: String, password: String, completionHandler: 
+		( signIn: SignInResponse?, errorMessage: String?) -> Void ) {
         let url = DomainPath.MviewMember.rawValue
         
         //let accountType = account.containsString("@") ? "email" : "phone"
@@ -28,22 +25,26 @@ class SignInModel
             "passwd"        : "MTIzNDU2", //password
             "ip"			: "",
             "login_type"	: ""
-            ]
+		]
             
-            ApiManager.sharedInstance.postDictionary(url, params: request as [String : String]) {
-                (signIn: SignInResponse?, error: String?) -> Void in
-                
-                if signIn == nil {
-                    completionHandler(signIn: nil, errorMessage: error)
-                    return
-                }
-                
-                log.debug("statusCode:\(signIn!.status_code)")
-                log.debug("desctipgion:\(signIn!.description)")
-                log.debug("guid:\(signIn!.memberData?.guid)")
-                log.debug("guid:\(signIn!.memberData?.encodeGuid)")
+		ApiManager.sharedInstance.postDictionary(url, params: request as [String : String]) {
+			(signIn: SignInResponse?, error: String?) -> Void in
+			
+			if signIn == nil {
+				completionHandler(signIn: nil, errorMessage: error)
+				return
+			}
+							
+			log.debug("statusCode:\(signIn!.status_code)")
+			log.debug("desctipgion:\(signIn!.description)")
+			log.debug("guid:\(signIn!.memberData?.guid)")
+			log.debug("guid:\(signIn!.memberData?.encodeGuid)")
+			
+			if let data = signIn!.memberData {
+				MyApp.sharedMember.insertMemberDataIntoDisk(data)					
+			}
 
-                completionHandler(signIn: signIn, errorMessage: nil)
-            }
+			completionHandler(signIn: signIn, errorMessage: nil)
+		}
     }
 }

@@ -138,6 +138,9 @@
                                         <state key="normal" title="登出">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="signInButtonOnClicked:" destination="ePm-4F-hiU" eventType="touchUpInside" id="2wo-d5-FHX"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hi, xxx@uitox.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GjB-yj-1x4">
                                         <rect key="frame" x="15" y="11" width="138" height="21"/>
@@ -189,7 +192,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="選單" id="xnT-Qa-j1m"/>
                     <connections>
+                        <outlet property="helloMemberLabel" destination="GjB-yj-1x4" id="YvF-Zc-zSG"/>
                         <outlet property="leftTableView" destination="sds-T3-zf5" id="NLa-9X-U4t"/>
+                        <outlet property="signInButton" destination="N0u-V1-y5z" id="3Lz-bA-LsE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c5B-sb-cnj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -518,6 +523,7 @@
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ut-QP-gjT">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="338"/>
+                                        <animations/>
                                         <connections>
                                             <segue destination="scZ-yw-R4c" kind="embed" id="nwv-rR-qqu"/>
                                         </connections>
@@ -576,7 +582,7 @@
         <!--Sign In-->
         <scene sceneID="B9v-fo-nVa">
             <objects>
-                <tableViewController title="Sign In" id="HB8-V1-yDq" customClass="SignInViewController" customModule="ASAP" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SignInViewController" title="Sign In" id="HB8-V1-yDq" customClass="SignInViewController" customModule="ASAP" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="LMn-mu-pmb">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -751,7 +757,7 @@
                             <outlet property="delegate" destination="HB8-V1-yDq" id="RH0-mD-2dm"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="4Qh-ZK-rPu"/>
+                    <navigationItem key="navigationItem" title="登入" id="4Qh-ZK-rPu"/>
                     <connections>
                         <outlet property="accountText" destination="SDo-jX-u9E" id="mok-Zv-dWJ"/>
                         <outlet property="passwordSwitch" destination="k43-3b-m8Z" id="1iQ-CJ-Aim"/>
@@ -1651,7 +1657,7 @@
         <!--帳戶-->
         <scene sceneID="sF6-2W-dq6">
             <objects>
-                <viewController storyboardIdentifier="AccountViewController" id="zGo-hC-YUK" customClass="AccountViewController" customModule="ASAP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AccountViewController" title="帳戶" id="zGo-hC-YUK" customClass="AccountViewController" customModule="ASAP" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Nm-0S-C7j"/>
                         <viewControllerLayoutGuide type="bottom" id="1ja-9m-WUc"/>
@@ -1659,25 +1665,38 @@
                     <view key="view" contentMode="scaleToFill" id="Cgt-EA-EMh">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lyi-Xj-PSK">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="601"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="zGo-hC-YUK" id="tQz-df-1BM"/>
+                                </connections>
+                            </webView>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="lyi-Xj-PSK" firstAttribute="leading" secondItem="Cgt-EA-EMh" secondAttribute="leading" id="DUH-ij-y24"/>
+                            <constraint firstAttribute="trailing" secondItem="lyi-Xj-PSK" secondAttribute="trailing" id="Nac-wd-uGh"/>
+                            <constraint firstItem="1ja-9m-WUc" firstAttribute="top" secondItem="lyi-Xj-PSK" secondAttribute="bottom" constant="-50" id="Vod-Kg-wU3"/>
+                            <constraint firstItem="lyi-Xj-PSK" firstAttribute="top" secondItem="6Nm-0S-C7j" secondAttribute="bottom" constant="-64" id="i7e-9i-o1J"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="帳戶" id="rvp-iC-Fgj">
-                        <barButtonItem key="rightBarButtonItem" title="一鍵登入" id="m9r-jx-FkS">
-                            <connections>
-                                <action selector="Login:" destination="zGo-hC-YUK" id="oZB-by-ymR"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="帳戶" id="rvp-iC-Fgj"/>
+                    <connections>
+                        <outlet property="webView" destination="lyi-Xj-PSK" id="Zph-YB-iI3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ez-TF-tVF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="177" y="2094"/>
         </scene>
-        <!--帳戶-->
+        <!--帳戶_Nav-->
         <scene sceneID="l1f-ON-wnS">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4Ey-z5-7ne" sceneMemberID="viewController">
+                <navigationController title="帳戶_Nav" automaticallyAdjustsScrollViewInsets="NO" id="4Ey-z5-7ne" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="帳戶" image="ic_person" id="Ofh-qQ-N74"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jsM-L9-jOk">
@@ -3042,7 +3061,7 @@
                                                 <constraint firstAttribute="height" constant="22" id="Muq-Ju-n3o"/>
                                                 <constraint firstAttribute="width" constant="21" id="aqk-u2-NNb"/>
                                             </constraints>
-                                            <state key="normal" title="Button" image="3C92DB54-7DE7-4E09-9CD5-6F8928372A52"/>
+                                            <state key="normal" title="Button" image="4C679CB2-F5E8-4FE2-847F-5B3F59C7380B"/>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SnZ-mm-BAb">
                                             <rect key="frame" x="37" y="5" width="33" height="33"/>
@@ -3887,11 +3906,13 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="K4C-wz-S9d">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="O0X-zO-PPz">
                         <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                     </toolbar>
                     <connections>
                         <segue destination="0H7-HN-Ws2" kind="relationship" relationship="rootViewController" id="1Zn-q9-tJf"/>
@@ -3903,7 +3924,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="3C92DB54-7DE7-4E09-9CD5-6F8928372A52" width="18" height="18">
+        <image name="4C679CB2-F5E8-4FE2-847F-5B3F59C7380B" width="18" height="18">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
