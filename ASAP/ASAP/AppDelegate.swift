@@ -24,7 +24,7 @@ let log: XCGLogger = {
 	]
 	
 	#if DEBUG // Set via Build Settings, under Other Swift Flags
-		log.setup(.Debug, showThreadName: false, showLogLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: nil)
+		log.setup(.Info, showThreadName: false, showLogLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: nil)
 	#else
 		log.setup(.Verbose, showThreadName: false, showLogLevel: false, showFileNames: false, showLineNumbers: false, writeToFile: nil)		
 	#endif

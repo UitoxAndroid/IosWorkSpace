@@ -44,7 +44,7 @@ public class ApiManager
 
 		manager = Manager(configuration: configuration, serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies))
 	}
-
+	
 	func postDictionary<T:Mappable>(urlPath:String, params:[String:AnyObject]?, completionHandler: (mapperObject: T?, errorMessage:String?) -> Void) {
 		log.info { () -> String? in
 			var output = "\nUrl: \(urlPath)\nRequest >>>\n"
@@ -69,4 +69,56 @@ public class ApiManager
 		}
 	}
 
+	func postDictionary<T:Mappable>(urlPath:String, params:[String:AnyObject]?, completionHandler: (mapperObject: T?, errorMessage:String?, statusCode:String?) -> Void) {
+		log.info { () -> String? in
+			var output = "\nUrl: \(urlPath)\nRequest >>>\n"
+			if let params = params {
+				for (key,value) in params {
+					output += "\(key):\(value) \n"
+				}
+			}
+			return output
+		}
+		
+		manager.request(.POST, urlPath, parameters: params, encoding: .JSON).responseObject {
+			(req:NSURLRequest, httpUrlResponse:NSHTTPURLResponse?, responseEntity:T?, obj:AnyObject?, error:ErrorType?) in
+			if responseEntity == nil || error != nil {
+				if error != nil {
+					log.error(error.debugDescription)
+				}
+				completionHandler(mapperObject:nil, errorMessage:error.debugDescription, statusCode: "")
+			} else {			
+				let statusCode = self.reflection(responseEntity)			
+				completionHandler(mapperObject:responseEntity, errorMessage:nil, statusCode: statusCode)
+			}
+		}
+	}
+
+	//取得status code
+	func reflection(obj:Any) -> String? {
+		var statusCode:String?
+		let ref = Mirror(reflecting: obj)
+		for child in ref.children {
+			
+			guard let key = child.label else {
+				continue
+			}
+
+			let value = child.value
+			
+			if key == "status_code" {	
+				var temp = ""
+				Mirror(reflecting: value).children.forEach {
+					temp = "\($0.value)"
+					return
+				}		
+				return temp
+			}
+			
+//			log.info("key:\(key),value:\(value)")
+			statusCode = reflection(value)
+		}
+		
+		return statusCode
+	}
 }
