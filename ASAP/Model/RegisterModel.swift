@@ -8,14 +8,69 @@
 
 import Foundation
 
+// 密碼強度
+public enum Strength: Int {
+    case Weak
+    case Medium
+    case Strong
+}
+
+extension String {
+    // base64加密
+    func base64Encode() -> String {
+        let utf8Str: NSData = self.dataUsingEncoding(NSUTF8StringEncoding)!
+        return utf8Str.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
+    }
+    
+    // 帳號類型 email/phone
+    func accountType() -> String {
+        return self.isMobile() ? "phone" : "email"
+    }
+    
+    // 行動電話
+    func isMobile() -> Bool {
+        let pattern = "^0[0-9]{9}"
+        let regex = try! NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive)
+        return regex.firstMatchInString(self, options: [], range: NSMakeRange(0, characters.count)) != nil
+    }
+    
+    // 密碼強度:弱
+    func isWeak() -> Bool {
+        if (self.characters.count < 6) {
+            return true
+        }
+        
+        let pattern = "^[0-9]*$|^[a-zA-Z]+$"
+        let regex = try! NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive)
+        return regex.firstMatchInString(self, options: [], range: NSMakeRange(0, characters.count)) != nil
+    }
+    
+    // 密碼強度:強
+    func isStrong() -> Bool {
+        let pattern = "^(?=^.{6,16}$)((?=.*[A-Za-z0-9-_])(?=.*[A-Za-z])(?=.*[-_]))^.*$"
+        let regex = try! NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive)
+        return regex.firstMatchInString(self, options: [], range: NSMakeRange(0, characters.count)) != nil
+    }
+}
 // 註冊頁 Model
 class RegisterModel
 {
-    var Register: RegisterResponse?
+    typealias completedHandler = (register: RegisterResponse?, errorMessage: String?) -> Void
     
-    func sendRegisterData(account: String, password: String, sendEdm: String, completionHandler: ( register: RegisterResponse?,
-        errorMessage: String?) -> Void ) {
-        let url = DomainPath.Mview.rawValue + "/call_api/member"
+    /*
+    送出註冊資料
+    - parameter account:            帳號
+    - parameter password:           密碼
+    - parameter sendEdm:            電子報
+    - parameter verify:             手機驗證碼(phone才需要填)
+    - parameter completionHandler:  回呼之後的處理
+    
+    - returns:
+    */
+    func sendRegisterData( account: String, password: String, sendEdm: String, verify: String, completionHandler: completedHandler ) {
+        let url             = DomainPath.MviewMember.rawValue
+        let accountType     = account.accountType()
+        let encodePassword  = password.base64Encode()
         
         let userInfo = [
                 "ws_seq"        : "AW000001",
@@ -27,19 +82,17 @@ class RegisterModel
                 "ip_addr"       : "10.1.88.102",
                 "send_edm"      : sendEdm
             ]
-            
-        let accountType = account.containsString("@") ? "email" : "phone"
-            
+        
         let request = [
             "action"        : "member_api/register_v2",
-            "account_type"  : accountType, //"email", //"phone"
+            "account_type"  : accountType, //"email","phone"
             "account_data"  : account,
-            "security_code" : "",
-            "passwd"        : password,//"MTIzNDU2",
+            "security_code" : verify,
+            "passwd"        : encodePassword,
             "userinfo"      : userInfo
             ]           
 
-            ApiManager.sharedInstance.postDictionary(url, params: request as?[String : AnyObject]) {
+            ApiManager.sharedInstance.postDictionary( url, params: request as?[String : AnyObject] ) {
                 (register: RegisterResponse?, error: String?) -> Void in
                 
                 if register == nil {

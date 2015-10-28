@@ -50,8 +50,13 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
     let reuseTableViewCellIdentifier			= "DealsCell"
     let reuseModelCollectionViewCellIdentifier1 = "ModelCollectionCell1"
     let reuseModelCollectionViewCellIdentifier2 = "ModelCollectionCell2"
-
-	// MARK: - View
+    
+    lazy var placeholderImage: UIImage = {
+        let image = UIImage(named: "PlaceholderImage")!
+        return image
+        }()
+    
+    // MARK: - View
 
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
@@ -130,21 +135,22 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
         var index = 0
         for iconLink:IconLinkData in self.iconDataList1 {
             if let url = NSURL(string: iconLink.img!) {
-                if let data = NSData(contentsOfURL: url) {
                     switch index {
                     case 0:
-                        self.m046Image1.image = UIImage(data: data)
+                        self.m046Image1.kf_setImageWithURL(url, placeholderImage: placeholderImage,
+                            optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
                         index++
                     case 1:
-                        self.m046Image2.image = UIImage(data: data)
+                        self.m046Image2.kf_setImageWithURL(url, placeholderImage: placeholderImage,
+                            optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
                         index++
                     case 2:
-                        self.m046Image3.image = UIImage(data: data)
+                        self.m046Image3.kf_setImageWithURL(url, placeholderImage: placeholderImage,
+                            optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
                         index++
                     default:
                         index++
                     }
-                }
             }
         }
     }
@@ -155,68 +161,29 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
         var index = 0
         for iconLink:IconLinkData in self.iconDataList2 {
             if let url = NSURL(string: iconLink.img!) {
-                if let data = NSData(contentsOfURL: url) {
                     switch index {
                     case 0:
-                        self.m047Image1.image = UIImage(data: data)
+                        self.m047Image1.kf_setImageWithURL(url, placeholderImage: placeholderImage,
+                            optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
                         index++
                     case 1:
-                        self.m047Image2.image = UIImage(data: data)
+                        self.m047Image2.kf_setImageWithURL(url, placeholderImage: placeholderImage,
+                            optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
                         index++
                     case 2:
-                        self.m047Image3.image = UIImage(data: data)
+                        self.m047Image3.kf_setImageWithURL(url, placeholderImage: placeholderImage,
+                            optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
                         index++
                     case 3:
-                        self.m047Image4.image = UIImage(data: data)
+                        self.m047Image4.kf_setImageWithURL(url, placeholderImage: placeholderImage,
+                            optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
                         index++
                     default:
                         index++
                     }
-                }
             }
         }
     }
-    
-	// MARK: -  首頁－整點特賣
-
-	/*override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch(section){
-        case 0:
-            return 2
-        default:
-            return 1
-        }
-	}*/
-
-	/*override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        switch(indexPath.section) {
-        case 0:
-            if(indexPath.row == 0)
-            {
-                return UITableViewCell()
-            }
-            
-            var cell: DealsTableViewCell? = tableView.dequeueReusableCellWithIdentifier(reuseTableViewCellIdentifier, forIndexPath: indexPath) as? DealsTableViewCell
-            //DealsTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: reuseTableViewCellIdentifier) as? DealsTableViewCell
-            if (cell == nil) {
-                cell = DealsTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: reuseTableViewCellIdentifier) as DealsTableViewCell
-            }
-            
-            cell!.detailTextLabel?.text = "10:20:05"
-            
-            if (self.dealsView == nil) {
-                self.dealsView = cell!.dealsCollectionView
-            }
-            return cell!
-        default:
-            //var cell:UITableViewCell? = tableView.dequeueReusableCellWithIdentifier("ModelCell", forIndexPath: indexPath) as! UITableViewCell
-            let cell = UITableViewCell()
-            cell.textLabel?.text = "ModelCell"
-            cell.accessoryType = UITableViewCellAccessoryType.DetailButton
-            return cell
-        }
-        
-	}*/
 
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
@@ -251,7 +218,9 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
     // MARK: - Call Api
 
 	func getDeployData() {
+        self.pleaseWait()
 		deployModel?.getDeployData("", completionHandler: { (deploy: DeployResponse?, errorMessage: String?) -> Void in
+            self.clearAllNotice()
 			if (deploy == nil) {
 				self.showAlert(errorMessage!)
 			} else {
@@ -278,12 +247,15 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
 	}
 
 	func getDealsList() {
+        self.pleaseWait()
 		dealsOnTimeModel.getDealsOntimeData { (dealsOntime, errorMessage) in
+            self.clearAllNotice()
 			if (dealsOntime == nil) {
 				self.showAlert(errorMessage!)
 			} else {
 				self.dealsOnTimeData = dealsOntime!.dataList
-                //self.dealsTableCell.countDownLabel.text = "04:10:05"
+                
+                self.tableView.reloadData()
                 self.dealsCollectionView.reloadData()
             }
 		}
@@ -322,13 +294,13 @@ extension FirstViewController: UICollectionViewDataSource, UICollectionViewDeleg
             
             if let pic = self.dealsOnTimeData[indexPath.row].smPic {
                 if let url = NSURL(string: pic) {
-                    if let data = NSData(contentsOfURL: url) {
-                        cell.productImage.image = UIImage(data: data)
-                    }
+                    cell.productImage.kf_setImageWithURL(url, placeholderImage: placeholderImage,
+                        optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
                 }
             } else {
-                cell.productImage.image = UIImage(named: "unchecked_checkbox") //缺圖
+                cell.productImage.image = placeholderImage
             }
+            
             
             if let itemName = self.dealsOnTimeData[indexPath.row].smName {
                 cell.productNameLabel?.text = itemName
@@ -371,10 +343,11 @@ extension FirstViewController: UICollectionViewDataSource, UICollectionViewDeleg
             
             if let pic = self.productList1[indexPath.row].img {
                 if let url = NSURL(string: pic) {
-                    if let data = NSData(contentsOfURL: url) {
-                        cell.productImage.image = UIImage(data: data)
-                    }
+                    cell.productImage.kf_setImageWithURL(url, placeholderImage: placeholderImage,
+                        optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
                 }
+            } else {
+                cell.productImage.image = placeholderImage
             }
             
             if let itemName = self.productList1[indexPath.row].name {
@@ -399,11 +372,13 @@ extension FirstViewController: UICollectionViewDataSource, UICollectionViewDeleg
             let cell: ModelCollectionViewCell2 = collectionView.dequeueReusableCellWithReuseIdentifier(reuseModelCollectionViewCellIdentifier2, forIndexPath: indexPath) as! ModelCollectionViewCell2
             
             if let url = NSURL(string: self.productList2[indexPath.row].img!) {
-                if let data = NSData(contentsOfURL: url) {
-                    cell.productImage.image = UIImage(data: data)
-                }
+                cell.productImage.kf_setImageWithURL(url, placeholderImage: placeholderImage,
+                    optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
+            } else {
+                cell.productImage.image = placeholderImage
             }
-            
+
+        
             if let itemName = self.productList2[indexPath.row].name {
                 cell.productNameLabel?.text = itemName
             }

@@ -29,7 +29,6 @@ public class SignInResponse : Mappable
 // 登入會員資料
 public class MemberData : Mappable
 {
-/*    "data":{"MEM_GUID":"C1F22E37-8C74-250A-9F8D-A9E562B76E36","MEM_EMAIL":"shengeih@uitox.com","MEM_LOGIN_PHONE":"_","MEM_STATUS":"_","WS_SEQ":"AW000001","ENCODE_GUID":"GpnW2+5UtovCHgUxDtHrUndPPhnFJXRtOICmRPEs6aqGjQY88NlE\/A==","MEM_INVOICE":null}}*/
 /*  data/MEM_GUID           GUID
     data/MEM_EMAIL          Email
     data/MEM_LOGIN_PHONE    Phone

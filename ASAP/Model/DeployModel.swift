@@ -8,11 +8,21 @@
 
 import Foundation
 
+// 首頁輪播+佈置 Model
 class DeployModel
 {
-    var deploy:DeployResponse?
+    var deploy: DeployResponse?
     
-    func getDeployData( siSeq:String, completionHandler: (deploy: DeployResponse?, errorMessage: String?) -> Void ) {
+    typealias completedHandler = (deploy: DeployResponse?, errorMessage: String?) -> Void
+    
+    /*
+    呼叫首頁輪播+佈置列表
+    - parameter siSeq:				搜尋關鍵字
+    - parameter completionHandler:  回呼之後的處理
+    
+    - returns: 
+    */
+    func getDeployData( siSeq:String, completionHandler: completedHandler ) {
         let url = DomainPath.MviewPmadmin.rawValue
         let data = [
             "page_code": "index",

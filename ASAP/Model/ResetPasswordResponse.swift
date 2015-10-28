@@ -1,15 +1,15 @@
 //
-//  RegisterResponse.swift
+//  ResetPasswordResponse.swift
 //  ASAP
 //
-//  Created by janet on 2015/10/6.
+//  Created by janet on 2015/10/27.
 //  Copyright © 2015年 uitox. All rights reserved.
 //
 
 import Foundation
 
-// 註冊頁 Response
-public class RegisterResponse : Mappable
+// 手機重設密碼頁 Response
+public class ResetPasswordResponse : Mappable
 {
     public var status_code: String?
     public var description: String?
@@ -22,4 +22,5 @@ public class RegisterResponse : Mappable
         status_code <- map["status_code"]
         description <- map["description"]
     }
+    
 }

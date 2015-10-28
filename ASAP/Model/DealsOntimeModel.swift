@@ -10,7 +10,13 @@ import Foundation
 
 // 整點特賣 Model
 class DealsOntimeModel
-{   
+{
+    /*
+    呼叫整點特賣列表
+    - parameter completionHandler:  回呼之後的處理
+    
+    - returns:
+    */
     func getDealsOntimeData( completionHandler: (dealsOntime: DealsOntimeResponse?, errorMessage: String?) -> Void ) {
         let url = DomainPath.MviewWww.rawValue
         let data = [
