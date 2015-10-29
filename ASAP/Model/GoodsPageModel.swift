@@ -8,14 +8,14 @@
 
 import Foundation
 
-class GoodsPageModel {
-    var GoodsPage:GoodsPageResponse?
+class GoodsPageModel
+{
     
-    func getGoodsPageData( completionHandler: (goodsPage: GoodsPageResponse?, errorMessage: String?) -> Void ) {
+    func getGoodsPageData(smSeq:String, completionHandler: (goodsPage: GoodsPageResponse?, errorMessage: String?) -> Void ) {
 		let url = DomainPath.MviewWww.rawValue
 		
         let data = [
-            "sm_seq" : "201410AM210000002"
+            "sm_seq" : smSeq
         ]
         let request = [
 			"action": "show_list_api/get_item_and_color_info",

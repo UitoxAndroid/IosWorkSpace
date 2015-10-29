@@ -19,6 +19,7 @@ class GoodsTableViewController: UITableViewController
     var isOpenMoroToBuyCell:Bool = false
     var isCampaignBegin:Bool = true
     var goodsResponse:GoodsPageResponse? = nil
+    var seq:String = "201510AM140000038"
     
     
     var controllerSpec : UIAlertController?
@@ -38,7 +39,7 @@ class GoodsTableViewController: UITableViewController
         super.viewDidLoad()
         
         if(goodsResponse == nil) {
-            self.getGoodsPageData()
+            self.getGoodsPageData(seq)
         } else {
             goodsInfo = goodsResponse?.itemInfo
             suggestGoods = goodsResponse?.suggestedData
@@ -50,6 +51,9 @@ class GoodsTableViewController: UITableViewController
     // MARK: - 設定tableView
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if(goodsResponse == nil) {
+            return 0
+        }
         return 4
     }
     
@@ -142,6 +146,11 @@ class GoodsTableViewController: UITableViewController
             switch(indexPath.row) {
             case 0: //圖片&品名&售價
                 let bannerCell = tableView.dequeueReusableCellWithIdentifier("BannerCell", forIndexPath: indexPath) as! BannerCell
+                if(goodsInfo?.smSubTitle?.type == 0) {
+                    bannerCell.lblGoodsdesc1.text = ""
+                } else {
+                    bannerCell.lblGoodsdesc1.text = goodsInfo?.smSubTitle?.title
+                }
                 bannerCell.lblGoodsName.text = self.goodsInfo?.smName
                 bannerCell.imageList = self.goodsInfo?.smPicMulti
                 bannerCell.lblPriceNow.text = "$\(self.goodsInfo?.smPrice)"
@@ -153,15 +162,21 @@ class GoodsTableViewController: UITableViewController
                 return specificationCell
             case 2://活動
                 let activityCell = tableView.dequeueReusableCellWithIdentifier("ActivityCell", forIndexPath: indexPath) as! ActivityCell
-                activityCell.lblActTime.text = "2015/10/20 00:00 ~ 2015/10/11 00:00"
-                activityCell.lblGoodPrice.text = "$1234"
+                
+                //行銷活動時間
+                activityCell.lblActTime.text = "\(goodsResponse!.itemInfo!.ssmStDt)"
+                
+                //優惠價 
+                activityCell.lblGoodPrice.text = "$10"
                
                 if(isCampaignBegin == true) {
                     activityCell.hidden = false
                 } else {
                     activityCell.hidden = true
                 }
+                
                 return activityCell
+                
             case 3://預購倒數
                 let preorderCell = tableView.dequeueReusableCellWithIdentifier("PreorderCell", forIndexPath: indexPath) as! PreorderCell
                 preorderCell.lblPreorderDeadline.text = self.goodsInfo?.preDtE
@@ -338,13 +353,13 @@ class GoodsTableViewController: UITableViewController
     
     // MARK: - 呼叫api
     
-    func getGoodsPageData() {
-        goodsPageModel?.getGoodsPageData({ (goodsPage: GoodsPageResponse?, errorMessage:String?) -> Void in
+    func getGoodsPageData(smSeq:String) {
+        goodsPageModel?.getGoodsPageData(smSeq,completionHandler: { (goodsPage: GoodsPageResponse?, errorMessage:String?) -> Void in
             if (goodsPage == nil) {
                 self.showAlert(errorMessage!)
             }
             else {
-                self.goodsPageModel?.GoodsPage = goodsPage!
+                self.goodsResponse = goodsPage!
                 self.goodsInfo = goodsPage!.itemInfo
                 self.suggestGoods = goodsPage!.suggestedData
                 self.tableView.reloadData()
