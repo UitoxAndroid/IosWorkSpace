@@ -69,7 +69,7 @@ public class GoodsPageItemInfo : Mappable
     public var preDtE:String?
     public var refEtdDt:String?
     public var showDt:String?
-    public var ssmStDt:String?
+    public var ssmStDt:String = ""
     public var ssmEnDt:String?
     public var smName:String?
     public var smPic:String?

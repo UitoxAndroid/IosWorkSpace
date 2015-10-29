@@ -12,7 +12,6 @@ class BannerCell: UITableViewCell, UIScrollViewDelegate {
 
     @IBOutlet weak var lblGoodsName: UILabel!
     @IBOutlet weak var lblGoodsdesc1: UILabel!
-    @IBOutlet weak var lblGoodsdesc2: UILabel!
     @IBOutlet weak var lblPriceNow: UILabel!
     @IBOutlet weak var lblPriceOrigin: UILabel!
     @IBOutlet weak var btnStar: UIButton!
