@@ -14,6 +14,7 @@ class VerifyMobileViewController: UITableViewController {
     var verifyMobileModel: VerifyMobileModel?       = VerifyMobileModel()
     var signInModel: SignInModel?                   = SignInModel()
     var forgotPasswordModel: ForgotPasswordModel?   = ForgotPasswordModel()
+	var	delegate: SignInDelegate?					= nil
     
     var From:           SendVerifyFrom  = SendVerifyFrom.Register
     var MobileNumber:   String?
@@ -96,8 +97,12 @@ class VerifyMobileViewController: UITableViewController {
                 }
                 
                 self.showSuccess("手機驗證完成")
-                // 登入－>回首頁
-                self.sendSignInData()
+				// 回原來那頁
+				self.showSuccess("註冊成功！\n歡迎使用此帳號進行購物")
+				self.delegate?.signInSuccess()
+				self.dismissViewControllerAnimated(true, completion: nil)
+//                // 登入－>回首頁
+//                self.sendSignInData()
             }
         })
     }

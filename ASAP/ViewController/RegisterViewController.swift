@@ -16,6 +16,7 @@ class RegisterViewController: UITableViewController {
     var registerModel: RegisterModel?           = RegisterModel()
     var verifyMobileModel: VerifyMobileModel?   = VerifyMobileModel()
     var signInModel: SignInModel?               = SignInModel()
+	var	delegate: SignInDelegate?				= nil
     
     var passwrodStrength:   Strength            = Strength.Weak
     var account:    String = ""
@@ -149,9 +150,12 @@ class RegisterViewController: UITableViewController {
                 
                 switch status_code! {
                 case "100":
+					// 回原來那頁
                     self.showSuccess("註冊成功！\n歡迎使用此帳號進行購物")
+					self.delegate?.signInSuccess()
+					self.dismissViewControllerAnimated(true, completion: nil)
                     // 登入－>回首頁
-                    self.sendSignInData()
+//                    self.sendSignInData()
                 case "300":
                     self.showAlert((register?.description)!)
                     let signInView = self.storyboard?.instantiateViewControllerWithIdentifier("SignInViewController") as! SignInViewController
@@ -181,6 +185,7 @@ class RegisterViewController: UITableViewController {
                     verifyView.MobileNumber = self.account
                     verifyView.Password     = self.password
                     verifyView.From         = SendVerifyFrom.Register
+					verifyView.delegate		= self.delegate
                     self.navigationController?.pushViewController(verifyView, animated: false)
                 case "301":
                     self.showAlert((verify?.description)!)
@@ -222,8 +227,8 @@ class RegisterViewController: UITableViewController {
         account             = self.accountText.text!
         password            = self.passwordText.text!
         sendEdm             = self.subscribeCheckBox.isChecked ? "1" : "0"
-        
-        if( account.characters.count == 0 || confirmEmail.characters.count == 0 || password.characters.count == 0 ) {
+
+		if( account.characters.count == 0 || (!self.isMobile && confirmEmail.characters.count == 0) || password.characters.count == 0 ) {
             self.showAlert("輸入資料格式有誤")
             return false
         }
@@ -264,6 +269,11 @@ class RegisterViewController: UITableViewController {
         webView.urlString = self.privacyUrl
         self.navigationController?.pushViewController(webView, animated: false)
     }
+	
+	@IBAction func loginButtonClick(sender: UIButton) {
+		self.navigationController?.popToRootViewControllerAnimated(true)
+	}
+	
     
      // MARK: - Table view data source
     

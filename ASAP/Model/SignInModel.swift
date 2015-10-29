@@ -32,7 +32,7 @@ class SignInModel
             "passwd"        : encodePassword,   //"MTIzNDU2"
             "ip"			: "10.1.88.102",
             "login_type"	: ""
-		]
+            ]
             
 		ApiManager.sharedInstance.postDictionary(url, params: request as [String : String]) {
 			(signIn: SignInResponse?, error: String?) -> Void in
@@ -47,9 +47,22 @@ class SignInModel
 			log.debug("guid:\(signIn!.memberData?.guid)")
 			log.debug("guid:\(signIn!.memberData?.encodeGuid)")
 			
-			if let data = signIn!.memberData {
-				MyApp.sharedMember.insertMemberDataIntoDisk(data)					
-			}
+			var status_code = signIn!.status_code
+			let range       = status_code!.startIndex.advancedBy(0)...status_code!.startIndex.advancedBy(7)
+			status_code?.removeRange(range)
+			
+			if status_code! == "100" {	
+				let memberData = MemberData() 
+				if accountType == "email" {
+					memberData.email = account
+				} else {
+					memberData.phone = account						
+				}
+				
+				memberData.guid = signIn!.memberData!.guid
+				memberData.encodeGuid = signIn!.memberData!.encodeGuid
+				MyApp.sharedMember.insertMemberDataIntoDisk(memberData)					
+			}	
 
 			completionHandler(signIn: signIn, errorMessage: nil)
 		}

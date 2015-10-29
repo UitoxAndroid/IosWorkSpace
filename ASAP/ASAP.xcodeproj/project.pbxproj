@@ -659,6 +659,7 @@
 				AF7E8FEF1B95581200AFD3EF /* ItemInfo.swift */,
 				6018B5561BD8E21E0059809C /* CartList.swift */,
 				6018B5581BD8EC480059809C /* SqlCartList.swift */,
+				AFCF5D911BD9DFE30012E26B /* MemberModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -684,6 +685,11 @@
 				A1B36B181BC374B200ADEAAA /* ForgotPasswordViewController.swift */,
 				AF7E8FF51B95592500AFD3EF /* GoodsListViewController.swift */,
 				AF7E8FF71B95592500AFD3EF /* KindViewController.swift */,
+				AFF066681BAAA1E00098706F /* OnSaleViewController.swift */,
+				A1916A831BAAB9CD00DA5447 /* SignInViewController.swift */,
+				AFCF5D891BD9D2F60012E26B /* SignInDelegate.swift */,
+				AF7E8FF51B95592500AFD3EF /* GoodsListViewController.swift */,
+				AF7E900D1B957DB600AFD3EF /* FirstViewController.swift */,
 				AF7E902B1B96A2DD00AFD3EF /* MenuViewController.swift */,
 				AF7E8FF81B95592500AFD3EF /* MyTabBarViewController.swift */,
 				AFF066681BAAA1E00098706F /* OnSaleViewController.swift */,

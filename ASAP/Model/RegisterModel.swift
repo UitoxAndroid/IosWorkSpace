@@ -103,6 +103,23 @@ class RegisterModel
                 log.debug("statusCode:\(register!.status_code)")
                 log.debug("desctipgion:\(register!.description)")
 
+				var status_code = register!.status_code
+				let range       = status_code!.startIndex.advancedBy(0)...status_code!.startIndex.advancedBy(7)
+				status_code?.removeRange(range)
+
+				if status_code! == "100" {
+					let memberData = MemberData() 
+					if accountType == "email" {
+						memberData.email = account
+					} else {
+						memberData.phone = account						
+					}
+
+					memberData.guid = register!.guid!
+					memberData.encodeGuid = register!.encodeGuid!
+					MyApp.sharedMember.insertMemberDataIntoDisk(memberData)					
+				}
+				
                 completionHandler(register: register, errorMessage: nil)
             }
     }

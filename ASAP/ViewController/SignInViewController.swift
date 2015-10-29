@@ -12,7 +12,6 @@ class SignInViewController: UITableViewController
 { 
     lazy var signInModel: SignInModel? = SignInModel()
 	var	delegate: SignInDelegate? = nil
-    
     var account:    String = ""
     var password:   String = ""
 
@@ -30,6 +29,29 @@ class SignInViewController: UITableViewController
 	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if segue.identifier == "ShowRegisterViewController" {
+			if let registerViewController = segue.destinationViewController as? RegisterViewController {
+				registerViewController.delegate = delegate
+			}			
+		}
+	}
+	
+    // MARK: - Table view data source
+
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
+    }
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch (section) {
+        case 1:
+            return 2
+        default:
+            return 3
+        }
     }
     
     //顯示密碼
@@ -58,26 +80,41 @@ class SignInViewController: UITableViewController
             return
         }
         
-        self.pleaseWait()
-        signInModel?.sendSignInData(account, password: password, completionHandler: { (signIn, errorMessage) -> Void in
-            self.clearAllNotice()
+		self.showBusy("登入中...")
+		
+        signInModel?.sendSignInData(account, password: password, completionHandler: { 
+			(signIn: SignInResponse?, errorMessage: String?) -> Void in
+			
+			self.clearAllNotice()
+			
             if (signIn == nil) {
                 self.showAlert(errorMessage!)
             } else {
                 var status_code = signIn!.status_code
                 let range = status_code!.startIndex.advancedBy(0)...status_code!.startIndex.advancedBy(7)
                 status_code?.removeRange(range)
-                
+                                
                 if(status_code != "100") {
                     self.showAlert((signIn!.description)!)
                     return
                 }
                 
                 self.showSuccess("登入成功")
-            }
-        })
-    }
-    
+				self.delegate?.signInSuccess()
+				self.dismissViewControllerAnimated(true, completion: nil)
+
+//				let alert = UIAlertController(title: "", message: "登入成功!!", preferredStyle: UIAlertControllerStyle.Alert)
+//				let confirmAction = UIAlertAction(title: "確定", style: UIAlertActionStyle.Default, handler: { act in
+//					self.dismissViewControllerAnimated(true, completion: {
+//						self.delegate?.signInSuccess()
+//					})
+//				})
+//				alert.addAction(confirmAction)
+//				self.presentViewController(alert, animated: true, completion: nil)
+			}
+		})
+	}
+	
     // 檢查必填
     func checkRequire() -> Bool {
         account     = self.accountText.text!

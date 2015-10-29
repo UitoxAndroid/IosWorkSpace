@@ -78,21 +78,25 @@ extension UIViewController
 	
 	//秀忙碌圖加文字
 	func showBusy(text: String!) {
+		setupHUD()
 		SVProgressHUD.showWithStatus(text)
 	}
 	
 	//秀成功文字
 	func showSuccess(text: String!) {
+		setupHUD()
 		SVProgressHUD.showSuccessWithStatus(text)
 	}
 
 	//秀錯誤文字
 	func showError(text: String!) {
+		setupHUD()
 		SVProgressHUD.showErrorWithStatus(text)
 	}
 	
 	//秀資訊文字
 	func showInfo(text: String!) {
+		setupHUD()
 		SVProgressHUD.showInfoWithStatus(text)
 	}
 

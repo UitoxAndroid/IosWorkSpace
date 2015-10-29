@@ -56,7 +56,8 @@ class MenuViewController: UIViewController
 	
 	func updateSignStatus() {
 		if MyApp.sharedMember.encodeGuid != "" {
-			helloMemberLabel.text = "hi, \(MyApp.sharedMember.email)"
+			let account = MyApp.sharedMember.email == "" ? MyApp.sharedMember.phone : MyApp.sharedMember.email
+			helloMemberLabel.text = "hi, \(account)"
 			signInButton.setTitle("登出", forState: UIControlState.Normal)
 		} else {
 			helloMemberLabel.text = ""
@@ -96,6 +97,7 @@ class MenuViewController: UIViewController
 	
 	@IBAction func signInButtonOnClicked(sender: UIButton) {
 		if signInButton.titleLabel!.text == "登出" {
+			self.showSuccess("登出成功!")
 			MyApp.sharedMember.deleteMemberData()
 			updateSignStatus()		
 		} else {
@@ -114,7 +116,7 @@ class MenuViewController: UIViewController
 		menuData?.getMenuData(siSeq) { (menu: MenuResponse?, errorMessage: String?) in
 			self.clearAllNotice()
 			if menu == nil {
-				self.showAlert(errorMessage!)
+				self.showError("資料有誤!")
 			} else {
 				completionHandler(menuResponse: menu)
 			}
@@ -126,7 +128,7 @@ class MenuViewController: UIViewController
 		categoryData?.getCategoryData(siSeq, page: 1, sortBy: SortBy.SmSoldQty, desc: true) { (category: SearchListResponse?, errorMessage: String?) in
 			self.clearAllNotice()
 			if errorMessage != nil {
-				self.showAlert(errorMessage!)
+				self.showError("資料有誤!")
 			} else {
 				completionHandler(categoryResponse: category!)
 			}
@@ -315,8 +317,8 @@ extension MenuViewController: SKSTableViewDelegate
 			cell = SKSTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: subCellIdentifier)
 		}
 		
-		log.info("row:\(indexPath.row)")
-		log.info("subRow:\(indexPath.subRow)")
+		log.debug("row:\(indexPath.row)")
+		log.debug("subRow:\(indexPath.subRow)")
 		
 		
 		

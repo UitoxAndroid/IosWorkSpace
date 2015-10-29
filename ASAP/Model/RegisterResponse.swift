@@ -13,6 +13,8 @@ public class RegisterResponse : Mappable
 {
     public var status_code: String?
     public var description: String?
+	public var guid:        String?
+    public var encodeGuid:  String?
     
     required public init?(_ map: Map) {
         
@@ -21,5 +23,7 @@ public class RegisterResponse : Mappable
     public func mapping(map: Map) {
         status_code <- map["status_code"]
         description <- map["description"]
+		guid		<- map["data.mem_guid"]
+		encodeGuid	<- map["data.encode_guid"]
     }
 }

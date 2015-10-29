@@ -12,7 +12,7 @@ class ResetPasswordViewController: UITableViewController {
 
     var resetPasswordModel: ResetPasswordModel? = ResetPasswordModel()
     var passwrodStrength:   Strength            = Strength.Weak
-    
+
     var account:    String = ""
     var password:   String = ""
     
@@ -110,8 +110,10 @@ class ResetPasswordViewController: UITableViewController {
                     return
                 }
                 self.showSuccess("密碼重設成功，下次登入請使用新密碼")
-                let signInView = self.storyboard?.instantiateViewControllerWithIdentifier("SignInViewController") as! SignInViewController
-                self.navigationController?.pushViewController(signInView, animated: false)
+				
+				self.navigationController?.popToRootViewControllerAnimated(true)
+//                let signInView = self.storyboard?.instantiateViewControllerWithIdentifier("SignInViewController") as! SignInViewController
+//                self.navigationController?.pushViewController(signInView, animated: false)
             }
         })
     }
