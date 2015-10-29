@@ -3151,7 +3151,7 @@
                                                 <constraint firstAttribute="height" constant="22" id="Muq-Ju-n3o"/>
                                                 <constraint firstAttribute="width" constant="21" id="aqk-u2-NNb"/>
                                             </constraints>
-                                            <state key="normal" title="Button" image="10058C8A-AE98-489A-B60A-B66CC54CA0DC"/>
+                                            <state key="normal" title="Button" image="BA6DC3DB-2C76-4F66-A179-52A8A90485C4"/>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SnZ-mm-BAb">
                                             <rect key="frame" x="37" y="5" width="33" height="33"/>
@@ -3979,7 +3979,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="10058C8A-AE98-489A-B60A-B66CC54CA0DC" width="18" height="18">
+        <image name="BA6DC3DB-2C76-4F66-A179-52A8A90485C4" width="18" height="18">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
