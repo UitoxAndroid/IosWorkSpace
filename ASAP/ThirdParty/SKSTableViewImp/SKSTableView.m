@@ -117,7 +117,7 @@
             
             if (cell.isExpanded) {
                 
-                cell.accessoryView.transform = CGAffineTransformMakeRotation(M_PI);
+                cell.accessoryView.transform = CGAffineTransformMakeRotation(M_PI_2);
                 
             } else {
                 
@@ -237,14 +237,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([_SKSTableViewDelegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)])
-        [_SKSTableViewDelegate tableView:tableView didSelectRowAtIndexPath:indexPath];
-    
-    if ([_SKSTableViewDelegate respondsToSelector:@selector(tableView:didDeselectRowAtIndexPath:)])
-        [_SKSTableViewDelegate tableView:tableView didDeselectRowAtIndexPath:indexPath];
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+	if ([_SKSTableViewDelegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)])
+		[_SKSTableViewDelegate tableView:tableView didSelectRowAtIndexPath:indexPath];
+	
+	if ([_SKSTableViewDelegate respondsToSelector:@selector(tableView:didDeselectRowAtIndexPath:)])
+		[_SKSTableViewDelegate tableView:tableView didDeselectRowAtIndexPath:indexPath];
+	
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     __block SKSTableViewCell *cell = (SKSTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     
     if ([cell isKindOfClass:[SKSTableViewCell class]] && cell.isExpandable) {
@@ -295,7 +295,9 @@
                 [cell removeIndicatorView];
             
         }];
-        
+     
+		
+
     }
 }
 
@@ -608,8 +610,11 @@
     NSInteger index = 0;
     NSInteger row = 0;
     
+//	NSLog(@"1 - index:%ld, indexPath.section:%ld, indexPath.row:%ld", (long)index, (long)indexPath.section, (long)indexPath.row);
+	
     while (index < indexPath.row) {
-        
+//		NSLog(@"2 - index:%ld, indexPath.section:%ld, indexPath.row:%ld", (long)index, (long)indexPath.section, (long)indexPath.row);
+		
         NSIndexPath *tempIndexPath = [self correspondingIndexPathForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:indexPath.section]];
         BOOL isExpanded = [[self.expandableCells allKeys] containsObject:tempIndexPath] ? [[self.expandableCells objectForKey:tempIndexPath] boolValue] : NO;
         

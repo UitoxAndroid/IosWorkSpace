@@ -8,48 +8,100 @@
 
 import UIKit
 
-class AccountViewController: UIViewController, UIWebViewDelegate, NSURLConnectionDataDelegate
+class AccountViewController: UIViewController
 {
-	var webView: UIWebView?
+	@IBOutlet weak var webView: UIWebView!
 	var authenticated:Bool = false
 	var urlConnection:NSURLConnection?
 	var request:NSMutableURLRequest?
 	let loginUrl = NSURL(string: DomainPath.MemberTw1.rawValue + "/maccount/app_login")!
-	let memberUrl = NSURL(string: DomainPath.MemberTw1.rawValue + "/morder/orderList")!
+	let memberUrl = NSURL(string: DomainPath.MemberTw1.rawValue + "/account/home")!
 
-    override func viewDidLoad() {
+	override func viewDidLoad() {
         super.viewDidLoad()
-
-		self.webView = UIWebView(frame: self.view.bounds)
-		self.webView!.scalesPageToFit = true
-		self.webView!.delegate = self
-		self.view.addSubview(self.webView!)
+			
+		if MyApp.sharedMember.guid != "" {
+			signInSuccess()
+		}
     }
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(true)
+	}
+}
 
-		SCCookie.RestoreFileToCookieStorage()
+extension String 
+{
+	/// Percent escape value to be added to a URL query value as specified in RFC 3986
+	///
+	/// This percent-escapes all characters besize the alphanumeric character set and "-", ".", "_", and "~".
+	///
+	/// http://www.ietf.org/rfc/rfc3986.txt
+	///
+	/// :returns: Return precent escaped string.
+	func stringByAddingPercentEncodingForURLQueryValue() -> String? {
+		let characterSet = NSMutableCharacterSet.alphanumericCharacterSet()
+		characterSet.addCharactersInString("-._~")
+		
+		return self.stringByAddingPercentEncodingWithAllowedCharacters(characterSet)
+	}
+	
+}
 
-		self.request = NSMutableURLRequest(URL: memberUrl)
-		self.request!.setValue("asap", forHTTPHeaderField: "User-agent")
-		self.request!.setValue("text/html; charset=utf-8", forHTTPHeaderField: "Content-Type")
-		self.request!.allHTTPHeaderFields = SCCookie.GetRequestFiledByCookie(SCCookie.GetCookieArray())
+extension Dictionary 
+{	
+	/// Build string representation of HTTP parameter dictionary of keys and objects
+	///
+	/// This percent escapes in compliance with RFC 3986
+	///
+	/// http://www.ietf.org/rfc/rfc3986.txt
+	///
+	/// :returns: String representation in the form of key1=value1&key2=value2 where the keys and values are percent escaped
+	func stringFromHttpParameters() -> String {
+		let parameterArray = self.map { (key, value) -> String in
+			let percentEscapedKey = (key as! String).stringByAddingPercentEncodingForURLQueryValue()!
+			let percentEscapedValue = (value as! String).stringByAddingPercentEncodingForURLQueryValue()!
+			return "\(percentEscapedKey)=\(percentEscapedValue)"
+		}
+		
+		return parameterArray.joinWithSeparator("&")
+	}	
+}
+
+
+// MARK: - SignInDelegate
+
+extension AccountViewController: SignInDelegate
+{
+	func signInSuccess() {
+		log.debug("signInSuccess")
+		
+		self.request = NSMutableURLRequest(URL: loginUrl)
+		self.request!.HTTPMethod = "POST"
+		
+		let parameters = ["encode":MyApp.sharedMember.encodeGuid, "ws_seq": "AW000001"]
+		let parameterString = parameters.stringFromHttpParameters()
+		let data = parameterString.dataUsingEncoding(NSUTF8StringEncoding)
+		
+		self.request!.HTTPBody = data	
+		
 		self.pleaseWait()
-		self.webView!.loadRequest(self.request!)
+		self.webView.loadRequest(self.request!)
 	}
-
-	@IBAction func Login(sender: AnyObject) {
-		let myTabBarViewController = UIApplication.sharedApplication().delegate?.window!?.rootViewController as? MyTabBarViewController
-		myTabBarViewController!.login("shengeih@gmail.com", passwd: "123456")
+	
+	func signInCancel() {
+		log.debug("signInCancel")
 	}
+}
 
+
+// MARK: - UIWebViewDelegate
+
+extension AccountViewController: UIWebViewDelegate 
+{	
 	func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
 		log.debug("Did start loading: \(request.URL!.absoluteString)")
-
-		SCCookie.RestoreFileToCookieStorage()
-		self.request!.allHTTPHeaderFields = SCCookie.GetRequestFiledByCookie(SCCookie.GetCookieArray())
-
+				
 		if !authenticated {
 			authenticated = false
 			urlConnection = NSURLConnection(request: self.request!, delegate: self)!
@@ -58,18 +110,35 @@ class AccountViewController: UIViewController, UIWebViewDelegate, NSURLConnectio
 		}
 		return true
 	}
+	
+	func webViewDidFinishLoad(webView: UIWebView) {
+		log.debug("Did finish load")
+		self.clearAllNotice()
+	}
+}
 
+
+// MARK: - NSURLConnectionDataDelegate
+
+extension AccountViewController: NSURLConnectionDataDelegate
+{
 	func connection(connection: NSURLConnection, willSendRequest request: NSURLRequest, redirectResponse response: NSURLResponse?) -> NSURLRequest? {
 		log.debug("redirect \(request.URLString)")
-
-		SCCookie.RestoreFileToCookieStorage()
-		self.request!.allHTTPHeaderFields = SCCookie.GetRequestFiledByCookie(SCCookie.GetCookieArray())
-
+				
+		//登入後會轉導這個網址，必須載到webVeiew
+		if request.URLString == memberUrl.URLString {
+			authenticated = true
+			urlConnection!.cancel()
+			webView.loadRequest(self.request!)			
+		}
+		
 		return self.request
 	}
-
+	
+	//有https驗證時會跑進來
 	func connection(connection: NSURLConnection, willSendRequestForAuthenticationChallenge challenge: NSURLAuthenticationChallenge) {
 		log.debug("WebController Got auth challange via NSURLConnection")
+		
 		if challenge.previousFailureCount == 0 {
 			authenticated = true
 			let credential: NSURLCredential = NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!)
@@ -80,22 +149,14 @@ class AccountViewController: UIViewController, UIWebViewDelegate, NSURLConnectio
 		}
 		challenge.sender!.continueWithoutCredentialForAuthenticationChallenge(challenge)
 	}
-
+	
+	//收到response時，目前好像不會跑進來，所以改在willSendRequest方法處理
 	func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse) {
 		log.debug("WebController received response via NSURLConnection")
-
+		
 		authenticated = true
 		urlConnection!.cancel()
-
-		SCCookie.RestoreFileToCookieStorage()
-
-		self.request!.allHTTPHeaderFields = SCCookie.GetRequestFiledByCookie(SCCookie.GetCookieArray())
-
-		webView!.loadRequest(self.request!)
-	}
-
-	func webViewDidFinishLoad(webView: UIWebView) {
-		log.debug("Did finish load")
-		self.clearAllNotice()
+				
+		webView.loadRequest(self.request!)
 	}
 }

@@ -18,6 +18,7 @@ class MyTabBarViewController: UITabBarController
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		self.delegate = self
 		self.webView = UIWebView(frame: self.view.bounds)
 		self.webView.delegate = self
 	}
@@ -34,6 +35,25 @@ class MyTabBarViewController: UITabBarController
 	}
 }
 
+
+// MARK - UITabBarControllerDelegate
+
+extension MyTabBarViewController: UITabBarControllerDelegate 
+{
+	func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+		// 點選到帳戶頁籤
+		if self.selectedIndex == 2 {
+			if let accountViewController = viewController.childViewControllers[0] as? AccountViewController {
+				if MyApp.sharedMember.guid == "" {
+					if let signInViewController = self.showSignInViewController() {
+						signInViewController.delegate = accountViewController
+					}
+				}
+			}
+		}
+	}
+
+}
 
 // MARK - UIWebViewDelegate 
 

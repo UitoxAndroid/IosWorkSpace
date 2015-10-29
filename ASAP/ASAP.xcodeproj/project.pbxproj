@@ -135,6 +135,9 @@
 		AFB5F8891BCB65E900D24B1C /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB5F8841BCB65E900D24B1C /* SVProgressHUD.m */; settings = {ASSET_TAGS = (); }; };
 		AFB5F88A1BCB65E900D24B1C /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB5F8861BCB65E900D24B1C /* SVRadialGradientLayer.m */; settings = {ASSET_TAGS = (); }; };
 		AFCA535D1BB5240F0009BF76 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCA535C1BB5240F0009BF76 /* AccountViewController.swift */; };
+		AFCF5D8A1BD9D2F60012E26B /* SignInDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCF5D891BD9D2F60012E26B /* SignInDelegate.swift */; settings = {ASSET_TAGS = (); }; };
+		AFCF5D8C1BD9DECB0012E26B /* MyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCF5D8B1BD9DECB0012E26B /* MyApp.swift */; settings = {ASSET_TAGS = (); }; };
+		AFCF5D921BD9DFE30012E26B /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCF5D911BD9DFE30012E26B /* MemberModel.swift */; settings = {ASSET_TAGS = (); }; };
 		AFEB07051BBBB380001C2AD7 /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB06F41BBBB380001C2AD7 /* FromJSON.swift */; settings = {ASSET_TAGS = (); }; };
 		AFEB07061BBBB380001C2AD7 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB06F51BBBB380001C2AD7 /* Mapper.swift */; settings = {ASSET_TAGS = (); }; };
 		AFEB07071BBBB380001C2AD7 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB06F61BBBB380001C2AD7 /* Operators.swift */; settings = {ASSET_TAGS = (); }; };
@@ -350,6 +353,9 @@
 		AFB5F8851BCB65E900D24B1C /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
 		AFB5F8861BCB65E900D24B1C /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		AFCA535C1BB5240F0009BF76 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AccountViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		AFCF5D891BD9D2F60012E26B /* SignInDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInDelegate.swift; sourceTree = "<group>"; };
+		AFCF5D8B1BD9DECB0012E26B /* MyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyApp.swift; sourceTree = "<group>"; };
+		AFCF5D911BD9DFE30012E26B /* MemberModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberModel.swift; sourceTree = "<group>"; };
 		AFEB06EF1BBBB380001C2AD7 /* AlamofireObjectMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlamofireObjectMapper.h; sourceTree = "<group>"; };
 		AFEB06F41BBBB380001C2AD7 /* FromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromJSON.swift; sourceTree = "<group>"; };
 		AFEB06F51BBBB380001C2AD7 /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Mapper.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -577,6 +583,7 @@
 				AF251DC71B7C869F00F06143 /* ApiManager.swift */,
 				AFEF5D491BA2A8DF00A4961D /* ViewControllerCommon.swift */,
 				AF790AE31B7D922000070875 /* ASAP-Bridging-Header.h */,
+				AFCF5D8B1BD9DECB0012E26B /* MyApp.swift */,
 			);
 			path = UitoxCommon;
 			sourceTree = "<group>";
@@ -987,6 +994,7 @@
 				AF251DCC1B7C869F00F06143 /* WeatherResponse.swift in Sources */,
 				AF5F2C4B1BBD3B6C00A7A977 /* ServerTrustPolicy.swift in Sources */,
 				AF0DD7DC1BD621A100540B11 /* MJRefreshFooterView.m in Sources */,
+				AFCF5D8C1BD9DECB0012E26B /* MyApp.swift in Sources */,
 				AF0DD7BE1BD0D17200540B11 /* UIImage+Normalize.swift in Sources */,
 				AFEF5D4A1BA2A8DF00A4961D /* ViewControllerCommon.swift in Sources */,
 				AF0DD7BD1BD0D17200540B11 /* UIImage+Decode.swift in Sources */,
@@ -1026,6 +1034,7 @@
 				60567CB21BCCB9E1005BB52A /* SizeCell.swift in Sources */,
 				AF5F2C481BBD3B6C00A7A977 /* Request.swift in Sources */,
 				AFEB070C1BBBB380001C2AD7 /* DateTransform.swift in Sources */,
+				AFCF5D921BD9DFE30012E26B /* MemberModel.swift in Sources */,
 				AFEF5D441BA15A7500A4961D /* CampaignResponse.swift in Sources */,
 				60CDBFCE1BDF46A1003F9FC9 /* NavigationCell.swift in Sources */,
 				AFEB070F1BBBB380001C2AD7 /* TransformOf.swift in Sources */,
@@ -1093,6 +1102,7 @@
 				AF790AE81B81C0D900070875 /* OpenWeatherModel.swift in Sources */,
 				6018B5571BD8E21E0059809C /* CartList.swift in Sources */,
 				60567C831BCCB863005BB52A /* GoodsPageModel.swift in Sources */,
+				AFCF5D8A1BD9D2F60012E26B /* SignInDelegate.swift in Sources */,
 				60567CA41BCCB9E1005BB52A /* DirectionCell.swift in Sources */,
 				AF0DD7DB1BD621A100540B11 /* MJRefreshConst.m in Sources */,
 				AF0DD7DD1BD621A100540B11 /* MJRefreshHeaderView.m in Sources */,

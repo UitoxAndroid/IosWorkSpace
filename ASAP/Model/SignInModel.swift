@@ -32,22 +32,26 @@ class SignInModel
             "passwd"        : encodePassword,   //"MTIzNDU2"
             "ip"			: "10.1.88.102",
             "login_type"	: ""
-            ]
+		]
             
-            ApiManager.sharedInstance.postDictionary(url, params: request as [String : String]) {
-                (signIn: SignInResponse?, error: String?) -> Void in
-                
-                if signIn == nil {
-                    completionHandler(signIn: nil, errorMessage: error)
-                    return
-                }
-                
-                log.debug("statusCode:\(signIn!.status_code)")
-                log.debug("desctipgion:\(signIn!.description)")
-                log.debug("guid:\(signIn!.memberData?.guid)")
-                log.debug("guid:\(signIn!.memberData?.encodeGuid)")
+		ApiManager.sharedInstance.postDictionary(url, params: request as [String : String]) {
+			(signIn: SignInResponse?, error: String?) -> Void in
+			
+			if signIn == nil {
+				completionHandler(signIn: nil, errorMessage: error)
+				return
+			}
+							
+			log.debug("statusCode:\(signIn!.status_code)")
+			log.debug("desctipgion:\(signIn!.description)")
+			log.debug("guid:\(signIn!.memberData?.guid)")
+			log.debug("guid:\(signIn!.memberData?.encodeGuid)")
+			
+			if let data = signIn!.memberData {
+				MyApp.sharedMember.insertMemberDataIntoDisk(data)					
+			}
 
-                completionHandler(signIn: signIn, errorMessage: nil)
-            }
+			completionHandler(signIn: signIn, errorMessage: nil)
+		}
     }
 }

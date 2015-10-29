@@ -8,9 +8,10 @@
 
 import UIKit
 
-class SignInViewController: UITableViewController {
-    
-    var signInModel: SignInModel? = SignInModel()
+class SignInViewController: UITableViewController 
+{ 
+    lazy var signInModel: SignInModel? = SignInModel()
+	var	delegate: SignInDelegate? = nil
     
     var account:    String = ""
     var password:   String = ""
@@ -23,17 +24,12 @@ class SignInViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         self.passwordSwitch.addTarget(self, action: Selector("PasswordSwitch:"), forControlEvents: UIControlEvents.ValueChanged)
+		self.setRightItemClose()
     }
-
+	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //顯示密碼
@@ -46,7 +42,17 @@ class SignInViewController: UITableViewController {
         self.sendSignInData()
     }
     
+	//關閉
+	func closeButtonOnClicked(sender: UIBarButtonItem) {
+		self.dismissViewControllerAnimated(true, completion: {
+			if self.delegate != nil {
+				self.delegate?.signInCancel()
+			}
+		})
+	}
+	
     // MARK: Call Api
+	
     func sendSignInData() {
         if(!self.checkRequire()) {
             return
