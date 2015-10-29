@@ -57,7 +57,8 @@ public class ApiManager
 		}
 		
 		manager.request(.POST, urlPath, parameters: params, encoding: .JSON).responseObject {
-			(req:NSURLRequest, httpUrlResponse:NSHTTPURLResponse?, responseEntity:T?, _, error:ErrorType?) in
+			(req:NSURLRequest, httpUrlResponse:NSHTTPURLResponse?, responseEntity:T?, obj:AnyObject?, error:ErrorType?) in
+			log.info("\(obj)")
 			if responseEntity == nil || error != nil {
 				if error != nil {
 					log.error(error.debugDescription)

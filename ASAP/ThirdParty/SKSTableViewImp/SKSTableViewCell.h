@@ -31,6 +31,16 @@
 @property (nonatomic, assign) NSString *sid;
 
 /**
+ * 我加的參數(位於第幾層)
+ */
+@property (nonatomic, assign) NSInteger level;
+
+/**
+ * 我加的參數(同層的其他選單)
+ */
+@property (nonatomic, strong) NSArray *nearMenuList;
+
+/**
  * Adds an indicator view into the receiver when the relevant cell is expanded.
  */
 - (void)addIndicatorView;

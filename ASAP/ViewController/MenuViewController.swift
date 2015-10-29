@@ -19,13 +19,13 @@ class MenuViewController: UIViewController
 	lazy var menuData:MenuModel? = MenuModel()
 	var leftMenuList:[DataInfo] = []
 	var rightMenuList:[DataInfo] = []
-	var detailMenuList:[DataInfo] = []
 	var rightTableView: SKSTableView!
 	var contentView: UIView!
 	var categoryView: PGCategoryView!
 	let cellIdentifier = "Cell"
 	let sKSCellIdentifier = "SKSTableViewCell"
 	let subCellIdentifier = "SubCell"
+	var twoAllMenuList = [Int: [DataInfo]]()
 
 	
 	// MARK: - View
@@ -109,7 +109,7 @@ class MenuViewController: UIViewController
 	
 	// MARK: - Call Api
 
-	func getMenu( siSeq: String, completionHandler: (menuResponse: MenuResponse?) -> Void) {
+	func getMenu(siSeq: String, completionHandler: (menuResponse: MenuResponse?) -> Void) {
 		self.pleaseWait()
 		menuData?.getMenuData(siSeq) { (menu: MenuResponse?, errorMessage: String?) in
 			self.clearAllNotice()
@@ -121,8 +121,8 @@ class MenuViewController: UIViewController
 		}
 	}
 
-	func getCategory( siSeq: String, completionHandler: (categoryResponse: SearchListResponse?) -> Void) {
-		self.pleaseWait()
+	func getCategory(siSeq: String, completionHandler: (categoryResponse: SearchListResponse?) -> Void) {
+		self.showBusy("請稍候...")
 		categoryData?.getCategoryData(siSeq, page: 1, sortBy: SortBy.SmSoldQty, desc: true) { (category: SearchListResponse?, errorMessage: String?) in
 			self.clearAllNotice()
 			if errorMessage != nil {
@@ -180,7 +180,7 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate
 			cell.textLabel!.text = self.rightMenuList[indexPath.row].name
 			cell.sid = self.rightMenuList[indexPath.row].sid
 			cell.tag = indexPath.row
-			
+			cell.level = 2
 			cell.isExpandable = true
 			
 			return cell
@@ -222,20 +222,29 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate
 				return
 			}
 			
-			self.detailMenuList = [DataInfo]()
+			if cell!.isExpanded == false && self.twoAllMenuList[cell!.tag] != nil { 
+				self.twoAllMenuList.removeValueForKey(cell!.tag)
+			}
 			
-			getMenu(selectedRowId!) {
-				(menu: MenuResponse?) in
-				if let menu = menu {
-					if menu.menuList.count != 0 {
-						menu.menuList.insert(DataInfo()!, atIndex: 0)
-						self.detailMenuList = menu.menuList
-						(tableView as! SKSTableView).doSubCell(tableView, didSelectRowAtIndexPath: indexPath)
-						return
+			if cell!.level == 2 {
+				getMenu(selectedRowId!) {
+					(menu: MenuResponse?) in
+					if let menu = menu {
+						if menu.menuList.count != 0 {
+							menu.menuList.insert(DataInfo()!, atIndex: 0)
+							self.twoAllMenuList.updateValue(menu.menuList, forKey: cell!.tag)
+							(tableView as! SKSTableView).doSubCell(tableView, didSelectRowAtIndexPath: indexPath)
+							return
+						}
 					}
+					
+					self.pushToCategoryPage(selectedRowId!, menu: self.rightMenuList)
+				}				
+			} else {
+				let list = cell!.nearMenuList as? [DataInfo]
+				if let list = list {
+					self.pushToCategoryPage(selectedRowId!, menu: list)
 				}
-				
-				self.pushToCategoryPage(selectedRowId!, menu: self.rightMenuList)
 			}
 		}
 	}
@@ -290,28 +299,37 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate
 
 extension MenuViewController: SKSTableViewDelegate
 {
-	func tableView(tableView: SKSTableView!, numberOfSubRowsAtIndexPath indexPath: NSIndexPath!) -> Int {
-		if self.detailMenuList.count == 0 {
-			return 0
+	func tableView(tableView: SKSTableView!, numberOfSubRowsAtIndexPath indexPath: NSIndexPath!) -> Int {	
+		if let list = self.twoAllMenuList[indexPath.row] {
+			return list.count - 1
 		}
-		return self.detailMenuList.count - 1
+		
+		return 0
 	}
 
 	func tableView(tableView: SKSTableView!, cellForSubRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
 		
-		var cell: SKSTableViewCell? = tableView.dequeueReusableCellWithIdentifier(subCellIdentifier) as? SKSTableViewCell
+		var cell = tableView.dequeueReusableCellWithIdentifier(subCellIdentifier) as? SKSTableViewCell
 		
 		if cell == nil {
 			cell = SKSTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: subCellIdentifier)
 		}
 		
-		log.debug("row:\(indexPath.row)")
-		log.debug("subRow:\(indexPath.subRow)")
+		log.info("row:\(indexPath.row)")
+		log.info("subRow:\(indexPath.subRow)")
 		
-		let name = self.detailMenuList[indexPath.subRow].name
-		cell?.textLabel?.text = name
-		cell?.sid = self.detailMenuList[indexPath.subRow].sid
-		cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+		
+		
+		guard let list = self.twoAllMenuList[indexPath.row] else {
+			return cell!
+		}
+		
+		let name = list[indexPath.subRow].name
+		cell!.textLabel!.text = name
+		cell!.sid = list[indexPath.subRow].sid
+		cell!.level = 3
+		cell!.nearMenuList = list
+		cell!.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
 		
 		return cell!
 	}

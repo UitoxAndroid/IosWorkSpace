@@ -161,7 +161,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="sds-T3-zf5">
-                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
+                                <rect key="frame" x="0.0" y="108" width="600" height="472"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -175,7 +175,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="sds-T3-zf5" secondAttribute="trailing" id="9yP-e0-cMc"/>
                             <constraint firstItem="sds-T3-zf5" firstAttribute="top" secondItem="304-WK-FWe" secondAttribute="top" constant="44" id="FLd-Ih-aDz"/>
-                            <constraint firstAttribute="bottom" secondItem="sds-T3-zf5" secondAttribute="bottom" id="HFM-D2-8hQ"/>
+                            <constraint firstAttribute="bottom" secondItem="sds-T3-zf5" secondAttribute="bottom" constant="20" symbolic="YES" id="HFM-D2-8hQ"/>
                             <constraint firstAttribute="trailing" secondItem="zPJ-pe-vef" secondAttribute="trailing" id="Qfu-h1-Fkb"/>
                             <constraint firstItem="sds-T3-zf5" firstAttribute="top" secondItem="zPJ-pe-vef" secondAttribute="bottom" id="SHa-9G-FsE"/>
                             <constraint firstItem="zPJ-pe-vef" firstAttribute="leading" secondItem="304-WK-FWe" secondAttribute="leading" id="cOJ-T8-tMx"/>
@@ -3061,7 +3061,7 @@
                                                 <constraint firstAttribute="height" constant="22" id="Muq-Ju-n3o"/>
                                                 <constraint firstAttribute="width" constant="21" id="aqk-u2-NNb"/>
                                             </constraints>
-                                            <state key="normal" title="Button" image="4C679CB2-F5E8-4FE2-847F-5B3F59C7380B"/>
+                                            <state key="normal" title="Button" image="6CB8D7ED-C7F7-49D0-AD40-C14B4C56FC36"/>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SnZ-mm-BAb">
                                             <rect key="frame" x="37" y="5" width="33" height="33"/>
@@ -3924,7 +3924,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="4C679CB2-F5E8-4FE2-847F-5B3F59C7380B" width="18" height="18">
+        <image name="6CB8D7ED-C7F7-49D0-AD40-C14B4C56FC36" width="18" height="18">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
