@@ -19,7 +19,19 @@ class BannerCell: UITableViewCell, UIScrollViewDelegate {
     @IBOutlet weak var ImageBannerScroll: UIScrollView!
     @IBOutlet weak var BannerPageControl: UIPageControl!
     internal var imageList:[String]!
+    var isCare:Bool = false
     
+    
+    @IBAction func btnStarPressed(sender: UIButton) {
+        if(isCare == false) {
+            self.btnStar.setBackgroundImage(UIImage(named: "ic_star"), forState: UIControlState.Normal)
+            isCare = true
+        } else {
+            self.btnStar.setBackgroundImage(UIImage(named: "ic_star_outline"), forState: UIControlState.Normal)
+            isCare = false
+        }
+    }
+   
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -27,34 +39,14 @@ class BannerCell: UITableViewCell, UIScrollViewDelegate {
         lblGoodsName.lineBreakMode = NSLineBreakMode.ByWordWrapping
         lblGoodsName.numberOfLines = 2
         
+        lblGoodsdesc1.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        lblGoodsdesc1.numberOfLines = 2
+        
         ImageBannerSetting()
     }
    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-    }
-    
-    let checkedImage = UIImage(named: "ic_star") as UIImage?
-    let uncheckedImage = UIImage(named: "ic_star_outline") as UIImage?
-    
-    var isChecked:Bool = false{
-        didSet{
-            if isChecked == true{
-                btnStar.setImage(checkedImage, forState: .Normal)
-            }else{
-                btnStar.setImage(uncheckedImage, forState: .Normal)
-            }
-        }
-    }
-    
-    @IBAction func starbtnClick(sender: UIButton) {
-        if(sender == self){
-            if isChecked == true{
-                isChecked = false
-            }else{
-                isChecked = true
-            }
-        }
     }
     
     func ImageBannerSetting() {

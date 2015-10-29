@@ -8,17 +8,25 @@
 
 import UIKit
 
-class SizeCell: UITableViewCell {
-
+class SizeCell: UITableViewCell,UICollectionViewDataSource,UICollectionViewDelegate {
+    var SizeList:[String] = []
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
-
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return SizeList.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let sizeCell:SizeCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("SizeCell", forIndexPath: indexPath) as! SizeCollectionViewCell
+        sizeCell.btnSelectSize.setTitle(SizeList[indexPath.row], forState: .Normal)
+        return sizeCell
     }
 
 }
