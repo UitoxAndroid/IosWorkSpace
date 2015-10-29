@@ -13,12 +13,34 @@ class MoreToBuyCell: UITableViewCell {
     @IBOutlet weak var ckboxIsbuy:Checkbox!
     @IBOutlet weak var img:UIImageView!
     @IBOutlet weak var lblPrice: UILabel!
+    @IBOutlet weak var lblSpec: UILabel!
+    @IBOutlet weak var lblVolume: UILabel!
+    
+    
+    var imageURL:String?
+    lazy var placeholderImage: UIImage = {
+        let image = UIImage(named: "PlaceholderImage")!
+        return image
+        }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+//        setImageURL()
     }
-
+    
+    
+    
+    func setImageURL() {
+        let URL = NSURL(string: imageURL!)!
+        img.kf_setImageWithURL(URL, placeholderImage: placeholderImage, optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)],
+            progressBlock: { (receivedSize, totalSize) -> () in
+        }) { (image, error, cacheType, imageURL) -> () in
+            if error != nil  {
+                log.debug(error?.description)
+            }
+        }
+    }
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

@@ -15,16 +15,35 @@ class GoodsTableViewController: UITableViewController
     lazy var goodsPageModel:GoodsPageModel? = GoodsPageModel()
     lazy var campaignData:CampaignModel? = CampaignModel()
     var goodsInfo:GoodsPageItemInfo? = nil
+    var suggestGoods:SuggestedData? = nil
     var isOpenMoroToBuyCell:Bool = false
     var isCampaignBegin:Bool = true
+    var goodsResponse:GoodsPageResponse? = nil
     
+    
+    var controllerSpec : UIAlertController?
+    var controllerVolume : UIAlertController?
+ 
+    @IBAction func showSheetSpec(sender: UIButton) {
+        self.presentViewController(controllerSpec!, animated: true, completion: nil)
+    }
+    @IBAction func showSheetVolume(sender: UIButton) {
+        self.presentViewController(controllerVolume!, animated: true, completion: nil)
+    }
     
     
     // MARK: - View
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.getGoodsPageData()
+        
+        if(goodsResponse == nil) {
+            self.getGoodsPageData()
+        } else {
+            goodsInfo = goodsResponse?.itemInfo
+            suggestGoods = goodsResponse?.suggestedData
+        }
+        
         self.setUpBarButton()
     }
     
@@ -33,6 +52,7 @@ class GoodsTableViewController: UITableViewController
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 4
     }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(section) {
         case 0:
@@ -47,6 +67,7 @@ class GoodsTableViewController: UITableViewController
             return 1
         }
     }
+    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch(indexPath.section) {
         case 0:
@@ -97,6 +118,7 @@ class GoodsTableViewController: UITableViewController
             return 200
         }
     }
+    
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if(section == 3) {
             let headerCell = tableView.dequeueReusableCellWithIdentifier("SectionHeaderCell") as! SectionHeaderCell
@@ -107,11 +129,13 @@ class GoodsTableViewController: UITableViewController
             return headerCell
         }
     }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //自動消除選取時該列時會以灰色來顯示的效果
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         
     }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch(indexPath.section) {
         case 0:
@@ -157,7 +181,32 @@ class GoodsTableViewController: UITableViewController
             }
         case 1://加購商品
             let moreToBuyCell = tableView.dequeueReusableCellWithIdentifier("MoreToBuyCell", forIndexPath: indexPath) as! MoreToBuyCell
+            
             moreToBuyCell.lblName.text = moreToBuyGoods[indexPath.row]
+            
+            var spec:[String] = ["規格1","規格2","規格3"]
+            var specNum = 0
+            controllerSpec = UIAlertController(title: "請選擇規格", message: nil, preferredStyle: .ActionSheet)
+            for _ in spec {
+                let selectSpec = UIAlertAction(title: spec[specNum], style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
+                    moreToBuyCell.lblSpec.text = paramAction.title
+                })
+                controllerSpec?.addAction(selectSpec)
+                specNum++
+            }
+            
+            var volume:[String] = ["1","2","3"]
+            var volNum = 0
+            controllerVolume = UIAlertController(title: "請選擇數量", message: nil, preferredStyle: .ActionSheet)
+            for _ in spec {
+                let selectVolume = UIAlertAction(title: volume[volNum], style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
+                    moreToBuyCell.lblVolume.text = paramAction.title
+                })
+                controllerVolume?.addAction(selectVolume)
+                volNum++
+            }
+            
+            
             if(indexPath.row > 1 && isOpenMoroToBuyCell == true) {
                 moreToBuyCell.hidden = false
             } else if(indexPath.row > 1 && isOpenMoroToBuyCell == false) {
@@ -181,9 +230,9 @@ class GoodsTableViewController: UITableViewController
             }
         case 3://說明,規格,保固
             let footerCell = tableView.dequeueReusableCellWithIdentifier("FooterCell", forIndexPath: indexPath) as! FooterCell
-            log.debug("cellIndex \(indexPath)")
-            log.debug("y = \(footerCell.frame.origin.y)")
-            log.debug("x = \(footerCell.frame.origin.x)")
+//            log.debug("cellIndex \(indexPath)")
+//            log.debug("y = \(footerCell.frame.origin.y)")
+//            log.debug("x = \(footerCell.frame.origin.x)")
             
             SectionHeaderCell().OnTableViewScrolling(AnimateBarXPosition: 20.0)
             return footerCell
@@ -207,6 +256,7 @@ class GoodsTableViewController: UITableViewController
 //        }
 //    }
     
+    
     //點擊展開按鈕來展開加購商品
     @IBAction func btnOpenCellClick(sender: UIButton) {
         isOpenMoroToBuyCell = true
@@ -226,34 +276,50 @@ class GoodsTableViewController: UITableViewController
     let volumeView = VolumeButton()
     var buyCount = 1
     var numInCart = 0
+    var sqliteCtl = SqlCartList()
+    let comboData = CartComboData()
+    
     func setUpBarButton() {
         buyNum.title = "1"
         addInCart.backgroundColor = UIColor(hue: 0.6, saturation: 0.7, brightness: 1, alpha: 1)
         addInCart.setTitle("加入購物車", forState: .Normal)
+        addInCart.addTarget(self, action: "btnAddInCartPressed:", forControlEvents: .TouchUpInside)
         addInCart.frame = CGRectMake(0, 0, 170, 43)
-        addInCart.addTarget(self, action: "btnAddInCartPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         addShopCart.customView = addInCart
         
         shopCartBtn.setBackgroundImage(UIImage(named: "ic_shopping_cart"), forState: UIControlState.Normal)
         shopCartBtn.badgeString = nil
+        shopCartBtn.addTarget(self, action: "btnShopCartPressed:", forControlEvents: .TouchUpInside)
         shopCartBtn.frame = CGRectMake(0, 0, 30, 30)
         shopCartBtn.badgeEdgeInsets = UIEdgeInsetsMake(12, 5, 0, 10)
         shopCart.customView = shopCartBtn
     }
+    
     func btnAddInCartPressed(sender :UIButton) {
-        numInCart += buyCount
+        numInCart++
         if(numInCart <= 0) {
             shopCartBtn.badgeString = nil
         } else {
             shopCartBtn.badgeString = "\(numInCart)"
-            buyCount = 1
-            buyNum.title = "1"
         }
+        
+        //先寫入假資料
+        comboData.itno  = "AB123000\(numInCart)"
+        comboData.sno   = "CC123000\(numInCart)"
+        sqliteCtl.datas = comboData
+        sqliteCtl.sqliteInsert()
+        showAutoDismissAlert("訊息", message: "已加入購物車", delayTime: 1.5)
     }
+    
+    func btnShopCartPressed(sender: MIBadgeButton) {
+        sqliteCtl.sqliteQuery()
+    }
+    
     @IBAction func btnPlusPressed(sender: UIBarButtonItem) {
         buyCount++
         self.buyNum.title = "\(buyCount)"
     }
+    
     @IBAction func btnMinusPressed(sender: UIBarButtonItem) {
         buyCount--
         if(buyCount <= 1) {
@@ -264,6 +330,11 @@ class GoodsTableViewController: UITableViewController
         }
     }
 
+    //顯示自動消失訊息
+    func showAutoDismissAlert(title:String, message:String, delayTime:Double) {
+        showSuccess("已加入購物車")
+    }
+    
     
     // MARK: - 呼叫api
     
@@ -275,18 +346,20 @@ class GoodsTableViewController: UITableViewController
             else {
                 self.goodsPageModel?.GoodsPage = goodsPage!
                 self.goodsInfo = goodsPage!.itemInfo
+                self.suggestGoods = goodsPage!.suggestedData
                 self.tableView.reloadData()
             }
         })
     }
-    func GetCampaign(completionHandler: (campaignResponse :SearchListResponse?) -> Void) {
-        campaignData?.getCampaignData{ (campaign:SearchListResponse?, errorMessage: String?) in
-            if(errorMessage != nil) {
-                self.showAlert(errorMessage!)
-            } else {
-                completionHandler(campaignResponse: campaign!)
-            }
-        }
-    }
-       
+    
+//    func GetCampaign(completionHandler: (campaignResponse :SearchListResponse?) -> Void) {
+//        campaignData?.getCampaignData{ (campaign:SearchListResponse?, errorMessage: String?) in
+//            if(errorMessage != nil) {
+//                self.showAlert(errorMessage!)
+//            } else {
+//                completionHandler(campaignResponse: campaign!)
+//            }
+//        }
+//    }
+    
 }

@@ -9,16 +9,30 @@
 import UIKit
 
 class ContentCell: UITableViewCell {
-
+    var itemNameList:[String] = []
+    var spec:String?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return itemNameList.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let contentCell:ContentCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("ContentCell", forIndexPath: indexPath) as! ContentCollectionViewCell
+        contentCell.lblItemName.text = itemNameList[indexPath.row]
+        return contentCell
+    }
+    
+    func collectionView(collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSizeMake(collectionView.bounds.size.width, CGFloat(32))
+    }
+    
+    
 }
