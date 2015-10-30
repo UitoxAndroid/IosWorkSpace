@@ -42,6 +42,8 @@ class GoodsTableViewController: UITableViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.toolbarHidden = false
+        
         if(goodsResponse == nil) {
             self.getGoodsPageData(seq)
         } else {
@@ -50,6 +52,10 @@ class GoodsTableViewController: UITableViewController
         }
         
         self.setUpBarButton()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController?.toolbarHidden = true
     }
     
     // MARK: - 設定tableView
@@ -170,7 +176,7 @@ class GoodsTableViewController: UITableViewController
                 //行銷活動時間
                 activityCell.lblActTime.text = "\(goodsResponse!.itemInfo!.ssmStDt) ~ \(goodsResponse!.itemInfo!.ssmEnDt)"
                 
-                //優惠價?
+                //優惠價
                 activityCell.lblGoodPrice.text = "$10"
                
                 if(isCampaignBegin == true) {
@@ -266,10 +272,6 @@ class GoodsTableViewController: UITableViewController
         
         case 3://說明,規格,保固
             let footerCell = tableView.dequeueReusableCellWithIdentifier("FooterCell", forIndexPath: indexPath) as! FooterCell
-//            log.debug("cellIndex \(indexPath)")
-//            log.debug("y = \(footerCell.frame.origin.y)")
-//            log.debug("x = \(footerCell.frame.origin.x)")
-            
             SectionHeaderCell().OnTableViewScrolling(AnimateBarXPosition: 20.0)
             return footerCell
         default:
