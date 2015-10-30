@@ -10,10 +10,13 @@ import UIKit
 
 class SpecificViewController: UITableViewController,UIPopoverPresentationControllerDelegate {
     
-    var colorList:[String] = ["Blue","Black","White","Red","Green","Gray","Orange","Pink"]
-    var sizeList:[String] = ["S","M","L","XL","XXL"]
+    var colorInfo:ColorInfo?
+    var sizeInfo:SizeInfo?
+    var colorCount:Int = 0
+    var sizeCount:Int = 0
     var itemNameList:[String] = ["Item Name1","Item Name2"]
     var giftNameList:[String] = ["gift1","gift2","gift3"]
+    
     
     @IBAction func btnDismiss(sender: UIButton) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -53,6 +56,16 @@ class SpecificViewController: UITableViewController,UIPopoverPresentationControl
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if let colors = colorInfo?.colorList {
+            colorCount = colors.count
+        }
+        
+        if let sizes = sizeInfo?.sizeList {
+            sizeCount = sizes.count
+        }
+        
+        
+        
         switch(indexPath.section) {
         case 0:
             switch(indexPath.row) {
@@ -61,22 +74,22 @@ class SpecificViewController: UITableViewController,UIPopoverPresentationControl
             case 1: //title
                 return 150
             case 2: //color
-                if(colorList.count/5 < 1) {
+                if(colorCount/5 < 1) {
                     return 35
-                } else if (colorList.count / 5 >= 1 && colorList.count % 5 == 0) {
-                    return CGFloat(35 * (colorList.count/5))
+                } else if (colorCount / 5 >= 1 && colorCount % 5 == 0) {
+                    return CGFloat(35 * (colorCount/5))
                 } else {
-                    return CGFloat(35 * (colorList.count/5 + 1))
+                    return CGFloat(35 * (colorCount/5 + 1))
                 }
             case 3: //尺寸 title
                 return 44
             case 4: //尺寸
-                if(sizeList.count/7 < 1) {
+                if(sizeCount/7 < 1) {
                     return 35
-                } else if (sizeList.count / 7 >= 1 && sizeList.count % 7 == 0) {
-                    return CGFloat(35 * (sizeList.count/7))
+                } else if (sizeCount / 7 >= 1 && sizeCount % 7 == 0) {
+                    return CGFloat(35 * (sizeCount/7))
                 } else {
-                    return CGFloat(35 * (sizeList.count/7 + 1))
+                    return CGFloat(35 * (sizeCount/7 + 1))
                 }
             case 5: //包含內容 title
                 return 44
@@ -111,7 +124,7 @@ class SpecificViewController: UITableViewController,UIPopoverPresentationControl
                 return titleCell
             case 2:
                 let colorCell = tableView.dequeueReusableCellWithIdentifier("ColorViewCell", forIndexPath: indexPath) as! ColorCell
-                colorCell.colorList = self.colorList
+                colorCell.colorInfo = self.colorInfo
                 return colorCell
             case 3:
                 let sectionTitleCell = tableView.dequeueReusableCellWithIdentifier("SectionTitleCell", forIndexPath: indexPath) as! SectionTitleCell
@@ -119,7 +132,7 @@ class SpecificViewController: UITableViewController,UIPopoverPresentationControl
                 return sectionTitleCell
             case 4:
                 let sizeCell = tableView.dequeueReusableCellWithIdentifier("SizeViewCell", forIndexPath: indexPath) as! SizeCell
-                sizeCell.SizeList = self.sizeList
+                sizeCell.sizeInfo = self.sizeInfo
                 return sizeCell
             case 5:
                 let sectionTitleCell = tableView.dequeueReusableCellWithIdentifier("SectionTitleCell", forIndexPath: indexPath) as! SectionTitleCell
