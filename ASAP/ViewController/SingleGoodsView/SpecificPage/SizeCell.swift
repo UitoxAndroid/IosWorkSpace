@@ -9,7 +9,8 @@
 import UIKit
 
 class SizeCell: UITableViewCell,UICollectionViewDataSource,UICollectionViewDelegate {
-    var SizeList:[String] = []
+    var sizeInfo:SizeInfo?
+    var sizesCount:Int = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,12 +21,19 @@ class SizeCell: UITableViewCell,UICollectionViewDataSource,UICollectionViewDeleg
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return SizeList.count
+        if let sizes = sizeInfo?.sizeList {
+            sizesCount = sizes.count
+        }
+        return sizesCount
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let sizeCell:SizeCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("SizeCell", forIndexPath: indexPath) as! SizeCollectionViewCell
-        sizeCell.btnSelectSize.setTitle(SizeList[indexPath.row], forState: .Normal)
+        
+        if let sizes = sizeInfo?.sizeList {
+            sizeCell.btnSelectSize.setTitle(sizes[indexPath.row].sizeName, forState: .Normal)
+        }
+        
         return sizeCell
     }
 

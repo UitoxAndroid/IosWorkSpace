@@ -9,8 +9,8 @@
 import UIKit
 
 class ColorCell: UITableViewCell,UICollectionViewDataSource,UICollectionViewDelegate {
-    var colorList:[String] = []
-    
+    var colorInfo:ColorInfo?
+    var colorsCount:Int = 0
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -21,12 +21,19 @@ class ColorCell: UITableViewCell,UICollectionViewDataSource,UICollectionViewDele
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return colorList.count
+        if let colors = colorInfo?.colorList {
+            colorsCount = colors.count
+        }
+        return colorsCount
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let colorCell:ColorCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("ColorCell", forIndexPath: indexPath) as! ColorCollectionViewCell
-        colorCell.btnSelectColor.setTitle(colorList[indexPath.row], forState: .Normal)
+        if let colors = colorInfo?.colorList {
+            colorCell.btnSelectColor.setTitle(colors[indexPath.row].colorName, forState: .Normal)
+        }
+
+        
         return colorCell
     }
     

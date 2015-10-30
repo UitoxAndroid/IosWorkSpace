@@ -418,6 +418,7 @@ extension KindViewController: SignInDelegate
 			case 3,1: // "立即預訂"
 				MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
 				self.jumpToShoppingCartTab()
+				self.addCartNumber()
 				break
 			default: break
 			}

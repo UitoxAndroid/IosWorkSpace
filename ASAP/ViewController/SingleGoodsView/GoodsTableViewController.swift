@@ -14,12 +14,16 @@ class GoodsTableViewController: UITableViewController
     var moreToBuyGoods = ["iphone6s","Sony Z5","nexus 6","One M9","Sony Xpria C5","Asus ZenPhone2"]
     lazy var goodsPageModel:GoodsPageModel? = GoodsPageModel()
     lazy var campaignData:CampaignModel? = CampaignModel()
+    var goodsResponse:GoodsPageResponse? = nil
     var goodsInfo:GoodsPageItemInfo? = nil
     var suggestGoods:SuggestedData? = nil
     var isOpenMoroToBuyCell:Bool = false
     var isCampaignBegin:Bool = true
-    var goodsResponse:GoodsPageResponse? = nil
-    var seq:String = "201510AM140000038"
+    var colorInfo:ColorInfo?
+    var sizeInfo:SizeInfo?
+    
+    
+    var seq:String = "201510AM140000049"
     
     
     var controllerSpec : UIAlertController?
@@ -38,6 +42,8 @@ class GoodsTableViewController: UITableViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.toolbarHidden = false
+        
         if(goodsResponse == nil) {
             self.getGoodsPageData(seq)
         } else {
@@ -46,6 +52,10 @@ class GoodsTableViewController: UITableViewController
         }
         
         self.setUpBarButton()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController?.toolbarHidden = true
     }
     
     // MARK: - 設定tableView
@@ -111,7 +121,7 @@ class GoodsTableViewController: UITableViewController
                 if(isOpenMoroToBuyCell == true) {
                     return 0
                 } else {
-                    return 40
+                    return 20
                 }
             } else {
                 return 0      //相關商品
@@ -153,8 +163,8 @@ class GoodsTableViewController: UITableViewController
                 }
                 bannerCell.lblGoodsName.text = self.goodsInfo?.smName
                 bannerCell.imageList = self.goodsInfo?.smPicMulti
-                bannerCell.lblPriceNow.text = "$\(self.goodsInfo?.smPrice)"
-                bannerCell.lblPriceOrigin.text = "$5000"
+                bannerCell.lblPriceNow.text = "$\(self.goodsInfo!.smPrice)"
+                bannerCell.lblPriceOrigin.text = "$\(self.goodsResponse!.itemInfo!.itMprice)"
                 bannerCell.ImageBannerSetting()
                 return bannerCell
             case 1://規格
@@ -164,9 +174,9 @@ class GoodsTableViewController: UITableViewController
                 let activityCell = tableView.dequeueReusableCellWithIdentifier("ActivityCell", forIndexPath: indexPath) as! ActivityCell
                 
                 //行銷活動時間
-                activityCell.lblActTime.text = "\(goodsResponse!.itemInfo!.ssmStDt)"
+                activityCell.lblActTime.text = "\(goodsResponse!.itemInfo!.ssmStDt) ~ \(goodsResponse!.itemInfo!.ssmEnDt)"
                 
-                //優惠價 
+                //優惠價
                 activityCell.lblGoodPrice.text = "$10"
                
                 if(isCampaignBegin == true) {
@@ -179,13 +189,24 @@ class GoodsTableViewController: UITableViewController
                 
             case 3://預購倒數
                 let preorderCell = tableView.dequeueReusableCellWithIdentifier("PreorderCell", forIndexPath: indexPath) as! PreorderCell
+                
+                //如果有設定預購
+                if(goodsResponse?.itemInfo?.isPreOrd == true) {
+                    preorderCell.lblMbrOnlyTag.hidden = true
+                } else {
+                    preorderCell.lblMbrOnlyTag.hidden = false
+                }
+                
                 preorderCell.lblPreorderDeadline.text = self.goodsInfo?.preDtE
                 return preorderCell
             case 4://說明
                 let directionCell = tableView.dequeueReusableCellWithIdentifier("DirectionCell", forIndexPath: indexPath) as! DirectionCell
-                directionCell.lblDesc.text = "會員限購\(self.goodsInfo?.ssmLimitQty)個"
+                directionCell.lblDesc.text = "會員限購\(self.goodsInfo!.ssmLimitQty)個"
                 directionCell.lblOutDay.text = self.goodsInfo?.refEtdDt
                 directionCell.lblLeftCount.text = self.goodsInfo?.preAvaQty
+                
+                //已預訂數量?
+                directionCell.lblPreorderCount.text = "2"
                 return directionCell
             case 5://加購Title
                 let moreToBuyTitleCell = tableView.dequeueReusableCellWithIdentifier("MoreToBuyTitleCell", forIndexPath: indexPath) as! MoreToBuyTitleCell
@@ -194,6 +215,8 @@ class GoodsTableViewController: UITableViewController
                 let moreToBuyCell = tableView.dequeueReusableCellWithIdentifier("MoreToBuyCell", forIndexPath: indexPath) as! MoreToBuyCell
                 return moreToBuyCell
             }
+       
+        
         case 1://加購商品
             let moreToBuyCell = tableView.dequeueReusableCellWithIdentifier("MoreToBuyCell", forIndexPath: indexPath) as! MoreToBuyCell
             
@@ -221,13 +244,14 @@ class GoodsTableViewController: UITableViewController
                 volNum++
             }
             
-            
             if(indexPath.row > 1 && isOpenMoroToBuyCell == true) {
                 moreToBuyCell.hidden = false
             } else if(indexPath.row > 1 && isOpenMoroToBuyCell == false) {
                 moreToBuyCell.hidden = true
             }
             return moreToBuyCell
+        
+        
         case 2:
             switch(indexPath.row) {
             case 0://加購商品展開按鈕
@@ -243,12 +267,11 @@ class GoodsTableViewController: UITableViewController
                 let buttonInCell = tableView.dequeueReusableCellWithIdentifier("ButtonInCell", forIndexPath: indexPath) as! ButtonInCell
                 return buttonInCell
             }
+        
+        
+        
         case 3://說明,規格,保固
             let footerCell = tableView.dequeueReusableCellWithIdentifier("FooterCell", forIndexPath: indexPath) as! FooterCell
-//            log.debug("cellIndex \(indexPath)")
-//            log.debug("y = \(footerCell.frame.origin.y)")
-//            log.debug("x = \(footerCell.frame.origin.x)")
-            
             SectionHeaderCell().OnTableViewScrolling(AnimateBarXPosition: 20.0)
             return footerCell
         default:
@@ -317,7 +340,7 @@ class GoodsTableViewController: UITableViewController
         comboData.sno   = "CC123000\(numInCart)"
 		
 		MyApp.sharedShoppingCart.insertGoodsIntoCart(info)
-        showAutoDismissAlert("訊息", message: "已加入購物車", delayTime: 1.5)
+		self.showSuccess("已加入購物車")
     }
     
     func btnShopCartPressed(sender: MIBadgeButton) {
@@ -339,12 +362,6 @@ class GoodsTableViewController: UITableViewController
         }
     }
 
-    //顯示自動消失訊息
-    func showAutoDismissAlert(title:String, message:String, delayTime:Double) {
-        showSuccess("已加入購物車")
-    }
-    
-    
     // MARK: - 呼叫api
     
     func getGoodsPageData(smSeq:String) {
@@ -354,8 +371,10 @@ class GoodsTableViewController: UITableViewController
             }
             else {
                 self.goodsResponse = goodsPage!
-                self.goodsInfo = goodsPage!.itemInfo
-                self.suggestGoods = goodsPage!.suggestedData
+                self.goodsInfo = self.goodsResponse!.itemInfo
+                self.suggestGoods = self.goodsResponse!.suggestedData
+                self.colorInfo = self.goodsResponse!.productInfo?.colorInfo
+                self.sizeInfo = self.goodsResponse!.productInfo?.sizeInfo
                 self.tableView.reloadData()
             }
         })
