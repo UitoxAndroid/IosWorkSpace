@@ -18,15 +18,13 @@ class SqlCartList
     func sqliteInsert() {
         realm.beginWrite()
         realm.create(CartComboData.self,value:datas,update: false)
-        log.info("寫入Sqlite...")
         realm.commitWrite()
     }
     
     func sqliteQuery() {
         let results = realm.objects(CartComboData)
-        log.info("讀取Sqlite 共\(results.count)筆資料: \t")
         for data in results.enumerate() {
-            log.info("itno:\(data.element.itno) , sno:\(data.element.sno)")
+            log.debug("itno:\(data.element.itno) , sno:\(data.element.sno)")
         }
     }
 }
