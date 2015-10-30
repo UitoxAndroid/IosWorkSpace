@@ -16,6 +16,7 @@ class CampaignViewController: UIViewController
     @IBOutlet weak var lblCampaignDescribe: UILabel!
     @IBOutlet weak var containerView: UIView!
     lazy var campaignData:CampaignModel? = CampaignModel()
+	var	campSeq: String = ""
     
     // MARK: - View
     
@@ -54,6 +55,7 @@ class CampaignViewController: UIViewController
             
             if campStatus == 0 {
                 let vc = self.childViewControllers.first as! KindViewController
+				vc.campSeq = self.campSeq
                 vc.searchListResponse = campaignResponse
                 self.lblCampaignStatus.text = "限時特賣中"
                 self.lblCampaignStatus.backgroundColor = UIColor.redColor()
@@ -72,9 +74,9 @@ class CampaignViewController: UIViewController
     }
     
     // MARK - Call Api
-    
-    func GetCampaign(completionHandler: (campaignResponse :SearchListResponse?) -> Void) {
-        campaignData?.getCampaignData { (campaign:SearchListResponse?, errorMessage: String?) in
+	
+	func GetCampaign(completionHandler: (campaignResponse :SearchListResponse?) -> Void) {
+        campaignData?.getCampaignData(campSeq, page: 0, sortBy: SortBy.SmSoldQty, desc: true) { (campaign:SearchListResponse?, errorMessage: String?) in
             if(errorMessage != nil) {
                 self.showAlert(errorMessage!)
             } else {

@@ -257,20 +257,14 @@ class GoodsTableViewController: UITableViewController
         }
     }
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "ShowCampaignViewController" {
-//            if let campaignViewController = segue.destinationViewController as? CampaignViewController {
-//                self.GetCampaign {
-//                    (campaignResponse:SearchListResponse?) in
-//                    if campaignResponse?.total > 0 {
-//                        campaignViewController.campaignData = campaignResponse
-//                    }
-//                    self.clearAllNotice()
-//                }
-//            }
-//        }
-//    }
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowCampaignViewController" {
+            if let campaignViewController = segue.destinationViewController as? CampaignViewController {
+				campaignViewController.campSeq = "201510A0700000001"
+            }
+        }
+    }
+	
     
     //點擊展開按鈕來展開加購商品
     @IBAction func btnOpenCellClick(sender: UIButton) {
@@ -291,7 +285,6 @@ class GoodsTableViewController: UITableViewController
     let volumeView = VolumeButton()
     var buyCount = 1
     var numInCart = 0
-    var sqliteCtl = SqlCartList()
     let comboData = CartComboData()
     
     func setUpBarButton() {
@@ -319,15 +312,16 @@ class GoodsTableViewController: UITableViewController
         }
         
         //先寫入假資料
+		var info = ShoppingCartInfo()
         comboData.itno  = "AB123000\(numInCart)"
         comboData.sno   = "CC123000\(numInCart)"
-        sqliteCtl.datas = comboData
-        sqliteCtl.sqliteInsert()
+		
+		MyApp.sharedShoppingCart.insertGoodsIntoCart(info)
         showAutoDismissAlert("訊息", message: "已加入購物車", delayTime: 1.5)
     }
     
     func btnShopCartPressed(sender: MIBadgeButton) {
-        sqliteCtl.sqliteQuery()
+        MyApp.sharedShoppingCart.queryShoppingCart()
     }
     
     @IBAction func btnPlusPressed(sender: UIBarButtonItem) {
