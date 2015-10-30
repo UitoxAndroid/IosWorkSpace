@@ -11,6 +11,8 @@ import UIKit
 class PreorderCell: UITableViewCell {
 
     @IBOutlet weak var lblPreorderDeadline: UILabel!
+    @IBOutlet weak var lblMbrOnlyTag: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

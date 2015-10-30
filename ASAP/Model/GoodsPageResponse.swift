@@ -8,12 +8,15 @@
 
 import Foundation
 
+//單品頁 Response
+
 public class GoodsPageResponse : Mappable
 {
     public var status_code:String?
     public var itemInfo:GoodsPageItemInfo?
     public var campData:CampData?
     public var suggestedData:SuggestedData?
+    public var productInfo:ProductInfo?
     
     required public init?(_ map: Map) {
         
@@ -24,6 +27,7 @@ public class GoodsPageResponse : Mappable
         itemInfo        <- map["item_info"]
         campData        <- map["camp"]
         suggestedData   <- map["suggested"]
+        productInfo     <- map["product"]
     }
 }
 
@@ -70,19 +74,19 @@ public class GoodsPageItemInfo : Mappable
     public var refEtdDt:String?
     public var showDt:String?
     public var ssmStDt:String = ""
-    public var ssmEnDt:String?
+    public var ssmEnDt:String = ""
     public var smName:String?
     public var smPic:String?
     public var smColorPic:String?
     public var smStatus:Bool?
-    public var smPrice:String?
+    public var smPrice:String = ""
     public var ssmLimitQty:Int?
     public var ssmPrice:Int?
     public var ssmType:Int?
     public var smPicMulti:[String]?
     public var color:String?
     public var itSize:String?
-    public var itMprice:Int?
+    public var itMprice:String = ""
     public var itno:String?
     public var itSalyqtyLimit:Int?
     public var itSpecSeq:String?
@@ -191,6 +195,97 @@ public class CampDetail:Mappable
         endDate     <- map["end_dt"]
     }
 }
+
+public class ProductInfo:Mappable
+{
+    public var colorInfo:ColorInfo?
+    public var sizeInfo:SizeInfo?
+    
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        colorInfo   <- map["color"]
+        sizeInfo    <- map["size"]
+    }
+
+}
+
+
+public class ColorInfo:Mappable
+{
+    /*
+        show  是否顯示
+        color 顏色
+    */
+    
+    public var show:Bool?
+    public var colorList:[ColorDetail] = []
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        show        <- map["show"]
+        colorList   <- map["data"]
+    }
+}
+
+public class SizeInfo:Mappable
+{
+    /*
+        show 是否顯示
+        size 尺寸
+    */
+    
+    public var show:Bool?
+    public var sizeList:[SizeDetail] = []
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        show        <- map["show"]
+        sizeList    <- map["data"]
+    }
+}
+
+public class ColorDetail:Mappable
+{
+    /*
+        colorName 顏色
+    */
+    public var colorName:String?
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        colorName <- map["color_name"]
+    }
+}
+
+public class SizeDetail:Mappable
+{
+    /*
+        sizeName 尺寸
+    */
+    public var sizeName:String?
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        sizeName <- map["size_name"]
+    }
+}
+
 
 
 public class SuggestedData:Mappable {
