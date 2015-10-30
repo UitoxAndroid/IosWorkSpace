@@ -41,7 +41,8 @@ public class StoreInfo: Mappable
 		response/list/FINAL_PRICE	價格		Int
 		response/list/SHOW_PRICE	原價		Int
 		response/list/SLOGAN		銷售口號	Array
-		response/list/CART_ACTION	購買類型 Int*/
+		response/list/CART_ACTION	購買類型 Int
+        response/list/SM_SEQ        商品流水號*/
 
     public var name:		String?
 	public var pic:			String?
@@ -50,6 +51,7 @@ public class StoreInfo: Mappable
 	public var showPrice:	Int?
 	public var slogan:		[String] = []
 	public var cartAction:	Int?
+    public var smSeq:       String?
 
 	required public init?(_ map: Map) {
 
@@ -63,6 +65,7 @@ public class StoreInfo: Mappable
 		showPrice	<- map["SHOW_PRICE"]	
 		slogan		<- map["SLOGAN"]
 		cartAction	<- map["CART_ACTION"]
+        smSeq       <- map["SM_SEQ"]
     }
 }
 

@@ -12,6 +12,7 @@ class KindViewController: UITableViewController
 {
 	lazy var categoryData:CategoryModel? = CategoryModel()
 	lazy var searchData:SearchModel? = SearchModel()
+    lazy var goodsPageModel:GoodsPageModel?     = GoodsPageModel()
 	let basicCellIdentifier = "BasicCell"
 	let headerCellIdentifier = "HeaderCell"
 	var headerCell: HeaderCell?
@@ -122,6 +123,10 @@ class KindViewController: UITableViewController
 		}
 	}
 	
+    @IBAction func addCartButtonClick(sender: AnyObject) {
+        let tag = (sender as? UIButton)!.tag
+        self.directPage(tag)
+    }
 	
     // MARK: - Table view data source
 
@@ -191,6 +196,7 @@ class KindViewController: UITableViewController
 			default: break
 			}
 		}
+        cell.addCartButton.tag = indexPath.row
 		
 		
 		let URL = NSURL(string: searchListResponse!.storeList[indexPath.row].pic!)!
@@ -245,6 +251,9 @@ class KindViewController: UITableViewController
 		return 44
 	}
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.directPage(indexPath.row)
+    }
 	
 	// MARK - Method
 	
@@ -273,6 +282,19 @@ class KindViewController: UITableViewController
 		priceLabel.attributedText = attrString		
 	}
 	
+    // 導向面頁
+    func directPage(index: Int) {
+        let row = self.searchListResponse!.storeList[index]
+        
+        if(row.smSeq == nil) {
+            self.showError("資料有誤")
+            return
+        }
+        
+        self.pleaseWait()
+        getGoodsPageData(row.smSeq!)
+    }
+ 
 	
 	// MARK - Call Api
 	
@@ -297,5 +319,24 @@ class KindViewController: UITableViewController
 			}
 		}
 	}
-	
+    
+    // 取得單品頁資料
+    func getGoodsPageData(smSeq: String) {
+        goodsPageModel?.getGoodsPageData( smSeq, completionHandler: { (goodsPage: GoodsPageResponse?, errorMessage:String?) -> Void in
+            self.clearAllNotice()
+            if (goodsPage == nil) {
+                self.showAlert(errorMessage!)
+            }
+            else {
+                if(goodsPage!.itemInfo == nil) {
+                    self.showError("No Data")
+                    return
+                }
+                
+                let goodsView = self.storyboard?.instantiateViewControllerWithIdentifier("GoodsTableViewController") as! GoodsTableViewController
+                goodsView.goodsResponse = goodsPage!
+                self.navigationController?.pushViewController(goodsView, animated: true)
+            }
+        })
+    }
 }

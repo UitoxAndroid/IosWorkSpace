@@ -10,10 +10,13 @@ import UIKit
 
 class OnSaleViewController: UITableViewController
 {
+    
 	let saleCellIdentifier = "SaleCell"
 	let saleHeaderCellIdentifier = "OnSaleHeaderCell"
 	var onSaleData: [DealsOntimeData] = []
-	var listItem = [ItemInfo]()
+    var listItem = [ItemInfo]()
+    
+    lazy var goodsPageModel:GoodsPageModel?     = GoodsPageModel()
 
 	lazy var placeholderImage: UIImage = {
 		let image = UIImage(named: "PlaceholderImage")!
@@ -28,7 +31,11 @@ class OnSaleViewController: UITableViewController
 
 		setRightItemSearch()
 	}
-
+    
+    @IBAction func addCartButtonClick(sender: AnyObject) {
+        let tag = (sender as? UIButton)!.tag
+        self.directPage(tag)
+    }
 
     // MARK: - Table view data source
 
@@ -48,17 +55,34 @@ class OnSaleViewController: UITableViewController
 		cell.timeLabel.text = onSaleData[indexPath.row].promoHour! + ":00"
 
 		var price = ""
-
-		if let calCurrency = onSaleData[indexPath.row].calCurrency {
-			price += calCurrency
-		}
-
+        var currency = ""
+        
+        if let calCurrency = onSaleData[indexPath.row].calCurrency {
+            currency = calCurrency
+        }
+        
+        if let smPrice = self.onSaleData[indexPath.row].smPrice {
+            price = (smPrice == "0") ? "" : currency + smPrice
+        }
+        
+        cell.costLabel.text = price
+        
+        // 刪除線
+        var myMutableString = NSMutableAttributedString()
+        myMutableString     = NSMutableAttributedString(string: price)
+        myMutableString.addAttribute(NSStrikethroughStyleAttributeName, value: 1, range: NSMakeRange(0, myMutableString.length))
+        cell.costLabel.attributedText = myMutableString
+        
 		if let calPrice = onSaleData[indexPath.row].calPrice {
-			price += calPrice
+			price = currency + calPrice
 		}
 
 		cell.priceLabel.text = price
-		cell.costLabel.text = ""
+        
+        price = ""
+        if let costPrice = onSaleData[indexPath.row].smPrice {
+            price += costPrice
+        }
 		
 		cell.imagedView.image = placeholderImage
 		
@@ -68,6 +92,7 @@ class OnSaleViewController: UITableViewController
 			}
 		}
 
+        cell.addCartButton.tag = indexPath.row
 
         return cell
     }
@@ -81,5 +106,43 @@ class OnSaleViewController: UITableViewController
 	override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return 44
 	}
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.directPage(indexPath.row)
+    }
+    
+    // 導向面頁
+    func directPage(index: Int) {
+        let row = self.onSaleData[index]
+        
+        if(row.smSeq == nil) {
+            self.showError("資料有誤")
+            return
+        }
+        
+        self.pleaseWait()
+        getGoodsPageData(row.smSeq!)
+    }
+    
+    // MARK : Call Api    
+    // 取得單品頁資料
+    func getGoodsPageData(smSeq: String) {
+        goodsPageModel?.getGoodsPageData( smSeq, completionHandler: { (goodsPage: GoodsPageResponse?, errorMessage:String?) -> Void in
+            self.clearAllNotice()
+            if (goodsPage == nil) {
+                self.showAlert(errorMessage!)
+            }
+            else {
+                if(goodsPage!.itemInfo == nil) {
+                    self.showError("No Data")
+                    return
+                }
+                
+                let goodsView = self.storyboard?.instantiateViewControllerWithIdentifier("GoodsTableViewController") as! GoodsTableViewController
+                goodsView.goodsResponse = goodsPage!
+                self.navigationController?.pushViewController(goodsView, animated: true)
+            }
+        })
+    }
 
 }

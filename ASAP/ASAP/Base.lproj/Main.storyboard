@@ -318,6 +318,9 @@
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="addCartButtonClick:" destination="scZ-yw-R4c" eventType="touchUpInside" id="GUn-TS-vnj"/>
+                                            </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3cO-3z-VPb">
                                             <rect key="frame" x="20" y="20" width="120" height="120"/>
@@ -995,6 +998,9 @@
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <state key="normal" title="搶購"/>
+                                                                        <connections>
+                                                                            <action selector="buyButtonClick:" destination="O20-N1-cVj" eventType="touchUpInside" id="y0z-a6-TO3"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <animations/>
@@ -1096,11 +1102,11 @@
                                                     <rect key="frame" x="8" y="37" width="288" height="469"/>
                                                     <animations/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="046Image2" translatesAutoresizingMaskIntoConstraints="NO" id="ILr-t9-txB">
+                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="046Image2" translatesAutoresizingMaskIntoConstraints="NO" id="ILr-t9-txB">
                                                     <rect key="frame" x="304" y="37" width="288" height="230"/>
                                                     <animations/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="046Image3" translatesAutoresizingMaskIntoConstraints="NO" id="ih4-WB-3MY">
+                                                <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="046Image3" translatesAutoresizingMaskIntoConstraints="NO" id="ih4-WB-3MY">
                                                     <rect key="frame" x="304" y="276" width="288" height="230"/>
                                                     <animations/>
                                                 </imageView>
@@ -1255,21 +1261,21 @@
                                                     <rect key="frame" x="8" y="37" width="342" height="234"/>
                                                     <animations/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="047Image2" translatesAutoresizingMaskIntoConstraints="NO" id="pkG-HA-mbw">
+                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="047Image2" translatesAutoresizingMaskIntoConstraints="NO" id="pkG-HA-mbw">
                                                     <rect key="frame" x="358" y="37" width="234" height="234"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="pkG-HA-mbw" secondAttribute="height" multiplier="1:1" id="DUZ-iZ-1NK"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="047Image3" translatesAutoresizingMaskIntoConstraints="NO" id="QgM-3O-Pvn">
+                                                <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="047Image3" translatesAutoresizingMaskIntoConstraints="NO" id="QgM-3O-Pvn">
                                                     <rect key="frame" x="8" y="280" width="234" height="234"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="QgM-3O-Pvn" secondAttribute="height" multiplier="1:1" id="Qkf-xI-Xdn"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="047Image4" translatesAutoresizingMaskIntoConstraints="NO" id="Zk8-XM-eJI">
+                                                <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="047Image4" translatesAutoresizingMaskIntoConstraints="NO" id="Zk8-XM-eJI">
                                                     <rect key="frame" x="250" y="280" width="342" height="234"/>
                                                     <animations/>
                                                 </imageView>
@@ -1387,6 +1393,9 @@
                                                                             <color key="titleColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </state>
+                                                                        <connections>
+                                                                            <action selector="buyProduct2ButtonClick:" destination="O20-N1-cVj" eventType="touchUpInside" id="q0Y-MT-s2e"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <animations/>
@@ -1566,6 +1575,9 @@
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="addCartButtonClick:" destination="300-8i-Aev" eventType="touchUpInside" id="hdO-f2-MMW"/>
+                                            </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UXg-dZ-ioJ">
                                             <rect key="frame" x="20" y="20" width="120" height="120"/>
@@ -1634,6 +1646,7 @@
                                 </tableViewCellContentView>
                                 <animations/>
                                 <connections>
+                                    <outlet property="addCartButton" destination="ehb-fY-xNn" id="beY-hf-c9G"/>
                                     <outlet property="costLabel" destination="k0z-Jm-BnY" id="ZNw-aW-ao7"/>
                                     <outlet property="imagedView" destination="UXg-dZ-ioJ" id="OWZ-jl-oYw"/>
                                     <outlet property="priceLabel" destination="IP2-oc-k36" id="q99-Wb-c88"/>

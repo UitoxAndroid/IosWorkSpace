@@ -33,8 +33,11 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
     @IBOutlet var m047Image3: UIImageView!
     @IBOutlet var m047Image4: UIImageView!
     
+    lazy var deployModel:DeployModel?			= DeployModel()
+    lazy var goodsPageModel:GoodsPageModel?     = GoodsPageModel()
+    lazy var categoryData:CategoryModel?        = CategoryModel()
+    lazy var searchData:SearchModel?            = SearchModel()
     
-	lazy var deployModel:DeployModel?			= DeployModel()
     lazy var slideDataList:[SlideData]			= [SlideData]()
     lazy var linkDataList:[LinkData]            = [LinkData]()
     lazy var iconDataList1:[IconLinkData]       = [IconLinkData]()
@@ -65,14 +68,35 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+        
+        self.setImageTapAction()
+        
 		self.getDeployData()
 
         self.getDealsList()
 
 		self.setRightItemSearch()
 	}
-
+    
+    // 圖片Click事件
+    func setImageTapAction() {
+        let imageTap046_1 = UITapGestureRecognizer(target: self, action: Selector("imageTapAction046:"))
+        m046Image1.addGestureRecognizer(imageTap046_1)
+        let imageTap046_2 = UITapGestureRecognizer(target: self, action: Selector("imageTapAction046:"))
+        m046Image2.addGestureRecognizer(imageTap046_2)
+        let imageTap046_3 = UITapGestureRecognizer(target: self, action: Selector("imageTapAction046:"))
+        m046Image3.addGestureRecognizer(imageTap046_3)
+        
+        let imageTap047_1 = UITapGestureRecognizer(target: self, action: Selector("imageTapAction047:"))
+        m047Image1.addGestureRecognizer(imageTap047_1)
+        let imageTap047_2 = UITapGestureRecognizer(target: self, action: Selector("imageTapAction047:"))
+        m047Image2.addGestureRecognizer(imageTap047_2)
+        let imageTap047_3 = UITapGestureRecognizer(target: self, action: Selector("imageTapAction047:"))
+        m047Image3.addGestureRecognizer(imageTap047_3)
+        let imageTap047_4 = UITapGestureRecognizer(target: self, action: Selector("imageTapAction047:"))
+        m047Image4.addGestureRecognizer(imageTap047_4)
+    }
+    
 	override func prefersStatusBarHidden() -> Bool {
 		return false
 	}
@@ -114,21 +138,25 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
         self.view.addSubview(self.circleView)
 	}
     
+    // 廣告輸播-點選
     func clickCurrentImage(currentIndxe: Int) {
-        if let page_code = self.slideDataList[currentIndxe].pageCode {
-            switch (page_code) {
-            case "market":
-                log.debug("\(self.slideDataList[currentIndxe].link!) \(self.slideDataList[currentIndxe].seq!)")
-            case "category":
-                log.debug("\(self.slideDataList[currentIndxe].link!) \(self.slideDataList[currentIndxe].seq!)")
-            case "edm":
-                log.debug("\(self.slideDataList[currentIndxe].link!) \(self.slideDataList[currentIndxe].seq!)")
-            default:
-                log.debug(self.slideDataList[currentIndxe].pageCode)
-            }
-        }
+        let row = self.slideDataList[currentIndxe]
+        self.directPage(row.pageCode, seq: row.seq)
     }
-
+    
+    // 整點特賣-搶購-點選
+    @IBAction func buyButtonClick(sender: AnyObject) {
+        let tag = (sender as? UIButton)!.tag
+        let row = self.dealsOnTimeData[tag]
+        self.directPage("item", seq: row.smSeq)
+    }
+    
+    // 商品2-搶購
+    @IBAction func buyProduct2ButtonClick(sender: AnyObject) {
+        let tag = (sender as? UIButton)!.tag
+        let row = self.productList2[tag]
+        self.directPage("item", seq: row.smSeq)
+    }
     // MARK: -  首頁－圖片一大二小
     
     func set046Image() {
@@ -139,19 +167,29 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
                     case 0:
                         self.m046Image1.kf_setImageWithURL(url, placeholderImage: placeholderImage,
                             optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
+                        self.m046Image1.userInteractionEnabled = true
                         index++
                     case 1:
                         self.m046Image2.kf_setImageWithURL(url, placeholderImage: placeholderImage,
                             optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
+                        self.m046Image2.userInteractionEnabled = true
                         index++
                     case 2:
                         self.m046Image3.kf_setImageWithURL(url, placeholderImage: placeholderImage,
                             optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
+                        self.m046Image3.userInteractionEnabled = true
                         index++
                     default:
                         index++
                     }
             }
+        }
+    }
+    
+    func imageTapAction046(tap: UITapGestureRecognizer) {
+        if let imageView = tap.view as? UIImageView {
+            let row = self.iconDataList1[imageView.tag]
+            self.directPage(row.pageCode, seq: row.seq)
         }
     }
     
@@ -165,18 +203,22 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
                     case 0:
                         self.m047Image1.kf_setImageWithURL(url, placeholderImage: placeholderImage,
                             optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
+                        self.m047Image1.userInteractionEnabled = true
                         index++
                     case 1:
                         self.m047Image2.kf_setImageWithURL(url, placeholderImage: placeholderImage,
                             optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
+                        self.m047Image2.userInteractionEnabled = true
                         index++
                     case 2:
                         self.m047Image3.kf_setImageWithURL(url, placeholderImage: placeholderImage,
                             optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
+                        self.m047Image3.userInteractionEnabled = true
                         index++
                     case 3:
                         self.m047Image4.kf_setImageWithURL(url, placeholderImage: placeholderImage,
                             optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)])
+                        self.m047Image4.userInteractionEnabled = true
                         index++
                     default:
                         index++
@@ -184,7 +226,15 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
             }
         }
     }
+    
+    func imageTapAction047(tap: UITapGestureRecognizer) {
+        if let imageView = tap.view as? UIImageView {
+            let row = self.iconDataList2[imageView.tag]
+            self.directPage(row.pageCode, seq: row.seq)
+        }
+    }
 
+    // MARK : tableView
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
 		if(indexPath.section == 0) {
@@ -215,8 +265,30 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
         return 0
 	}
     
-    // MARK: - Call Api
+    // 導向對應頁面
+    func directPage(pageCode: String?, seq: String?) {
+        if(pageCode == nil || seq == nil) {
+            self.showError("資料有誤")
+            return
+        }
+        
+        self.pleaseWait()
 
+        switch pageCode! {
+        case "item":
+            self.getGoodsPageData(seq!)
+        case "market","category":
+            self.getCategoryData(seq!)
+        case "search":
+            self.getSearchData(seq!)
+        default:
+            self.showAlert("No Data")
+            self.clearAllNotice()
+        }
+    }
+    
+    // MARK: - Call Api
+    // 取得首頁輪播+佈置清單
 	func getDeployData() {
         self.pleaseWait()
 		deployModel?.getDeployData("", completionHandler: { (deploy: DeployResponse?, errorMessage: String?) -> Void in
@@ -245,11 +317,10 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
 			}
 		})
 	}
-
+    
+    // 取得整點特賣清單
 	func getDealsList() {
-        self.pleaseWait()
 		dealsOnTimeModel.getDealsOntimeData { (dealsOntime, errorMessage) in
-            self.clearAllNotice()
 			if (dealsOntime == nil) {
 				self.showAlert(errorMessage!)
 			} else {
@@ -260,6 +331,57 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
             }
 		}
 	}
+    
+    // 取得單品頁資料
+    func getGoodsPageData(smSeq: String) {
+        goodsPageModel?.getGoodsPageData( smSeq, completionHandler: { (goodsPage: GoodsPageResponse?, errorMessage:String?) -> Void in
+            self.clearAllNotice()
+            if (goodsPage == nil) {
+                self.showAlert(errorMessage!)
+            }
+            else {
+                if(goodsPage!.itemInfo == nil) {
+                    self.showError("No Data")
+                    return
+                }
+                
+                let goodsView = self.storyboard?.instantiateViewControllerWithIdentifier("GoodsTableViewController") as! GoodsTableViewController
+                goodsView.goodsResponse = goodsPage!
+                self.navigationController?.pushViewController(goodsView, animated: true)
+            }
+        })
+    }
+
+    // 取得館頁資料
+    func getCategoryData(siSeq: String){
+        categoryData?.getCategoryData(siSeq, page: 1, sortBy: SortBy.SmSoldQty, desc: true) { (category: SearchListResponse?, errorMessage: String?) in
+            self.clearAllNotice()
+            if errorMessage != nil {
+                self.showAlert(errorMessage!)
+            } else {
+                let kindViewController = self.storyboard?.instantiateViewControllerWithIdentifier("KindViewController") as? KindViewController
+                kindViewController!.searchListResponse  = category!
+                
+                kindViewController!.siSeq               = siSeq
+                self.navigationController?.pushViewController(kindViewController!, animated: true)
+            }
+        }
+    }
+    
+    // 取得搜尋頁資料
+    func getSearchData(query: String) {
+        searchData?.getSearchData(query, page: 1, sortBy: SortBy.SmSoldQty, desc: true) { (search: SearchListResponse?, errorMessage: String?) in
+            self.clearAllNotice()
+            if search == nil {
+                self.showAlert(errorMessage!)
+            } else {
+                let kindViewController = self.storyboard?.instantiateViewControllerWithIdentifier("KindViewController") as? KindViewController
+                kindViewController!.searchListResponse = search!
+                kindViewController!.query = query
+                self.navigationController?.pushViewController(kindViewController!, animated: true)
+            }
+        }
+    }
 }
 
 
@@ -316,7 +438,7 @@ extension FirstViewController: UICollectionViewDataSource, UICollectionViewDeleg
             }
             
             if let sugPrice = self.dealsOnTimeData[indexPath.row].smPrice {
-                price += sugPrice
+                price = (sugPrice == "0") ? "" : price + sugPrice
             }
             
             // 刪除線
@@ -336,6 +458,8 @@ extension FirstViewController: UICollectionViewDataSource, UICollectionViewDeleg
             }
             
             cell.productSalePriceLabel?.text = price
+            
+            cell.addCartButton.tag = indexPath.row
             
             return cell
         case 1:
@@ -390,7 +514,7 @@ extension FirstViewController: UICollectionViewDataSource, UICollectionViewDeleg
             }*/
             
             if let sugPrice = self.productList2[indexPath.row].price {
-                price += sugPrice
+                price = (sugPrice == "0") ? "" : price + sugPrice
             }
             
             // 刪除線
@@ -411,6 +535,8 @@ extension FirstViewController: UICollectionViewDataSource, UICollectionViewDeleg
             
             cell.productSalePriceLabel?.text = price
             
+            cell.addCartButton.tag = indexPath.row
+
             return cell
         case 3:
             let cell: LinkCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseLinkCollectionViewCellIdentifier, forIndexPath: indexPath) as! LinkCollectionViewCell
@@ -430,16 +556,17 @@ extension FirstViewController: UICollectionViewDataSource, UICollectionViewDeleg
 	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         switch collectionView.tag {
         case 0:
-            log.debug("點選\(indexPath.row)")
+            let row = self.dealsOnTimeData[indexPath.row]
+            self.directPage("item", seq: row.smSeq)
         case 1:
             let row = self.productList1[indexPath.row]
-            log.debug("\(indexPath.row)-\(row.name)")
+            self.directPage("item", seq: row.smSeq)
         case 2:
             let row = self.productList2[indexPath.row]
-            log.debug("\(indexPath.row)-\(row.name)")
+            self.directPage("item", seq: row.smSeq)
         case 3:
             let row = self.linkDataList[indexPath.row]
-            log.debug("\(indexPath.row)-\(row.pageCode)")
+            self.directPage(row.pageCode, seq: row.seq)
         default:
             log.debug("點選\(indexPath.row)")
         }
