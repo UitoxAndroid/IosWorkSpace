@@ -22,7 +22,7 @@ class DealsOntimeModel
         let data = [
             "wc_seq":"AWC000001",
             "range":"date",
-            "date":"2015/10/31"
+            "date":""
 		]
 
 		let request = [

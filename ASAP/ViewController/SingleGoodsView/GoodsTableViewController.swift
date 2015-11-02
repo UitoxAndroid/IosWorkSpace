@@ -283,7 +283,7 @@ class GoodsTableViewController: UITableViewController
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowCampaignViewController" {
             if let campaignViewController = segue.destinationViewController as? CampaignViewController {
-				campaignViewController.campSeq = "201510A0700000001"
+				campaignViewController.campSeq = "201511A0200000002"
             }
         }
     }
