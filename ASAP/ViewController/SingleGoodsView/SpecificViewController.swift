@@ -124,8 +124,8 @@ class SpecificViewController: UITableViewController,UIPopoverPresentationControl
                 let titleCell = tableView.dequeueReusableCellWithIdentifier("TitleCell", forIndexPath: indexPath) as! TitleCell
                 if let goodsItemInfo = itemInfo {
                     titleCell.lblItemName.text = goodsItemInfo.smName
-                    titleCell.lblPriceNow.text = goodsItemInfo.smPrice
-                    titleCell.lblPriceOrigin.text = goodsItemInfo.itMprice
+                    titleCell.lblPriceNow.text = "$\(goodsItemInfo.smPrice!)"
+                    titleCell.lblPriceOrigin.text = "$\(goodsItemInfo.itMprice)"
                 }
                 return titleCell
             case 2:

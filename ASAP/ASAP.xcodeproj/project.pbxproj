@@ -213,7 +213,7 @@
 		60567C8B1BCCB9E1005BB52A /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		60567C8C1BCCB9E1005BB52A /* DirectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionCell.swift; sourceTree = "<group>"; };
 		60567C8D1BCCB9E1005BB52A /* FooterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FooterCell.swift; sourceTree = "<group>"; };
-		60567C8E1BCCB9E1005BB52A /* GoodsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsTableViewController.swift; sourceTree = "<group>"; };
+		60567C8E1BCCB9E1005BB52A /* GoodsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoodsTableViewController.swift; path = SingleGoodsView/GoodsTableViewController.swift; sourceTree = "<group>"; };
 		60567C8F1BCCB9E1005BB52A /* MoreToBuyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreToBuyCell.swift; sourceTree = "<group>"; };
 		60567C901BCCB9E1005BB52A /* MoreToBuyTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreToBuyTitleCell.swift; sourceTree = "<group>"; };
 		60567C911BCCB9E1005BB52A /* PreorderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreorderCell.swift; sourceTree = "<group>"; };
@@ -228,7 +228,7 @@
 		60567C9B1BCCB9E1005BB52A /* SizeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeCell.swift; sourceTree = "<group>"; };
 		60567C9C1BCCB9E1005BB52A /* SpecificTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificTable.swift; sourceTree = "<group>"; };
 		60567C9D1BCCB9E1005BB52A /* TitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
-		60567C9E1BCCB9E1005BB52A /* SpecificViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificViewController.swift; sourceTree = "<group>"; };
+		60567C9E1BCCB9E1005BB52A /* SpecificViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpecificViewController.swift; path = SingleGoodsView/SpecificViewController.swift; sourceTree = "<group>"; };
 		60567C9F1BCCB9E1005BB52A /* TabCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabCell.swift; sourceTree = "<group>"; };
 		606D228F1BD8973A00AA875E /* MIBadgeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIBadgeButton.swift; sourceTree = "<group>"; };
 		606DDF611BD78C9A001F21AB /* VolumeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeButton.swift; sourceTree = "<group>"; };
@@ -423,7 +423,6 @@
 				60567C8B1BCCB9E1005BB52A /* Checkbox.swift */,
 				60567C8C1BCCB9E1005BB52A /* DirectionCell.swift */,
 				60567C8D1BCCB9E1005BB52A /* FooterCell.swift */,
-				60567C8E1BCCB9E1005BB52A /* GoodsTableViewController.swift */,
 				60567C8F1BCCB9E1005BB52A /* MoreToBuyCell.swift */,
 				60567C901BCCB9E1005BB52A /* MoreToBuyTitleCell.swift */,
 				60567C911BCCB9E1005BB52A /* PreorderCell.swift */,
@@ -431,7 +430,6 @@
 				60567C931BCCB9E1005BB52A /* RelationViewCell.swift */,
 				60567C941BCCB9E1005BB52A /* SectionHeaderCell.swift */,
 				60567C951BCCB9E1005BB52A /* SpecificationCell.swift */,
-				60567C9E1BCCB9E1005BB52A /* SpecificViewController.swift */,
 				60567C9F1BCCB9E1005BB52A /* TabCell.swift */,
 				60567C961BCCB9E1005BB52A /* SpecificPage */,
 			);
@@ -694,6 +692,8 @@
 				A1916A831BAAB9CD00DA5447 /* SignInViewController.swift */,
 				A1B36B141BC3748E00ADEAAA /* VerifyMobileViewController.swift */,
 				A18EE6D61BDF24A700550789 /* WebViewController.swift */,
+				60567C8E1BCCB9E1005BB52A /* GoodsTableViewController.swift */,
+				60567C9E1BCCB9E1005BB52A /* SpecificViewController.swift */,
 				AF7E90061B9578E300AFD3EF /* CustomUI */,
 				60567C871BCCB9E1005BB52A /* SingleGoodsView */,
 			);

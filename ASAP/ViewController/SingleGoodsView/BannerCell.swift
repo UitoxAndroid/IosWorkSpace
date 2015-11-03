@@ -72,7 +72,7 @@ class BannerCell: UITableViewCell, UIScrollViewDelegate {
                         let rect:CGRect = CGRectMake(0, 0, (UIImage(data: data)?.size.width)! * scale, (UIImage(data: data)?.size.height)! * scale)
                         imageView.frame = rect
                         page.addSubview(imageView)
-                        page.backgroundColor = UIColor.blueColor()
+                        page.backgroundColor = UIColor.whiteColor()
                         page.frame = CGRect(x: CGFloat(index) * screenSize.width, y: 0,width: screenSize.width, height: size.height)
                         ImageBannerScroll.addSubview(page)
                     }

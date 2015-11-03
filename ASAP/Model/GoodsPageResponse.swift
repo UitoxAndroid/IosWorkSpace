@@ -68,7 +68,7 @@ public class GoodsPageItemInfo : Mappable
     public var preOrderQty:String = ""
     public var smPicSize:String?
     public var preAvaQty:String?
-    public var isPreOrd:Bool?
+    public var isPreOrd:String?
     public var preDtS:String?
     public var preDtE:String?
     public var refEtdDt:String?
@@ -102,7 +102,7 @@ public class GoodsPageItemInfo : Mappable
         preOrderQty         <- map["PRE_ORD_QTY"]
         smPicSize           <- map["SM_PIC_SIZE"]
         preAvaQty           <- map["PRE_AVA_QTY"]
-        isPreOrd            <- map["IS_PRE_QRD"]
+        isPreOrd            <- map["IS_PRE_ORD"]
         preDtS              <- map["PRE_DT_S"]
         preDtE              <- map["PRE_DT_E"]
         refEtdDt            <- map["REF_ETD_DT"]

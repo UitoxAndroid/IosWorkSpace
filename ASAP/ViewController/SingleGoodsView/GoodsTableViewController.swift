@@ -18,7 +18,7 @@ class GoodsTableViewController: UITableViewController
     var isOpenMoroToBuyCell:Bool = false
     var isCampaignBegin:Bool = false
     
-    var seq:String = "201510AM140000049"
+    var seq:String = "201510AM140000041"
     
     
     var controllerSpec : UIAlertController?
@@ -95,9 +95,27 @@ class GoodsTableViewController: UITableViewController
                 }
                 
             case 3:     //預購
-                return 80
+                if let goodsInfos = goodsResponse?.itemInfo {
+                    log.info("是否預購\(goodsInfos.isPreOrd)")
+                    if(goodsInfos.isPreOrd == "0") {
+                        return 0
+                    } else {
+                        return 80
+                    }
+                } else {
+                    return 80
+                }
+                
             case 4:     //說明
-                return 120
+                if let goodsInfos = goodsResponse?.itemInfo {
+                    if(goodsInfos.isPreOrd == "0") {
+                        return 0
+                    } else {
+                        return 120
+                    }
+                } else {
+                    return 120
+                }
             case 5:     //加購商品Title
                 return 35
             default:
@@ -196,12 +214,21 @@ class GoodsTableViewController: UITableViewController
                 
                 if let goodsInfos = goodsResponse?.itemInfo {
                     //如果有設定預購
-                    if(goodsInfos.isPreOrd == true) {
+                    if(goodsInfos.isPreOrd == "1") {
                         preorderCell.lblMbrOnlyTag.hidden = true
                     } else {
                         preorderCell.lblMbrOnlyTag.hidden = false
                     }
-                    preorderCell.lblPreorderDeadline.text = goodsInfos.preDtE!
+//                    preorderCell.lblPreorderDeadline.text = goodsInfos.preDtE!
+                    preorderCell.lblPreorderDeadline.text = "00:13:23"
+                    
+                    if let ispreorder = goodsInfos.isPreOrd{
+                        if(ispreorder == "0") {
+                            preorderCell.hidden = true
+                        } else {
+                            preorderCell.hidden = false
+                        }
+                    }
                 }
                 return preorderCell
                 
@@ -209,12 +236,28 @@ class GoodsTableViewController: UITableViewController
                 let directionCell = tableView.dequeueReusableCellWithIdentifier("DirectionCell", forIndexPath: indexPath) as! DirectionCell
                 
                 if let goodsInfos = goodsResponse?.itemInfo {
-                    directionCell.lblDesc.text = "會員限購\(goodsInfos.ssmLimitQty)個"
+                    let limitQty = goodsInfos.ssmLimitQty
+                    if(limitQty == nil)
+                    {
+                        directionCell.lblDesc.text = "會員限購 個"
+                    } else {
+                        directionCell.lblDesc.text = "會員限購\(goodsInfos.ssmLimitQty)個"
+                    }
+                    
                     directionCell.lblOutDay.text = goodsInfos.refEtdDt
+                    
                     directionCell.lblLeftCount.text = goodsInfos.preAvaQty
                     
                     //已預訂數量
                     directionCell.lblPreorderCount.text = "\(goodsInfos.preOrderQty)"
+                    
+                    if let ispreorder = goodsInfos.isPreOrd{
+                        if(ispreorder == "0") {
+                            directionCell.hidden = true
+                        } else {
+                            directionCell.hidden = false
+                        }
+                    }
                 }
                 return directionCell
             case 5://加購Title
@@ -295,7 +338,15 @@ class GoodsTableViewController: UITableViewController
                 specificViewController.itemInfo = goodsResponse?.itemInfo
             }
         }
+        
+        if segue.identifier == "ShowCampaignViewController" {
+            if let campaignViewController = segue.destinationViewController as? CampaignViewController {
+                campaignViewController.campSeq = "201511A0200000002"
+            }
+        }
+
     }
+	
     
     //點擊展開按鈕來展開加購商品
     @IBAction func btnOpenCellClick(sender: UIButton) {
@@ -327,7 +378,12 @@ class GoodsTableViewController: UITableViewController
         addShopCart.customView = addInCart
         
         shopCartBtn.setBackgroundImage(UIImage(named: "ic_shopping_cart"), forState: UIControlState.Normal)
-        shopCartBtn.badgeString = nil
+        if(MyApp.sharedShoppingCart.goodsList.count > 0) {
+            shopCartBtn.badgeString = String(MyApp.sharedShoppingCart.goodsList.count)
+            numInCart = MyApp.sharedShoppingCart.goodsList.count
+        } else {
+            shopCartBtn.badgeString = nil
+        }
         shopCartBtn.addTarget(self, action: "btnShopCartPressed:", forControlEvents: .TouchUpInside)
         shopCartBtn.frame = CGRectMake(0, 0, 30, 30)
         shopCartBtn.badgeEdgeInsets = UIEdgeInsetsMake(12, 5, 0, 10)
@@ -343,12 +399,13 @@ class GoodsTableViewController: UITableViewController
         }
         
         //先寫入假資料
-		var info = ShoppingCartInfo()
+		let info = ShoppingCartInfo()
         comboData.itno  = "AB123000\(numInCart)"
         comboData.sno   = "CC123000\(numInCart)"
 		
 		MyApp.sharedShoppingCart.insertGoodsIntoCart(info)
 		self.showSuccess("已加入購物車")
+        self.addCartNumber()
     }
     
     func btnShopCartPressed(sender: MIBadgeButton) {
