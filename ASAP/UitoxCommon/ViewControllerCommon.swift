@@ -57,6 +57,24 @@ extension UIViewController
 		return nil
 	}
 	
+	//加入購物車數字
+	func addCartNumber() {
+		let delegate = UIApplication.sharedApplication().delegate
+		let myTabBarViewController = delegate!.window!!.rootViewController as? MyTabBarViewController
+		if let myTabBarViewController = myTabBarViewController {
+			myTabBarViewController.viewControllers![3].tabBarItem.badgeValue = String(MyApp.sharedShoppingCart.goodsList.count)
+		}
+	}
+	
+	//跳到購物流程頁
+	func jumpToShoppingCartTab() {
+		let delegate = UIApplication.sharedApplication().delegate
+		let myTabBarViewController = delegate!.window!!.rootViewController as? MyTabBarViewController
+		if let myTabBarViewController = myTabBarViewController {
+			myTabBarViewController.selectedIndex = 3
+		}
+	}
+	
 	
 	// MARK: - ProgressHUD
 	

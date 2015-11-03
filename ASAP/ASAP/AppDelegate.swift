@@ -49,9 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //		UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
 
 		
-		do {
-			try NSFileManager.defaultManager().removeItemAtPath(Realm.Configuration.defaultConfiguration.path!)
-		} catch {}
+//		do {
+//			try NSFileManager.defaultManager().removeItemAtPath(Realm.Configuration.defaultConfiguration.path!)
+//		} catch {}
 
 		return true
 	}
@@ -79,28 +79,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
 
-}
-
-// MARK - Login
-
-extension AppDelegate
-{
-	func login(account: String, passwd: String) {
-		let myTabBarViewController = self.window!.rootViewController as? MyTabBarViewController
-		if let myTabBarViewController = myTabBarViewController {
-			myTabBarViewController.login("shengeih@gmail.com", passwd: "123456")
-		}
-	}
-	
-	func showLogin() {
-		let myTabBarViewController = self.window!.rootViewController as? MyTabBarViewController
-		if let myTabBarViewController = myTabBarViewController {
-			let loginViewController = myTabBarViewController.storyboard?.instantiateViewControllerWithIdentifier("SignInViewController")
-			myTabBarViewController.presentViewController(loginViewController!, animated: true, completion: { () -> Void in
-				
-			})
-		}
-
-	}
 }
 

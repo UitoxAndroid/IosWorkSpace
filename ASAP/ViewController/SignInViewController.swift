@@ -93,15 +93,19 @@ class SignInViewController: UITableViewController
                 var status_code = signIn!.status_code
                 let range = status_code!.startIndex.advancedBy(0)...status_code!.startIndex.advancedBy(7)
                 status_code?.removeRange(range)
-                                
-                if(status_code != "100") {
+                
+                switch status_code! {
+                case "100":
+                    self.showSuccess("登入成功")
+                    self.delegate?.signInSuccess()
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                case "302":
+                    let errorString = "帳號或密碼輸入錯誤，請重新輸入，還剩餘\(signIn!.errorData!.canLoginTimes!)次機會"
+                    self.showAlert(errorString)
+                default:
                     self.showAlert((signIn!.description)!)
-                    return
                 }
                 
-                self.showSuccess("登入成功")
-				self.delegate?.signInSuccess()
-				self.dismissViewControllerAnimated(true, completion: nil)
 
 //				let alert = UIAlertController(title: "", message: "登入成功!!", preferredStyle: UIAlertControllerStyle.Alert)
 //				let confirmAction = UIAlertAction(title: "確定", style: UIAlertActionStyle.Default, handler: { act in

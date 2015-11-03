@@ -12,7 +12,8 @@ class KindViewController: UITableViewController
 {
 	lazy var categoryData:CategoryModel? = CategoryModel()
 	lazy var searchData:SearchModel? = SearchModel()
-    lazy var goodsPageModel:GoodsPageModel?     = GoodsPageModel()
+    lazy var goodsPageModel:GoodsPageModel? = GoodsPageModel()
+	lazy var campaignData:CampaignModel? = CampaignModel()
 	let basicCellIdentifier = "BasicCell"
 	let headerCellIdentifier = "HeaderCell"
 	var headerCell: HeaderCell?
@@ -20,10 +21,12 @@ class KindViewController: UITableViewController
 	var listItem = [ItemInfo]()
 	var	siSeq: String = ""
 	var query: String = ""
+	var	campSeq: String = ""
 	var buttonDefaultColor = UIColor.blueColor()
 	var currentPage = 1
 	var currentSortBy = SortBy.SmSoldQty
 	var currentDesc = true
+	var selectedButtonInfo:StoreInfo? = nil
 
 	lazy var placeholderImage: UIImage = {
 		let image = UIImage(named: "PlaceholderImage")!
@@ -125,7 +128,48 @@ class KindViewController: UITableViewController
 	
     @IBAction func addCartButtonClick(sender: AnyObject) {
         let tag = (sender as? UIButton)!.tag
-        self.directPage(tag)
+		
+		selectedButtonInfo = self.searchListResponse!.storeList[tag]
+		
+		if(selectedButtonInfo!.smSeq == nil) {
+			selectedButtonInfo = nil
+			self.showError("資料有誤")
+			return
+		}
+
+		if let action = selectedButtonInfo!.cartAction {
+			switch action {
+			case 0:	// "加入購物車" 點按鈕->加入購物車
+				self.showSuccess("加入購物車成功!")
+				self.addCartNumber()
+				break
+//			case 1: // "買立折"
+//				
+//				break
+			case 2: // "立即搶購" 點按鈕->登入->加入購物車
+				if MyApp.sharedMember.guid == "" {
+					if let signInViewController = self.showSignInViewController() {
+						signInViewController.delegate = self
+					}
+				} else {
+					self.signInSuccess()
+				}
+				break
+			case 3,1: // "立即預訂" 點按鈕->登入->購買流程
+				if MyApp.sharedMember.guid == "" {
+					if let signInViewController = self.showSignInViewController() {
+						signInViewController.delegate = self
+					}
+				} else {
+					MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+					self.jumpToShoppingCartTab()
+				}
+				break
+			default: break
+			}
+		}
+
+//        self.directPage(tag)
     }
 	
     // MARK: - Table view data source
@@ -290,7 +334,8 @@ class KindViewController: UITableViewController
             self.showError("資料有誤")
             return
         }
-        
+		
+		
         self.pleaseWait()
         getGoodsPageData(row.smSeq!)
     }
@@ -303,16 +348,25 @@ class KindViewController: UITableViewController
 			categoryData?.getCategoryData(siSeq, page: currentPage, sortBy: currentSortBy, desc: currentDesc) { (category: SearchListResponse?, errorMessage: String?) in
 				self.clearAllNotice()
 				if errorMessage != nil {
-					self.showAlert(errorMessage!)
+					self.showError(errorMessage!)
 				} else {
 					completionHandler(categoryResponse: category!)
+				}
+			}
+		} else if campSeq != "" {
+			campaignData?.getCampaignData(campSeq, page: currentPage, sortBy: currentSortBy, desc: currentDesc) { (campaign:SearchListResponse?, errorMessage: String?) in
+				self.clearAllNotice()
+				if(errorMessage != nil) {
+					self.showError(errorMessage!)
+				} else {
+					completionHandler(categoryResponse: campaign!)
 				}
 			}
 		} else {
 			searchData?.getSearchData(query, page: currentPage, sortBy: currentSortBy, desc: currentDesc) { (search: SearchListResponse?, errorMessage: String?) in
 				self.clearAllNotice()
 				if errorMessage != nil {
-					self.showAlert(errorMessage!)
+					self.showError(errorMessage!)
 				} else {
 					completionHandler(categoryResponse: search!)
 				}
@@ -335,8 +389,44 @@ class KindViewController: UITableViewController
                 
                 let goodsView = self.storyboard?.instantiateViewControllerWithIdentifier("GoodsTableViewController") as! GoodsTableViewController
                 goodsView.goodsResponse = goodsPage!
-                self.navigationController?.pushViewController(goodsView, animated: true)
+				self.navigationController?.showViewController(goodsView, sender: self)
+//                self.navigationController?.pushViewController(goodsView, animated: true)
             }
         })
     }
+}
+
+
+// MARK: - SignInDelegate
+
+extension KindViewController: SignInDelegate
+{
+	func signInSuccess() {
+		log.debug("signInSuccess")
+		if let action = selectedButtonInfo!.cartAction {
+			switch action {
+//			case 1: // "買立折"
+//				
+//				break
+			case 2: // "立即搶購"
+//				let sql = SqlCartList()
+//				sql.sqliteInsert()
+				MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+				self.showSuccess("加入購物車成功!")
+				self.addCartNumber()
+				break
+			case 3,1: // "立即預訂"
+				MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+				self.jumpToShoppingCartTab()
+				self.addCartNumber()
+				break
+			default: break
+			}
+		}
+
+	}
+	
+	func signInCancel() {
+		log.debug("signInCancel")
+	}
 }

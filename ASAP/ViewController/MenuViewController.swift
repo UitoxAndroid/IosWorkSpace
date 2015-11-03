@@ -53,7 +53,7 @@ class MenuViewController: UIViewController
 		super.viewWillAppear(true)
 		updateSignStatus()		
 	}
-	
+		
 	func updateSignStatus() {
 		if MyApp.sharedMember.encodeGuid != "" {
 			let account = MyApp.sharedMember.email == "" ? MyApp.sharedMember.phone : MyApp.sharedMember.email

@@ -12,18 +12,21 @@ import RealmSwift
 // 登入頁 Response
 public class SignInResponse : Mappable
 {
-    public var status_code: String?
-    public var description: String?
-    public var memberData: MemberData?
+    public var status_code:     String?
+    public var description:     String?
+    public var memberData:      MemberData?
+    public var errorData:       ErrorData?
     
     required public init?(_ map: Map) {
         
     }
     
     public func mapping(map: Map) {
-        status_code <- map["status_code"]
-        description <- map["description"]
-        memberData  <- map["data"]
+        status_code     <- map["status_code"]
+        description     <- map["description"]
+        memberData      <- map["data"]
+        errorData       <- map["data"]
+
     }
 }
 
@@ -58,5 +61,22 @@ public class MemberData : Object, Mappable
         wsSeq       <- map["WS_SEQ"]
         encodeGuid  <- map["ENCODE_GUID"]
         invoice     <- map["MEM_INVOICE"]
+    }
+}
+
+// 登入錯誤資料
+public class ErrorData : Mappable
+{
+    /*
+    data/can_login_times    (302)密碼錯誤-可登入次數*/
+    
+    public var canLoginTimes:   Int?
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        canLoginTimes   <- map["can_login_times"]
     }
 }

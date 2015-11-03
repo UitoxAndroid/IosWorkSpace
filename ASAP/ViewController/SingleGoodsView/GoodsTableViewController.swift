@@ -316,7 +316,6 @@ class GoodsTableViewController: UITableViewController
     let volumeView = VolumeButton()
     var buyCount = 1
     var numInCart = 0
-    var sqliteCtl = SqlCartList()
     let comboData = CartComboData()
     
     func setUpBarButton() {
@@ -344,15 +343,16 @@ class GoodsTableViewController: UITableViewController
         }
         
         //先寫入假資料
+		var info = ShoppingCartInfo()
         comboData.itno  = "AB123000\(numInCart)"
         comboData.sno   = "CC123000\(numInCart)"
-        sqliteCtl.datas = comboData
-        sqliteCtl.sqliteInsert()
-        showSuccess("已加入購物車")
+		
+		MyApp.sharedShoppingCart.insertGoodsIntoCart(info)
+		self.showSuccess("已加入購物車")
     }
     
     func btnShopCartPressed(sender: MIBadgeButton) {
-        sqliteCtl.sqliteQuery()
+        MyApp.sharedShoppingCart.queryShoppingCart()
     }
     
     @IBAction func btnPlusPressed(sender: UIBarButtonItem) {

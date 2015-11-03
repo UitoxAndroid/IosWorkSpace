@@ -8,9 +8,15 @@
 
 import Foundation
 
-class MyApp {
+class MyApp
+{
 	static let sharedMember: MemberModel = {
 		return MemberModel()
 	}()
 
+	static let sharedShoppingCart: ShoppingCartModel = {
+		return ShoppingCartModel()
+	}()
+
+	
 }

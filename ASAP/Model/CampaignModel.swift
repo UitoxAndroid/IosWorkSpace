@@ -10,11 +10,18 @@ import Foundation
 
 class CampaignModel
 {   
-    func getCampaignData( completionHandler: (campaign: SearchListResponse?, errorMessage: String?) -> Void ) {
+	func getCampaignData(campSeq:String, page: Int, sortBy: SortBy, desc: Bool, completionHandler: (campaign: SearchListResponse?, errorMessage: String?) -> Void ) {
 		let url = DomainPath.MviewWww.rawValue
+		
+		let sort = [
+			[sortBy.rawValue, (desc ? "desc" : "asc")]
+		]
+
         let data = [
-			"camp_seq":"201510A0700000001",
-			"wc_seq":"AWC000001"
+			"camp_seq":campSeq,
+			"wc_seq":"AWC000001",
+			"page":page,
+			"sort":sort
 		]
 
         let request = [
@@ -26,7 +33,7 @@ class CampaignModel
             "data":data
         ]
         
-        ApiManager.sharedInstance.postDictionary(url, params: request as? [String : AnyObject]) {
+        ApiManager.sharedInstance.postDictionary(url, params: request) {
             (campaign: SearchListResponse?, error: String?) -> Void in
             
             if campaign == nil {
