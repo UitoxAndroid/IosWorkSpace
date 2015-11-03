@@ -18,7 +18,7 @@ class GoodsPageModel
             "sm_seq" : smSeq
         ]
         let request = [
-			"action": "show_list_api/get_item_and_color_info",
+			"action": "show_list_api/get_app_item_and_color_info",
 			"account": "01_uitoxtest",
             "password": "Aa1234%!@#",
             "platform_id": "AW000001",

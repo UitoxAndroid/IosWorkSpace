@@ -65,7 +65,7 @@ public class GoodsPageItemInfo : Mappable
     */
     
     public var smSubTitle:GoodsSubTitle?
-    public var preOrderQty:Int?
+    public var preOrderQty:String = ""
     public var smPicSize:String?
     public var preAvaQty:String?
     public var isPreOrd:Bool?
@@ -73,15 +73,15 @@ public class GoodsPageItemInfo : Mappable
     public var preDtE:String?
     public var refEtdDt:String?
     public var showDt:String?
-    public var ssmStDt:String = ""
-    public var ssmEnDt:String = ""
+    public var ssmStDt:String?
+    public var ssmEnDt:String?
     public var smName:String?
     public var smPic:String?
     public var smColorPic:String?
     public var smStatus:Bool?
-    public var smPrice:String = ""
+    public var smPrice:String?
     public var ssmLimitQty:Int?
-    public var ssmPrice:Int?
+    public var ssmPrice:String = ""
     public var ssmType:Int?
     public var smPicMulti:[String]?
     public var color:String?
@@ -158,7 +158,7 @@ public class CampData:Mappable
     */
     
     public var check:Bool?
-    public var campDetail:CampDetail?
+    public var campDetail:[CampDetail] = []
     
     required public init?(_ map: Map) {
         
@@ -181,8 +181,8 @@ public class CampDetail:Mappable
     
     public var campName:String?
     public var campSeq:String?
-    public var startDate:String?
-    public var endDate:String?
+    public var startDate:String = ""
+    public var endDate:String = ""
     
     required public init?(_ map: Map) {
         

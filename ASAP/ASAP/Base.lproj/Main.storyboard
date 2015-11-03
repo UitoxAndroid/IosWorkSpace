@@ -451,7 +451,7 @@
         <!--活動-->
         <scene sceneID="gVe-hF-DEW">
             <objects>
-                <viewController id="KDF-uV-9d3" customClass="CampaignViewController" customModule="ASAP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CampaignViewController" id="KDF-uV-9d3" customClass="CampaignViewController" customModule="ASAP" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="X1m-Tp-iYI"/>
                         <viewControllerLayoutGuide type="bottom" id="MlU-N6-Ti2"/>
@@ -2857,7 +2857,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <segue destination="vro-ce-5Rq" kind="presentation" id="feu-ql-V6d"/>
+                                                <segue destination="vro-ce-5Rq" kind="presentation" identifier="ShowSpec" id="feu-ql-V6d"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -3201,7 +3201,7 @@
                                                 <constraint firstAttribute="height" constant="22" id="Muq-Ju-n3o"/>
                                                 <constraint firstAttribute="width" constant="21" id="aqk-u2-NNb"/>
                                             </constraints>
-                                            <state key="normal" title="Button" image="BCB15D38-9D98-460D-A64B-575C195DC6F1"/>
+                                            <state key="normal" title="Button" image="71F6089D-A288-4AD3-9512-377C46B224F2"/>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SnZ-mm-BAb">
                                             <rect key="frame" x="37" y="5" width="33" height="33"/>
@@ -3534,7 +3534,7 @@
         <!--規格頁-->
         <scene sceneID="d5c-Ky-yjY">
             <objects>
-                <tableViewController title="規格頁" id="vro-ce-5Rq" customClass="SpecificViewController" customModule="ASAP" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SpecificViewController" title="規格頁" id="vro-ce-5Rq" customClass="SpecificViewController" customModule="ASAP" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="rSk-8t-MAH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3587,7 +3587,7 @@
                                                 <constraint firstAttribute="height" constant="86" id="jeF-Qj-5ik"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Baby Laundry Detergent" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGA-Qn-wK6">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Baby Laundry Detergent" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGA-Qn-wK6">
                                             <rect key="frame" x="109" y="20" width="187" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -3639,6 +3639,12 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <animations/>
+                                <connections>
+                                    <outlet property="itemImg" destination="AMQ-eI-Glq" id="RbY-Zu-o8M"/>
+                                    <outlet property="lblItemName" destination="BGA-Qn-wK6" id="Zbz-dq-2Ls"/>
+                                    <outlet property="lblPriceNow" destination="jXH-pc-lbN" id="HXX-n1-JNX"/>
+                                    <outlet property="lblPriceOrigin" destination="eIC-ba-fbQ" id="xHM-VX-0MG"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ColorViewCell" rowHeight="80" id="oW8-lD-dUh" customClass="ColorCell" customModule="ASAP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="222" width="600" height="80"/>
@@ -4033,7 +4039,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BCB15D38-9D98-460D-A64B-575C195DC6F1" width="18" height="18">
+        <image name="71F6089D-A288-4AD3-9512-377C46B224F2" width="18" height="18">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -4064,7 +4070,7 @@ AAAAAAAAAAAADgEAAAMAAAABABIAAAEBAAMAAAABABIAAAECAAMAAAAEAAAFxgEDAAMAAAABAAEAAAEG
 AAMAAAABAAIAAAERAAQAAAABAAAACAESAAMAAAABAAEAAAEVAAMAAAABAAQAAAEWAAMAAAABABIAAAEX
 AAQAAAABAAAFEAEcAAMAAAABAAEAAAFSAAMAAAABAAIAAAFTAAMAAAAEAAAFzodzAAcAAAxIAAAF1gAA
 AAAACAAIAAgACAABAAEAAQABAAAMSExpbm8CEAAAbW50clJHQiBYWVogB84AAgAJAAYAMQAAYWNzcE1T
-RlQAAAAASUVDIHNSR0IAAAAAAAAAAAAAAAEAAPbWAAEAAAAA0y1IUCAgAAAAAAAAAAAAAAAAAAAAAAAA
+RlQAAAAASUVDIHNSR0IAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y1IUCAgAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARY3BydAAAAVAAAAAzZGVzYwAAAYQAAABsd3RwdAAA
 AfAAAAAUYmtwdAAAAgQAAAAUclhZWgAAAhgAAAAUZ1hZWgAAAiwAAAAUYlhZWgAAAkAAAAAUZG1uZAAA
 AlQAAABwZG1kZAAAAsQAAACIdnVlZAAAA0wAAACGdmlldwAAA9QAAAAkbHVtaQAAA/gAAAAUbWVhcwAA

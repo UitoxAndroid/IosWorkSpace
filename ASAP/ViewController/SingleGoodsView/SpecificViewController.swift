@@ -14,6 +14,7 @@ class SpecificViewController: UITableViewController,UIPopoverPresentationControl
     var sizeInfo:SizeInfo?
     var colorCount:Int = 0
     var sizeCount:Int = 0
+    var itemInfo:GoodsPageItemInfo?
     var itemNameList:[String] = ["Item Name1","Item Name2"]
     var giftNameList:[String] = ["gift1","gift2","gift3"]
     
@@ -121,6 +122,11 @@ class SpecificViewController: UITableViewController,UIPopoverPresentationControl
                 return navigationCell
             case 1:
                 let titleCell = tableView.dequeueReusableCellWithIdentifier("TitleCell", forIndexPath: indexPath) as! TitleCell
+                if let goodsItemInfo = itemInfo {
+                    titleCell.lblItemName.text = goodsItemInfo.smName
+                    titleCell.lblPriceNow.text = goodsItemInfo.smPrice
+                    titleCell.lblPriceOrigin.text = goodsItemInfo.itMprice
+                }
                 return titleCell
             case 2:
                 let colorCell = tableView.dequeueReusableCellWithIdentifier("ColorViewCell", forIndexPath: indexPath) as! ColorCell

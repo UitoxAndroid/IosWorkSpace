@@ -15,13 +15,8 @@ class GoodsTableViewController: UITableViewController
     lazy var goodsPageModel:GoodsPageModel? = GoodsPageModel()
     lazy var campaignData:CampaignModel? = CampaignModel()
     var goodsResponse:GoodsPageResponse? = nil
-    var goodsInfo:GoodsPageItemInfo? = nil
-    var suggestGoods:SuggestedData? = nil
     var isOpenMoroToBuyCell:Bool = false
-    var isCampaignBegin:Bool = true
-    var colorInfo:ColorInfo?
-    var sizeInfo:SizeInfo?
-    
+    var isCampaignBegin:Bool = false
     
     var seq:String = "201510AM140000049"
     
@@ -46,12 +41,13 @@ class GoodsTableViewController: UITableViewController
         
         if(goodsResponse == nil) {
             self.getGoodsPageData(seq)
-        } else {
-            goodsInfo = goodsResponse?.itemInfo
-            suggestGoods = goodsResponse?.suggestedData
         }
-        
         self.setUpBarButton()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        navigationController?.toolbarHidden = false
+        
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -91,6 +87,7 @@ class GoodsTableViewController: UITableViewController
             case 1:     //規格
                 return 50
             case 2:     //活動
+                isCampaignBegin = (goodsResponse?.campData?.check!)!
                 if(isCampaignBegin == false) {
                     return 0
                 } else {
@@ -156,16 +153,20 @@ class GoodsTableViewController: UITableViewController
             switch(indexPath.row) {
             case 0: //圖片&品名&售價
                 let bannerCell = tableView.dequeueReusableCellWithIdentifier("BannerCell", forIndexPath: indexPath) as! BannerCell
-                if(goodsInfo?.smSubTitle?.type == 0) {
-                    bannerCell.lblGoodsdesc1.text = ""
-                } else {
-                    bannerCell.lblGoodsdesc1.text = goodsInfo?.smSubTitle?.title
+                
+                if let goodsInfos = goodsResponse?.itemInfo {
+                    if(goodsInfos.smSubTitle!.type == 0) {
+                        bannerCell.lblGoodsdesc1.text = ""
+                    } else {
+                        bannerCell.lblGoodsdesc1.text = goodsInfos.smSubTitle?.title
+                    }
+                    bannerCell.lblGoodsName.text = goodsInfos.smName
+                    bannerCell.imageList = goodsInfos.smPicMulti
+                    bannerCell.lblPriceNow.text = "$\(goodsInfos.smPrice!)"
+                    bannerCell.lblPriceOrigin.text = "$\(goodsInfos.itMprice)"
+                    bannerCell.ImageBannerSetting()
                 }
-                bannerCell.lblGoodsName.text = self.goodsInfo?.smName
-                bannerCell.imageList = self.goodsInfo?.smPicMulti
-                bannerCell.lblPriceNow.text = "$\(self.goodsInfo!.smPrice)"
-                bannerCell.lblPriceOrigin.text = "$\(self.goodsResponse!.itemInfo!.itMprice)"
-                bannerCell.ImageBannerSetting()
+         
                 return bannerCell
             case 1://規格
                 let specificationCell = tableView.dequeueReusableCellWithIdentifier("SpecificationCell", forIndexPath: indexPath) as! SpecificationCell
@@ -173,40 +174,48 @@ class GoodsTableViewController: UITableViewController
             case 2://活動
                 let activityCell = tableView.dequeueReusableCellWithIdentifier("ActivityCell", forIndexPath: indexPath) as! ActivityCell
                 
-                //行銷活動時間
-                activityCell.lblActTime.text = "\(goodsResponse!.itemInfo!.ssmStDt) ~ \(goodsResponse!.itemInfo!.ssmEnDt)"
-                
-                //優惠價
-                activityCell.lblGoodPrice.text = "$10"
-               
-                if(isCampaignBegin == true) {
-                    activityCell.hidden = false
-                } else {
-                    activityCell.hidden = true
+                if let campInfo = goodsResponse?.campData {
+                    //行銷活動時間
+                    if (campInfo.campDetail.count != 0){
+                        activityCell.lblActTime.text = "\(campInfo.campDetail[0].startDate) ~ \(campInfo.campDetail[0].endDate)"
+                    }
+                    //優惠價
+                    activityCell.lblGoodPrice.text = "$\(goodsResponse!.itemInfo!.ssmPrice)"
+                    
+                    isCampaignBegin = campInfo.check!
+                    if(isCampaignBegin == true) {
+                        activityCell.hidden = false
+                    } else {
+                        activityCell.hidden = true
+                    }
                 }
-                
                 return activityCell
                 
             case 3://預購倒數
                 let preorderCell = tableView.dequeueReusableCellWithIdentifier("PreorderCell", forIndexPath: indexPath) as! PreorderCell
                 
-                //如果有設定預購
-                if(goodsResponse?.itemInfo?.isPreOrd == true) {
-                    preorderCell.lblMbrOnlyTag.hidden = true
-                } else {
-                    preorderCell.lblMbrOnlyTag.hidden = false
+                if let goodsInfos = goodsResponse?.itemInfo {
+                    //如果有設定預購
+                    if(goodsInfos.isPreOrd == true) {
+                        preorderCell.lblMbrOnlyTag.hidden = true
+                    } else {
+                        preorderCell.lblMbrOnlyTag.hidden = false
+                    }
+                    preorderCell.lblPreorderDeadline.text = goodsInfos.preDtE!
                 }
-                
-                preorderCell.lblPreorderDeadline.text = self.goodsInfo?.preDtE
                 return preorderCell
+                
             case 4://說明
                 let directionCell = tableView.dequeueReusableCellWithIdentifier("DirectionCell", forIndexPath: indexPath) as! DirectionCell
-                directionCell.lblDesc.text = "會員限購\(self.goodsInfo!.ssmLimitQty)個"
-                directionCell.lblOutDay.text = self.goodsInfo?.refEtdDt
-                directionCell.lblLeftCount.text = self.goodsInfo?.preAvaQty
                 
-                //已預訂數量?
-                directionCell.lblPreorderCount.text = "2"
+                if let goodsInfos = goodsResponse?.itemInfo {
+                    directionCell.lblDesc.text = "會員限購\(goodsInfos.ssmLimitQty)個"
+                    directionCell.lblOutDay.text = goodsInfos.refEtdDt
+                    directionCell.lblLeftCount.text = goodsInfos.preAvaQty
+                    
+                    //已預訂數量
+                    directionCell.lblPreorderCount.text = "\(goodsInfos.preOrderQty)"
+                }
                 return directionCell
             case 5://加購Title
                 let moreToBuyTitleCell = tableView.dequeueReusableCellWithIdentifier("MoreToBuyTitleCell", forIndexPath: indexPath) as! MoreToBuyTitleCell
@@ -268,8 +277,6 @@ class GoodsTableViewController: UITableViewController
                 return buttonInCell
             }
         
-        
-        
         case 3://說明,規格,保固
             let footerCell = tableView.dequeueReusableCellWithIdentifier("FooterCell", forIndexPath: indexPath) as! FooterCell
             SectionHeaderCell().OnTableViewScrolling(AnimateBarXPosition: 20.0)
@@ -280,20 +287,15 @@ class GoodsTableViewController: UITableViewController
         }
     }
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "ShowCampaignViewController" {
-//            if let campaignViewController = segue.destinationViewController as? CampaignViewController {
-//                self.GetCampaign {
-//                    (campaignResponse:SearchListResponse?) in
-//                    if campaignResponse?.total > 0 {
-//                        campaignViewController.campaignData = campaignResponse
-//                    }
-//                    self.clearAllNotice()
-//                }
-//            }
-//        }
-//    }
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowSpec" {
+            if let specificViewController = segue.destinationViewController as? SpecificViewController {
+                specificViewController.colorInfo = goodsResponse?.productInfo?.colorInfo
+                specificViewController.sizeInfo = goodsResponse?.productInfo?.sizeInfo
+                specificViewController.itemInfo = goodsResponse?.itemInfo
+            }
+        }
+    }
     
     //點擊展開按鈕來展開加購商品
     @IBAction func btnOpenCellClick(sender: UIButton) {
@@ -377,10 +379,6 @@ class GoodsTableViewController: UITableViewController
             }
             else {
                 self.goodsResponse = goodsPage!
-                self.goodsInfo = self.goodsResponse!.itemInfo
-                self.suggestGoods = self.goodsResponse!.suggestedData
-                self.colorInfo = self.goodsResponse!.productInfo?.colorInfo
-                self.sizeInfo = self.goodsResponse!.productInfo?.sizeInfo
                 self.tableView.reloadData()
             }
         })

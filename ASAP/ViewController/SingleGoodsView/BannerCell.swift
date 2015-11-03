@@ -67,6 +67,10 @@ class BannerCell: UITableViewCell, UIScrollViewDelegate {
                 if let url = NSURL(string: imageList[index]){
                     if  let data = NSData(contentsOfURL: url){
                         let imageView = UIImageView(image: UIImage(data: data))
+                        var scale:CGFloat = 1.0
+                        scale = CGFloat(screenSize.width) / (UIImage(data: data)?.size.width)!
+                        let rect:CGRect = CGRectMake(0, 0, (UIImage(data: data)?.size.width)! * scale, (UIImage(data: data)?.size.height)! * scale)
+                        imageView.frame = rect
                         page.addSubview(imageView)
                         page.backgroundColor = UIColor.blueColor()
                         page.frame = CGRect(x: CGFloat(index) * screenSize.width, y: 0,width: screenSize.width, height: size.height)
