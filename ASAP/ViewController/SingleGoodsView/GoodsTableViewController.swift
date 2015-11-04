@@ -15,10 +15,14 @@ class GoodsTableViewController: UITableViewController
     lazy var goodsPageModel:GoodsPageModel? = GoodsPageModel()
     lazy var campaignData:CampaignModel? = CampaignModel()
     var goodsResponse:GoodsPageResponse? = nil
-    var isOpenMoroToBuyCell:Bool = false
+    var isOpenMoreToBuyCell:Bool = false
     var isCampaignBegin:Bool = false
-    
-    var seq:String = "201510AM140000041"
+    lazy var placeholderImage: UIImage = {
+        let image = UIImage(named: "PlaceholderImage")!
+        return image
+        }()
+
+    var seq:String = "201510AM140000056"
     
     
     var controllerSpec : UIAlertController?
@@ -68,7 +72,7 @@ class GoodsTableViewController: UITableViewController
         case 0:
             return 6
         case 1:
-            return moreToBuyGoods.count
+            return (goodsResponse?.suggestedData?.suggestDetail.count)!
         case 2:
             return 1
         case 3:
@@ -96,7 +100,6 @@ class GoodsTableViewController: UITableViewController
                 
             case 3:     //預購
                 if let goodsInfos = goodsResponse?.itemInfo {
-                    log.info("是否預購\(goodsInfos.isPreOrd)")
                     if(goodsInfos.isPreOrd == "0") {
                         return 0
                     } else {
@@ -123,9 +126,9 @@ class GoodsTableViewController: UITableViewController
             }
         case 1:
             //加購商品
-            if(indexPath.row > 1 && isOpenMoroToBuyCell == true) {
+            if(indexPath.row > 1 && isOpenMoreToBuyCell == true) {
                 return 70
-            } else if(indexPath.row > 1 && isOpenMoroToBuyCell == false) {
+            } else if(indexPath.row > 1 && isOpenMoreToBuyCell == false) {
                 return 0
             } else {
                 return 70
@@ -133,7 +136,7 @@ class GoodsTableViewController: UITableViewController
         case 2:
             //展開列
             if(indexPath.row == 0) {
-                if(isOpenMoroToBuyCell == true) {
+                if(isOpenMoreToBuyCell == true) {
                     return 0
                 } else {
                     return 20
@@ -272,23 +275,44 @@ class GoodsTableViewController: UITableViewController
         case 1://加購商品
             let moreToBuyCell = tableView.dequeueReusableCellWithIdentifier("MoreToBuyCell", forIndexPath: indexPath) as! MoreToBuyCell
             
-            moreToBuyCell.lblName.text = moreToBuyGoods[indexPath.row]
-            
-            var spec:[String] = ["規格1","規格2","規格3"]
-            var specNum = 0
-            controllerSpec = UIAlertController(title: "請選擇規格", message: nil, preferredStyle: .ActionSheet)
-            for _ in spec {
-                let selectSpec = UIAlertAction(title: spec[specNum], style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
-                    moreToBuyCell.lblSpec.text = paramAction.title
+            if let suggest = goodsResponse?.suggestedData {
+                moreToBuyCell.lblName.text = suggest.suggestDetail[indexPath.row].productName
+                moreToBuyCell.lblPrice.text = suggest.suggestDetail[indexPath.row].showPrice
+               
+                let URL = NSURL(string: suggest.suggestDetail[indexPath.row].photo!)!
+                
+                //使用Kingfisher以Url當key
+                moreToBuyCell.img.kf_setImageWithURL(URL, placeholderImage: placeholderImage,
+                    optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)],
+                    progressBlock: { (receivedSize, totalSize) -> () in
+                        log.debug("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
+                    }) { (image, error, cacheType, imageURL) -> () in
+                        if error != nil  {
+                            log.debug(error?.description)
+                        }
+                        
+                        log.debug("\(indexPath.row + 1): Finished")
+                }
+                
+                controllerSpec = UIAlertController(title: "請選擇規格", message: nil, preferredStyle: .ActionSheet)
+                for optionSpec in (suggest.suggestDetail[indexPath.row].option){
+                    let selectSpec = UIAlertAction(title: optionSpec.name, style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
+                        moreToBuyCell.lblSpec.text = paramAction.title
+                    })
+                    controllerSpec?.addAction(selectSpec)
+                }
+                
+                let selectCancel = UIAlertAction(title:"取消" , style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
+                    moreToBuyCell.lblSpec.text = "請選擇規格"
                 })
-                controllerSpec?.addAction(selectSpec)
-                specNum++
+                controllerSpec?.addAction(selectCancel)
             }
             
-            var volume:[String] = ["1","2","3"]
+            
+            var volume:[String] = ["1","2","3","4","5"]
             var volNum = 0
             controllerVolume = UIAlertController(title: "請選擇數量", message: nil, preferredStyle: .ActionSheet)
-            for _ in spec {
+            for _ in volume {
                 let selectVolume = UIAlertAction(title: volume[volNum], style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
                     moreToBuyCell.lblVolume.text = paramAction.title
                 })
@@ -296,19 +320,24 @@ class GoodsTableViewController: UITableViewController
                 volNum++
             }
             
-            if(indexPath.row > 1 && isOpenMoroToBuyCell == true) {
+            let selectCancel = UIAlertAction(title:"取消" , style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
+                moreToBuyCell.lblVolume.text = "請選擇數量"
+            })
+            controllerVolume?.addAction(selectCancel)
+            
+            
+            if(indexPath.row > 1 && isOpenMoreToBuyCell == true) {
                 moreToBuyCell.hidden = false
-            } else if(indexPath.row > 1 && isOpenMoroToBuyCell == false) {
+            } else if(indexPath.row > 1 && isOpenMoreToBuyCell == false) {
                 moreToBuyCell.hidden = true
             }
             return moreToBuyCell
-        
-        
+            
         case 2:
             switch(indexPath.row) {
             case 0://加購商品展開按鈕
                 let buttonInCell = tableView.dequeueReusableCellWithIdentifier("ButtonInCell", forIndexPath: indexPath) as! ButtonInCell
-                if(isOpenMoroToBuyCell == true) {
+                if(isOpenMoreToBuyCell == true) {
                     buttonInCell.hidden = true
                 }
                 return buttonInCell
@@ -350,7 +379,7 @@ class GoodsTableViewController: UITableViewController
     
     //點擊展開按鈕來展開加購商品
     @IBAction func btnOpenCellClick(sender: UIButton) {
-        isOpenMoroToBuyCell = true
+        isOpenMoreToBuyCell = true
         self.tableView.beginUpdates()
         self.tableView.reloadData()
         self.tableView.endUpdates()

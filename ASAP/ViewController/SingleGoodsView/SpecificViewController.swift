@@ -158,6 +158,11 @@ class SpecificViewController: UITableViewController,UIPopoverPresentationControl
                     controllerSpec?.addAction(selectSpec)
                     specNum++
                 }
+                
+                let selectCancel = UIAlertAction(title:"取消" , style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
+                })
+                controllerSpec?.addAction(selectCancel)
+                
                 return contentCell
             case 7:
                 let sectionTitleCell = tableView.dequeueReusableCellWithIdentifier("SectionTitleCell", forIndexPath: indexPath) as! SectionTitleCell

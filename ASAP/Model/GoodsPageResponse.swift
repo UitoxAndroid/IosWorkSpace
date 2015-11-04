@@ -293,7 +293,7 @@ public class SuggestedData:Mappable {
     Response/data[suggested]/show	加購品顯示旗標				0:否, 1:是
     */
     public var show:Bool?
-    public var suggestDetail:SuggestDetail?
+    public var suggestDetail:[SuggestDetail] = []
     
     required public init?(_ map: Map) {
         
@@ -324,7 +324,8 @@ public class SuggestDetail:Mappable {
     public var photo:String?
     public var productName:String?
     public var saleQty:Int?
-    public var showPrice:Int?
+    public var showPrice:String?
+    public var option:[SuggestOption] = []
     
     required public init?(_ map: Map) {
         
@@ -338,10 +339,25 @@ public class SuggestDetail:Mappable {
         productName <- map["product_name"]
         saleQty     <- map["saleqty"]
         showPrice   <- map["show_price"]
+        option      <- map["option"]
     }
     
 }
 
+public class SuggestOption:Mappable
+{
+    public var itno:String?
+    public var name:String?
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        itno <- map["itno"]
+        name <- map["name"]
+    }
+}
 
 
 
