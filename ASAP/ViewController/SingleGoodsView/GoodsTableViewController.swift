@@ -22,16 +22,54 @@ class GoodsTableViewController: UITableViewController
         return image
         }()
 
-    var seq:String = "201510AM140000056"
+    var seq:String = "201510AM140000042"
     
     
     var controllerSpec : UIAlertController?
     var controllerVolume : UIAlertController?
  
     @IBAction func showSheetSpec(sender: UIButton) {
+        let tag = sender.tag
+        
+        if let suggest = goodsResponse?.suggestedData {
+            controllerSpec = UIAlertController(title: "請選擇規格", message: nil, preferredStyle: .ActionSheet)
+            for optionSpec in (suggest.suggestDetail[tag].option){
+                let selectSpec = UIAlertAction(title: optionSpec.name, style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
+                    let index = NSIndexPath(forRow: tag, inSection: 1)
+                    let moretobuy = self.tableView.cellForRowAtIndexPath(index) as? MoreToBuyCell
+                    moretobuy?.lblSpec.text = paramAction.title
+                })
+                controllerSpec?.addAction(selectSpec)
+            }
+            let selectCancel = UIAlertAction(title:"取消" , style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
+            })
+            controllerSpec?.addAction(selectCancel)
+        }
+
+        
         self.presentViewController(controllerSpec!, animated: true, completion: nil)
     }
+    
+    
     @IBAction func showSheetVolume(sender: UIButton) {
+        let tag = sender.tag
+        var volume:[String] = ["1","2","3","4","5"]
+        var volNum = 0
+        controllerVolume = UIAlertController(title: "請選擇數量", message: nil, preferredStyle: .ActionSheet)
+        for _ in volume {
+            let selectVolume = UIAlertAction(title: volume[volNum], style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
+                let index = NSIndexPath(forRow: tag, inSection: 1)
+                let moretobuy = self.tableView.cellForRowAtIndexPath(index) as? MoreToBuyCell
+                moretobuy?.lblVolume.text = paramAction.title
+            })
+            controllerVolume?.addAction(selectVolume)
+            volNum++
+        }
+        
+        let selectCancel = UIAlertAction(title:"取消" , style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
+        })
+        controllerVolume?.addAction(selectCancel)
+        
         self.presentViewController(controllerVolume!, animated: true, completion: nil)
     }
     
@@ -278,9 +316,10 @@ class GoodsTableViewController: UITableViewController
             if let suggest = goodsResponse?.suggestedData {
                 moreToBuyCell.lblName.text = suggest.suggestDetail[indexPath.row].productName
                 moreToBuyCell.lblPrice.text = suggest.suggestDetail[indexPath.row].showPrice
-               
-                let URL = NSURL(string: suggest.suggestDetail[indexPath.row].photo!)!
+                moreToBuyCell.btnSelectSpec.tag = indexPath.row
+                moreToBuyCell.btnSelectVolume.tag = indexPath.row
                 
+                let URL = NSURL(string: suggest.suggestDetail[indexPath.row].photo!)!
                 //使用Kingfisher以Url當key
                 moreToBuyCell.img.kf_setImageWithURL(URL, placeholderImage: placeholderImage,
                     optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)],
@@ -293,37 +332,7 @@ class GoodsTableViewController: UITableViewController
                         
                         log.debug("\(indexPath.row + 1): Finished")
                 }
-                
-                controllerSpec = UIAlertController(title: "請選擇規格", message: nil, preferredStyle: .ActionSheet)
-                for optionSpec in (suggest.suggestDetail[indexPath.row].option){
-                    let selectSpec = UIAlertAction(title: optionSpec.name, style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
-                        moreToBuyCell.lblSpec.text = paramAction.title
-                    })
-                    controllerSpec?.addAction(selectSpec)
-                }
-                
-                let selectCancel = UIAlertAction(title:"取消" , style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
-                    moreToBuyCell.lblSpec.text = "請選擇規格"
-                })
-                controllerSpec?.addAction(selectCancel)
             }
-            
-            
-            var volume:[String] = ["1","2","3","4","5"]
-            var volNum = 0
-            controllerVolume = UIAlertController(title: "請選擇數量", message: nil, preferredStyle: .ActionSheet)
-            for _ in volume {
-                let selectVolume = UIAlertAction(title: volume[volNum], style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
-                    moreToBuyCell.lblVolume.text = paramAction.title
-                })
-                controllerVolume?.addAction(selectVolume)
-                volNum++
-            }
-            
-            let selectCancel = UIAlertAction(title:"取消" , style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
-                moreToBuyCell.lblVolume.text = "請選擇數量"
-            })
-            controllerVolume?.addAction(selectCancel)
             
             
             if(indexPath.row > 1 && isOpenMoreToBuyCell == true) {

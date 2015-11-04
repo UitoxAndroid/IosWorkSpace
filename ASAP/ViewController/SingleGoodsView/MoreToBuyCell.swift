@@ -15,6 +15,8 @@ class MoreToBuyCell: UITableViewCell {
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var lblSpec: UILabel!
     @IBOutlet weak var lblVolume: UILabel!
+    @IBOutlet weak var btnSelectSpec: UIButton!
+    @IBOutlet weak var btnSelectVolume: UIButton!
     
     
     override func awakeFromNib() {
