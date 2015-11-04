@@ -75,6 +75,19 @@ extension UIViewController
 		}
 	}
 	
+	//推進到單品頁
+	func pushToGoodsViewController(goodsPage: GoodsPageResponse?) {
+		guard let goodsPage = goodsPage else {
+			return
+		}
+		
+		let goodsView = self.storyboard?.instantiateViewControllerWithIdentifier("GoodsTableViewController") as! GoodsTableViewController
+		goodsView.goodsResponse = goodsPage
+		goodsView.modalPresentationStyle = UIModalPresentationStyle.FullScreen
+		goodsView.hidesBottomBarWhenPushed = true
+		self.navigationController?.showViewController(goodsView, sender: self)
+
+	}
 	
 	// MARK: - ProgressHUD
 	

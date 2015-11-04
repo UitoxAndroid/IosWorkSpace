@@ -47,8 +47,8 @@ class DeployModel
                 return
             }
 
-			if deploy?.dataList?.slideDataList.count == 0 || deploy?.dataList?.linkDataList.count == 0 || deploy?.dataList?.productDataList1.count == 0 || deploy?.dataList?.productDataList2.count == 0 || deploy?.dataList?.iconLinkDataList1.count == 0 || deploy?.dataList?.iconLinkDataList2.count == 0 {
-				completionHandler(deploy: nil, errorMessage: "no data")
+			if deploy!.dataList == nil || deploy?.dataList?.slideDataList.count == 0 || deploy?.dataList?.linkDataList.count == 0 || deploy?.dataList?.productDataList1.count == 0 || deploy?.dataList?.productDataList2.count == 0 || deploy?.dataList?.iconLinkDataList1.count == 0 || deploy?.dataList?.iconLinkDataList2.count == 0 {
+				completionHandler(deploy: nil, errorMessage: "資料格式錯誤")
 				return
 			}
 

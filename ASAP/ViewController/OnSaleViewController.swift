@@ -138,9 +138,7 @@ class OnSaleViewController: UITableViewController
                     return
                 }
                 
-                let goodsView = self.storyboard?.instantiateViewControllerWithIdentifier("GoodsTableViewController") as! GoodsTableViewController
-                goodsView.goodsResponse = goodsPage!
-                self.navigationController?.pushViewController(goodsView, animated: true)
+				self.pushToGoodsViewController(goodsPage)
             }
         })
     }

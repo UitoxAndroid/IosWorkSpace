@@ -155,7 +155,7 @@ class KindViewController: UITableViewController
 					self.signInSuccess()
 				}
 				break
-			case 3,1: // "立即預訂" 點按鈕->登入->購買流程
+			case 3: // "立即預訂" 點按鈕->登入->購買流程
 				if MyApp.sharedMember.guid == "" {
 					if let signInViewController = self.showSignInViewController() {
 						signInViewController.delegate = self
@@ -387,10 +387,7 @@ class KindViewController: UITableViewController
                     return
                 }
                 
-                let goodsView = self.storyboard?.instantiateViewControllerWithIdentifier("GoodsTableViewController") as! GoodsTableViewController
-                goodsView.goodsResponse = goodsPage!
-				self.navigationController?.showViewController(goodsView, sender: self)
-//                self.navigationController?.pushViewController(goodsView, animated: true)
+				self.pushToGoodsViewController(goodsPage)
             }
         })
     }
@@ -409,13 +406,11 @@ extension KindViewController: SignInDelegate
 //				
 //				break
 			case 2: // "立即搶購"
-//				let sql = SqlCartList()
-//				sql.sqliteInsert()
 				MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
 				self.showSuccess("加入購物車成功!")
 				self.addCartNumber()
 				break
-			case 3,1: // "立即預訂"
+			case 3: // "立即預訂"
 				MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
 				self.jumpToShoppingCartTab()
 				self.addCartNumber()

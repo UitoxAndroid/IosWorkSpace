@@ -322,7 +322,7 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
 	func getDealsList() {
 		dealsOnTimeModel.getDealsOntimeData { (dealsOntime, errorMessage) in
 			if (dealsOntime == nil) {
-				self.showAlert(errorMessage!)
+				self.showError("資料格式錯誤")
 			} else {
 				self.dealsOnTimeData = dealsOntime!.dataList
                 
@@ -337,17 +337,15 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
         goodsPageModel?.getGoodsPageData( smSeq, completionHandler: { (goodsPage: GoodsPageResponse?, errorMessage:String?) -> Void in
             self.clearAllNotice()
             if (goodsPage == nil) {
-                self.showAlert(errorMessage!)
+				self.showError("資料格式錯誤")
             }
             else {
                 if(goodsPage!.itemInfo == nil) {
                     self.showError("No Data")
                     return
                 }
-                
-                let goodsView = self.storyboard?.instantiateViewControllerWithIdentifier("GoodsTableViewController") as! GoodsTableViewController
-                goodsView.goodsResponse = goodsPage!
-                self.navigationController?.pushViewController(goodsView, animated: true)
+				
+				self.pushToGoodsViewController(goodsPage)
             }
         })
     }
@@ -357,7 +355,7 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
         categoryData?.getCategoryData(siSeq, page: 1, sortBy: SortBy.SmSoldQty, desc: true) { (category: SearchListResponse?, errorMessage: String?) in
             self.clearAllNotice()
             if errorMessage != nil {
-                self.showAlert(errorMessage!)
+				self.showError("資料格式錯誤")
             } else {
                 let kindViewController = self.storyboard?.instantiateViewControllerWithIdentifier("KindViewController") as? KindViewController
                 kindViewController!.searchListResponse  = category!
@@ -373,7 +371,7 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
         searchData?.getSearchData(query, page: 1, sortBy: SortBy.SmSoldQty, desc: true) { (search: SearchListResponse?, errorMessage: String?) in
             self.clearAllNotice()
             if search == nil {
-                self.showAlert(errorMessage!)
+				self.showError("資料格式錯誤")
             } else {
                 let kindViewController = self.storyboard?.instantiateViewControllerWithIdentifier("KindViewController") as? KindViewController
                 kindViewController!.searchListResponse = search!
