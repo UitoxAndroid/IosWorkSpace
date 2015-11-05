@@ -12,11 +12,11 @@ class SpecificViewController: UITableViewController,UIPopoverPresentationControl
     
     var colorInfo:ColorInfo?
     var sizeInfo:SizeInfo?
+    var multiProductList:[MultiProductData] = []
     var colorCount:Int = 0
     var sizeCount:Int = 0
     var itemInfo:GoodsPageItemInfo?
-    var itemNameList:[String] = ["Item Name1","Item Name2"]
-    var giftNameList:[String] = ["gift1","gift2","gift3"]
+    var giftList:[GiftData] = []
     
     
     @IBAction func btnDismiss(sender: UIButton) {
@@ -27,10 +27,27 @@ class SpecificViewController: UITableViewController,UIPopoverPresentationControl
     }
     
     var controllerSpec : UIAlertController?
+    
     @IBAction func showSheetSpec(sender: UIButton) {
+        let tag = sender.tag
+        controllerSpec = UIAlertController(title: "請選擇規格", message: nil, preferredStyle: .ActionSheet)
+        for optionSpec in (multiProductList[tag].option){
+            let selectSpec = UIAlertAction(title: optionSpec.name, style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
+                let indexOfContentCell = NSIndexPath(forRow: 6, inSection: 0)
+                let indexOfContentColCell = NSIndexPath(forItem: tag, inSection: 0)
+                let contentCell = self.tableView.cellForRowAtIndexPath(indexOfContentCell) as? ContentCell
+                let contentColCell = contentCell?.contentCollectionView.cellForItemAtIndexPath(indexOfContentColCell) as? ContentCollectionViewCell
+                contentColCell?.lblSpec.text = paramAction.title!
+            })
+            controllerSpec?.addAction(selectSpec)
+        }
+   
+        let selectCancel = UIAlertAction(title:"取消" , style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
+        })
+        controllerSpec?.addAction(selectCancel)
+        
         self.presentViewController(controllerSpec!, animated: true, completion: nil)
     }
-    
     
 
     override func viewDidLoad() {
@@ -65,8 +82,6 @@ class SpecificViewController: UITableViewController,UIPopoverPresentationControl
             sizeCount = sizes.count
         }
         
-        
-        
         switch(indexPath.section) {
         case 0:
             switch(indexPath.row) {
@@ -95,11 +110,11 @@ class SpecificViewController: UITableViewController,UIPopoverPresentationControl
             case 5: //包含內容 title
                 return 44
             case 6: //內容
-                return CGFloat(35 * itemNameList.count)
+                return CGFloat(35 * multiProductList.count)
             case 7: //贈品 title
                 return 44
             case 8: //贈品
-                return CGFloat(35 * giftNameList.count)
+                return CGFloat(35 * giftList.count)
             default:
                 return 44
             }
@@ -146,23 +161,7 @@ class SpecificViewController: UITableViewController,UIPopoverPresentationControl
                 return sectionTitleCell
             case 6:
                 let contentCell = tableView.dequeueReusableCellWithIdentifier("ContentViewCell", forIndexPath: indexPath) as! ContentCell
-                contentCell.itemNameList = self.itemNameList
-                
-                var spec:[String] = ["規格1","規格2","規格3"]
-                var specNum = 0
-                controllerSpec = UIAlertController(title: "請選擇規格", message: nil, preferredStyle: .ActionSheet)
-                for _ in spec {
-                    let selectSpec = UIAlertAction(title: spec[specNum], style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
-                        contentCell.spec = paramAction.title
-                    })
-                    controllerSpec?.addAction(selectSpec)
-                    specNum++
-                }
-                
-                let selectCancel = UIAlertAction(title:"取消" , style:UIAlertActionStyle.Default, handler: {(paramAction:UIAlertAction!) in
-                })
-                controllerSpec?.addAction(selectCancel)
-                
+                contentCell.multiProductList = self.multiProductList
                 return contentCell
             case 7:
                 let sectionTitleCell = tableView.dequeueReusableCellWithIdentifier("SectionTitleCell", forIndexPath: indexPath) as! SectionTitleCell
@@ -170,7 +169,7 @@ class SpecificViewController: UITableViewController,UIPopoverPresentationControl
                 return sectionTitleCell
             case 8:
                 let giftCell = tableView.dequeueReusableCellWithIdentifier("GiftViewCell", forIndexPath: indexPath) as! GiftCell
-                giftCell.giftNameList = self.giftNameList
+                giftCell.giftList = self.giftList
                 return giftCell
             default:
                 let titleCell = tableView.dequeueReusableCellWithIdentifier("TitleCell", forIndexPath: indexPath) as! TitleCell

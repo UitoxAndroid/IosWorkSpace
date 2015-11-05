@@ -9,8 +9,7 @@
 import UIKit
 
 class GiftCell: UITableViewCell {
-    var giftNameList:[String] = []
-    
+    var giftList:[GiftData] = []
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,12 +22,12 @@ class GiftCell: UITableViewCell {
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return giftNameList.count
+        return giftList.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let giftCell:GiftCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("GiftCell", forIndexPath: indexPath) as! GiftCollectionViewCell
-        giftCell.lblGiftName.text = giftNameList[indexPath.row]
+        giftCell.lblGiftName.text = giftList[indexPath.row].productName
         return giftCell
     }
     

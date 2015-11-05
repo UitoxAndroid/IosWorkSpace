@@ -13,10 +13,11 @@ import Foundation
 public class GoodsPageResponse : Mappable
 {
     public var status_code:String?
-    public var itemInfo:GoodsPageItemInfo?
-    public var campData:CampData?
-    public var suggestedData:SuggestedData?
+    public var itemInfo:GoodsPageItemInfo?  //主賣場資訊
+    public var campData:CampData?           //行銷活動
+    public var suggestedData:SuggestedData? //加購品
     public var productInfo:ProductInfo?
+    public var giftInfo:GiftInfo?
     
     required public init?(_ map: Map) {
         
@@ -28,6 +29,7 @@ public class GoodsPageResponse : Mappable
         campData        <- map["camp"]
         suggestedData   <- map["suggested"]
         productInfo     <- map["product"]
+        giftInfo        <- map["gift"]
     }
 }
 
@@ -198,19 +200,25 @@ public class CampDetail:Mappable
 
 public class ProductInfo:Mappable
 {
+    /*
+    Response/data[product]/color	商品顏色	string
+    Response/data[product]/size     商品尺寸	string
+    
+    */
+    
     public var colorInfo:ColorInfo?
     public var sizeInfo:SizeInfo?
-    
+    public var multiProductList:[MultiProductData] = []
     
     required public init?(_ map: Map) {
         
     }
     
     public func mapping(map: Map) {
-        colorInfo   <- map["color"]
-        sizeInfo    <- map["size"]
+        colorInfo           <- map["color"]
+        sizeInfo            <- map["size"]
+        multiProductList    <- map["data"]
     }
-
 }
 
 
@@ -346,6 +354,10 @@ public class SuggestDetail:Mappable {
 
 public class SuggestOption:Mappable
 {
+    /*
+    Response/data[suggested]/data/[num]/option/[num]/itno 	商品編號	int
+    Response/data[suggested]/data/[num]/option/[num]/name 	商品名稱	string
+    */
     public var itno:String?
     public var name:String?
     
@@ -357,6 +369,96 @@ public class SuggestOption:Mappable
         itno <- map["itno"]
         name <- map["name"]
     }
+}
+
+
+
+public class MultiProductData:Mappable
+{
+    /*
+    Response/data[product]/data/[num]/type          是否有多樣商品	bool			0:否, 1:是
+    Response/data[product]/data/[num]/itno          商品編號	string
+    Response/data[product]/data/[num]/itm           是否為主商品	bool            0:否, 1:是
+    Response/data[product]/data/[num]/product_name	商品名稱	string
+    */
+    public var type:Bool?
+    public var itemNo:String?
+    public var itemMain:Bool?
+    public var productName:String?
+    public var option:[MultiProduceOption] = []
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        type        <- map["type"]
+        itemNo      <- map["itno"]
+        itemMain    <- map["itm"]
+        productName <- map["product_name"]
+        option      <- map["option"]
+    }
+}
+
+public class MultiProduceOption:Mappable
+{
+    /*
+    Response/data[product]/data/[num]/option/[num]/itno	商品編號	string
+    Response/data[product]/data/[num]/option/[num]/name	商品名稱	string
+    */
+    public var itno:String?
+    public var name:String?
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        itno <- map["itno"]
+        name <- map["name"]
+    }
+}
+
+public class GiftInfo:Mappable
+{
+    /*
+    Response/data[gift]/show 	贈品顯示旗標	bool			0:否, 1:是
+    */
+    public var show:Bool?
+    public var giftList:[GiftData] = []
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        show        <- map["show"]
+        giftList    <- map["data"]
+    }
+}
+
+public class GiftData:Mappable
+{
+    /*
+    Response/data[gift]/data/[num]/type             是否有多樣贈品	bool			0:否, 1:是
+    Response/data[gift]/data/[num]/itno             商品編號	string
+    Response/data[gift]/data/[num]/product_name 	商品名稱	string
+    */
+    public var type:Bool?
+    public var itemNo:String?
+    public var productName:String?
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        type        <- map["type"]
+        itemNo      <- map["itno"]
+        productName <- map["product_name"]
+        
+    }
+
 }
 
 

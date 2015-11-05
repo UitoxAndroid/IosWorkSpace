@@ -11,7 +11,6 @@ import UIKit
 
 class GoodsTableViewController: UITableViewController
 {
-    var moreToBuyGoods = ["iphone6s","Sony Z5","nexus 6","One M9","Sony Xpria C5","Asus ZenPhone2"]
     lazy var goodsPageModel:GoodsPageModel? = GoodsPageModel()
     lazy var campaignData:CampaignModel? = CampaignModel()
     var goodsResponse:GoodsPageResponse? = nil
@@ -22,7 +21,7 @@ class GoodsTableViewController: UITableViewController
         return image
         }()
 
-    var seq:String = "201510AM140000042"
+    var seq:String = "201510AM220000013"
     
     
     var controllerSpec : UIAlertController?
@@ -45,8 +44,6 @@ class GoodsTableViewController: UITableViewController
             })
             controllerSpec?.addAction(selectCancel)
         }
-
-        
         self.presentViewController(controllerSpec!, animated: true, completion: nil)
     }
     
@@ -334,7 +331,6 @@ class GoodsTableViewController: UITableViewController
                 }
             }
             
-            
             if(indexPath.row > 1 && isOpenMoreToBuyCell == true) {
                 moreToBuyCell.hidden = false
             } else if(indexPath.row > 1 && isOpenMoreToBuyCell == false) {
@@ -373,6 +369,8 @@ class GoodsTableViewController: UITableViewController
             if let specificViewController = segue.destinationViewController as? SpecificViewController {
                 specificViewController.colorInfo = goodsResponse?.productInfo?.colorInfo
                 specificViewController.sizeInfo = goodsResponse?.productInfo?.sizeInfo
+                specificViewController.multiProductList = (goodsResponse?.productInfo?.multiProductList)!
+                specificViewController.giftList = (goodsResponse?.giftInfo?.giftList)!
                 specificViewController.itemInfo = goodsResponse?.itemInfo
             }
         }
