@@ -146,7 +146,17 @@ class GoodsTableViewController: UITableViewController
             case 0:     //Banner
                 return 350
             case 1:     //規格
-                return 50
+                if let goodsInfos = goodsResponse {
+                    if( goodsInfos.itemInfo?.specType == 0 &&
+                        goodsInfos.productInfo?.multiProductList.count == 0 &&
+                        goodsInfos.giftInfo?.giftList.count == 0) {
+                        return 0
+                    } else {
+                        return 50
+                    }
+                } else {
+                    return 50
+                }
             case 2:     //活動
                 isCampaignBegin = (goodsResponse?.campData?.check!)!
                 if(isCampaignBegin == false) {
@@ -264,6 +274,13 @@ class GoodsTableViewController: UITableViewController
                 return bannerCell
             case 1://規格
                 let specificationCell = tableView.dequeueReusableCellWithIdentifier("SpecificationCell", forIndexPath: indexPath) as! SpecificationCell
+                if let goodsInfos = goodsResponse {
+                    if( goodsInfos.itemInfo?.specType == 0 &&
+                        goodsInfos.giftInfo?.giftList.count == 0 &&
+                        goodsInfos.productInfo?.multiProductList.count == 0) {
+                        specificationCell.hidden = true
+                    }
+                }
                 return specificationCell
             case 2://活動
                 let activityCell = tableView.dequeueReusableCellWithIdentifier("ActivityCell", forIndexPath: indexPath) as! ActivityCell
