@@ -234,12 +234,6 @@ class GoodsTableViewController: UITableViewController
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //自動消除選取時該列時會以灰色來顯示的效果
-        tableView.deselectRowAtIndexPath(indexPath, animated: false)
-        
-    }
-
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch(indexPath.section) {
         case 0:
