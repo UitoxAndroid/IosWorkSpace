@@ -55,7 +55,7 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
     let reuseModelCollectionViewCellIdentifier2 = "ModelCollectionCell2"
     
     lazy var placeholderImage: UIImage = {
-        let image = UIImage(named: "PlaceholderImage")!
+        let image = UIImage(named: "no_img")!
         return image
         }()
     
@@ -345,7 +345,7 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
                     return
                 }
 				
-				self.pushToGoodsViewController(goodsPage)
+				self.pushToGoodsViewController(goodsPage, cartAction: 0)
             }
         })
     }

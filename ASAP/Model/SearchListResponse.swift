@@ -50,7 +50,7 @@ public class StoreInfo: Mappable
 	public var finalPrice:  Int?
 	public var showPrice:	Int?
 	public var slogan:		[String] = []
-	public var cartAction:	Int?
+	public var cartAction:	String?
     public var smSeq:       String?
 
 	required public init?(_ map: Map) {
@@ -64,7 +64,7 @@ public class StoreInfo: Mappable
 		finalPrice  <- map["FINAL_PRICE"]
 		showPrice	<- map["SHOW_PRICE"]	
 		slogan		<- map["SLOGAN"]
-		cartAction	<- map["CART_ACTION"]
+		cartAction	<- map["CART_ACTION_CLASS"]
         smSeq       <- map["SM_SEQ"]
     }
 }

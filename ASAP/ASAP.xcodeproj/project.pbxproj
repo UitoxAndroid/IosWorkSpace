@@ -130,6 +130,7 @@
 		AF80275A1BC6693F0032B02E /* XCGLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8027591BC6693F0032B02E /* XCGLogger.swift */; settings = {ASSET_TAGS = (); }; };
 		AF9B1CDB1BE364B0008CC684 /* ShoppingCartInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9B1CDA1BE364B0008CC684 /* ShoppingCartInfo.swift */; settings = {ASSET_TAGS = (); }; };
 		AF9B1CDD1BE364C3008CC684 /* ShoppingCartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9B1CDC1BE364C3008CC684 /* ShoppingCartModel.swift */; settings = {ASSET_TAGS = (); }; };
+		AF9B1CE31BEB603D008CC684 /* SCDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9B1CE21BEB603D008CC684 /* SCDate.swift */; settings = {ASSET_TAGS = (); }; };
 		AFB5F8871BCB65E900D24B1C /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB5F8801BCB65E900D24B1C /* SVIndefiniteAnimatedView.m */; settings = {ASSET_TAGS = (); }; };
 		AFB5F8881BCB65E900D24B1C /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AFB5F8821BCB65E900D24B1C /* SVProgressHUD.bundle */; settings = {ASSET_TAGS = (); }; };
 		AFB5F8891BCB65E900D24B1C /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB5F8841BCB65E900D24B1C /* SVProgressHUD.m */; settings = {ASSET_TAGS = (); }; };
@@ -344,6 +345,7 @@
 		AF8027591BC6693F0032B02E /* XCGLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCGLogger.swift; sourceTree = "<group>"; };
 		AF9B1CDA1BE364B0008CC684 /* ShoppingCartInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingCartInfo.swift; sourceTree = "<group>"; };
 		AF9B1CDC1BE364C3008CC684 /* ShoppingCartModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingCartModel.swift; sourceTree = "<group>"; };
+		AF9B1CE21BEB603D008CC684 /* SCDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCDate.swift; sourceTree = "<group>"; };
 		AFB5F87F1BCB65E900D24B1C /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
 		AFB5F8801BCB65E900D24B1C /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
 		AFB5F8811BCB65E900D24B1C /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
@@ -620,6 +622,7 @@
 			isa = PBXGroup;
 			children = (
 				AF7570BC1BC221C700223714 /* SCCookie.swift */,
+				AF9B1CE21BEB603D008CC684 /* SCDate.swift */,
 			);
 			path = SwiftCommon;
 			sourceTree = "<group>";
@@ -1034,6 +1037,7 @@
 				6046D1F11BCE2A0C00561DBE /* CampaignViewController.swift in Sources */,
 				60567CB21BCCB9E1005BB52A /* SizeCell.swift in Sources */,
 				AF5F2C481BBD3B6C00A7A977 /* Request.swift in Sources */,
+				AF9B1CE31BEB603D008CC684 /* SCDate.swift in Sources */,
 				AFEB070C1BBBB380001C2AD7 /* DateTransform.swift in Sources */,
 				AFCF5D921BD9DFE30012E26B /* MemberModel.swift in Sources */,
 				AFEF5D441BA15A7500A4961D /* CampaignResponse.swift in Sources */,
@@ -1264,6 +1268,7 @@
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uitox.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "UitoxCommon/ASAP-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1287,6 +1292,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uitox.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "UitoxCommon/ASAP-Bridging-Header.h";
 			};
 			name = Release;

@@ -18,10 +18,11 @@ class GoodsTableViewController: UITableViewController
     var isOpenMoreToBuyCell:Bool = false
     var isCampaignBegin:Bool = false
     lazy var placeholderImage: UIImage = {
-        let image = UIImage(named: "PlaceholderImage")!
+        let image = UIImage(named: "no_img")!
         return image
-        }()
-
+	}()
+	
+	var cartAction = 0
     var seq:String = "201510AM140000042"
     
     
@@ -205,7 +206,7 @@ class GoodsTableViewController: UITableViewController
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         
     }
-    
+
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch(indexPath.section) {
         case 0:
@@ -408,13 +409,17 @@ class GoodsTableViewController: UITableViewController
     let comboData = CartComboData()
     
     func setUpBarButton() {
+		
         buyNum.title = "1"
         addInCart.backgroundColor = UIColor(hue: 0.6, saturation: 0.7, brightness: 1, alpha: 1)
         addInCart.setTitle("加入購物車", forState: .Normal)
         addInCart.addTarget(self, action: "btnAddInCartPressed:", forControlEvents: .TouchUpInside)
         addInCart.frame = CGRectMake(0, 0, 170, 43)
         addShopCart.customView = addInCart
-        
+		
+		self.handleBtnAttr(cartAction, addCartButton:addInCart)
+
+		
         shopCartBtn.setBackgroundImage(UIImage(named: "ic_shopping_cart"), forState: UIControlState.Normal)
         if(MyApp.sharedShoppingCart.goodsList.count > 0) {
             shopCartBtn.badgeString = String(MyApp.sharedShoppingCart.goodsList.count)
@@ -427,23 +432,112 @@ class GoodsTableViewController: UITableViewController
         shopCartBtn.badgeEdgeInsets = UIEdgeInsetsMake(12, 5, 0, 10)
         shopCart.customView = shopCartBtn
     }
+	
+	// 加入購物車按鈕外觀
+	func handleBtnAttr(action:Int, addCartButton:UIButton) {
+		switch action {
+		case 0:
+			addCartButton.setTitle("加入購物車", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor.redColor()
+			addCartButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+			break
+		case 1:
+			addCartButton.setTitle("買立折", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor.orangeColor()
+			addCartButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+			break
+		case 2:
+			addCartButton.setTitle("立即搶購", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor.redColor()
+			addCartButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+			break
+		case 3:
+			addCartButton.setTitle("立即預訂", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor(red: 1.0, green: 0.7, blue: 0.0, alpha: 1)
+			addCartButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+			break
+		case 4:
+			addCartButton.setTitle("即將開賣", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor.clearColor()
+			addCartButton.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
+			break;
+		case 5:
+			addCartButton.setTitle("預購結束", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor.clearColor()
+			addCartButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
+			break;
+		case 6:
+			addCartButton.setTitle("已售完", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor.clearColor()
+			addCartButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
+			break;
+		case 7:
+			addCartButton.setTitle("售完補貨中", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor.clearColor()
+			addCartButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
+			break;
+		case 8:
+			addCartButton.setTitle("搶購一空", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor.clearColor()
+			addCartButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
+			break;
+			
+		default: break
+		}
+		
+	}
+
     
     func btnAddInCartPressed(sender :UIButton) {
-        numInCart++
-        if(numInCart <= 0) {
-            shopCartBtn.badgeString = nil
-        } else {
-            shopCartBtn.badgeString = "\(numInCart)"
-        }
-        
-        //先寫入假資料
-		let info = ShoppingCartInfo()
-        comboData.itno  = "AB123000\(numInCart)"
-        comboData.sno   = "CC123000\(numInCart)"
+		switch cartAction {
+		case 0:	// "加入購物車" 
+			// 點擊->加入購物車
+//			numInCart++
+//			if(numInCart <= 0) {
+//				shopCartBtn.badgeString = nil
+//			} else {
+//				shopCartBtn.badgeString = String(MyApp.sharedShoppingCart.goodsList.count)
+//			}
+//			
+//			//先寫入假資料
+//			let info = ShoppingCartInfo()
+//			comboData.itno  = "AB123000\(numInCart)"
+//			comboData.sno   = "CC123000\(numInCart)"
+			MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+			self.showSuccess("加入購物車成功!")
+			shopCartBtn.badgeString = String(MyApp.sharedShoppingCart.goodsList.count)
+			self.addCartNumber()
+			break
+		case 1: // "買立折"
+			// 未登入：點擊 -> 登入 -> 滑出買立折 -> 選擇數量 -> 加入購物車
+			// 登 入：點擊 -> 滑出買立折 -> 選擇數量 -> 加入購物車
+			break
+		case 2: // "立即搶購" 
+			// 未登入：點擊 -> 登入 -> 選擇數量 -> 加入購物車
+			// 登 入：點擊 -> 選擇數量 -> 加入購物車
+			if MyApp.sharedMember.guid == "" {
+				if let signInViewController = self.showSignInViewController() {
+					signInViewController.delegate = self
+				}
+			} else {
+				self.signInSuccess()
+			}
+			break
+		case 3: // "立即預訂"
+			// 未登入：點擊 -> 登入 -> 購物流程
+			// 登 入：點擊 -> 購物流程
+			if MyApp.sharedMember.guid == "" {
+				if let signInViewController = self.showSignInViewController() {
+					signInViewController.delegate = self
+				}
+			} else {
+				MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+				self.jumpToShoppingCartTab()
+			}
+			break
+		default: break
+		}
 		
-		MyApp.sharedShoppingCart.insertGoodsIntoCart(info)
-		self.showSuccess("已加入購物車")
-        self.addCartNumber()
     }
     
     func btnShopCartPressed(sender: MIBadgeButton) {
@@ -489,4 +583,38 @@ class GoodsTableViewController: UITableViewController
 //        }
 //    }
     
+}
+
+// MARK: - SignInDelegate
+
+extension GoodsTableViewController: SignInDelegate
+{
+	func signInSuccess() {
+		log.debug("signInSuccess")
+
+		switch cartAction {
+//						case 1: // "買立折"
+//			
+//							break
+		case 2: // "立即搶購"
+			MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+			self.showSuccess("加入購物車成功!")
+			shopCartBtn.badgeString = String(MyApp.sharedShoppingCart.goodsList.count)
+			self.addCartNumber()
+			break
+		case 3: // "立即預訂"
+			MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+			self.jumpToShoppingCartTab()
+			self.addCartNumber()
+			break
+		default: break
+		}
+		
+	}
+	
+	func signInCancel() {
+		log.debug("signInCancel")
+	}
+
+
 }

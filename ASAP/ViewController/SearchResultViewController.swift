@@ -145,6 +145,7 @@ class SearchResultViewController: UITableViewController, UISearchResultsUpdating
 				let kindViewController = self.storyboard?.instantiateViewControllerWithIdentifier("KindViewController") as? KindViewController
 				kindViewController!.searchListResponse = search!
 				kindViewController!.query = query
+				kindViewController!.title = ""
 				self.navigationController?.pushViewController(kindViewController!, animated: true)
 			}
 

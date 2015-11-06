@@ -19,8 +19,7 @@ class BannerCell: UITableViewCell, UIScrollViewDelegate {
     @IBOutlet weak var BannerPageControl: UIPageControl!
     internal var imageList:[String]!
     var isCare:Bool = false
-    
-    
+	
     @IBAction func btnStarPressed(sender: UIButton) {
         if(isCare == false) {
             self.btnStar.setBackgroundImage(UIImage(named: "ic_star"), forState: UIControlState.Normal)
@@ -57,12 +56,12 @@ class BannerCell: UITableViewCell, UIScrollViewDelegate {
         let size = ImageBannerScroll.bounds.size
         
         
-        if imageList != nil{
+        if imageList != nil {
             //設置scrollView的内容總尺寸
             let screenSize = UIScreen.mainScreen().bounds
             ImageBannerScroll.contentSize = CGSizeMake(CGFloat(screenSize.width) * CGFloat(self.imageList.count),0)
             
-            for var index = 0 ;index < imageList.count ; ++index{
+            for var index = 0 ;index < imageList.count ; ++index {
                 let page = UIView()
                 if let url = NSURL(string: imageList[index]){
                     if  let data = NSData(contentsOfURL: url){
@@ -82,13 +81,38 @@ class BannerCell: UITableViewCell, UIScrollViewDelegate {
             BannerPageControl.backgroundColor = UIColor.clearColor()
             BannerPageControl.numberOfPages = imageList.count
             BannerPageControl.currentPage = 0
-        }
-        
+		} else {
+			//設置scrollView的内容總尺寸
+			let screenSize = UIScreen.mainScreen().bounds
+			ImageBannerScroll.contentSize = CGSizeMake(CGFloat(screenSize.width) * CGFloat(1),0)
+			
+
+			let page = UIView()
+			
+			let placeholderImage = UIImage(named: "no_img")!
+			
+			let imageView = UIImageView(image: placeholderImage)
+			var scale:CGFloat = 1.0
+			scale = CGFloat(screenSize.width) / (placeholderImage.size.width)
+			let rect:CGRect = CGRectMake(0, 0, placeholderImage.size.width * scale, placeholderImage.size.height * scale)
+			imageView.frame = rect
+			page.addSubview(imageView)
+			page.backgroundColor = UIColor.whiteColor()
+			page.frame = CGRect(x: 0 * screenSize.width, y: 0,width: screenSize.width, height: size.height)
+			ImageBannerScroll.addSubview(page)
+
+			//页控件属性
+			BannerPageControl.backgroundColor = UIColor.clearColor()
+			BannerPageControl.numberOfPages = 1
+			BannerPageControl.currentPage = 0
+		}
+		
+		
         //设置页控件点击事件
         BannerPageControl.addTarget(self, action: "pageChanged:", forControlEvents: UIControlEvents.ValueChanged)
     }
-    
-    
+	
+	
     //UIScrollViewDelegate方法，每次滚动结束后调用
     func  scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         //通过scrollView内容的偏移计算当前显示的是第几页

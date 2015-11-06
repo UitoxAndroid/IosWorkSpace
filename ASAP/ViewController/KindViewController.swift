@@ -29,7 +29,7 @@ class KindViewController: UITableViewController
 	var selectedButtonInfo:StoreInfo? = nil
 
 	lazy var placeholderImage: UIImage = {
-		let image = UIImage(named: "PlaceholderImage")!
+		let image = UIImage(named: "no_img")!
 		return image
 	}()
 
@@ -137,36 +137,37 @@ class KindViewController: UITableViewController
 			return
 		}
 
-		if let action = selectedButtonInfo!.cartAction {
-			switch action {
-			case 0:	// "加入購物車" 點按鈕->加入購物車
-				self.showSuccess("加入購物車成功!")
-				self.addCartNumber()
-				break
-//			case 1: // "買立折"
-//				
-//				break
-			case 2: // "立即搶購" 點按鈕->登入->加入購物車
-				if MyApp.sharedMember.guid == "" {
-					if let signInViewController = self.showSignInViewController() {
-						signInViewController.delegate = self
-					}
-				} else {
-					self.signInSuccess()
+		let action = self.convertCartButtonAction(selectedButtonInfo!.cartAction)
+		
+		switch action {
+		case 0:	// "加入購物車" 點按鈕->加入購物車
+			MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+			self.showSuccess("加入購物車成功!")
+			self.addCartNumber()
+			break
+		case 1: // "買立折"
+			
+			break
+		case 2: // "立即搶購" 點按鈕->登入->加入購物車
+			if MyApp.sharedMember.guid == "" {
+				if let signInViewController = self.showSignInViewController() {
+					signInViewController.delegate = self
 				}
-				break
-			case 3: // "立即預訂" 點按鈕->登入->購買流程
-				if MyApp.sharedMember.guid == "" {
-					if let signInViewController = self.showSignInViewController() {
-						signInViewController.delegate = self
-					}
-				} else {
-					MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
-					self.jumpToShoppingCartTab()
-				}
-				break
-			default: break
+			} else {
+				self.signInSuccess()
 			}
+			break
+		case 3: // "立即預訂" 點按鈕->登入->購買流程
+			if MyApp.sharedMember.guid == "" {
+				if let signInViewController = self.showSignInViewController() {
+					signInViewController.delegate = self
+				}
+			} else {
+				MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+				self.jumpToShoppingCartTab()
+			}
+			break
+		default: break
 		}
 
 //        self.directPage(tag)
@@ -216,32 +217,11 @@ class KindViewController: UITableViewController
 				}
 			}
 		}
- 
 		
-		let action = (searchListResponse?.storeList[indexPath.row].cartAction)
-		if let action = action {
-			switch action {
-			case 0:
-				cell.addCartButton.setTitle("加入購物車", forState: UIControlState.Normal)
-				cell.addCartButton.backgroundColor = UIColor.redColor()
-				break
-			case 1:
-				cell.addCartButton.setTitle("買立折", forState: UIControlState.Normal)
-				cell.addCartButton.backgroundColor = UIColor.orangeColor()
-				break
-			case 2:
-				cell.addCartButton.setTitle("立即搶購", forState: UIControlState.Normal)
-				cell.addCartButton.backgroundColor = UIColor.redColor()
-				break
-			case 3:
-				cell.addCartButton.setTitle("立即預訂", forState: UIControlState.Normal)
-				cell.addCartButton.backgroundColor = UIColor(red: 1.0, green: 0.7, blue: 0.0, alpha: 1)
-				break
-			default: break
-			}
-		}
-        cell.addCartButton.tag = indexPath.row
+		let action = self.convertCartButtonAction(searchListResponse?.storeList[indexPath.row].cartAction)
 		
+		self.handleBtnAttr(action, addCartButton: cell.addCartButton)
+		cell.addCartButton.tag = indexPath.row
 		
 		let URL = NSURL(string: searchListResponse!.storeList[indexPath.row].pic!)!
 
@@ -326,6 +306,60 @@ class KindViewController: UITableViewController
 		priceLabel.attributedText = attrString		
 	}
 	
+	// 加入購物車按鈕外觀
+	func handleBtnAttr(action:Int, addCartButton:UIButton) {
+		switch action {
+		case 0:
+			addCartButton.setTitle("加入購物車", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor.redColor()
+			addCartButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+			break
+		case 1:
+			addCartButton.setTitle("買立折", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor.orangeColor()
+			addCartButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+			break
+		case 2:
+			addCartButton.setTitle("立即搶購", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor.redColor()
+			addCartButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+			break
+		case 3:
+			addCartButton.setTitle("立即預訂", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor(red: 1.0, green: 0.7, blue: 0.0, alpha: 1)
+			addCartButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+			break
+		case 4:
+			addCartButton.setTitle("即將開賣", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor.clearColor()
+			addCartButton.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
+			break;
+		case 5:
+			addCartButton.setTitle("預購結束", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor.clearColor()
+			addCartButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
+			break;
+		case 6:
+			addCartButton.setTitle("已售完", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor.clearColor()
+			addCartButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
+			break;
+		case 7:
+			addCartButton.setTitle("售完補貨中", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor.clearColor()
+			addCartButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
+			break;
+		case 8:
+			addCartButton.setTitle("搶購一空", forState: UIControlState.Normal)
+			addCartButton.backgroundColor = UIColor.clearColor()
+			addCartButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
+			break;
+			
+		default: break
+		}
+
+	}
+	
     // 導向面頁
     func directPage(index: Int) {
         let row = self.searchListResponse!.storeList[index]
@@ -335,10 +369,51 @@ class KindViewController: UITableViewController
             return
         }
 		
+		let action = convertCartButtonAction(row.cartAction)
 		
         self.pleaseWait()
-        getGoodsPageData(row.smSeq!)
+		getGoodsPageData(row.smSeq!, cartAction: action)
     }
+	
+	// 將購物車判斷轉為數字代碼
+	func convertCartButtonAction(cartAction: String?) -> Int {
+		guard let cartAction = cartAction else {
+			return 4
+		}
+		
+		switch cartAction {
+		//加入購物車
+		case "btn-addcart":
+			return 0
+		//買立折
+		case "btn-discount":
+			return 1
+		//限購
+		case "btn-rush":
+			return 2
+		//預購
+		case "btn-preorder":
+			return 3
+		//即將開賣
+		case "btn-to-sale":
+			return 4
+		//售完補貨中
+		case "btn-soldout-stock":
+			return 5
+		//已售完
+		case "btn-soldout":
+			return 6
+		//已搶購一空
+		case "btn-rush-finish":
+			return 7
+		//預購結束
+		case "btn-preorder-finish":
+			return 8
+		default: break
+		}
+
+		return 4
+	}
  
 	
 	// MARK - Call Api
@@ -347,6 +422,8 @@ class KindViewController: UITableViewController
 		if siSeq != "" {
 			categoryData?.getCategoryData(siSeq, page: currentPage, sortBy: currentSortBy, desc: currentDesc) { (category: SearchListResponse?, errorMessage: String?) in
 				self.clearAllNotice()
+				self.tableView.footerEndRefreshing()
+
 				if errorMessage != nil {
 					self.showError(errorMessage!)
 				} else {
@@ -356,6 +433,8 @@ class KindViewController: UITableViewController
 		} else if campSeq != "" {
 			campaignData?.getCampaignData(campSeq, page: currentPage, sortBy: currentSortBy, desc: currentDesc) { (campaign:SearchListResponse?, errorMessage: String?) in
 				self.clearAllNotice()
+				self.tableView.footerEndRefreshing()
+
 				if(errorMessage != nil) {
 					self.showError(errorMessage!)
 				} else {
@@ -365,6 +444,8 @@ class KindViewController: UITableViewController
 		} else {
 			searchData?.getSearchData(query, page: currentPage, sortBy: currentSortBy, desc: currentDesc) { (search: SearchListResponse?, errorMessage: String?) in
 				self.clearAllNotice()
+				self.tableView.footerEndRefreshing()
+
 				if errorMessage != nil {
 					self.showError(errorMessage!)
 				} else {
@@ -375,9 +456,10 @@ class KindViewController: UITableViewController
 	}
     
     // 取得單品頁資料
-    func getGoodsPageData(smSeq: String) {
-        goodsPageModel?.getGoodsPageData( smSeq, completionHandler: { (goodsPage: GoodsPageResponse?, errorMessage:String?) -> Void in
+    func getGoodsPageData(smSeq: String, cartAction: Int) {
+        goodsPageModel?.getGoodsPageData(smSeq, completionHandler: { (goodsPage: GoodsPageResponse?, errorMessage:String?) -> Void in
             self.clearAllNotice()
+
             if (goodsPage == nil) {
                 self.showAlert(errorMessage!)
             }
@@ -387,7 +469,7 @@ class KindViewController: UITableViewController
                     return
                 }
                 
-				self.pushToGoodsViewController(goodsPage)
+				self.pushToGoodsViewController(goodsPage, cartAction: cartAction)
             }
         })
     }
@@ -400,23 +482,22 @@ extension KindViewController: SignInDelegate
 {
 	func signInSuccess() {
 		log.debug("signInSuccess")
-		if let action = selectedButtonInfo!.cartAction {
-			switch action {
-//			case 1: // "買立折"
-//				
-//				break
-			case 2: // "立即搶購"
-				MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
-				self.showSuccess("加入購物車成功!")
-				self.addCartNumber()
-				break
-			case 3: // "立即預訂"
-				MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
-				self.jumpToShoppingCartTab()
-				self.addCartNumber()
-				break
-			default: break
-			}
+		let action = self.convertCartButtonAction(selectedButtonInfo!.cartAction)
+		switch action {
+			//			case 1: // "買立折"
+			//
+			//				break
+		case 2: // "立即搶購"
+			MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+			self.showSuccess("加入購物車成功!")
+			self.addCartNumber()
+			break
+		case 3: // "立即預訂"
+			MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+			self.jumpToShoppingCartTab()
+			self.addCartNumber()
+			break
+		default: break
 		}
 
 	}

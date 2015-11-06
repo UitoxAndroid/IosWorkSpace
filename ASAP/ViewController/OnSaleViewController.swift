@@ -15,11 +15,12 @@ class OnSaleViewController: UITableViewController
 	let saleHeaderCellIdentifier = "OnSaleHeaderCell"
 	var onSaleData: [DealsOntimeData] = []
     var listItem = [ItemInfo]()
-    
+	
+	
     lazy var goodsPageModel:GoodsPageModel?     = GoodsPageModel()
 
 	lazy var placeholderImage: UIImage = {
-		let image = UIImage(named: "PlaceholderImage")!
+		let image = UIImage(named: "no_img")!
 		return image
 	}()
 
@@ -52,7 +53,7 @@ class OnSaleViewController: UITableViewController
         let cell = tableView.dequeueReusableCellWithIdentifier(saleCellIdentifier) as! BasicCell
 
 		cell.titleLabel.text = onSaleData[indexPath.row].smName
-		cell.timeLabel.text = onSaleData[indexPath.row].promoHour! + ":00"
+		cell.timeLabel.text = "🕘 " + onSaleData[indexPath.row].promoHour! + ":00 "
 
 		var price = ""
         var currency = ""
@@ -100,6 +101,8 @@ class OnSaleViewController: UITableViewController
 	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let headerCell = tableView.dequeueReusableCellWithIdentifier(saleHeaderCellIdentifier) as! OnSaleHeaderCell
 
+		let formater = SCDate.getDateFormatter(forMatterString: ("MM/dd EE"))
+		headerCell.titleLabel.text = SCDate.getDateStringFromDateFormatter(formater)
 		return headerCell
 	}
 
@@ -138,7 +141,7 @@ class OnSaleViewController: UITableViewController
                     return
                 }
                 
-				self.pushToGoodsViewController(goodsPage)
+				self.pushToGoodsViewController(goodsPage, cartAction: 0)
             }
         })
     }

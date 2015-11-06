@@ -76,7 +76,7 @@ extension UIViewController
 	}
 	
 	//推進到單品頁
-	func pushToGoodsViewController(goodsPage: GoodsPageResponse?) {
+	func pushToGoodsViewController(goodsPage: GoodsPageResponse?, cartAction: Int) {
 		guard let goodsPage = goodsPage else {
 			return
 		}
@@ -85,6 +85,7 @@ extension UIViewController
 		goodsView.goodsResponse = goodsPage
 		goodsView.modalPresentationStyle = UIModalPresentationStyle.FullScreen
 		goodsView.hidesBottomBarWhenPushed = true
+		goodsView.cartAction = cartAction
 		self.navigationController?.showViewController(goodsView, sender: self)
 
 	}
