@@ -95,42 +95,66 @@ class SpecificViewController: UITableViewController {
             case 0: //title
                 return 150
             case 1: //color
-                if(colorCount/5 < 1) {
-                    return 35
-                } else if (colorCount / 5 >= 1 && colorCount % 5 == 0) {
-                    return CGFloat(35 * (colorCount/5))
+                if(colorInfo?.colorList.count == 0 || colorInfo == nil) {
+                    return 0
                 } else {
-                    return CGFloat(35 * (colorCount/5 + 1))
+                    if(colorCount/5 < 1) {
+                        return 35
+                    } else if (colorCount / 5 >= 1 && colorCount % 5 == 0) {
+                        return CGFloat(35 * (colorCount/5))
+                    } else {
+                        return CGFloat(35 * (colorCount/5 + 1))
+                    }
                 }
             case 2: //尺寸 title
-                return 44
-            case 3: //尺寸
-                if(sizeCount/7 < 1) {
-                    return 35
-                } else if (sizeCount / 7 >= 1 && sizeCount % 7 == 0) {
-                    return CGFloat(35 * (sizeCount/7))
+                if(sizeInfo?.sizeList.count == 0 || sizeInfo == nil) {
+                    return 0
                 } else {
-                    return CGFloat(35 * (sizeCount/7 + 1))
+                    return 44
+                }
+            case 3: //尺寸
+                if(sizeInfo?.sizeList.count == 0 || sizeInfo == nil) {
+                    return 0
+                } else {
+                    if(sizeCount/7 < 1) {
+                        return 35
+                    } else if (sizeCount / 7 >= 1 && sizeCount % 7 == 0) {
+                        return CGFloat(35 * (sizeCount/7))
+                    } else {
+                        return CGFloat(35 * (sizeCount/7 + 1))
+                    }
                 }
             case 4: //包含內容 title
-                return 44
+                if (multiProductList.count == 0) {
+                    return 0
+                } else {
+                    return 44
+                }
             case 5: //內容
-                return CGFloat(35 * multiProductList.count)
+                if (multiProductList.count == 0) {
+                    return 0
+                } else {
+                    return CGFloat(35 * multiProductList.count)
+                }
             case 6: //贈品 title
-                return 44
+                if(giftList.count == 0) {
+                    return 0
+                } else {
+                    return 44
+                }
+                
             case 7: //贈品
-                return CGFloat(35 * giftList.count)
+                if(giftList.count == 0) {
+                    return 0
+                } else {
+                    return CGFloat(35 * giftList.count)
+                }
             default:
                 return 44
             }
         default:
             return 44
         }
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //自動消除選取時該列時會以灰色來顯示的效果
-        tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -157,36 +181,60 @@ class SpecificViewController: UITableViewController {
                             }
                             log.debug("\(indexPath.row + 1): Finished")
                     }
-
+                }
+                
+                if(colorInfo?.colorList.count == 0 || colorInfo == nil) {
+                    titleCell.lblColor.hidden = true
                 }
                 return titleCell
             case 1:
                 let colorCell = tableView.dequeueReusableCellWithIdentifier("ColorViewCell", forIndexPath: indexPath) as! ColorCell
                 colorCell.colorInfo = self.colorInfo
+                if(colorInfo?.colorList.count == 0  || colorInfo == nil) {
+                    colorCell.hidden = true
+                }
                 return colorCell
             case 2:
                 let sectionTitleCell = tableView.dequeueReusableCellWithIdentifier("SectionTitleCell", forIndexPath: indexPath) as! SectionTitleCell
                 sectionTitleCell.txtTitle.text = "尺寸"
+                if(sizeInfo?.sizeList.count == 0 || sizeInfo == nil) {
+                    sectionTitleCell.hidden = true
+                }
                 return sectionTitleCell
             case 3:
                 let sizeCell = tableView.dequeueReusableCellWithIdentifier("SizeViewCell", forIndexPath: indexPath) as! SizeCell
                 sizeCell.sizeInfo = self.sizeInfo
+                if(sizeInfo?.sizeList.count == 0 || sizeInfo == nil) {
+                    sizeCell.hidden = true
+                }
                 return sizeCell
             case 4:
                 let sectionTitleCell = tableView.dequeueReusableCellWithIdentifier("SectionTitleCell", forIndexPath: indexPath) as! SectionTitleCell
                 sectionTitleCell.txtTitle.text = "包含內容"
+                if(multiProductList.count == 0) {
+                    sectionTitleCell.hidden = true
+                }
                 return sectionTitleCell
             case 5:
                 let contentCell = tableView.dequeueReusableCellWithIdentifier("ContentViewCell", forIndexPath: indexPath) as! ContentCell
                 contentCell.multiProductList = self.multiProductList
+                if(multiProductList.count == 0) {
+                    contentCell.hidden = true
+                }
                 return contentCell
             case 6:
                 let sectionTitleCell = tableView.dequeueReusableCellWithIdentifier("SectionTitleCell", forIndexPath: indexPath) as! SectionTitleCell
                 sectionTitleCell.txtTitle.text = "贈品"
+                if(giftList.count == 0) {
+                    sectionTitleCell.hidden = true
+                }
                 return sectionTitleCell
             case 7:
                 let giftCell = tableView.dequeueReusableCellWithIdentifier("GiftViewCell", forIndexPath: indexPath) as! GiftCell
                 giftCell.giftList = self.giftList
+                if(giftList.count == 0) {
+                    giftCell.hidden = true
+                }
                 return giftCell
             default:
                 let titleCell = tableView.dequeueReusableCellWithIdentifier("TitleCell", forIndexPath: indexPath) as! TitleCell

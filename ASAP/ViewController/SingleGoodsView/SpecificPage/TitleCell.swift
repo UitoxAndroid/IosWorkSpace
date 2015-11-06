@@ -14,6 +14,7 @@ class TitleCell: UITableViewCell {
     @IBOutlet weak var lblPriceNow: UILabel!
     @IBOutlet weak var lblPriceOrigin: UILabel!
     @IBOutlet weak var itemImg: UIImageView!
+    @IBOutlet weak var lblColor: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

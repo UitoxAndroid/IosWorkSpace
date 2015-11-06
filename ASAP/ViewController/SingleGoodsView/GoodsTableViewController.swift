@@ -21,7 +21,7 @@ class GoodsTableViewController: UITableViewController
         return image
         }()
 
-    var seq:String = "201510AM220000013"
+    var seq:String = "201510AM140000056"
     
     
     var controllerSpec : UIAlertController?
@@ -46,7 +46,6 @@ class GoodsTableViewController: UITableViewController
         }
         self.presentViewController(controllerSpec!, animated: true, completion: nil)
     }
-    
     
     @IBAction func showSheetVolume(sender: UIButton) {
         let tag = sender.tag
@@ -177,30 +176,45 @@ class GoodsTableViewController: UITableViewController
                     return 120
                 }
             case 5:     //加購商品Title
-                return 35
+                if(goodsResponse?.suggestedData?.show == true) {
+                    return 35
+                } else {
+                    return 0
+                }
+
             default:
                 return 70
             }
         case 1:
             //加購商品
-            if(indexPath.row > 1 && isOpenMoreToBuyCell == true) {
-                return 70
-            } else if(indexPath.row > 1 && isOpenMoreToBuyCell == false) {
-                return 0
-            } else {
-                return 70
-            }
-        case 2:
-            //展開列
-            if(indexPath.row == 0) {
-                if(isOpenMoreToBuyCell == true) {
+            if(goodsResponse?.suggestedData?.show == true) {
+               if(indexPath.row > 1 && isOpenMoreToBuyCell == true) {
+                    return 70
+                } else if(indexPath.row > 1 && isOpenMoreToBuyCell == false) {
                     return 0
                 } else {
-                    return 20
+                    return 70
                 }
             } else {
-                return 0      //相關商品
+                return 0
             }
+            
+        case 2:
+            //展開列
+            if(goodsResponse?.suggestedData?.show == true) {
+                if(indexPath.row == 0) {
+                    if(isOpenMoreToBuyCell == true) {
+                        return 0
+                    } else {
+                        return 20
+                    }
+                } else {
+                    return 0      //相關商品
+                }
+            } else {
+                return 0
+            }
+            
         case 3:
             return 300      //TabCell
         default:
@@ -217,12 +231,6 @@ class GoodsTableViewController: UITableViewController
             headerCell.hidden = true
             return headerCell
         }
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //自動消除選取時該列時會以灰色來顯示的效果
-        tableView.deselectRowAtIndexPath(indexPath, animated: false)
-        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -323,6 +331,9 @@ class GoodsTableViewController: UITableViewController
                 return directionCell
             case 5://加購Title
                 let moreToBuyTitleCell = tableView.dequeueReusableCellWithIdentifier("MoreToBuyTitleCell", forIndexPath: indexPath) as! MoreToBuyTitleCell
+                if(goodsResponse?.suggestedData?.show == false) {
+                    moreToBuyTitleCell.hidden = true
+                }
                 return moreToBuyTitleCell
             default:
                 let moreToBuyCell = tableView.dequeueReusableCellWithIdentifier("MoreToBuyCell", forIndexPath: indexPath) as! MoreToBuyCell
@@ -347,9 +358,7 @@ class GoodsTableViewController: UITableViewController
                         log.debug("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
                     }) { (image, error, cacheType, imageURL) -> () in
                         if error != nil  {
-                            log.debug(error?.description)
                         }
-                        log.debug("\(indexPath.row + 1): Finished")
                 }
             }
             
@@ -357,6 +366,10 @@ class GoodsTableViewController: UITableViewController
                 moreToBuyCell.hidden = false
             } else if(indexPath.row > 1 && isOpenMoreToBuyCell == false) {
                 moreToBuyCell.hidden = true
+            }
+            
+            if(goodsResponse?.suggestedData?.show == false) {
+                moreToBuyCell.hidden = false
             }
             return moreToBuyCell
             
@@ -367,6 +380,11 @@ class GoodsTableViewController: UITableViewController
                 if(isOpenMoreToBuyCell == true) {
                     buttonInCell.hidden = true
                 }
+                
+                if(goodsResponse?.suggestedData?.show == false) {
+                    buttonInCell.hidden = false
+                }
+                
                 return buttonInCell
             case 1://相關商品
                 let relationGoodsCell = tableView.dequeueReusableCellWithIdentifier("RelationViewCell", forIndexPath: indexPath) as! RelationViewCell
