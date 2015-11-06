@@ -9,9 +9,9 @@
 import UIKit
 
 class ContentCell: UITableViewCell {
-    var itemNameList:[String] = []
-    var spec:String?
-    
+    @IBOutlet weak var contentCollectionView: UICollectionView!
+    var multiProductList:[MultiProductData] = []
+ 
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -21,12 +21,13 @@ class ContentCell: UITableViewCell {
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return itemNameList.count
+        return multiProductList.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let contentCell:ContentCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("ContentCell", forIndexPath: indexPath) as! ContentCollectionViewCell
-        contentCell.lblItemName.text = itemNameList[indexPath.row]
+        contentCell.lblItemName.text = multiProductList[indexPath.row].productName
+        contentCell.btnSelectSpec.tag = indexPath.row
         return contentCell
     }
     

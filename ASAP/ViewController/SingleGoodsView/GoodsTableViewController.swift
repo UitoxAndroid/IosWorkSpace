@@ -11,7 +11,6 @@ import UIKit
 
 class GoodsTableViewController: UITableViewController
 {
-    var moreToBuyGoods = ["iphone6s","Sony Z5","nexus 6","One M9","Sony Xpria C5","Asus ZenPhone2"]
     lazy var goodsPageModel:GoodsPageModel? = GoodsPageModel()
     lazy var campaignData:CampaignModel? = CampaignModel()
     var goodsResponse:GoodsPageResponse? = nil
@@ -46,11 +45,8 @@ class GoodsTableViewController: UITableViewController
             })
             controllerSpec?.addAction(selectCancel)
         }
-
-        
         self.presentViewController(controllerSpec!, animated: true, completion: nil)
     }
-    
     
     @IBAction func showSheetVolume(sender: UIButton) {
         let tag = sender.tag
@@ -74,6 +70,28 @@ class GoodsTableViewController: UITableViewController
         self.presentViewController(controllerVolume!, animated: true, completion: nil)
     }
     
+    @IBAction func showSpecPage(sender: AnyObject) {
+        showSpecificViewController()
+    }
+    
+    //顯示規格頁
+    func showSpecificViewController() -> SpecificViewController? {
+        let specificViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SpecificViewController")
+        specificViewController?.modalPresentationStyle = .CurrentContext
+        
+        if let specificViewController = specificViewController as? SpecificViewController {
+            specificViewController.colorInfo = goodsResponse?.productInfo?.colorInfo
+            specificViewController.sizeInfo = goodsResponse?.productInfo?.sizeInfo
+            specificViewController.multiProductList = (goodsResponse?.productInfo?.multiProductList)!
+            specificViewController.giftList = (goodsResponse?.giftInfo?.giftList)!
+            specificViewController.itemInfo = goodsResponse?.itemInfo
+         let nav = UINavigationController(rootViewController: specificViewController)
+            self.presentViewController(nav, animated: true, completion: nil)
+            return specificViewController
+        }
+        return nil
+    }
+
     
     // MARK: - View
     
@@ -90,7 +108,7 @@ class GoodsTableViewController: UITableViewController
     
     override func viewWillAppear(animated: Bool) {
         navigationController?.toolbarHidden = false
-        
+        setUpBarButton()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -159,30 +177,45 @@ class GoodsTableViewController: UITableViewController
                     return 120
                 }
             case 5:     //加購商品Title
-                return 35
+                if(goodsResponse?.suggestedData?.show == true) {
+                    return 35
+                } else {
+                    return 0
+                }
+
             default:
                 return 70
             }
         case 1:
             //加購商品
-            if(indexPath.row > 1 && isOpenMoreToBuyCell == true) {
-                return 70
-            } else if(indexPath.row > 1 && isOpenMoreToBuyCell == false) {
-                return 0
-            } else {
-                return 70
-            }
-        case 2:
-            //展開列
-            if(indexPath.row == 0) {
-                if(isOpenMoreToBuyCell == true) {
+            if(goodsResponse?.suggestedData?.show == true) {
+               if(indexPath.row > 1 && isOpenMoreToBuyCell == true) {
+                    return 70
+                } else if(indexPath.row > 1 && isOpenMoreToBuyCell == false) {
                     return 0
                 } else {
-                    return 20
+                    return 70
                 }
             } else {
-                return 0      //相關商品
+                return 0
             }
+            
+        case 2:
+            //展開列
+            if(goodsResponse?.suggestedData?.show == true) {
+                if(indexPath.row == 0) {
+                    if(isOpenMoreToBuyCell == true) {
+                        return 0
+                    } else {
+                        return 20
+                    }
+                } else {
+                    return 0      //相關商品
+                }
+            } else {
+                return 0
+            }
+            
         case 3:
             return 300      //TabCell
         default:
@@ -224,6 +257,7 @@ class GoodsTableViewController: UITableViewController
                     bannerCell.imageList = goodsInfos.smPicMulti
                     bannerCell.lblPriceNow.text = "$\(goodsInfos.smPrice!)"
                     bannerCell.lblPriceOrigin.text = "$\(goodsInfos.itMprice)"
+                    drawDeleteLine(bannerCell.lblPriceOrigin.text!,priceLabel: bannerCell.lblPriceOrigin)
                     bannerCell.ImageBannerSetting()
                 }
          
@@ -304,6 +338,9 @@ class GoodsTableViewController: UITableViewController
                 return directionCell
             case 5://加購Title
                 let moreToBuyTitleCell = tableView.dequeueReusableCellWithIdentifier("MoreToBuyTitleCell", forIndexPath: indexPath) as! MoreToBuyTitleCell
+                if(goodsResponse?.suggestedData?.show == false) {
+                    moreToBuyTitleCell.hidden = true
+                }
                 return moreToBuyTitleCell
             default:
                 let moreToBuyCell = tableView.dequeueReusableCellWithIdentifier("MoreToBuyCell", forIndexPath: indexPath) as! MoreToBuyCell
@@ -328,18 +365,18 @@ class GoodsTableViewController: UITableViewController
                         log.debug("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
                     }) { (image, error, cacheType, imageURL) -> () in
                         if error != nil  {
-                            log.debug(error?.description)
                         }
-                        
-                        log.debug("\(indexPath.row + 1): Finished")
                 }
             }
-            
             
             if(indexPath.row > 1 && isOpenMoreToBuyCell == true) {
                 moreToBuyCell.hidden = false
             } else if(indexPath.row > 1 && isOpenMoreToBuyCell == false) {
                 moreToBuyCell.hidden = true
+            }
+            
+            if(goodsResponse?.suggestedData?.show == false) {
+                moreToBuyCell.hidden = false
             }
             return moreToBuyCell
             
@@ -350,6 +387,11 @@ class GoodsTableViewController: UITableViewController
                 if(isOpenMoreToBuyCell == true) {
                     buttonInCell.hidden = true
                 }
+                
+                if(goodsResponse?.suggestedData?.show == false) {
+                    buttonInCell.hidden = false
+                }
+                
                 return buttonInCell
             case 1://相關商品
                 let relationGoodsCell = tableView.dequeueReusableCellWithIdentifier("RelationViewCell", forIndexPath: indexPath) as! RelationViewCell
@@ -374,6 +416,8 @@ class GoodsTableViewController: UITableViewController
             if let specificViewController = segue.destinationViewController as? SpecificViewController {
                 specificViewController.colorInfo = goodsResponse?.productInfo?.colorInfo
                 specificViewController.sizeInfo = goodsResponse?.productInfo?.sizeInfo
+                specificViewController.multiProductList = (goodsResponse?.productInfo?.multiProductList)!
+                specificViewController.giftList = (goodsResponse?.giftInfo?.giftList)!
                 specificViewController.itemInfo = goodsResponse?.itemInfo
             }
         }
@@ -557,6 +601,16 @@ class GoodsTableViewController: UITableViewController
         } else {
             self.buyNum.title = "\(buyCount)"
         }
+    }
+    
+    //畫刪除線
+    func drawDeleteLine(price:String, priceLabel: UILabel) {
+        let length = price.characters.count
+        let attrString = NSMutableAttributedString(string: price)
+        let range = NSMakeRange(0, length)
+        attrString.addAttribute(NSStrikethroughStyleAttributeName, value: NSUnderlineStyle.PatternSolid.rawValue | NSUnderlineStyle.StyleSingle.rawValue, range: range)
+        attrString.addAttribute(NSStrikethroughColorAttributeName, value: UIColor.lightGrayColor(), range: range)
+        priceLabel.attributedText = attrString
     }
 
     // MARK: - 呼叫api
