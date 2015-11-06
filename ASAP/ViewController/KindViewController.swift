@@ -146,8 +146,28 @@ class KindViewController: UITableViewController
 			self.addCartNumber()
 			break
 		case 1: // "買立折"
-			
-			break
+            let row = self.searchListResponse!.storeList[tag]
+            
+            if(row.smSeq == nil) {
+                self.showError("資料有誤")
+                return
+            }
+            self.pleaseWait()
+            
+            goodsPageModel?.getGoodsPageData(row.smSeq!, completionHandler: { (goodsPage: GoodsPageResponse?, errorMessage:String?) -> Void in
+                self.clearAllNotice()
+                
+                if (goodsPage == nil) {
+                    self.showAlert(errorMessage!)
+                }
+                else {
+                    if(goodsPage!.itemInfo == nil) {
+                        self.showError("No Data")
+                        return
+                    }
+                    self.showDiscountViewController(goodsPage)
+                }
+            })
 		case 2: // "立即搶購" 點按鈕->登入->加入購物車
 			if MyApp.sharedMember.guid == "" {
 				if let signInViewController = self.showSignInViewController() {
@@ -469,10 +489,33 @@ class KindViewController: UITableViewController
                     return
                 }
                 
-				self.pushToGoodsViewController(goodsPage, cartAction: cartAction)
+            self.pushToGoodsViewController(goodsPage, cartAction: cartAction)
+                
             }
         })
     }
+    
+    //顯示買立折頁
+    func showDiscountViewController(goodsPage: GoodsPageResponse?) -> PromptDiscountViewController? {
+        guard let goodsPage = goodsPage else {
+            return nil
+        }
+        
+        let discountViewController = self.storyboard?.instantiateViewControllerWithIdentifier("PromptDiscountViewController")
+        discountViewController?.modalPresentationStyle = .CurrentContext
+        
+        if let discountViewController = discountViewController as? PromptDiscountViewController {
+            discountViewController.goodsResponse = goodsPage
+            let nav = UINavigationController(rootViewController: discountViewController)
+            self.presentViewController(nav, animated: true, completion: nil)
+            return discountViewController
+        }
+        return nil
+    }
+
+    
+    
+
 }
 
 
