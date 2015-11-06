@@ -308,11 +308,18 @@ class GoodsTableViewController: UITableViewController
                     }
                     
                     let formatter = NSDateFormatter();
-                    formatter.dateFormat = "yyyy/MM/dd HH:mm:ss";
-                    let preDateEnd:NSDate = formatter.dateFromString(goodsInfos.preDtE!)!
-                    let now = NSDate()
-                    let deadline = preDateEnd.timeIntervalSinceDate(now)
-                    preorderCell.lblPreorderDeadline.text = String(stringFromTimeInterval(deadline))
+                    formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+                    
+//                    if(goodsInfos.preDtE == nil) {
+//                        preorderCell.lblPreorderDeadline.text = ""
+//                    } else {
+//                        let preDateEnd:NSDate = formatter.dateFromString(goodsInfos.preDtE!)!
+//                        let now = NSDate()
+//                        let deadline = preDateEnd.timeIntervalSinceDate(now)
+//                        preorderCell.lblPreorderDeadline.text = String(stringFromTimeInterval(deadline))
+//                    }
+                    
+                    preorderCell.lblPreorderDeadline.text = "00:45:23"
                     
                     if let ispreorder = goodsInfos.isPreOrd{
                         if(ispreorder == "0") {
