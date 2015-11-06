@@ -1965,7 +1965,7 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="密碼強度：高 / 中 / 低 (高：字串中包含數字+字母+符號 ． 中：包含數字+字母．低：僅有數字或字母或符號。)" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YJP-ra-0QC">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密碼強度：高 / 中 / 低 (高：字串中包含數字+字母+符號 ． 中：包含數字+字母．低：僅有數字或字母或符號。)" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YJP-ra-0QC">
                                                     <rect key="frame" x="8" y="44" width="592" height="38"/>
                                                     <animations/>
                                                     <constraints>
@@ -2483,7 +2483,7 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="密碼強度：高 / 中 / 低 (高：字串中包含數字+字母+符號 ． 中：包含數字+字母．低：僅有數字或字母或符號。)" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ly6-GR-kFo">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密碼強度：高 / 中 / 低 (高：字串中包含數字+字母+符號 ． 中：包含數字+字母．低：僅有數字或字母或符號。)" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ly6-GR-kFo">
                                                     <rect key="frame" x="8" y="38" width="584" height="38"/>
                                                     <animations/>
                                                     <constraints>
@@ -3460,31 +3460,82 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FooterCell" rowHeight="300" id="ryU-kU-iw7" customClass="FooterCell" customModule="ASAP" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="FooterExplainCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="FooterExplainCell" rowHeight="300" id="ryU-kU-iw7" customClass="FooterExplainCell" customModule="ASAP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="1225" width="600" height="300"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ryU-kU-iw7" id="CEv-D7-gnP">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="299"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrI-PU-UfO">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                            <rect key="frame" x="8" y="8" width="584" height="283"/>
                                             <animations/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                            <mutableString key="text">商品說明：
+Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                     </subviews>
                                     <animations/>
                                     <constraints>
-                                        <constraint firstItem="qrI-PU-UfO" firstAttribute="top" secondItem="CEv-D7-gnP" secondAttribute="topMargin" constant="-8" id="HUB-HZ-eI0"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="qrI-PU-UfO" secondAttribute="trailing" constant="-8" id="LVs-RL-T78"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="qrI-PU-UfO" secondAttribute="bottom" constant="-8" id="NfX-H3-hIF"/>
-                                        <constraint firstItem="qrI-PU-UfO" firstAttribute="leading" secondItem="CEv-D7-gnP" secondAttribute="leadingMargin" constant="-8" id="bUL-0h-dG3"/>
+                                        <constraint firstItem="qrI-PU-UfO" firstAttribute="bottom" secondItem="CEv-D7-gnP" secondAttribute="bottomMargin" id="5h6-FP-SU2"/>
+                                        <constraint firstItem="qrI-PU-UfO" firstAttribute="top" secondItem="CEv-D7-gnP" secondAttribute="topMargin" id="VAL-iG-FTQ"/>
+                                        <constraint firstItem="qrI-PU-UfO" firstAttribute="leading" secondItem="CEv-D7-gnP" secondAttribute="leadingMargin" id="qam-19-aQu"/>
+                                        <constraint firstItem="qrI-PU-UfO" firstAttribute="trailing" secondItem="CEv-D7-gnP" secondAttribute="trailingMargin" id="sXz-Ot-lJh"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableViewCell>
+                            <tableViewCell tag="1" contentMode="scaleToFill" restorationIdentifier="FooterSpecCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="FooterSpecCell" rowHeight="300" id="8Qq-Rf-3lo" customClass="FooterSpecCell" customModule="ASAP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="1525" width="600" height="300"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Qq-Rf-3lo" id="cry-0j-FoU">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="299"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fb-HT-KD4">
+                                            <rect key="frame" x="8" y="8" width="584" height="283"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <mutableString key="text">商品規格：
+Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="9fb-HT-KD4" firstAttribute="bottom" secondItem="cry-0j-FoU" secondAttribute="bottomMargin" id="GAF-8g-bq0"/>
+                                        <constraint firstItem="9fb-HT-KD4" firstAttribute="leading" secondItem="cry-0j-FoU" secondAttribute="leadingMargin" id="HwS-Qg-Tso"/>
+                                        <constraint firstItem="9fb-HT-KD4" firstAttribute="trailing" secondItem="cry-0j-FoU" secondAttribute="trailingMargin" id="Ikj-g6-7po"/>
+                                        <constraint firstItem="9fb-HT-KD4" firstAttribute="top" secondItem="cry-0j-FoU" secondAttribute="topMargin" id="gfM-Uv-baQ"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableViewCell>
+                            <tableViewCell tag="2" contentMode="scaleToFill" restorationIdentifier="FooterWarrantyCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="FooterWarrantyCell" rowHeight="300" id="GVD-bb-MWf" customClass="FooterWarrantyCell" customModule="ASAP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="1825" width="600" height="300"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GVD-bb-MWf" id="zYa-hH-qA3">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="299"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kpr-UE-yEK">
+                                            <rect key="frame" x="8" y="8" width="584" height="283"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <mutableString key="text">商品保修：
+Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Kpr-UE-yEK" firstAttribute="bottom" secondItem="zYa-hH-qA3" secondAttribute="bottomMargin" id="39h-MN-eW9"/>
+                                        <constraint firstItem="Kpr-UE-yEK" firstAttribute="trailing" secondItem="zYa-hH-qA3" secondAttribute="trailingMargin" id="GTU-mZ-Eod"/>
+                                        <constraint firstItem="Kpr-UE-yEK" firstAttribute="leading" secondItem="zYa-hH-qA3" secondAttribute="leadingMargin" id="uB1-19-VKP"/>
+                                        <constraint firstItem="Kpr-UE-yEK" firstAttribute="top" secondItem="zYa-hH-qA3" secondAttribute="topMargin" id="wmN-Us-Rb4"/>
+                                    </constraints>
+                                </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableViewCell>
                         </prototypes>

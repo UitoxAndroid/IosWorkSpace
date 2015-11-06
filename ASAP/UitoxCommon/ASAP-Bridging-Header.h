@@ -7,3 +7,4 @@
 #import "SKSTableViewCell.h"
 #import "SVProgressHUD.h"
 #import "MJrefresh.h"
+#import "HMSegmentedControl.h"

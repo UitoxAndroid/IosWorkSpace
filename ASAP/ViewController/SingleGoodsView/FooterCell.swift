@@ -8,17 +8,17 @@
 
 import UIKit
 
-class FooterCell: UITableViewCell {
+// 單品頁-說明
+class FooterExplainCell: UITableViewCell {
+    
+}
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+// 單品頁-規格
+class FooterSpecCell: UITableViewCell {
+    
+}
 
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+// 單品頁-保固
+class FooterWarrantyCell: UITableViewCell {
+    
 }

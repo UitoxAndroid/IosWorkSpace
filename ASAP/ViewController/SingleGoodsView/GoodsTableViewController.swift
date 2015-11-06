@@ -16,6 +16,7 @@ class GoodsTableViewController: UITableViewController
     var goodsResponse:GoodsPageResponse? = nil
     var isOpenMoreToBuyCell:Bool = false
     var isCampaignBegin:Bool = false
+    
     lazy var placeholderImage: UIImage = {
         let image = UIImage(named: "no_img")!
         return image
@@ -28,6 +29,10 @@ class GoodsTableViewController: UITableViewController
     var controllerSpec : UIAlertController?
     var controllerVolume : UIAlertController?
  
+    // Footer:說明.規格.保固
+    let segmentTitle: [String] = ["說明","規格","保固"]
+    var segment: HMSegmentedControl = HMSegmentedControl()
+    
     @IBAction func showSheetSpec(sender: UIButton) {
         let tag = sender.tag
         
@@ -106,6 +111,12 @@ class GoodsTableViewController: UITableViewController
         self.setUpBarButton()
     }
     
+    // 點選Footer標題
+    func segmentedControlChangedValue(sender: HMSegmentedControl) {
+        let indexPath: NSIndexPath = NSIndexPath(forItem: sender.selectedSegmentIndex, inSection: 3)
+        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         navigationController?.toolbarHidden = false
         setUpBarButton()
@@ -133,7 +144,7 @@ class GoodsTableViewController: UITableViewController
         case 2:
             return 1
         case 3:
-            return 3
+            return 4 //留一個空白列
         default :
             return 1
         }
@@ -234,14 +245,26 @@ class GoodsTableViewController: UITableViewController
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if(section == 3) {
-            let headerCell = tableView.dequeueReusableCellWithIdentifier("SectionHeaderCell") as! SectionHeaderCell
-            return headerCell
-        } else {
-            let headerCell = tableView.dequeueReusableCellWithIdentifier("SectionHeaderCell") as! SectionHeaderCell
-            headerCell.hidden = true
-            return headerCell
-        }
+        
+        let headerCell = tableView.dequeueReusableCellWithIdentifier("SectionHeaderCell") as! SectionHeaderCell
+        
+        self.segment                                = HMSegmentedControl(sectionTitles: segmentTitle)
+        self.segment.frame                          = CGRectMake(headerCell.frame.origin.x, headerCell.frame.origin.y, self.view.frame.width, 40)
+        self.segment.selectedSegmentIndex           = 0
+        self.segment.backgroundColor                = UIColor.whiteColor()
+        self.segment.titleTextAttributes            = [NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+        self.segment.selectedTitleTextAttributes    = [NSForegroundColorAttributeName: UIColor.blueColor()]
+        self.segment.selectionIndicatorColor        = UIColor.blueColor()
+        self.segment.selectionStyle                 = HMSegmentedControlSelectionStyleBox
+        self.segment.selectionIndicatorLocation     = HMSegmentedControlSelectionIndicatorLocationDown
+        
+        self.segment.autoresizingMask = UIViewAutoresizing.FlexibleRightMargin
+        self.segment.addTarget(self, action: "segmentedControlChangedValue:", forControlEvents: UIControlEvents.ValueChanged)
+        
+        headerCell.addSubview(segment)
+        headerCell.hidden = (section != 3)
+    
+        return headerCell
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -425,8 +448,17 @@ class GoodsTableViewController: UITableViewController
             }
         
         case 3://說明,規格,保固
-            let footerCell = tableView.dequeueReusableCellWithIdentifier("FooterCell", forIndexPath: indexPath) as! FooterCell
-            SectionHeaderCell().OnTableViewScrolling(AnimateBarXPosition: 20.0)
+            var footerCell: UITableViewCell
+            switch indexPath.row {
+            case 0:
+                footerCell = tableView.dequeueReusableCellWithIdentifier("FooterExplainCell", forIndexPath: indexPath) as! FooterExplainCell
+            case 1:
+                footerCell = tableView.dequeueReusableCellWithIdentifier("FooterSpecCell", forIndexPath: indexPath) as! FooterSpecCell
+            case 2:
+                footerCell = tableView.dequeueReusableCellWithIdentifier("FooterWarrantyCell", forIndexPath: indexPath) as! FooterWarrantyCell
+            default:
+                footerCell = UITableViewCell()
+            }
             return footerCell
         default:
             let moreToBuyCell = tableView.dequeueReusableCellWithIdentifier("MoreToBuyCell", forIndexPath: indexPath) as! MoreToBuyCell

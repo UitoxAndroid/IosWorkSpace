@@ -63,6 +63,7 @@
 		A1B36B191BC374B200ADEAAA /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B36B181BC374B200ADEAAA /* ForgotPasswordViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		A1B36B1B1BC374D100ADEAAA /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B36B1A1BC374D100ADEAAA /* ResetPasswordViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		A1B36B1E1BC3753600ADEAAA /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B36B1D1BC3753600ADEAAA /* CheckBox.swift */; settings = {ASSET_TAGS = (); }; };
+		A1DB5ADF1BEC97890098A7C4 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DB5ADE1BEC97890098A7C4 /* HMSegmentedControl.m */; settings = {ASSET_TAGS = (); }; };
 		AF010EC31B7C3FBA00EB4596 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF010EC21B7C3FBA00EB4596 /* AppDelegate.swift */; };
 		AF010ECA1B7C3FBA00EB4596 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF010EC81B7C3FBA00EB4596 /* Main.storyboard */; };
 		AF010ECC1B7C3FBA00EB4596 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF010ECB1B7C3FBA00EB4596 /* Images.xcassets */; };
@@ -261,6 +262,8 @@
 		A1B36B181BC374B200ADEAAA /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		A1B36B1A1BC374D100ADEAAA /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		A1B36B1D1BC3753600ADEAAA /* CheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		A1DB5ADD1BEC97890098A7C4 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
+		A1DB5ADE1BEC97890098A7C4 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
 		AF010EBD1B7C3FBA00EB4596 /* ASAP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF010EC11B7C3FBA00EB4596 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF010EC21B7C3FBA00EB4596 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -481,6 +484,15 @@
 			name = CheckBox;
 			sourceTree = "<group>";
 		};
+		A1DB5ADC1BEC97890098A7C4 /* HMSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				A1DB5ADD1BEC97890098A7C4 /* HMSegmentedControl.h */,
+				A1DB5ADE1BEC97890098A7C4 /* HMSegmentedControl.m */,
+			);
+			path = HMSegmentedControl;
+			sourceTree = "<group>";
+		};
 		AF010EB41B7C3FBA00EB4596 = {
 			isa = PBXGroup;
 			children = (
@@ -599,6 +611,7 @@
 		AF3195B81B83144F001D6E75 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				A1DB5ADC1BEC97890098A7C4 /* HMSegmentedControl */,
 				AF0DD7C81BD621A100540B11 /* MJRefresh */,
 				AF0DD7A21BD0D17200540B11 /* Kingfisher */,
 				606D228C1BD8971700AA875E /* MIBadgebutton */,
@@ -1136,6 +1149,7 @@
 				AFEB07111BBBB380001C2AD7 /* URLTransform.swift in Sources */,
 				A18EE6D41BDF248A00550789 /* VerifyMobileModel.swift in Sources */,
 				A1B36B151BC3748E00ADEAAA /* VerifyMobileViewController.swift in Sources */,
+				A1DB5ADF1BEC97890098A7C4 /* HMSegmentedControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
