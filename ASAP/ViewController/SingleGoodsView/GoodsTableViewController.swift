@@ -22,7 +22,7 @@ class GoodsTableViewController: UITableViewController
 	}()
 	
 	var cartAction = 0
-    var seq:String = "201510AM140000042"
+    var seq:String = "201510AM140000041"
     
     
     var controllerSpec : UIAlertController?
@@ -306,8 +306,13 @@ class GoodsTableViewController: UITableViewController
                     } else {
                         preorderCell.lblMbrOnlyTag.hidden = false
                     }
-//                    preorderCell.lblPreorderDeadline.text = goodsInfos.preDtE!
-                    preorderCell.lblPreorderDeadline.text = "00:13:23"
+                    
+                    let formatter = NSDateFormatter();
+                    formatter.dateFormat = "yyyy/MM/dd HH:mm:ss";
+                    let preDateEnd:NSDate = formatter.dateFromString(goodsInfos.preDtE!)!
+                    let now = NSDate()
+                    let deadline = preDateEnd.timeIntervalSinceDate(now)
+                    preorderCell.lblPreorderDeadline.text = String(stringFromTimeInterval(deadline))
                     
                     if let ispreorder = goodsInfos.isPreOrd{
                         if(ispreorder == "0") {
@@ -450,6 +455,15 @@ class GoodsTableViewController: UITableViewController
         self.tableView.endUpdates()
     }
     
+    
+    //時間差總秒數轉換為 HH:mm:ss
+    func stringFromTimeInterval(interval:NSTimeInterval) -> NSString {
+        let ti = NSInteger(interval)
+        let seconds = ti % 60
+        let minutes = (ti / 60) % 60
+        let hours = (ti / 3600)
+        return NSString(format: "%0.2d:%0.2d:%0.2d",hours,minutes,seconds)
+    }
     
     // MARK: - ToolBar 設定
     
