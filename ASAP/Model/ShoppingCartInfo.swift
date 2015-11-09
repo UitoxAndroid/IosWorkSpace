@@ -9,10 +9,10 @@
 import Foundation
 import RealmSwift
 
-public class ShoppingCartInfo: Object
-{
-	let cartList = List<CartDetail>()
-}
+//public class ShoppingCartInfo: Object
+//{
+//	let cartList = List<CartDetail>()
+//}
 
 public class CartDetail: Object
 {

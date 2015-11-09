@@ -166,11 +166,10 @@ class PromptDiscountViewController: UITableViewController {
                 }
                 
                 //先寫入假資料
-                let info = ShoppingCartInfo()
                 comboData.itno  = "AB123000\(numInCart)"
                 comboData.sno   = "CC123000\(numInCart)"
                 
-                MyApp.sharedShoppingCart.insertGoodsIntoCart(info)
+                MyApp.sharedShoppingCart.insertGoodsIntoCart(CartDetail())
                 self.showSuccess("已加入購物車")
                 self.addCartNumber()
             }

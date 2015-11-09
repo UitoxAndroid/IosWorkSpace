@@ -12,12 +12,13 @@ import RealmSwift
 class ShoppingCartModel
 {
 	let realm = try! Realm()
+	typealias completedHandler = (resp: ShoppingCartResponse?, errorMessage: String?) -> Void
 	
-	var goodsList: [ShoppingCartInfo] {
+	var goodsList: [CartDetail] {
 		get {
 			let realm = try! Realm()
-			let results = realm.objects(ShoppingCartInfo)
-			
+			let results = realm.objects(CartDetail)
+
 			return results.map{ $0 }
 		}
 	}
@@ -31,11 +32,71 @@ class ShoppingCartModel
 		}
 	}
 
-	func insertGoodsIntoCart(shoppingCartInfo: ShoppingCartInfo) {
+	func insertGoodsIntoCart(shoppingCartDetail: CartDetail) {
 		realm.beginWrite()
-		realm.create(ShoppingCartInfo.self, value: shoppingCartInfo, update: false)
+		realm.create(CartDetail.self, value: shoppingCartDetail, update: false)
 		realm.commitWrite()
 	}
+	
+	/**
+	呼叫購物車清單
+	- parameter completionHandler:  回呼之後的處理
+	
+	- returns:
+	*/
+	func callApiGetShoppingCart(completionHandler: completedHandler) {
+		let urlPath = DomainPath.MviewShop.rawValue
+		let cartList = MyApp.sharedShoppingCart.goodsList
+		
+		
+		let data = [
+			"mem_guid":MyApp.sharedMember.encodeGuid,
+			"platform_id":"AW000001",
+			"cart_list":transCartDetailParameters(cartList)
+		]
+		
+		let requestDic = [
+			"action": "app_api/lists",
+			"platform_id": "AW000001",
+			"data": data
+		]
+		
+
+		ApiManager.sharedInstance.postDictionary(urlPath, params: requestDic) {
+			(resp: ShoppingCartResponse?, error: String?) -> Void in
+			
+			if resp == nil {
+				completionHandler(resp: nil, errorMessage: error)
+				return
+			}
+			
+			log.debug("statusCode:\(resp!.statusCode)")
+			
+			if resp?.statusCodeInData != "100" {
+				completionHandler(resp: nil, errorMessage: resp?.description)
+				return
+			}
+			
+			completionHandler(resp: resp, errorMessage: nil)
+		}
+
+	}
+	
+	// 將物件轉成符合的json格式
+	func transCartDetailParameters(cartList: [CartDetail]) -> [AnyObject] {
+		var results = [AnyObject]()
+		
+		for detail in cartList {
+			let dic: [String: String] = [
+				"sm_seq":detail.smSeq,
+				"qty":detail.qty
+			]
+			results.append(dic)
+		}
+		
+		return results
+	}
+
 
 }
 

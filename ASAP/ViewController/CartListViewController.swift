@@ -17,12 +17,19 @@ class CartListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+	
+	override func viewWillAppear(animated: Bool) {
+		self.confirmShoppingCart() { (shoppingCartResponse: ShoppingCartResponse?) in
+			
+		}
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -100,6 +107,23 @@ class CartListViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+	
+	
+	// MARK - Call Api
+	
+	func confirmShoppingCart(completionHandler: (shoppingCartResponse: ShoppingCartResponse?) -> Void) {
+		self.showBusy("請稍候...")
+		MyApp.sharedShoppingCart.queryShoppingCart()
+		MyApp.sharedShoppingCart.callApiGetShoppingCart { (resp: ShoppingCartResponse?, errorMessage: String?) -> Void in
+			self.clearAllNotice()
+			if errorMessage != nil {
+				self.showError(errorMessage)
+			} else {
+				completionHandler(shoppingCartResponse: resp!)
+			}
+		}
+	}
+
 
 }
 

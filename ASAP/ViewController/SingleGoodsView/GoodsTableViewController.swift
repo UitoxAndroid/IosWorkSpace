@@ -596,7 +596,7 @@ class GoodsTableViewController: UITableViewController
 //			let info = ShoppingCartInfo()
 //			comboData.itno  = "AB123000\(numInCart)"
 //			comboData.sno   = "CC123000\(numInCart)"
-			MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+			MyApp.sharedShoppingCart.insertGoodsIntoCart(CartDetail())
 			self.showSuccess("加入購物車成功!")
 			shopCartBtn.badgeString = String(MyApp.sharedShoppingCart.goodsList.count)
 			self.addCartNumber()
@@ -624,7 +624,7 @@ class GoodsTableViewController: UITableViewController
 					signInViewController.delegate = self
 				}
 			} else {
-				MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+				MyApp.sharedShoppingCart.insertGoodsIntoCart(CartDetail())
 				self.jumpToShoppingCartTab()
 			}
 			break
@@ -634,7 +634,6 @@ class GoodsTableViewController: UITableViewController
     }
     
     func btnShopCartPressed(sender: MIBadgeButton) {
-        MyApp.sharedShoppingCart.queryShoppingCart()
     }
     
     @IBAction func btnPlusPressed(sender: UIBarButtonItem) {
@@ -718,13 +717,13 @@ extension GoodsTableViewController: SignInDelegate
 //			
 //							break
 		case 2: // "立即搶購"
-			MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+			MyApp.sharedShoppingCart.insertGoodsIntoCart(CartDetail())
 			self.showSuccess("加入購物車成功!")
 			shopCartBtn.badgeString = String(MyApp.sharedShoppingCart.goodsList.count)
 			self.addCartNumber()
 			break
 		case 3: // "立即預訂"
-			MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+			MyApp.sharedShoppingCart.insertGoodsIntoCart(CartDetail())
 			self.jumpToShoppingCartTab()
 			self.addCartNumber()
 			break

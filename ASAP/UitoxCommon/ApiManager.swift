@@ -13,6 +13,7 @@ public enum DomainPath: String {
 	case Mview			= "https://mview.uitoxbeta.com/A"
 	case MviewPmadmin	= "https://mview.uitoxbeta.com/A/call_api/pmadmin"
 	case MviewWww		= "https://mview.uitoxbeta.com/A/call_api/www"
+	case MviewShop		= "https://mview.uitoxbeta.com/A/call_api/shop"
 	case MviewMember	= "https://mview.uitoxbeta.com/A/call_api/member"
 	case MemberTw1		= "https://member-tw1.uitoxbeta.com/AW000001"
 }
@@ -58,12 +59,9 @@ public class ApiManager
 		
 		manager.request(.POST, urlPath, parameters: params, encoding: .JSON).responseObject {
 			(req:NSURLRequest, httpUrlResponse:NSHTTPURLResponse?, responseEntity:T?, obj:AnyObject?, error:ErrorType?) in
-//			if let data = obj as? NSData {
-//				let output : String = NSString(data: data , encoding: NSUTF8StringEncoding)
-//				log.info("\(output)")
-//			}
 
-
+			log.info("\(obj)")
+			
 			if responseEntity == nil || error != nil {
 				if error != nil {
 					log.error(error.debugDescription)
@@ -127,4 +125,5 @@ public class ApiManager
 		
 		return statusCode
 	}
+	
 }

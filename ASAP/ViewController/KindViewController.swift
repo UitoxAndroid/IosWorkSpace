@@ -142,7 +142,10 @@ class KindViewController: UITableViewController
 		
 		switch action {
 		case 0:	// "加入購物車" 點按鈕->加入購物車
-			MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+			let detail = CartDetail()
+			detail.smSeq = selectedButtonInfo!.smSeq!
+			detail.qty = "1"
+			MyApp.sharedShoppingCart.insertGoodsIntoCart(detail)
 			self.showSuccess("加入購物車成功!")
 			self.addCartNumber()
 			break
@@ -171,7 +174,11 @@ class KindViewController: UITableViewController
 					signInViewController.delegate = self
 				}
 			} else {
-				MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+				let detail = CartDetail()
+				detail.smSeq = selectedButtonInfo!.smSeq!
+				detail.qty = "1"
+
+				MyApp.sharedShoppingCart.insertGoodsIntoCart(detail)
 				self.jumpToShoppingCartTab()
 			}
 			break
@@ -528,12 +535,20 @@ extension KindViewController: SignInDelegate
             getGoodsPageData(smSeq!, cartAction: 1, isFromBtn: true)
 		break
 		case 2: // "立即搶購"
-			MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+			let detail = CartDetail()
+//			detail.smSeq = selectedButtonInfo!.smSeq!
+			detail.smSeq = "201507AM020000034"
+			detail.qty = "1"
+			MyApp.sharedShoppingCart.insertGoodsIntoCart(detail)
+			
 			self.showSuccess("加入購物車成功!")
 			self.addCartNumber()
 			break
 		case 3: // "立即預訂"
-			MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
+			let detail = CartDetail()
+			detail.smSeq = selectedButtonInfo!.smSeq!
+			detail.qty = "1"
+			MyApp.sharedShoppingCart.insertGoodsIntoCart(detail)
 			self.jumpToShoppingCartTab()
 			self.addCartNumber()
 			break
