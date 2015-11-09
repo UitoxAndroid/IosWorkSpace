@@ -13,18 +13,28 @@ class PromptDiscountViewController: UITableViewController {
         let image = UIImage(named: "PlaceholderImage")!
         return image
         }()
+    var goodsResponse:GoodsPageResponse?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setRightItemClose()
         setUpBarButton()
-
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
+    func closeButtonOnClicked(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        navigationController?.toolbarHidden = false
+        setUpBarButton()
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -58,21 +68,40 @@ class PromptDiscountViewController: UITableViewController {
             case 0:
                 let promptCountCell = tableView.dequeueReusableCellWithIdentifier("PromptCountCell", forIndexPath: indexPath) as! PromptCountCell
                 
-//                let URL = NSURL(string: goodsItemInfo.smPic!)!
-//                //使用Kingfisher以Url當key
-//                promptCountCell.imgProduct.kf_setImageWithURL(URL, placeholderImage: placeholderImage,
-//                    optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)],
-//                    progressBlock: { (receivedSize, totalSize) -> () in
-//                        log.debug("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
-//                    }) { (image, error, cacheType, imageURL) -> () in
-//                        if error != nil  {
-//                        }
-//                }
-
+                if let goodsImg = goodsResponse?.itemInfo?.smPic {
+                    let URL = NSURL(string: goodsImg)!
+                    //使用Kingfisher以Url當key
+                    promptCountCell.imgProduct.kf_setImageWithURL(URL, placeholderImage: placeholderImage,
+                        optionsInfo: [.Options: KingfisherOptions.CacheMemoryOnly, .Transition: ImageTransition.Fade(0.1)],
+                        progressBlock: { (receivedSize, totalSize) -> () in
+                            log.debug("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
+                        }) { (image, error, cacheType, imageURL) -> () in
+                            if error != nil  {
+                            }
+                    }
+                }
+                
+                if let goodsName = goodsResponse?.itemInfo?.smName {
+                    promptCountCell.lblProductName.text = goodsName
+                }
+                
+                if let goodsOriginPrice = goodsResponse?.itemInfo?.smPrice {
+                    promptCountCell.lblOriginPrice.text = "$\(goodsOriginPrice)"
+                }
+                
+                if let goodsInfos = goodsResponse?.itemInfo {
+                    let minusPrice:Int = Int(goodsInfos.smPrice!)! - Int(goodsInfos.ssmPrice)!
+                    promptCountCell.lblMinusPrice.text = "-$\(minusPrice)"
+                }
                 
                 return promptCountCell
             case 1:
                 let promptResultCell = tableView.dequeueReusableCellWithIdentifier("PromptResultCell", forIndexPath: indexPath) as! PromptResultCell
+                
+                if let goodsResultPrice = goodsResponse?.itemInfo?.ssmPrice {
+                    promptResultCell.lblFinalPrice.text = "$\(goodsResultPrice)"
+                }
+                
                 return promptResultCell
             default:
                 let promptCountCell = tableView.dequeueReusableCellWithIdentifier("PromptCountCell", forIndexPath: indexPath) as! PromptCountCell
@@ -104,7 +133,7 @@ class PromptDiscountViewController: UITableViewController {
     
     func setUpBarButton() {
         buyNum.title = "1"
-        addInCart.backgroundColor = UIColor(hue: 0.6, saturation: 0.7, brightness: 1, alpha: 1)
+        addInCart.backgroundColor = UIColor.redColor()
         addInCart.setTitle("加入購物車", forState: .Normal)
         addInCart.addTarget(self, action: "btnAddInCartPressed:", forControlEvents: .TouchUpInside)
         addInCart.frame = CGRectMake(0, 0, 170, 43)
@@ -124,21 +153,28 @@ class PromptDiscountViewController: UITableViewController {
     }
     
     func btnAddInCartPressed(sender :UIButton) {
-        numInCart++
-        if(numInCart <= 0) {
-            shopCartBtn.badgeString = nil
-        } else {
-            shopCartBtn.badgeString = "\(numInCart)"
+   
+        if let specType = goodsResponse?.itemInfo?.specType {
+            if specType != 0 {
+                showSpecificViewController()
+            } else {
+                numInCart++
+                if(numInCart <= 0) {
+                    shopCartBtn.badgeString = nil
+                } else {
+                    shopCartBtn.badgeString = "\(numInCart)"
+                }
+                
+                //先寫入假資料
+                let info = ShoppingCartInfo()
+                comboData.itno  = "AB123000\(numInCart)"
+                comboData.sno   = "CC123000\(numInCart)"
+                
+                MyApp.sharedShoppingCart.insertGoodsIntoCart(info)
+                self.showSuccess("已加入購物車")
+                self.addCartNumber()
+            }
         }
-        
-        //先寫入假資料
-        let info = ShoppingCartInfo()
-        comboData.itno  = "AB123000\(numInCart)"
-        comboData.sno   = "CC123000\(numInCart)"
-        
-        MyApp.sharedShoppingCart.insertGoodsIntoCart(info)
-        self.showSuccess("已加入購物車")
-        self.addCartNumber()
     }
     
     func btnShopCartPressed(sender: MIBadgeButton) {
@@ -158,6 +194,27 @@ class PromptDiscountViewController: UITableViewController {
         } else {
             self.buyNum.title = "\(buyCount)"
         }
+    }
+
+    
+    
+    //顯示規格頁
+    func showSpecificViewController() -> SpecificViewController? {
+        let specificViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SpecificViewController")
+        specificViewController?.modalPresentationStyle = .CurrentContext
+        
+        if let specificViewController = specificViewController as? SpecificViewController {
+            specificViewController.colorInfo = goodsResponse?.productInfo?.colorInfo
+            specificViewController.sizeInfo = goodsResponse?.productInfo?.sizeInfo
+            specificViewController.multiProductList = (goodsResponse?.productInfo?.multiProductList)!
+            specificViewController.giftList = (goodsResponse?.giftInfo?.giftList)!
+            specificViewController.itemInfo = goodsResponse?.itemInfo
+            specificViewController.cartAction = 1
+            let nav = UINavigationController(rootViewController: specificViewController)
+            self.presentViewController(nav, animated: true, completion: nil)
+            return specificViewController
+        }
+        return nil
     }
 
     

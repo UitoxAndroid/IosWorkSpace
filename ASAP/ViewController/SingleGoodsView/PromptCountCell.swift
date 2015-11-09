@@ -11,7 +11,7 @@ import UIKit
 class PromptCountCell: UITableViewCell {
     @IBOutlet weak var imgProduct: UIImageView!
     @IBOutlet weak var lblProductName: UILabel!
-    @IBOutlet weak var lblWebPrice: UILabel!
+    @IBOutlet weak var lblOriginPrice: UILabel!
     @IBOutlet weak var lblMinusPrice: UILabel!
     
     override func awakeFromNib() {

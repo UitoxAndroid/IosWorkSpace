@@ -79,24 +79,7 @@ class GoodsTableViewController: UITableViewController
         showSpecificViewController()
     }
     
-    //顯示規格頁
-    func showSpecificViewController() -> SpecificViewController? {
-        let specificViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SpecificViewController")
-        specificViewController?.modalPresentationStyle = .CurrentContext
-        
-        if let specificViewController = specificViewController as? SpecificViewController {
-            specificViewController.colorInfo = goodsResponse?.productInfo?.colorInfo
-            specificViewController.sizeInfo = goodsResponse?.productInfo?.sizeInfo
-            specificViewController.multiProductList = (goodsResponse?.productInfo?.multiProductList)!
-            specificViewController.giftList = (goodsResponse?.giftInfo?.giftList)!
-            specificViewController.itemInfo = goodsResponse?.itemInfo
-         let nav = UINavigationController(rootViewController: specificViewController)
-            self.presentViewController(nav, animated: true, completion: nil)
-            return specificViewController
-        }
-        return nil
-    }
-
+    
     
     // MARK: - View
     
@@ -333,16 +316,18 @@ class GoodsTableViewController: UITableViewController
                     let formatter = NSDateFormatter();
                     formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
                     
-//                    if(goodsInfos.preDtE == nil) {
-//                        preorderCell.lblPreorderDeadline.text = ""
-//                    } else {
-//                        let preDateEnd:NSDate = formatter.dateFromString(goodsInfos.preDtE!)!
-//                        let now = NSDate()
-//                        let deadline = preDateEnd.timeIntervalSinceDate(now)
-//                        preorderCell.lblPreorderDeadline.text = String(stringFromTimeInterval(deadline))
-//                    }
-                    
-                    preorderCell.lblPreorderDeadline.text = "00:45:23"
+                    if(goodsInfos.preDtE == nil || goodsInfos.preDtE == "") {
+                        preorderCell.lblPreorderDeadline.text = "00:00:00"
+                    } else {
+                        let preDateEnd:NSDate = formatter.dateFromString(goodsInfos.preDtE!)!
+                        let now = NSDate()
+                        let deadline = preDateEnd.timeIntervalSinceDate(now)
+                        if (deadline < 0) {
+                            preorderCell.lblPreorderDeadline.text = "00:00:00"
+                        } else {
+                            preorderCell.lblPreorderDeadline.text = String(stringFromTimeInterval(deadline))
+                        }
+                    }
                     
                     if let ispreorder = goodsInfos.isPreOrd{
                         if(ispreorder == "0") {
@@ -617,7 +602,7 @@ class GoodsTableViewController: UITableViewController
 			self.addCartNumber()
 			break
 		case 1: // "買立折"
-			// 未登入：點擊 -> 登入 -> 滑出買立折 -> 選擇數量 -> 加入購物車
+           // 未登入：點擊 -> 登入 -> 滑出買立折 -> 選擇數量 -> 加入購物車
 			// 登 入：點擊 -> 滑出買立折 -> 選擇數量 -> 加入購物車
 			break
 		case 2: // "立即搶購" 
@@ -675,6 +660,24 @@ class GoodsTableViewController: UITableViewController
         attrString.addAttribute(NSStrikethroughStyleAttributeName, value: NSUnderlineStyle.PatternSolid.rawValue | NSUnderlineStyle.StyleSingle.rawValue, range: range)
         attrString.addAttribute(NSStrikethroughColorAttributeName, value: UIColor.lightGrayColor(), range: range)
         priceLabel.attributedText = attrString
+    }
+    
+    //顯示規格頁
+    func showSpecificViewController() -> SpecificViewController? {
+        let specificViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SpecificViewController")
+        specificViewController?.modalPresentationStyle = .CurrentContext
+        
+        if let specificViewController = specificViewController as? SpecificViewController {
+            specificViewController.colorInfo = goodsResponse?.productInfo?.colorInfo
+            specificViewController.sizeInfo = goodsResponse?.productInfo?.sizeInfo
+            specificViewController.multiProductList = (goodsResponse?.productInfo?.multiProductList)!
+            specificViewController.giftList = (goodsResponse?.giftInfo?.giftList)!
+            specificViewController.itemInfo = goodsResponse?.itemInfo
+            let nav = UINavigationController(rootViewController: specificViewController)
+            self.presentViewController(nav, animated: true, completion: nil)
+            return specificViewController
+        }
+        return nil
     }
 
     // MARK: - 呼叫api

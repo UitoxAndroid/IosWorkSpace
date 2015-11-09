@@ -18,6 +18,7 @@ class SpecificViewController: UITableViewController {
     var itemInfo:GoodsPageItemInfo?
     var giftList:[GiftData] = []
     var controllerSpec : UIAlertController?
+    var cartAction = 0
     lazy var placeholderImage: UIImage = {
         let image = UIImage(named: "PlaceholderImage")!
         return image

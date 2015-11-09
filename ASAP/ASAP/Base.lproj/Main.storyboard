@@ -3198,7 +3198,7 @@
                                                 <constraint firstAttribute="height" constant="22" id="Muq-Ju-n3o"/>
                                                 <constraint firstAttribute="width" constant="21" id="aqk-u2-NNb"/>
                                             </constraints>
-                                            <state key="normal" title="Button" image="8B8D8429-CA09-4AD7-A0F5-0A0FB26978CB"/>
+                                            <state key="normal" title="Button" image="B8F8E547-2EA9-4768-B6A7-7C3B6AF8EC95"/>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SnZ-mm-BAb">
                                             <rect key="frame" x="37" y="5" width="33" height="33"/>
@@ -4073,7 +4073,7 @@ Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed 
         <!--單品頁-->
         <scene sceneID="KWi-mU-nB0">
             <objects>
-                <tableViewController id="Wbv-mM-aS0" customClass="PromptDiscountViewController" customModule="ASAP" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="PromptDiscountViewController" id="Wbv-mM-aS0" customClass="PromptDiscountViewController" customModule="ASAP" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="13y-Dy-QDF">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4153,8 +4153,8 @@ Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed 
                                 <connections>
                                     <outlet property="imgProduct" destination="BdS-ra-kqg" id="JL1-71-AcX"/>
                                     <outlet property="lblMinusPrice" destination="sqc-oZ-Ojj" id="V8c-e6-PSF"/>
+                                    <outlet property="lblOriginPrice" destination="9An-p1-feM" id="4Ub-Rw-lWk"/>
                                     <outlet property="lblProductName" destination="NAl-jJ-6kH" id="KnC-km-E8z"/>
-                                    <outlet property="lblWebPrice" destination="9An-p1-feM" id="NDJ-pM-e6y"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PromptResultCell" rowHeight="44" id="n9t-FM-c8I" customClass="PromptResultCell" customModule="ASAP" customModuleProvider="target">
@@ -4308,7 +4308,7 @@ Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed 
         </scene>
     </scenes>
     <resources>
-        <image name="8B8D8429-CA09-4AD7-A0F5-0A0FB26978CB" width="18" height="18">
+        <image name="B8F8E547-2EA9-4768-B6A7-7C3B6AF8EC95" width="18" height="18">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
