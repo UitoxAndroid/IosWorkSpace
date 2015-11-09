@@ -40,6 +40,8 @@
 		605E673F1BEB59FA00179805 /* PromptDiscountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605E673E1BEB59FA00179805 /* PromptDiscountViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		605E67411BEB610600179805 /* PromptCountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605E67401BEB610600179805 /* PromptCountCell.swift */; settings = {ASSET_TAGS = (); }; };
 		605E67431BEB613100179805 /* PromptResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605E67421BEB613100179805 /* PromptResultCell.swift */; settings = {ASSET_TAGS = (); }; };
+		605E67451BF06BED00179805 /* RecipientInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605E67441BF06BED00179805 /* RecipientInfoViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		605E67471BF0789F00179805 /* PurchaserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605E67461BF0789F00179805 /* PurchaserInfoViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		606D22901BD8973A00AA875E /* MIBadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606D228F1BD8973A00AA875E /* MIBadgeButton.swift */; settings = {ASSET_TAGS = (); }; };
 		606DDF621BD78C9A001F21AB /* VolumeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DDF611BD78C9A001F21AB /* VolumeButton.swift */; settings = {ASSET_TAGS = (); }; };
 		60CDBFCC1BDF11F3003F9FC9 /* ContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CDBFCB1BDF11F3003F9FC9 /* ContentCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
@@ -257,6 +259,8 @@
 		605E673E1BEB59FA00179805 /* PromptDiscountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromptDiscountViewController.swift; sourceTree = "<group>"; };
 		605E67401BEB610600179805 /* PromptCountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromptCountCell.swift; sourceTree = "<group>"; };
 		605E67421BEB613100179805 /* PromptResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromptResultCell.swift; sourceTree = "<group>"; };
+		605E67441BF06BED00179805 /* RecipientInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipientInfoViewController.swift; sourceTree = "<group>"; };
+		605E67461BF0789F00179805 /* PurchaserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaserInfoViewController.swift; sourceTree = "<group>"; };
 		606D228F1BD8973A00AA875E /* MIBadgeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIBadgeButton.swift; sourceTree = "<group>"; };
 		606DDF611BD78C9A001F21AB /* VolumeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeButton.swift; sourceTree = "<group>"; };
 		60CDBFCB1BDF11F3003F9FC9 /* ContentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -783,6 +787,8 @@
 				60567C9E1BCCB9E1005BB52A /* SpecificViewController.swift */,
 				A1B36B141BC3748E00ADEAAA /* VerifyMobileViewController.swift */,
 				A18EE6D61BDF24A700550789 /* WebViewController.swift */,
+				605E67441BF06BED00179805 /* RecipientInfoViewController.swift */,
+				605E67461BF0789F00179805 /* PurchaserInfoViewController.swift */,
 				A18C4D451BF0401000F2A825 /* CartView */,
 				AF7E90061B9578E300AFD3EF /* CustomUI */,
 				60567C871BCCB9E1005BB52A /* SingleGoodsView */,
@@ -1120,6 +1126,7 @@
 				AF0F3BC41B97E2C000EE8CD2 /* SearchModel.swift in Sources */,
 				60567CA31BCCB9E1005BB52A /* Checkbox.swift in Sources */,
 				AF0DD7B91BD0D17200540B11 /* Resource.swift in Sources */,
+				605E67471BF0789F00179805 /* PurchaserInfoViewController.swift in Sources */,
 				AF5F2C4A1BBD3B6C00A7A977 /* Result.swift in Sources */,
 				A18EE6DF1BDF57DC00550789 /* ResetPasswordResponse.swift in Sources */,
 				60567CAE1BCCB9E1005BB52A /* ColorCell.swift in Sources */,
@@ -1205,6 +1212,7 @@
 				60567CA81BCCB9E1005BB52A /* MoreToBuyTitleCell.swift in Sources */,
 				AFEB07081BBBB380001C2AD7 /* ToJSON.swift in Sources */,
 				AF0DD7DF1BD621A100540B11 /* UIScrollView+MJRefresh.m in Sources */,
+				605E67451BF06BED00179805 /* RecipientInfoViewController.swift in Sources */,
 				AF9B1CDB1BE364B0008CC684 /* ShoppingCartInfo.swift in Sources */,
 				AFEB07211BBBC370001C2AD7 /* PagingMenuOptions.swift in Sources */,
 				AF0F3BC71B99776800EE8CD2 /* CategoryModel.swift in Sources */,

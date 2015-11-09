@@ -27,8 +27,7 @@ class KindViewController: UITableViewController
 	var currentSortBy = SortBy.SmSoldQty
 	var currentDesc = true
 	var selectedButtonInfo:StoreInfo? = nil
-    var pressedBtnTag:Int?
-
+    
 	lazy var placeholderImage: UIImage = {
 		let image = UIImage(named: "no_img")!
 		return image
@@ -152,7 +151,6 @@ class KindViewController: UITableViewController
                     signInViewController.delegate = self
                 }
             } else {
-                pressedBtnTag = tag
                 self.signInSuccess()
             }
             break
@@ -380,7 +378,7 @@ class KindViewController: UITableViewController
 		let action = convertCartButtonAction(row.cartAction)
 		
         self.pleaseWait()
-		getGoodsPageData(row.smSeq!, cartAction: action, isFromBtn: false)
+		getGoodsPageData(row.smSeq!, cartAction: action, isDiscount: false)
     }
 	
 	// 將購物車判斷轉為數字代碼
@@ -464,7 +462,7 @@ class KindViewController: UITableViewController
 	}
     
     // 取得單品頁資料
-    func getGoodsPageData(smSeq: String, cartAction: Int, isFromBtn:Bool) {
+    func getGoodsPageData(smSeq: String, cartAction: Int, isDiscount:Bool) {
         goodsPageModel?.getGoodsPageData(smSeq, completionHandler: { (goodsPage: GoodsPageResponse?, errorMessage:String?) -> Void in
             self.clearAllNotice()
 
@@ -477,7 +475,7 @@ class KindViewController: UITableViewController
                     return
                 }
             
-                if isFromBtn == false {
+                if isDiscount == false {
                     self.pushToGoodsViewController(goodsPage, cartAction: cartAction)
                 } else {
                     self.showDiscountViewController(goodsPage)
@@ -519,13 +517,9 @@ extension KindViewController: SignInDelegate
 		let action = self.convertCartButtonAction(selectedButtonInfo!.cartAction)
 		switch action {
 		case 1: // "買立折"
-            let smSeq = self.searchListResponse!.storeList[pressedBtnTag!].smSeq
-            if(smSeq == nil) {
-                self.showError("資料有誤")
-                return
-            }
+            let smSeq = self.selectedButtonInfo!.smSeq
             self.pleaseWait()
-            getGoodsPageData(smSeq!, cartAction: 1, isFromBtn: true)
+            getGoodsPageData(smSeq!, cartAction: action, isDiscount: true)
 		break
 		case 2: // "立即搶購"
 			MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())

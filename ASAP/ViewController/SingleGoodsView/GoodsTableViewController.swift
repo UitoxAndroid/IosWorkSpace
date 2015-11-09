@@ -24,8 +24,6 @@ class GoodsTableViewController: UITableViewController
 	
 	var cartAction = 0
     var seq:String = "201510AM140000041"
-    
-    
     var controllerSpec : UIAlertController?
     var controllerVolume : UIAlertController?
  
@@ -604,7 +602,14 @@ class GoodsTableViewController: UITableViewController
 		case 1: // "買立折"
            // 未登入：點擊 -> 登入 -> 滑出買立折 -> 選擇數量 -> 加入購物車
 			// 登 入：點擊 -> 滑出買立折 -> 選擇數量 -> 加入購物車
-			break
+            if MyApp.sharedMember.guid == "" {
+                if let signInViewController = self.showSignInViewController() {
+                    signInViewController.delegate = self
+                }
+            } else {
+                self.signInSuccess()
+            }
+    		break
 		case 2: // "立即搶購" 
 			// 未登入：點擊 -> 登入 -> 選擇數量 -> 加入購物車
 			// 登 入：點擊 -> 選擇數量 -> 加入購物車
@@ -679,6 +684,24 @@ class GoodsTableViewController: UITableViewController
         }
         return nil
     }
+    
+    //顯示買立折頁
+    func showDiscountViewController(goodsPage: GoodsPageResponse?) -> PromptDiscountViewController? {
+        guard let goodsPage = goodsPage else {
+            return nil
+        }
+        
+        let discountViewController = self.storyboard?.instantiateViewControllerWithIdentifier("PromptDiscountViewController")
+        discountViewController?.modalPresentationStyle = .CurrentContext
+        
+        if let discountViewController = discountViewController as? PromptDiscountViewController {
+            discountViewController.goodsResponse = goodsPage
+            let nav = UINavigationController(rootViewController: discountViewController)
+            self.presentViewController(nav, animated: true, completion: nil)
+            return discountViewController
+        }
+        return nil
+    }
 
     // MARK: - 呼叫api
     
@@ -714,9 +737,10 @@ extension GoodsTableViewController: SignInDelegate
 		log.debug("signInSuccess")
 
 		switch cartAction {
-//						case 1: // "買立折"
-//			
-//							break
+		case 1: // "買立折"
+            self.pleaseWait()
+            showDiscountViewController(goodsResponse)
+            break
 		case 2: // "立即搶購"
 			MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
 			self.showSuccess("加入購物車成功!")
