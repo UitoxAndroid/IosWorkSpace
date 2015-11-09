@@ -27,6 +27,7 @@ class KindViewController: UITableViewController
 	var currentSortBy = SortBy.SmSoldQty
 	var currentDesc = true
 	var selectedButtonInfo:StoreInfo? = nil
+    var pressedBtnTag:Int?
 
 	lazy var placeholderImage: UIImage = {
 		let image = UIImage(named: "no_img")!
@@ -146,28 +147,15 @@ class KindViewController: UITableViewController
 			self.addCartNumber()
 			break
 		case 1: // "買立折"
-            let row = self.searchListResponse!.storeList[tag]
-            
-            if(row.smSeq == nil) {
-                self.showError("資料有誤")
-                return
+            if MyApp.sharedMember.guid == "" {
+                if let signInViewController = self.showSignInViewController() {
+                    signInViewController.delegate = self
+                }
+            } else {
+                pressedBtnTag = tag
+                self.signInSuccess()
             }
-            self.pleaseWait()
-            
-            goodsPageModel?.getGoodsPageData(row.smSeq!, completionHandler: { (goodsPage: GoodsPageResponse?, errorMessage:String?) -> Void in
-                self.clearAllNotice()
-                
-                if (goodsPage == nil) {
-                    self.showAlert(errorMessage!)
-                }
-                else {
-                    if(goodsPage!.itemInfo == nil) {
-                        self.showError("No Data")
-                        return
-                    }
-                    self.showDiscountViewController(goodsPage)
-                }
-            })
+            break
 		case 2: // "立即搶購" 點按鈕->登入->加入購物車
 			if MyApp.sharedMember.guid == "" {
 				if let signInViewController = self.showSignInViewController() {
@@ -392,7 +380,7 @@ class KindViewController: UITableViewController
 		let action = convertCartButtonAction(row.cartAction)
 		
         self.pleaseWait()
-		getGoodsPageData(row.smSeq!, cartAction: action)
+		getGoodsPageData(row.smSeq!, cartAction: action, isFromBtn: false)
     }
 	
 	// 將購物車判斷轉為數字代碼
@@ -476,7 +464,7 @@ class KindViewController: UITableViewController
 	}
     
     // 取得單品頁資料
-    func getGoodsPageData(smSeq: String, cartAction: Int) {
+    func getGoodsPageData(smSeq: String, cartAction: Int, isFromBtn:Bool) {
         goodsPageModel?.getGoodsPageData(smSeq, completionHandler: { (goodsPage: GoodsPageResponse?, errorMessage:String?) -> Void in
             self.clearAllNotice()
 
@@ -488,8 +476,12 @@ class KindViewController: UITableViewController
                     self.showError("No Data")
                     return
                 }
-                
-            self.pushToGoodsViewController(goodsPage, cartAction: cartAction)
+            
+                if isFromBtn == false {
+                    self.pushToGoodsViewController(goodsPage, cartAction: cartAction)
+                } else {
+                    self.showDiscountViewController(goodsPage)
+                }
                 
             }
         })
@@ -514,7 +506,6 @@ class KindViewController: UITableViewController
     }
 
     
-    
 
 }
 
@@ -527,9 +518,15 @@ extension KindViewController: SignInDelegate
 		log.debug("signInSuccess")
 		let action = self.convertCartButtonAction(selectedButtonInfo!.cartAction)
 		switch action {
-			//			case 1: // "買立折"
-			//
-			//				break
+		case 1: // "買立折"
+            let smSeq = self.searchListResponse!.storeList[pressedBtnTag!].smSeq
+            if(smSeq == nil) {
+                self.showError("資料有誤")
+                return
+            }
+            self.pleaseWait()
+            getGoodsPageData(smSeq!, cartAction: 1, isFromBtn: true)
+		break
 		case 2: // "立即搶購"
 			MyApp.sharedShoppingCart.insertGoodsIntoCart(ShoppingCartInfo())
 			self.showSuccess("加入購物車成功!")

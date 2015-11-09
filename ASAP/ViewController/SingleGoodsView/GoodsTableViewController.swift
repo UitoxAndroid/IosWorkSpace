@@ -570,7 +570,7 @@ class GoodsTableViewController: UITableViewController
 			self.addCartNumber()
 			break
 		case 1: // "買立折"
-			// 未登入：點擊 -> 登入 -> 滑出買立折 -> 選擇數量 -> 加入購物車
+           // 未登入：點擊 -> 登入 -> 滑出買立折 -> 選擇數量 -> 加入購物車
 			// 登 入：點擊 -> 滑出買立折 -> 選擇數量 -> 加入購物車
 			break
 		case 2: // "立即搶購" 
