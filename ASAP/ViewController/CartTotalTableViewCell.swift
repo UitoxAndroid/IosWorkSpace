@@ -11,6 +11,9 @@ import UIKit
 // 購物車清單-購物車總計
 class CartTotalTableViewCell: UITableViewCell {
 
+    @IBOutlet var cartTotal: UILabel!
+    @IBOutlet var deliveryCharges: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

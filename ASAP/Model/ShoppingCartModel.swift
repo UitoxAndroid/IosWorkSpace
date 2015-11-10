@@ -37,7 +37,26 @@ class ShoppingCartModel
 		realm.create(CartDetail.self, value: shoppingCartDetail, update: false)
 		realm.commitWrite()
 	}
+    
+    func deleteGoodsFromCart(shoppingcartDetail: CartDetail) {
+        realm.beginWrite()
+        realm.delete(shoppingcartDetail)
+        realm.commitWrite()
+    }
 	
+    func clearGoodsCart() {
+        let results = realm.objects(CartDetail)
+        if results.count > 0 {
+            var index = results.count - 1
+            while index >= 0 {
+                realm.write {
+                    self.realm.delete(results[index])
+                }
+                index--
+            }
+        }
+    }
+    
 	/**
 	呼叫購物車清單
 	- parameter completionHandler:  回呼之後的處理

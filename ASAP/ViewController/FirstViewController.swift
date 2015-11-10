@@ -76,6 +76,8 @@ class FirstViewController: UITableViewController, CirCleViewDelegate
         self.getDealsList()
 
 		self.setRightItemSearch()
+        
+        MyApp.sharedShoppingCart.clearGoodsCart()
 	}
     
     // 圖片Click事件

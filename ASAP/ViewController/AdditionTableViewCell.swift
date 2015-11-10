@@ -10,7 +10,12 @@ import UIKit
 
 // 購物車清單-購物車加購品
 class AdditionTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet var productName: UILabel!
+    @IBOutlet var productImage: UIImageView!
+    @IBOutlet var productPrice: UILabel!
+    @IBOutlet var qty: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

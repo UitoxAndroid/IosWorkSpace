@@ -10,7 +10,13 @@ import UIKit
 
 // 購物車清單－買立折
 class DiscountTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet var productName: UILabel!
+    @IBOutlet var productImage: UIImageView!
+    @IBOutlet var productPrice: UILabel!
+    @IBOutlet var discount: UILabel!
+    @IBOutlet var qty: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -11,4 +11,7 @@ import UIKit
 // 購物車清單－購物車加購商品
 class CartAdditionCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet var productName: UILabel!
+    @IBOutlet var productImage: UIImageView!
+    @IBOutlet var productPrice: UILabel!
 }

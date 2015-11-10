@@ -8,8 +8,8 @@
 
 import UIKit
 
-class CheckBox: UIButton {
-    
+class CheckBox: UIButton
+{
     let checkedImage    = UIImage(named: "ic_check_box")
     let uncheckedImage  = UIImage(named: "ic_check_box_outline_blank")
     
@@ -32,5 +32,26 @@ class CheckBox: UIButton {
         if(sender == self) {
             self.isChecked = !self.isChecked
         }
+    }
+}
+
+
+class BorderButton: UIButton
+{
+    override func awakeFromNib() {
+        self.layer.backgroundColor = UIColor.whiteColor().CGColor   // 白底
+        self.layer.borderWidth = 1.0
+        self.layer.borderColor = UIColor.lightGrayColor().CGColor     // 灰框
+        self.layer.masksToBounds = true
+    }
+}
+
+class BorderLabel: UILabel
+{
+    override func awakeFromNib() {
+        self.layer.backgroundColor = UIColor.whiteColor().CGColor   // 白底
+        self.layer.borderWidth = 1.0
+        self.layer.borderColor = UIColor.lightGrayColor().CGColor     // 灰框
+        self.layer.masksToBounds = true
     }
 }

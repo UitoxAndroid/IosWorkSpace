@@ -10,7 +10,16 @@ import UIKit
 
 // 購物車清單-組合商品
 class ComboTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet var productName: UILabel!
+    @IBOutlet var productImage: UIImageView!
+    @IBOutlet var productPrice: UILabel!
+    @IBOutlet var gift: UILabel!
+    @IBOutlet var addGift: UILabel!
+    @IBOutlet var qty: UILabel!
+    
+    @IBOutlet var comboProductCollection: ComboProductCollection!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -22,4 +31,9 @@ class ComboTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+}
+
+// 購物車清單-組合商品清單
+class ComboProductCollection: UICollectionView {
+    
 }

@@ -11,6 +11,13 @@ import UIKit
 // 購物車清單－一般商品
 class GeneralTableViewCell: UITableViewCell {
 
+    @IBOutlet var productName: UILabel!
+    @IBOutlet var productImage: UIImageView!
+    @IBOutlet var productPrice: UILabel!
+    @IBOutlet var gift: UILabel!
+    @IBOutlet var addGift: UILabel!
+    @IBOutlet var qty: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

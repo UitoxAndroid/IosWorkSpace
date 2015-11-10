@@ -9,8 +9,10 @@
 import UIKit
 
 // 購物車清單-購物車加購區
-class CartAdditionTableViewCell: UITableViewCell {
-
+class CartAdditionTableViewCell: UITableViewCell
+{
+    @IBOutlet var cartAddition: CartAdditionCollection!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -22,4 +24,10 @@ class CartAdditionTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+}
+
+// 購物車清單-購物車加購清單
+class CartAdditionCollection: UICollectionView
+{
+    
 }

@@ -11,4 +11,5 @@ import UIKit
 // 購物車清單－組合商品清單
 class ComboDetailCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet var comboProductName: UILabel!
 }

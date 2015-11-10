@@ -10,7 +10,14 @@ import UIKit
 
 // 購物車清單-一般商品(活動)
 class CampaignTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet var productName: UILabel!
+    @IBOutlet var productImage: UIImageView!
+    @IBOutlet var productPrice: UILabel!
+    @IBOutlet var accordDiscount: UILabel!
+    @IBOutlet var notAccordDiscount: UILabel!
+    @IBOutlet var qty: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
