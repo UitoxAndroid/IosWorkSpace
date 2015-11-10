@@ -10,7 +10,6 @@ import UIKit
 
 class SizeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var btnSelectSize: UIButton!
-    var selectStatus:Bool = false
     
     override func awakeFromNib() {
         setButtonAction()
@@ -18,16 +17,6 @@ class SizeCollectionViewCell: UICollectionViewCell {
     
     func setButtonAction() {
         btnSelectSize.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
-        btnSelectSize.addTarget(self, action: "changeColor:", forControlEvents: .TouchUpInside)
     }
     
-    func changeColor(sender: UIButton) {
-        if(selectStatus == false) {
-            btnSelectSize.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
-            selectStatus = true
-        } else {
-            btnSelectSize.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
-            selectStatus = false
-        }
-    }
 }

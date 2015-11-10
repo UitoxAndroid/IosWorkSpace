@@ -18,18 +18,8 @@ class BannerCell: UITableViewCell, UIScrollViewDelegate {
     @IBOutlet weak var ImageBannerScroll: UIScrollView!
     @IBOutlet weak var BannerPageControl: UIPageControl!
     internal var imageList:[String]!
-    var isCare:Bool = false
-	
-    @IBAction func btnStarPressed(sender: UIButton) {
-        if(isCare == false) {
-            self.btnStar.setBackgroundImage(UIImage(named: "ic_star"), forState: UIControlState.Normal)
-            isCare = true
-        } else {
-            self.btnStar.setBackgroundImage(UIImage(named: "ic_star_outline"), forState: UIControlState.Normal)
-            isCare = false
-        }
-    }
-   
+    var isTrack:Bool = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -130,6 +120,6 @@ class BannerCell: UITableViewCell, UIScrollViewDelegate {
         //展现当前页面内容
         ImageBannerScroll.scrollRectToVisible(frame, animated:true)
     }
-
-
 }
+
+

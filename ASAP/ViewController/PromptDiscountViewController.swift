@@ -133,8 +133,8 @@ class PromptDiscountViewController: UITableViewController {
     
     func setUpBarButton() {
         buyNum.title = "1"
-        addInCart.backgroundColor = UIColor.redColor()
-        addInCart.setTitle("加入購物車", forState: .Normal)
+        addInCart.backgroundColor = UIColor.orangeColor()
+        addInCart.setTitle("買立折", forState: .Normal)
         addInCart.addTarget(self, action: "btnAddInCartPressed:", forControlEvents: .TouchUpInside)
         addInCart.frame = CGRectMake(0, 0, 170, 43)
         addShopCart.customView = addInCart
