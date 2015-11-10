@@ -13,6 +13,8 @@ class GoodsTableViewController: UITableViewController
 {
     lazy var goodsPageModel:GoodsPageModel? = GoodsPageModel()
     lazy var campaignData:CampaignModel? = CampaignModel()
+    lazy var addTrackModel:AddTrackModel = AddTrackModel()
+    var addTrackResponse:AddTrackResponse? = nil
     var goodsResponse:GoodsPageResponse? = nil
     var isOpenMoreToBuyCell:Bool = false
     var isCampaignBegin:Bool = false
@@ -23,10 +25,11 @@ class GoodsTableViewController: UITableViewController
 	}()
 	
 	var cartAction = 0
-    var seq:String = "201510AM140000041"
+    var smSeq:String = "201510AM140000041"
     var controllerSpec : UIAlertController?
     var controllerVolume : UIAlertController?
- 
+    
+    
     // Footer:說明.規格.保固
     let segmentTitle: [String] = ["說明","規格","保固"]
     var segment: HMSegmentedControl = HMSegmentedControl()
@@ -50,6 +53,18 @@ class GoodsTableViewController: UITableViewController
         }
         self.presentViewController(controllerSpec!, animated: true, completion: nil)
     }
+    
+    
+    @IBAction func btnStarPressed(sender: UIButton) {
+        if MyApp.sharedMember.guid == "" {
+            if let signInViewController = self.showSignInViewController() {
+                signInViewController.delegate = self
+            }
+        } else {
+                self.signInForAddTrack()
+        }
+    }
+    
     
     @IBAction func showSheetVolume(sender: UIButton) {
         let tag = sender.tag
@@ -87,7 +102,7 @@ class GoodsTableViewController: UITableViewController
         self.navigationController?.toolbarHidden = false
         
         if(goodsResponse == nil) {
-            self.getGoodsPageData(seq)
+            self.getGoodsPageData(smSeq)
         }
         self.setUpBarButton()
     }
@@ -705,6 +720,7 @@ class GoodsTableViewController: UITableViewController
 
     // MARK: - 呼叫api
     
+    //單品頁
     func getGoodsPageData(smSeq:String) {
         goodsPageModel?.getGoodsPageData(smSeq,completionHandler: { (goodsPage: GoodsPageResponse?, errorMessage:String?) -> Void in
             if (goodsPage == nil) {
@@ -716,6 +732,19 @@ class GoodsTableViewController: UITableViewController
             }
         })
     }
+    
+    //商品加入追蹤
+    func addTrack(smSeq:String,memGuid:String) {
+        addTrackModel.AddTrack(smSeq, memGuid: memGuid) { (addTrackReturn, errorMessage) -> Void in
+            if(addTrackReturn == nil) {
+                self.showError(errorMessage!)
+            }
+            else {
+                self.addTrackResponse = addTrackReturn
+            }
+        }
+    }
+
     
 //    func GetCampaign(completionHandler: (campaignResponse :SearchListResponse?) -> Void) {
 //        campaignData?.getCampaignData{ (campaign:SearchListResponse?, errorMessage: String?) in
@@ -738,7 +767,6 @@ extension GoodsTableViewController: SignInDelegate
 
 		switch cartAction {
 		case 1: // "買立折"
-            self.pleaseWait()
             showDiscountViewController(goodsResponse)
             break
 		case 2: // "立即搶購"
@@ -760,6 +788,21 @@ extension GoodsTableViewController: SignInDelegate
 	func signInCancel() {
 		log.debug("signInCancel")
 	}
-
+    
+    func signInForAddTrack(){
+        log.debug("signInSuccess")
+        let index = NSIndexPath(forRow: 0, inSection: 0)
+        let bannerCell = self.tableView.cellForRowAtIndexPath(index) as? BannerCell
+        if(bannerCell!.isTrack == false) {
+            bannerCell!.btnStar.setBackgroundImage(UIImage(named: "ic_star"), forState: UIControlState.Normal)
+            self.addTrack(smSeq, memGuid: MyApp.sharedMember.encodeGuid)
+            bannerCell!.isTrack = true
+            showSuccess("已加入追蹤清單")
+        } else {
+            bannerCell!.btnStar.setBackgroundImage(UIImage(named: "ic_star_outline"), forState: UIControlState.Normal)
+            bannerCell!.isTrack = false
+            showSuccess("已取消追蹤")
+        }
+    }
 
 }

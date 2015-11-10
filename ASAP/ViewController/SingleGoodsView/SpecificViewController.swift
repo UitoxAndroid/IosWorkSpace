@@ -266,7 +266,7 @@ class SpecificViewController: UITableViewController {
     
     func setUpBarButton() {
         buyNum.title = "1"
-        addInCart.backgroundColor = UIColor(hue: 0.6, saturation: 0.7, brightness: 1, alpha: 1)
+        addInCart.backgroundColor = UIColor.redColor()
         addInCart.setTitle("加入購物車", forState: .Normal)
         addInCart.addTarget(self, action: "btnAddInCartPressed:", forControlEvents: .TouchUpInside)
         addInCart.frame = CGRectMake(0, 0, 170, 43)

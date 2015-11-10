@@ -11,6 +11,9 @@ import UIKit
 class ColorCell: UITableViewCell,UICollectionViewDataSource,UICollectionViewDelegate {
     var colorInfo:ColorInfo?
     var colorsCount:Int = 0
+    var tempTag:Int?
+    @IBOutlet weak var colorCollectionView: UICollectionView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -31,12 +34,26 @@ class ColorCell: UITableViewCell,UICollectionViewDataSource,UICollectionViewDele
         let colorCell:ColorCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("ColorCell", forIndexPath: indexPath) as! ColorCollectionViewCell
         if let colors = colorInfo?.colorList {
             colorCell.btnSelectColor.setTitle(colors[indexPath.row].colorName, forState: .Normal)
+            colorCell.btnSelectColor.tag = indexPath.row
         }
-
-        
         return colorCell
     }
     
+    @IBAction func onColorBtnPressed(sender: UIButton) {
+        let tag = sender.tag
+        
+        let indexOfSelectedBtn = NSIndexPath(forItem: tag, inSection: 0)
+        let colorCellOnPress = self.colorCollectionView.cellForItemAtIndexPath(indexOfSelectedBtn) as? ColorCollectionViewCell
+        colorCellOnPress?.btnSelectColor.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+        
+        if let tempTag = tempTag {
+            let indexOfExSelected = NSIndexPath(forItem: tempTag, inSection: 0)
+            let exColorCell = self.colorCollectionView.cellForItemAtIndexPath(indexOfExSelected) as? ColorCollectionViewCell
+            exColorCell?.btnSelectColor.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+        }
+        
+        tempTag = tag
+    }
     
         
     

@@ -4837,7 +4837,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="btnStarPressed:" destination="Q4l-0R-Gzs" eventType="touchUpInside" id="ivx-0h-hY8"/>
+                                                <action selector="btnStarPressed:" destination="0H7-HN-Ws2" eventType="touchUpInside" id="Rsb-yM-Cft"/>
                                             </connections>
                                         </button>
                                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rc8-OP-v3x">
@@ -5268,7 +5268,7 @@
                                                 <constraint firstAttribute="height" constant="22" id="Muq-Ju-n3o"/>
                                                 <constraint firstAttribute="width" constant="21" id="aqk-u2-NNb"/>
                                             </constraints>
-                                            <state key="normal" title="Button" image="247D6588-F915-487A-9E6A-59233A2369A0"/>
+                                            <state key="normal" title="Button" image="0A380C75-377E-446B-BA67-5BA015184AA7"/>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SnZ-mm-BAb">
                                             <rect key="frame" x="37" y="5" width="33" height="33"/>
@@ -5655,7 +5655,7 @@ Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed 
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k3l-f8-bzK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3092" y="61"/>
+            <point key="canvasLocation" x="3112" y="61"/>
         </scene>
         <!--規格頁-->
         <scene sceneID="d5c-Ky-yjY">
@@ -5769,6 +5769,9 @@ Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed 
                                                                 <animations/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="Button"/>
+                                                                <connections>
+                                                                    <action selector="onColorBtnPressed:" destination="oW8-lD-dUh" eventType="touchUpInside" id="khQ-zE-RQX"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <animations/>
@@ -5802,6 +5805,9 @@ Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed 
                                     </constraints>
                                 </tableViewCellContentView>
                                 <animations/>
+                                <connections>
+                                    <outlet property="colorCollectionView" destination="zRL-lr-rDS" id="rxQ-XP-bkF"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SectionTitleCell" id="BnO-qH-3TK" customClass="SectionTitleCell" customModule="ASAP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="316" width="600" height="44"/>
@@ -5860,6 +5866,9 @@ Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed 
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="Button"/>
+                                                                <connections>
+                                                                    <action selector="onSizeBtnPressed:" destination="y9P-hL-PBE" eventType="touchUpInside" id="Fkm-R5-0dA"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <animations/>
@@ -5892,6 +5901,9 @@ Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed 
                                     </constraints>
                                 </tableViewCellContentView>
                                 <animations/>
+                                <connections>
+                                    <outlet property="sizeCollectionView" destination="A1p-kk-9Vo" id="T9w-x2-u1Y"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SectionTitleCellContent" id="hE6-dQ-yrG" customClass="SectionTitleCell" customModule="ASAP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="404" width="600" height="44"/>
@@ -6384,7 +6396,7 @@ Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed 
         </scene>
     </scenes>
     <resources>
-        <image name="247D6588-F915-487A-9E6A-59233A2369A0" width="18" height="18">
+        <image name="0A380C75-377E-446B-BA67-5BA015184AA7" width="18" height="18">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -6415,7 +6427,7 @@ AAAAAAAAAAAADgEAAAMAAAABABIAAAEBAAMAAAABABIAAAECAAMAAAAEAAAFxgEDAAMAAAABAAEAAAEG
 AAMAAAABAAIAAAERAAQAAAABAAAACAESAAMAAAABAAEAAAEVAAMAAAABAAQAAAEWAAMAAAABABIAAAEX
 AAQAAAABAAAFEAEcAAMAAAABAAEAAAFSAAMAAAABAAIAAAFTAAMAAAAEAAAFzodzAAcAAAxIAAAF1gAA
 AAAACAAIAAgACAABAAEAAQABAAAMSExpbm8CEAAAbW50clJHQiBYWVogB84AAgAJAAYAMQAAYWNzcE1T
-RlQAAAAASUVDIHNSR0IAAAAAAAAAAAAAAAEAAPbWAAEAAAAA0y1IUCAgAAAAAAAAAAAAAAAAAAAAAAAA
+RlQAAAAASUVDIHNSR0IAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y1IUCAgAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARY3BydAAAAVAAAAAzZGVzYwAAAYQAAABsd3RwdAAA
 AfAAAAAUYmtwdAAAAgQAAAAUclhZWgAAAhgAAAAUZ1hZWgAAAiwAAAAUYlhZWgAAAkAAAAAUZG1uZAAA
 AlQAAABwZG1kZAAAAsQAAACIdnVlZAAAA0wAAACGdmlldwAAA9QAAAAkbHVtaQAAA/gAAAAUbWVhcwAA
