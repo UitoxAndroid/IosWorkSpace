@@ -752,6 +752,8 @@
 				AF9B1CDA1BE364B0008CC684 /* ShoppingCartInfo.swift */,
 				AF9B1CDC1BE364C3008CC684 /* ShoppingCartModel.swift */,
 				AF9B1CE41BF043D7008CC684 /* ShoppingCartResponse.swift */,
+				60FB49151BF1D31B00468899 /* AddTrackModel.swift */,
+				60FB49171BF1D42300468899 /* AddTrackResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
