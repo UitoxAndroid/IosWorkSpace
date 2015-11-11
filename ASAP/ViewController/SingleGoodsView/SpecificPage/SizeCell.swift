@@ -12,6 +12,8 @@ class SizeCell: UITableViewCell,UICollectionViewDataSource,UICollectionViewDeleg
     var sizeInfo:SizeInfo?
     var sizesCount:Int = 0
     var tempTag:Int?
+    var selectedSizeName:String?
+    
     @IBOutlet weak var sizeCollectionView: UICollectionView!
     
     override func awakeFromNib() {
@@ -42,10 +44,14 @@ class SizeCell: UITableViewCell,UICollectionViewDataSource,UICollectionViewDeleg
 
     @IBAction func onSizeBtnPressed(sender: UIButton) {
         let tag = sender.tag
+        if (tag == tempTag) {
+            return
+        }
         
         let indexOfSelectedBtn = NSIndexPath(forItem: tag, inSection: 0)
         let sizeCellOnPress = self.sizeCollectionView.cellForItemAtIndexPath(indexOfSelectedBtn) as? SizeCollectionViewCell
         sizeCellOnPress?.btnSelectSize.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+        self.selectedSizeName = sizeInfo?.sizeList[tag].sizeName
         
         if let tempTag = tempTag {
             let indexOfExSelected = NSIndexPath(forItem: tempTag, inSection: 0)

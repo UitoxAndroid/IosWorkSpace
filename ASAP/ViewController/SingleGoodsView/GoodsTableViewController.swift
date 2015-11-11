@@ -25,7 +25,7 @@ class GoodsTableViewController: UITableViewController
 	}()
 	
 	var cartAction = 0
-    var smSeq:String = "201510AM140000041"
+    var smSeq:String = "201510AM220000013"
     var controllerSpec : UIAlertController?
     var controllerVolume : UIAlertController?
     
@@ -465,16 +465,6 @@ class GoodsTableViewController: UITableViewController
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowSpec" {
-            if let specificViewController = segue.destinationViewController as? SpecificViewController {
-                specificViewController.colorInfo = goodsResponse?.productInfo?.colorInfo
-                specificViewController.sizeInfo = goodsResponse?.productInfo?.sizeInfo
-                specificViewController.multiProductList = (goodsResponse?.productInfo?.multiProductList)!
-                specificViewController.giftList = (goodsResponse?.giftInfo?.giftList)!
-                specificViewController.itemInfo = goodsResponse?.itemInfo
-            }
-        }
-        
         if segue.identifier == "ShowCampaignViewController" {
             if let campaignViewController = segue.destinationViewController as? CampaignViewController {
                 campaignViewController.campSeq = "201511A0200000002"
@@ -692,6 +682,7 @@ class GoodsTableViewController: UITableViewController
             specificViewController.multiProductList = (goodsResponse?.productInfo?.multiProductList)!
             specificViewController.giftList = (goodsResponse?.giftInfo?.giftList)!
             specificViewController.itemInfo = goodsResponse?.itemInfo
+            specificViewController.goodsResponse = self.goodsResponse
             let nav = UINavigationController(rootViewController: specificViewController)
             self.presentViewController(nav, animated: true, completion: nil)
             return specificViewController

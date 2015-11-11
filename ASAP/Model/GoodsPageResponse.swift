@@ -12,12 +12,12 @@ import Foundation
 
 public class GoodsPageResponse : Mappable
 {
-    public var status_code:String?
-    public var itemInfo:GoodsPageItemInfo?  //主賣場資訊
-    public var campData:CampData?           //行銷活動
-    public var suggestedData:SuggestedData? //加購品
-    public var productInfo:ProductInfo?
-    public var giftInfo:GiftInfo?
+    public var status_code:     String?
+    public var itemInfo:        GoodsPageItemInfo?  //主賣場資訊
+    public var campData:        CampData?           //行銷活動
+    public var suggestedData:   SuggestedData? //加購品
+    public var productInfo:     ProductInfo?
+    public var giftInfo:        GiftInfo?
     
     required public init?(_ map: Map) {
         
@@ -67,33 +67,33 @@ public class GoodsPageItemInfo : Mappable
     */
     
     public var smSubTitle:GoodsSubTitle?
-    public var preOrderQty:String = ""
-    public var smPicSize:String?
-    public var preAvaQty:String?
-    public var isPreOrd:String?
-    public var preDtS:String?
-    public var preDtE:String?
-    public var refEtdDt:String?
-    public var showDt:String?
-    public var ssmStDt:String?
-    public var ssmEnDt:String?
-    public var smName:String?
-    public var smPic:String?
-    public var smColorPic:String?
-    public var smStatus:Bool?
-    public var smPrice:String?
-    public var ssmLimitQty:Int?
-    public var ssmPrice:String = ""
-    public var ssmType:Int?
-    public var smPicMulti:[String]?
-    public var color:String?
-    public var itSize:String?
-    public var itMprice:String = ""
-    public var itno:String?
+    public var preOrderQty: String = ""
+    public var smPicSize:   String?
+    public var preAvaQty:   String?
+    public var isPreOrd:    String?
+    public var preDtS:      String?
+    public var preDtE:      String?
+    public var refEtdDt:    String?
+    public var showDt:      String?
+    public var ssmStDt:     String?
+    public var ssmEnDt:     String?
+    public var smName:      String?
+    public var smPic:       String?
+    public var smColorPic:  String?
+    public var smStatus:    Bool?
+    public var smPrice:     String?
+    public var ssmLimitQty: Int?
+    public var ssmPrice:    String = ""
+    public var ssmType:     Int?
+    public var smPicMulti:  [String]?
+    public var color:       String?
+    public var itSize:      String?
+    public var itMprice:    String = ""
+    public var itno:        String?
     public var itSalyqtyLimit:Int?
-    public var itSpecSeq:String?
-    public var itColorSeq:String?
-    public var specType:Int?
+    public var itSpecSeq:   String?
+    public var itColorSeq:  String?
+    public var specType:    Int?
     
     required public init?(_ map: Map) {
         
@@ -140,8 +140,8 @@ public class GoodsSubTitle:Mappable
         title   賣場副標題       
     */
 
-    public var type:Int?
-    public var title:String?
+    public var type:    Int?
+    public var title:   String?
     
     required public init?(_ map: Map) {
         
@@ -159,8 +159,8 @@ public class CampData:Mappable
     Response/data[camp]/data/check              行銷活動顯示旗標			0:否, 1:是
     */
     
-    public var check:Bool?
-    public var campDetail:[CampDetail] = []
+    public var check:       Bool?
+    public var campDetail:  [CampDetail] = []
     
     required public init?(_ map: Map) {
         
@@ -206,18 +206,21 @@ public class ProductInfo:Mappable
     
     */
     
-    public var colorInfo:ColorInfo?
-    public var sizeInfo:SizeInfo?
-    public var multiProductList:[MultiProductData] = []
+    
+    public var colorInfo:           ColorInfo?
+    public var sizeInfo:            SizeInfo?
+    public var multiProductList:    [MultiProductData] = []
+    public var combiColorSizeMapList:  [[CombiColorSize]] = []
     
     required public init?(_ map: Map) {
         
     }
     
     public func mapping(map: Map) {
-        colorInfo           <- map["color"]
-        sizeInfo            <- map["size"]
-        multiProductList    <- map["data"]
+        colorInfo               <- map["color"]
+        sizeInfo                <- map["size"]
+        multiProductList        <- map["data"]
+        combiColorSizeMapList   <- map["json"]
     }
 }
 
@@ -229,8 +232,8 @@ public class ColorInfo:Mappable
         color 顏色
     */
     
-    public var show:Bool?
-    public var colorList:[ColorDetail] = []
+    public var show:        Bool?
+    public var colorList:   [ColorDetail] = []
     
     required public init?(_ map: Map) {
         
@@ -249,8 +252,8 @@ public class SizeInfo:Mappable
         size 尺寸
     */
     
-    public var show:Bool?
-    public var sizeList:[SizeDetail] = []
+    public var show:        Bool?
+    public var sizeList:    [SizeDetail] = []
     
     required public init?(_ map: Map) {
         
@@ -267,14 +270,15 @@ public class ColorDetail:Mappable
     /*
         colorName 顏色
     */
-    public var colorName:String?
-    
+    public var colorName:   String?
+    public var colorSeq:    String?
     required public init?(_ map: Map) {
         
     }
     
     public func mapping(map: Map) {
-        colorName <- map["color_name"]
+        colorName   <- map["color_name"]
+        colorSeq    <- map["color_seq"]
     }
 }
 
@@ -283,7 +287,7 @@ public class SizeDetail:Mappable
     /*
         sizeName 尺寸
     */
-    public var sizeName:String?
+    public var sizeName: String?
     
     required public init?(_ map: Map) {
         
@@ -300,8 +304,8 @@ public class SuggestedData:Mappable {
     /*
     Response/data[suggested]/show	加購品顯示旗標				0:否, 1:是
     */
-    public var show:Bool?
-    public var suggestDetail:[SuggestDetail] = []
+    public var show:            Bool?
+    public var suggestDetail:   [SuggestDetail] = []
     
     required public init?(_ map: Map) {
         
@@ -326,14 +330,14 @@ public class SuggestDetail:Mappable {
     Response/data[suggested]/data/[num]/option/[num]/name 	商品名稱
     */
     
-    public var type:Bool?
-    public var show:Bool?
-    public var itemNo:String?
-    public var photo:String?
-    public var productName:String?
-    public var saleQty:Int?
-    public var showPrice:String?
-    public var option:[SuggestOption] = []
+    public var type:        Bool?
+    public var show:        Bool?
+    public var itemNo:      String?
+    public var photo:       String?
+    public var productName: String?
+    public var saleQty:     Int?
+    public var showPrice:   String?
+    public var option:      [SuggestOption] = []
     
     required public init?(_ map: Map) {
         
@@ -358,8 +362,8 @@ public class SuggestOption:Mappable
     Response/data[suggested]/data/[num]/option/[num]/itno 	商品編號	int
     Response/data[suggested]/data/[num]/option/[num]/name 	商品名稱	string
     */
-    public var itno:String?
-    public var name:String?
+    public var itno: String?
+    public var name: String?
     
     required public init?(_ map: Map) {
         
@@ -381,10 +385,10 @@ public class MultiProductData:Mappable
     Response/data[product]/data/[num]/itm           是否為主商品	bool            0:否, 1:是
     Response/data[product]/data/[num]/product_name	商品名稱	string
     */
-    public var type:Bool?
-    public var itemNo:String?
-    public var itemMain:Bool?
-    public var productName:String?
+    public var type:        Bool?
+    public var itemNo:      String?
+    public var itemMain:    Bool?
+    public var productName: String?
     public var option:[MultiProduceOption] = []
     
     required public init?(_ map: Map) {
@@ -406,8 +410,8 @@ public class MultiProduceOption:Mappable
     Response/data[product]/data/[num]/option/[num]/itno	商品編號	string
     Response/data[product]/data/[num]/option/[num]/name	商品名稱	string
     */
-    public var itno:String?
-    public var name:String?
+    public var itno: String?
+    public var name: String?
     
     required public init?(_ map: Map) {
         
@@ -424,7 +428,7 @@ public class GiftInfo:Mappable
     /*
     Response/data[gift]/show 	贈品顯示旗標	bool			0:否, 1:是
     */
-    public var show:Bool?
+    public var show: Bool?
     public var giftList:[GiftData] = []
     
     required public init?(_ map: Map) {
@@ -444,9 +448,9 @@ public class GiftData:Mappable
     Response/data[gift]/data/[num]/itno             商品編號	string
     Response/data[gift]/data/[num]/product_name 	商品名稱	string
     */
-    public var type:Bool?
-    public var itemNo:String?
-    public var productName:String?
+    public var type:        Bool?
+    public var itemNo:      String?
+    public var productName: String?
     
     required public init?(_ map: Map) {
         
@@ -457,6 +461,30 @@ public class GiftData:Mappable
         itemNo      <- map["itno"]
         productName <- map["product_name"]
         
+    }
+
+}
+
+public class CombiColorSize:Mappable
+{
+    public var colorSeq:    String?
+    public var smSeq:       String?
+    public var itno:        String?
+    public var color:       String?
+    public var size:        String?
+    public var pic:         String?
+    
+    required public init?(_ map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        colorSeq    <- map["color_seq"]
+        smSeq       <- map["sm_seq"]
+        itno        <- map["itno"]
+        color       <- map["color"]
+        size        <- map["size"]
+        pic         <- map["pic"]
     }
 
 }

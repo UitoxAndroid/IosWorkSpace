@@ -9,7 +9,7 @@
 import UIKit
 
 class SpecificViewController: UITableViewController {
-    
+    var goodsResponse:GoodsPageResponse?
     var colorInfo:ColorInfo?
     var sizeInfo:SizeInfo?
     var multiProductList:[MultiProductData] = []
@@ -19,6 +19,8 @@ class SpecificViewController: UITableViewController {
     var giftList:[GiftData] = []
     var controllerSpec : UIAlertController?
     var cartAction = 0
+    var cartDetail:CartDetail?
+    
     lazy var placeholderImage: UIImage = {
         let image = UIImage(named: "PlaceholderImage")!
         return image
@@ -50,7 +52,6 @@ class SpecificViewController: UITableViewController {
         self.presentViewController(controllerSpec!, animated: true, completion: nil)
     }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.toolbarHidden = false
@@ -188,7 +189,7 @@ class SpecificViewController: UITableViewController {
                     titleCell.lblColor.hidden = true
                 }
                 return titleCell
-            case 1:
+            case 1: //顏色
                 let colorCell = tableView.dequeueReusableCellWithIdentifier("ColorViewCell", forIndexPath: indexPath) as! ColorCell
                 colorCell.colorInfo = self.colorInfo
                 if(colorInfo?.colorList.count == 0  || colorInfo == nil) {
@@ -202,7 +203,7 @@ class SpecificViewController: UITableViewController {
                     sectionTitleCell.hidden = true
                 }
                 return sectionTitleCell
-            case 3:
+            case 3: //尺寸
                 let sizeCell = tableView.dequeueReusableCellWithIdentifier("SizeViewCell", forIndexPath: indexPath) as! SizeCell
                 sizeCell.sizeInfo = self.sizeInfo
                 if(sizeInfo?.sizeList.count == 0 || sizeInfo == nil) {
@@ -286,19 +287,45 @@ class SpecificViewController: UITableViewController {
     }
     
     func btnAddInCartPressed(sender :UIButton) {
-        numInCart++
-        if(numInCart <= 0) {
-            shopCartBtn.badgeString = nil
-        } else {
-            shopCartBtn.badgeString = "\(numInCart)"
+        
+        //判斷是否漏選規格
+        if isSpecSelectComplete() == false {
+            return
         }
+        
+        //寫入規格品itno
+        let colorSeq    = self.getSelectedColorSeq()
+        let sizeName    = self.getSelectedSizeName()
+        if (colorSeq != nil && sizeName != nil) {
+            let itno        = self.getSpecItno(colorSeq!, sizeName: sizeName!)
+            if let itno = itno {
+                comboData.itno  = itno
+            }
+        }
+        
+        //寫入組合商品itno
+        if (goodsResponse?.productInfo?.multiProductList.count != 0) {
+            for index in 0...((goodsResponse?.productInfo?.multiProductList.count)! - 1) {
+                if (goodsResponse?.productInfo?.multiProductList[index].option.count == 0) {
+                    comboData.itno = (goodsResponse?.productInfo?.multiProductList[index].itemNo)!
+                } else {
+                    let comboProductItno = getMultiProductItno(index)
+                    if let itno = comboProductItno {
+                        comboData.itno  = itno
+                    }
+                }
+            }
+        }
+        
+        cartDetail?.qty = String(buyCount)
+        
         
         //先寫入假資料
 //        let info = ShoppingCartInfo()
-        comboData.itno  = "AB123000\(numInCart)"
-        comboData.sno   = "CC123000\(numInCart)"
-        
-        MyApp.sharedShoppingCart.insertGoodsIntoCart(CartDetail())
+//        comboData.itno  = "AB123000\(numInCart)"
+//        comboData.sno   = "CC123000\(numInCart)"
+//        
+        MyApp.sharedShoppingCart.insertGoodsIntoCart(cartDetail!)
         self.showSuccess("已加入購物車")
         self.addCartNumber()
     }
@@ -330,6 +357,101 @@ class SpecificViewController: UITableViewController {
         attrString.addAttribute(NSStrikethroughColorAttributeName, value: UIColor.lightGrayColor(), range: range)
         priceLabel.attributedText = attrString
     }
+    
+    // MARK: - 取得使用者選擇結果
+   
+    //取得顏色seq
+    func getSelectedColorSeq() -> String? {
+        let index = NSIndexPath(forRow: 1, inSection: 0)
+        let colorCell = self.tableView.cellForRowAtIndexPath(index) as? ColorCell
+        return colorCell?.selectedColorSeq
+    }
+    
+    //取得尺寸name
+    func getSelectedSizeName() -> String? {
+        let index = NSIndexPath(forRow: 3, inSection: 0)
+        let sizeCell = self.tableView.cellForRowAtIndexPath(index) as? SizeCell
+        return sizeCell?.selectedSizeName
+    }
+    
+    //取得所選規格的itno
+    func getSpecItno(colorSeq: String, sizeName: String) -> String? {
+        if let combiColorSizeMapList = goodsResponse?.productInfo?.combiColorSizeMapList {
+            for index1 in 0...(combiColorSizeMapList.count - 1) {
+                if combiColorSizeMapList[index1][0].colorSeq == colorSeq {
+                    for index2 in 0...(combiColorSizeMapList[index1].count - 1) {
+                        if combiColorSizeMapList[index1][index2].size == sizeName {
+                            return combiColorSizeMapList[index1][index2].itno
+                        }
+                    }
+                }
+            }
+        }
+        return nil
+    }
+    
+    //取得組合商品itno
+    func getMultiProductItno(cellIndex: Int) -> String? {
+        
+        let indexOfContentCell = NSIndexPath(forRow: 5, inSection: 0)
+        let indexOfContentColCell = NSIndexPath(forItem: cellIndex, inSection: 0)
+        let contentCell = self.tableView.cellForRowAtIndexPath(indexOfContentCell) as? ContentCell
+        let contentColCell = contentCell?.contentCollectionView.cellForItemAtIndexPath(indexOfContentColCell) as? ContentCollectionViewCell
+        
+        if let comboProductList = goodsResponse?.productInfo?.multiProductList {
+            for index in 0...(comboProductList.count - 1) {
+                
+                if (comboProductList[index].option.count == 0) {
+                    return nil
+                }
+                
+                for index2 in 0...(comboProductList[index].option.count - 1) {
+                    if (contentColCell?.lblSpec.text == comboProductList[index].option[index2].name) {
+                        return comboProductList[index].option[index2].itno
+                    }
+                }
+            }
+        }
+        return nil
+    }
+    
+    //判斷是否有漏選規格
+    func isSpecSelectComplete() -> Bool {
+        let colorSeq  = self.getSelectedColorSeq()
+        let sizeName  = self.getSelectedSizeName()
+        
+        if (colorSeq == nil && colorInfo?.colorList.count > 0) {
+            self.showError("顏色尚未選擇")
+            return false
+        }
+        
+        if (sizeName == nil && sizeInfo?.sizeList.count > 0) {
+            self.showError("尺寸尚未選擇")
+            return false
+        }
+        
+        if (goodsResponse?.productInfo?.multiProductList.count > 0) {
+            for cellIndex in 0...((goodsResponse?.productInfo?.multiProductList.count)! - 1) {
+                let indexOfContentCell = NSIndexPath(forRow: 5, inSection: 0)
+                let indexOfContentColCell = NSIndexPath(forItem: cellIndex, inSection: 0)
+                let contentCell = self.tableView.cellForRowAtIndexPath(indexOfContentCell) as? ContentCell
+                let contentColCell = contentCell?.contentCollectionView.cellForItemAtIndexPath(indexOfContentColCell) as? ContentCollectionViewCell
+                
+                if(contentColCell?.lblSpec.text == "請選擇規格" && goodsResponse?.productInfo?.multiProductList[cellIndex].option.count > 0) {
+                    self.showError("尚有規格未選")
+                    return false
+                }
+            }
+        }
+        
+        return true
+    }
+    
+    
+    
+    
+    
+
     
 
 }

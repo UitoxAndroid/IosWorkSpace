@@ -12,17 +12,18 @@ class ColorCell: UITableViewCell,UICollectionViewDataSource,UICollectionViewDele
     var colorInfo:ColorInfo?
     var colorsCount:Int = 0
     var tempTag:Int?
+    var selectedColorSeq:String?
+    
     @IBOutlet weak var colorCollectionView: UICollectionView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let colors = colorInfo?.colorList {
             colorsCount = colors.count
@@ -41,17 +42,20 @@ class ColorCell: UITableViewCell,UICollectionViewDataSource,UICollectionViewDele
     
     @IBAction func onColorBtnPressed(sender: UIButton) {
         let tag = sender.tag
+        if (tag == tempTag) {
+            return
+        }
         
         let indexOfSelectedBtn = NSIndexPath(forItem: tag, inSection: 0)
         let colorCellOnPress = self.colorCollectionView.cellForItemAtIndexPath(indexOfSelectedBtn) as? ColorCollectionViewCell
         colorCellOnPress?.btnSelectColor.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+        self.selectedColorSeq = colorInfo?.colorList[tag].colorSeq
         
         if let tempTag = tempTag {
             let indexOfExSelected = NSIndexPath(forItem: tempTag, inSection: 0)
             let exColorCell = self.colorCollectionView.cellForItemAtIndexPath(indexOfExSelected) as? ColorCollectionViewCell
             exColorCell?.btnSelectColor.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
         }
-        
         tempTag = tag
     }
     

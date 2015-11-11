@@ -12,7 +12,8 @@ class ContentCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lblItemName: UILabel!
     @IBOutlet weak var lblSpec: UILabel!
     @IBOutlet weak var btnSelectSpec: UIButton!
-    
+    @IBOutlet weak var lblDevideLine: UILabel!
+ 
     override func awakeFromNib() {
         super.awakeFromNib()
         

@@ -502,14 +502,14 @@
 			children = (
 				60567C971BCCB9E1005BB52A /* ColorCell.swift */,
 				6001CB3E1BDE16E200BD3F9E /* ColorCollectionViewCell.swift */,
+				60567C9B1BCCB9E1005BB52A /* SizeCell.swift */,
+				6001CB401BDE238A00BD3F9E /* SizeCollectionViewCell.swift */,
 				60567C981BCCB9E1005BB52A /* ContentCell.swift */,
 				60CDBFCB1BDF11F3003F9FC9 /* ContentCollectionViewCell.swift */,
 				60567C991BCCB9E1005BB52A /* GiftCell.swift */,
 				60CDBFCF1BDF4D68003F9FC9 /* GiftCollectionViewCell.swift */,
 				60CDBFCD1BDF46A1003F9FC9 /* NavigationCell.swift */,
 				60567C9A1BCCB9E1005BB52A /* SectionTitleCell.swift */,
-				60567C9B1BCCB9E1005BB52A /* SizeCell.swift */,
-				6001CB401BDE238A00BD3F9E /* SizeCollectionViewCell.swift */,
 				60567C9C1BCCB9E1005BB52A /* SpecificTable.swift */,
 				60567C9D1BCCB9E1005BB52A /* TitleCell.swift */,
 			);

@@ -11,7 +11,7 @@ import UIKit
 class ContentCell: UITableViewCell {
     @IBOutlet weak var contentCollectionView: UICollectionView!
     var multiProductList:[MultiProductData] = []
- 
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -28,6 +28,13 @@ class ContentCell: UITableViewCell {
         let contentCell:ContentCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("ContentCell", forIndexPath: indexPath) as! ContentCollectionViewCell
         contentCell.lblItemName.text = multiProductList[indexPath.row].productName
         contentCell.btnSelectSpec.tag = indexPath.row
+        
+        if multiProductList[indexPath.row].option.count == 0 {
+            contentCell.lblSpec.text = ""
+            contentCell.btnSelectSpec.hidden = true
+            contentCell.lblDevideLine.hidden = true
+        }
+        
         return contentCell
     }
     
